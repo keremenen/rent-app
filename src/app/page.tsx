@@ -1,3 +1,9 @@
+import { MainNavigation } from "./components/main-navigation";
+
 export default function Home() {
-  return <main>home page</main>;
+  return (
+    <main className="">
+      <MainNavigation />
+    </main>
+  );
 }

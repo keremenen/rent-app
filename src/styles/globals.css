@@ -112,6 +112,13 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility container {
+  margin-inline: auto;
+  @media (width >= --theme(--breakpoint-xl)) {
+    max-width: 87.5rem;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
