@@ -1,12 +1,8 @@
 "use client";
 
-import type React from "react";
-
-import { Search } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
