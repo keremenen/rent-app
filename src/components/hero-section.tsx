@@ -37,7 +37,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 flex min-h-[600px] flex-col items-center justify-center px-4 py-20 text-center text-white">
+      <div className="relative z-5 flex min-h-[600px] flex-col items-center justify-center px-4 py-20 text-center text-white">
         <h1 className="mb-4 max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
           Find Your Perfect Home in the Tricity
         </h1>
