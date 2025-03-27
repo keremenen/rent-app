@@ -1,9 +1,14 @@
+import { HeroSection } from "./components/hero-section";
 import { MainNavigation } from "./components/main-navigation";
 
 export default function Home() {
   return (
-    <main className="">
+    <div>
       <MainNavigation />
-    </main>
+
+      <main>
+        <HeroSection />
+      </main>
+    </div>
   );
 }
