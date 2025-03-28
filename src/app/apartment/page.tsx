@@ -1,7 +1,9 @@
 import { ApartmentAmenities } from "@/components/apartment-amenities";
+import { ApartmentContact } from "@/components/apartment-contact";
 import { ApartmentDetails } from "@/components/apartment-details";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
+import { ApartmentLocation } from "@/components/apartment-location";
 import React from "react";
 
 const apartment = {
@@ -68,8 +70,16 @@ export default function ApartmentPage() {
             <ApartmentGallery images={apartment.images} />
             <ApartmentDetails apartment={apartment} />
             <ApartmentAmenities amenities={apartment.amenities} />
+            <ApartmentLocation
+              address={apartment.address}
+              latitude={apartment.latitude}
+              longitude={apartment.longitude}
+              nearbyTransit={apartment.nearbyTransit}
+            />
           </div>
-          <div>sidebar</div>
+          <div className="lg-col-span-1">
+            <ApartmentContact apartment={apartment} />
+          </div>
         </div>
       </main>
     </div>
