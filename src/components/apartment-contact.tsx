@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { Calendar, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
