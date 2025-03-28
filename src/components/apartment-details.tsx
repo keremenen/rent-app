@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-interface ApartmentDetailsProps {
+type ApartmentDetailsProps = {
   apartment: {
     bedrooms: number;
     bathrooms: number;
@@ -22,7 +22,7 @@ interface ApartmentDetailsProps {
     leaseTerms: string;
     petPolicy: string;
   };
-}
+};
 
 export function ApartmentDetails({ apartment }: ApartmentDetailsProps) {
   return (

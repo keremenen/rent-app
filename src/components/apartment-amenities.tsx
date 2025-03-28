@@ -2,9 +2,9 @@ import { Check } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface ApartmentAmenitiesProps {
+type ApartmentAmenitiesProps = {
   amenities: string[];
-}
+};
 
 export function ApartmentAmenities({ amenities }: ApartmentAmenitiesProps) {
   return (

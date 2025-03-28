@@ -2,12 +2,12 @@ import { MapPin, Train } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface ApartmentLocationProps {
+type ApartmentLocationProps = {
   address: string;
   latitude: number;
   longitude: number;
   nearbyTransit: string[];
-}
+};
 
 export function ApartmentLocation({
   address,

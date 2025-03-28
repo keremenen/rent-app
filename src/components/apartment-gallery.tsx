@@ -6,9 +6,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-interface ApartmentGalleryProps {
+type ApartmentGalleryProps = {
   images: string[];
-}
+};
 
 export function ApartmentGallery({ images }: ApartmentGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);

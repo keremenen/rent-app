@@ -19,14 +19,14 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 
-interface ApartmentContactProps {
+type ApartmentContactProps = {
   apartment: {
     id: string;
     title: string;
     price: number;
     availableFrom: string;
   };
-}
+};
 
 export function ApartmentContact({ apartment }: ApartmentContactProps) {
   const [contactMethod, setContactMethod] = useState("email");

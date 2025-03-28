@@ -2,13 +2,13 @@ import { Heart, Share } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-interface ApartmentHeaderProps {
+type ApartmentHeaderProps = {
   apartment: {
     title: string;
     address: string;
     price: number;
   };
-}
+};
 
 export function ApartmentHeader({ apartment }: ApartmentHeaderProps) {
   return (
