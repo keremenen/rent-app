@@ -37,7 +37,7 @@ export function SimilarApartments() {
         <CardTitle>Similar Apartments</CardTitle>
       </CardHeader>
       {/* TODO: IMPLEMENT BEHAVIOR WHEN THERE IS MORE IMAGES*/}
-      <CardContent className="grid grid-flow-col grid-cols-2 gap-x-4 pb-4 lg:grid-cols-5">
+      <CardContent className="grid grid-flow-col grid-cols-2 gap-x-4 lg:grid-cols-5">
         {similarApartments.map((apartment) => (
           <div key={apartment.id} className="overflow-hidden rounded-lg border">
             <div className="relative aspect-[3/2] w-full">

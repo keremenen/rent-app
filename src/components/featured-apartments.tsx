@@ -95,7 +95,7 @@ export function FeaturedApartments() {
               </CardContent>
               <CardFooter className="p-4 pt-0">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link href={`/apartments/${apartment.id}`}>View Details</Link>
+                  <Link href={`/apartments`}>View Details</Link>
                 </Button>
               </CardFooter>
             </Card>
