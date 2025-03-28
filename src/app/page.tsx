@@ -1,4 +1,5 @@
 import { FeaturedApartments } from "@/components/featured-apartments";
+import Footer from "@/components/footer";
 import { HeroSection } from "@/components/hero-section";
 import { HowItWorks } from "@/components/how-it-works";
 import { MainNavigation } from "@/components/main-navigation";
@@ -21,6 +22,8 @@ export default function Home() {
         <Testimonials />
         <Newsletter />
       </main>
+
+      <Footer />
     </div>
   );
 }
