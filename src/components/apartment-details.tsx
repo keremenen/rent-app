@@ -58,7 +58,7 @@ export function ApartmentDetails({ apartment }: ApartmentDetailsProps) {
       <Card>
         <CardHeader>
           <CardTitle>About this apartment</CardTitle>
-          <CardDescription>
+          <CardDescription className="mt-2">
             {apartment.available ? (
               <Badge
                 variant="outline"
