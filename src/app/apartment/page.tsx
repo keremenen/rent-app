@@ -1,3 +1,4 @@
+import { ApartmentAmenities } from "@/components/apartment-amenities";
 import { ApartmentDetails } from "@/components/apartment-details";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
@@ -66,6 +67,7 @@ export default function ApartmentPage() {
           <div className="lg:col-span-2">
             <ApartmentGallery images={apartment.images} />
             <ApartmentDetails apartment={apartment} />
+            <ApartmentAmenities amenities={apartment.amenities} />
           </div>
           <div>sidebar</div>
         </div>
