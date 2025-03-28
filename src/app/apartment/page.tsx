@@ -1,3 +1,4 @@
+import { ApartmentDetails } from "@/components/apartment-details";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
 import React from "react";
@@ -64,6 +65,7 @@ export default function ApartmentPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <ApartmentGallery images={apartment.images} />
+            <ApartmentDetails apartment={apartment} />
           </div>
           <div>sidebar</div>
         </div>
