@@ -4,6 +4,7 @@ import { ApartmentDetails } from "@/components/apartment-details";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
 import { ApartmentLocation } from "@/components/apartment-location";
+import { SimilarApartments } from "@/components/similar-apartments";
 import React from "react";
 
 const apartment = {
@@ -81,6 +82,7 @@ export default function ApartmentPage() {
             <ApartmentContact apartment={apartment} />
           </div>
         </div>
+        <SimilarApartments />
       </main>
     </div>
   );

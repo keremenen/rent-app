@@ -14,20 +14,20 @@ import {
 export function SimilarApartments() {
   const similarApartments = [
     {
-      id: "apt-305",
+      id: "001",
       title: "Spacious 2-Bedroom Corner Unit",
       price: 2600,
       bedrooms: 2,
       bathrooms: 2,
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
     },
     {
-      id: "apt-201",
+      id: "002",
       title: "Cozy 1-Bedroom with Balcony",
       price: 1800,
       bedrooms: 1,
       bathrooms: 1,
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
     },
   ];
 
@@ -36,12 +36,13 @@ export function SimilarApartments() {
       <CardHeader>
         <CardTitle>Similar Apartments</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      {/* TODO: IMPLEMENT BEHAVIOR WHEN THERE IS MORE IMAGES*/}
+      <CardContent className="grid grid-flow-col grid-cols-2 gap-x-4 pb-4 lg:grid-cols-5">
         {similarApartments.map((apartment) => (
           <div key={apartment.id} className="overflow-hidden rounded-lg border">
             <div className="relative aspect-[3/2] w-full">
               <Image
-                src={apartment.image || "/placeholder.svg"}
+                src={"/placeholder-image.jpg"}
                 alt={apartment.title}
                 fill
                 className="object-cover"
