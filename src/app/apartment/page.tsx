@@ -1,3 +1,4 @@
+import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
 import React from "react";
 
@@ -36,11 +37,11 @@ const apartment = {
     "Business Center",
   ],
   images: [
-    "/placeholder.svg?height=600&width=800",
-    "/placeholder.svg?height=600&width=800",
-    "/placeholder.svg?height=600&width=800",
-    "/placeholder.svg?height=600&width=800",
-    "/placeholder.svg?height=600&width=800",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
   ],
   available: true,
   availableFrom: "2025-05-01",
@@ -59,6 +60,14 @@ export default function ApartmentPage() {
   return (
     <div>
       <ApartmentHeader apartment={apartment} />
+      <main className="container px-4 py-6 md:py-10">
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <ApartmentGallery images={apartment.images} />
+          </div>
+          <div>sidebar</div>
+        </div>
+      </main>
     </div>
   );
 }
