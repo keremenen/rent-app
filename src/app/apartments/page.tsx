@@ -2,6 +2,7 @@
 
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
+import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/lib/hooks";
@@ -107,8 +108,6 @@ const exampleApartments = [
 ];
 
 export default function ApartmentsListPage() {
-  const isMobile = useMobile();
-  const [showFilters, setShowFilters] = useState(!isMobile);
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
 
   const handleSwitchViewMode = () => {
@@ -123,25 +122,10 @@ export default function ApartmentsListPage() {
         onViewModeChange={handleSwitchViewMode}
       />
       <main className="container px-4 py-8">
-        <div className="mb-6 flex items-center justify-between">
-          <div className="lg:hidden">
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters((prev) => !prev)}
-            >
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {exampleApartments.length}{" "}
-            {exampleApartments.length === 1 ? "apartment" : "apartments"}
-          </div>
-        </div>
+        <ShowFiltersButton length={exampleApartments.length} />
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
-          <div
-            className={`${showFilters ? "block" : "hidden"} space-y-6 lg:block`}
-          >
+          <div className={`space-y-6 lg:block`}>
             <SortByOptions
               sortOption={"priceAsc"}
               onSortChange={() => {}}
