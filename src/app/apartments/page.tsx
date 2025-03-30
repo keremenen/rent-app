@@ -139,12 +139,15 @@ export default function ApartmentsListPage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
-          <div className={`${showFilters ? "block" : "hidden"} lg:block`}>
+          <div
+            className={`${showFilters ? "block" : "hidden"} space-y-6 lg:block`}
+          >
             <SortBy
               sortOption={"priceAsc"}
               onSortChange={() => {}}
               onToggleFilters={() => {}}
             />
+            <ApartmentFilters />
           </div>
         </div>
       </main>
