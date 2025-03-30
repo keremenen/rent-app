@@ -51,9 +51,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Population</p>
-                <p className="font-medium">
-                  {stats.population.toLocaleString()}
-                </p>
+                <p className="font-medium">{stats.population}</p>
               </div>
             </div>
 
@@ -63,9 +61,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Median Income</p>
-                <p className="font-medium">
-                  ${stats.medianIncome.toLocaleString()}
-                </p>
+                <p className="font-medium">${stats.medianIncome}</p>
               </div>
             </div>
           </div>
