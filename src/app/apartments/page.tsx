@@ -1,6 +1,9 @@
 "use client";
 
+import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
+import { Button } from "@/components/ui/button";
+import { useMobile } from "@/lib/hooks";
 import { useState } from "react";
 
 const exampleApartments = [
@@ -103,6 +106,8 @@ const exampleApartments = [
 ];
 
 export default function ApartmentsListPage() {
+  const isMobile = useMobile();
+  const [showFilters, setShowFilters] = useState(!isMobile);
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
 
   const handleSwitchViewMode = () => {
@@ -116,6 +121,41 @@ export default function ApartmentsListPage() {
         viewMode={viewMode}
         onViewModeChange={handleSwitchViewMode}
       />
+      <main className="container px-4 py-8">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="lg:hidden">
+            <Button
+              variant="outline"
+              onClick={() => setShowFilters((prev) => !prev)}
+            >
+              {showFilters ? "Hide Filters" : "Show Filters"}
+            </Button>
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {exampleApartments.length}{" "}
+            {exampleApartments.length === 1 ? "apartment" : "apartments"}
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          <div className={`${showFilters ? "block" : "hidden"} lg:block`}>
+            <ApartmentFilters
+              filters={{
+                priceRange: [1000, 6000],
+                bedrooms: [] as string[],
+                bathrooms: [] as string[],
+                amenities: [] as string[],
+                availability: "all",
+              }}
+              onFilterChange={() => {}}
+              sortOption={"recommended"}
+              onSortChange={() => {}}
+              showFilters={true}
+              onToggleFilters={() => {}}
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
