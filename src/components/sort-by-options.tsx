@@ -9,17 +9,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type SortByProps = {
+type SortByOptionsProps = {
   sortOption: string;
   onSortChange: (option: string) => void;
   onToggleFilters: () => void;
 };
 
-export default function SortBy({
+export default function SortByOptions({
   sortOption,
   onSortChange,
   onToggleFilters,
-}: SortByProps) {
+}: SortByOptionsProps) {
   return (
     <Card>
       <CardHeader>

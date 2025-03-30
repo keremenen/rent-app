@@ -2,7 +2,7 @@
 
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
-import SortBy from "@/components/sort-by";
+import SortByOptions from "@/components/sort-by-options";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/lib/hooks";
 import { useState } from "react";
@@ -142,7 +142,7 @@ export default function ApartmentsListPage() {
           <div
             className={`${showFilters ? "block" : "hidden"} space-y-6 lg:block`}
           >
-            <SortBy
+            <SortByOptions
               sortOption={"priceAsc"}
               onSortChange={() => {}}
               onToggleFilters={() => {}}
