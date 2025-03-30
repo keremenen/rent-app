@@ -1,4 +1,9 @@
+"use client";
+import { ApartmentCard } from "@/components/apartment-card";
+import { ApartmentFilters } from "@/components/apartments-filters";
 import { NeighborhoodHeader } from "@/components/neighborhood-header";
+import { NeighborhoodStats } from "@/components/neighborhood-stats";
+import SortByOptions from "@/components/sort-by-options";
 
 const neighborhoodApartments = [
   {
@@ -9,7 +14,7 @@ const neighborhoodApartments = [
     bedrooms: "Studio",
     bathrooms: 1,
     squareFeet: 650,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     available: true,
     availableFrom: "2025-05-01",
     isFavorite: true,
@@ -25,7 +30,7 @@ const neighborhoodApartments = [
     bedrooms: 1,
     bathrooms: 1,
     squareFeet: 750,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     available: true,
     availableFrom: "2025-04-15",
     isFavorite: false,
@@ -41,7 +46,7 @@ const neighborhoodApartments = [
     bedrooms: 2,
     bathrooms: 2,
     squareFeet: 1100,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     available: true,
     availableFrom: "2025-06-01",
     isFavorite: false,
@@ -57,7 +62,7 @@ const neighborhoodApartments = [
     bedrooms: 3,
     bathrooms: 2,
     squareFeet: 1400,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     available: false,
     availableFrom: "2025-07-01",
     isFavorite: false,
@@ -73,7 +78,7 @@ const neighborhoodApartments = [
     bedrooms: 1,
     bathrooms: 1,
     squareFeet: 700,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     available: true,
     availableFrom: "2025-05-15",
     isFavorite: true,
@@ -82,6 +87,32 @@ const neighborhoodApartments = [
     longitude: -73.9573,
   },
 ];
+
+const neighborhood = {
+  id: 1,
+  name: "DownTown",
+  description:
+    "A vibrant neighborhood with excellent dining, shopping, and entertainment options. Close to public transportation and major employment centers.",
+  image: "/placeholder.svg?height=600&width=1200",
+  stats: {
+    avgRent: 2800,
+    walkScore: 92,
+    transitScore: 95,
+    bikeScore: 85,
+    population: 45000,
+    medianIncome: 85000,
+  },
+  features: [
+    "Close to public transportation",
+    "Excellent dining options",
+    "Vibrant nightlife",
+    "Parks and green spaces",
+    "Shopping districts",
+    "Cultural attractions",
+  ],
+  latitude: 40.7128,
+  longitude: -74.006,
+};
 export default function NeighborhoodPage() {
   return (
     <div className="bg-background min-h-screen">
@@ -96,6 +127,39 @@ export default function NeighborhoodPage() {
         apartmentCount={neighborhoodApartments.length}
         viewMode={"list"}
       />
+      <main className="container px-4 py-8">
+        <div className="mb-6 space-y-6">
+          <NeighborhoodStats neighborhood={neighborhood} />
+          <div className="text-muted-foreground text-sm">
+            {neighborhoodApartments.length}{" "}
+            {neighborhoodApartments.length === 1 ? "apartment" : "apartments"}{" "}
+            available
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          <div className={`space-y-6 lg:block`}>
+            <SortByOptions
+              sortOption={"priceAsc"}
+              onSortChange={() => {}}
+              onToggleFilters={() => {}}
+            />
+            <ApartmentFilters />
+          </div>
+
+          <div>
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+              {neighborhoodApartments.map((apartment) => (
+                <ApartmentCard
+                  key={apartment.id}
+                  apartment={apartment}
+                  onToggleFavorite={() => {}}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
