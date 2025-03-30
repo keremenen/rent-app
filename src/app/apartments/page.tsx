@@ -2,6 +2,7 @@
 
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
+import SortBy from "@/components/sort-by";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/lib/hooks";
 import { useState } from "react";
@@ -139,18 +140,9 @@ export default function ApartmentsListPage() {
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`${showFilters ? "block" : "hidden"} lg:block`}>
-            <ApartmentFilters
-              filters={{
-                priceRange: [1000, 6000],
-                bedrooms: [] as string[],
-                bathrooms: [] as string[],
-                amenities: [] as string[],
-                availability: "all",
-              }}
-              onFilterChange={() => {}}
-              sortOption={"recommended"}
+            <SortBy
+              sortOption={"priceAsc"}
               onSortChange={() => {}}
-              showFilters={true}
               onToggleFilters={() => {}}
             />
           </div>
