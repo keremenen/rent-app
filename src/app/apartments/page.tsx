@@ -4,8 +4,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
-import { Button } from "@/components/ui/button";
-import { useMobile } from "@/lib/hooks";
+
 import { useState } from "react";
 
 const exampleApartments = [
