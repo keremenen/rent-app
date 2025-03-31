@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+"use client";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NeighborhoodCard } from "@/components/neighborhood-card";
 
 const neighborhoods = [
   {
@@ -210,10 +211,10 @@ export default function NeighborhoodsListPage() {
             ) : (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {neighborhoods.map((neighborhood) => (
-                  // <NeighborhoodCard
-                  //   key={neighborhood.id}
-                  //   neighborhood={neighborhood}
-                  // />
+                  <NeighborhoodCard
+                    key={neighborhood.id}
+                    neighborhood={neighborhood}
+                  />
                 ))}
               </div>
             )}
