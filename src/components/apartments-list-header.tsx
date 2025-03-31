@@ -12,13 +12,11 @@ import {
 type ApartmentListHeaderProps = {
   totalCount: number;
   viewMode: "list" | "map";
-  onViewModeChange: () => void;
 };
 
 export function ApartmentListHeader({
   totalCount,
   viewMode,
-  onViewModeChange,
 }: ApartmentListHeaderProps) {
   return (
     <div className="bg-muted/50 py-8">
@@ -54,7 +52,7 @@ export function ApartmentListHeader({
                 variant={viewMode === "list" ? "default" : "ghost"}
                 size="sm"
                 className="rounded-r-none"
-                onClick={viewMode === "map" ? onViewModeChange : undefined}
+                onClick={viewMode === "map" ? () => {} : undefined}
               >
                 <List className="mr-2 h-4 w-4" />
                 List
@@ -63,7 +61,7 @@ export function ApartmentListHeader({
                 variant={viewMode === "map" ? "default" : "ghost"}
                 size="sm"
                 className="rounded-l-none"
-                onClick={viewMode === "list" ? onViewModeChange : undefined}
+                onClick={viewMode === "list" ? () => {} : undefined}
               >
                 <MapPin className="mr-2 h-4 w-4" />
                 Map

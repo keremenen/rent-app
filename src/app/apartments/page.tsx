@@ -109,7 +109,6 @@ export default function ApartmentsListPage() {
       <ApartmentListHeader
         totalCount={exampleApartments.length}
         viewMode={"list"}
-        onViewModeChange={() => {}}
       />
       <main className="container px-4 py-8">
         <ShowFiltersButton length={exampleApartments.length} />

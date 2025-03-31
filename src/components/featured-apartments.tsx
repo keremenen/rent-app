@@ -104,7 +104,7 @@ export function FeaturedApartments() {
 
         <div className="mt-10 flex justify-center">
           <Button asChild>
-            <Link href="/apartments">
+            <Link href="/apartments/2">
               View All Apartments
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
