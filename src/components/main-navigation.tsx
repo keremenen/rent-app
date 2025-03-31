@@ -91,6 +91,12 @@ export function MainNavigation() {
           </Link>
 
           <Link
+            href="/neighborhoods"
+            className="hover:text-primary text-sm font-medium"
+          >
+            Neighborhoods
+          </Link>
+          <Link
             href="/about"
             className="hover:text-primary text-sm font-medium"
           >

@@ -65,12 +65,14 @@ export function FeaturedApartments() {
           {featuredApartments.map((apartment) => (
             <Card key={apartment.id} className="overflow-hidden p-0">
               <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={apartment.image}
-                  alt={apartment.title}
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
+                <Link href={`/apartments/${apartment.id}`}>
+                  <Image
+                    src={apartment.image}
+                    alt={apartment.title}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </Link>
               </div>
               <CardContent className="p-4 pb-0">
                 <h3 className="mb-1 font-semibold">{apartment.title}</h3>
@@ -95,7 +97,7 @@ export function FeaturedApartments() {
               </CardContent>
               <CardFooter className="p-4 pt-0">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link href={`/apartments`}>View Details</Link>
+                  <Link href={`/apartments/${apartment.id}`}>View Details</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -104,7 +106,7 @@ export function FeaturedApartments() {
 
         <div className="mt-10 flex justify-center">
           <Button asChild>
-            <Link href="/apartments/2">
+            <Link href="/apartments">
               View All Apartments
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

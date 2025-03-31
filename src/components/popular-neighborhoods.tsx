@@ -48,13 +48,16 @@ export function PopularNeighborhoods() {
           {neighborhoods.map((neighborhood) => (
             <Card key={neighborhood.id} className="overflow-hidden py-0">
               <div className="relative aspect-[3/2] w-full">
-                <Image
-                  src={neighborhood.image}
-                  alt={neighborhood.name}
-                  fill
-                  className="object-cover transition-transform hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <Link href={`/neighborhoods/${neighborhood.id}`}>
+                  <Image
+                    src={neighborhood.image}
+                    alt={neighborhood.name}
+                    fill
+                    className="object-cover transition-transform hover:scale-105"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                </Link>
                 <div className="absolute bottom-0 p-4 text-white">
                   <h3 className="mb-1 text-xl font-semibold">
                     {neighborhood.name}
