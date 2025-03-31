@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
+import { Menu } from "lucide-react";
 
 export function ApartmentFilters() {
   const [priceRange, setPriceRange] = useState([2000, 6000]);
@@ -18,7 +19,18 @@ export function ApartmentFilters() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Filters</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>Filters</CardTitle>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={() => {}}
+          >
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Toggle filters</span>
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">

@@ -33,7 +33,7 @@ export default function SortByOptions({ sortOption }: SortByOptionsProps) {
       </CardHeader>
       <CardContent>
         <Select value={sortOption} onValueChange={() => {}}>
-          <SelectTrigger>
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
