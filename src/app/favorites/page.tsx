@@ -1,59 +1,75 @@
+"use client";
+import { ApartmentCard } from "@/components/apartment-card";
+import { ApartmentFilters } from "@/components/apartments-filters";
 import { PageHeader } from "@/components/page-headers";
+import SortByOptions from "@/components/sort-by-options";
 
-// const favoritesData = [
-//   {
-//     id: "apt-101",
-//     title: "Luxury Studio in Downtown",
-//     address: "123 Main St, Downtown",
-//     price: 1800,
-//     bedrooms: "Studio",
-//     bathrooms: 1,
-//     squareFeet: 650,
-//     image: "/placeholder.svg?height=300&width=400",
-//     available: true,
-//     availableFrom: "2025-05-01",
-//     dateAdded: "2025-03-15",
-//   },
-//   {
-//     id: "apt-202",
-//     title: "Modern 1-Bedroom with Balcony",
-//     address: "456 Park Ave, Midtown",
-//     price: 2200,
-//     bedrooms: 1,
-//     bathrooms: 1,
-//     squareFeet: 750,
-//     image: "/placeholder.svg?height=300&width=400",
-//     available: true,
-//     availableFrom: "2025-04-15",
-//     dateAdded: "2025-03-10",
-//   },
-//   {
-//     id: "apt-303",
-//     title: "Spacious 2-Bedroom Corner Unit",
-//     address: "789 Broadway, Upper West Side",
-//     price: 3500,
-//     bedrooms: 2,
-//     bathrooms: 2,
-//     squareFeet: 1100,
-//     image: "/placeholder.svg?height=300&width=400",
-//     available: true,
-//     availableFrom: "2025-06-01",
-//     dateAdded: "2025-03-05",
-//   },
-//   {
-//     id: "apt-404",
-//     title: "Renovated 3-Bedroom with Views",
-//     address: "101 River Rd, Riverside",
-//     price: 4200,
-//     bedrooms: 3,
-//     bathrooms: 2,
-//     squareFeet: 1400,
-//     image: "/placeholder.svg?height=300&width=400",
-//     available: false,
-//     availableFrom: "2025-07-01",
-//     dateAdded: "2025-02-28",
-//   },
-// ];
+const favoritesData = [
+  {
+    id: "apt-303",
+    title: "Spacious 2-Bedroom Corner Unit",
+    address: "789 Broadway, Upper West Side",
+    price: 3500,
+    bedrooms: 2,
+    bathrooms: 2,
+    squareFeet: 1100,
+    image: "/placeholder-image.jpg",
+    available: true,
+    availableFrom: "2025-06-01",
+    isFavorite: true,
+    amenities: ["Corner Unit", "Washer/Dryer", "Dishwasher", "Walk-in Closet"],
+    latitude: 40.7831,
+    longitude: -73.9712,
+  },
+  {
+    id: "apt-404",
+    title: "Renovated 3-Bedroom with Views",
+    address: "101 River Rd, Riverside",
+    price: 4200,
+    bedrooms: 3,
+    bathrooms: 2,
+    squareFeet: 1400,
+    image: "/placeholder-image.jpg",
+    available: false,
+    availableFrom: "2025-07-01",
+    isFavorite: true,
+    amenities: ["River Views", "Renovated Kitchen", "Washer/Dryer", "Parking"],
+    latitude: 40.8023,
+    longitude: -73.9631,
+  },
+  {
+    id: "apt-505",
+    title: "Cozy 1-Bedroom in Brooklyn",
+    address: "202 Bedford Ave, Williamsburg",
+    price: 2400,
+    bedrooms: 1,
+    bathrooms: 1,
+    squareFeet: 700,
+    image: "/placeholder-image.jpg",
+    available: true,
+    availableFrom: "2025-05-15",
+    isFavorite: true,
+    amenities: ["Roof Deck", "Bike Storage", "Laundry", "Pets Allowed"],
+    latitude: 40.7193,
+    longitude: -73.9573,
+  },
+  {
+    id: "apt-606",
+    title: "Luxury 2-Bedroom Penthouse",
+    address: "303 W 42nd St, Theater District",
+    price: 5500,
+    bedrooms: 2,
+    bathrooms: 2.5,
+    squareFeet: 1600,
+    image: "/placeholder-image.jpg",
+    available: true,
+    availableFrom: "2025-06-15",
+    isFavorite: true,
+    amenities: ["Penthouse", "Terrace", "Concierge", "Gym", "Pool"],
+    latitude: 40.759,
+    longitude: -73.9845,
+  },
+];
 
 export default function FavoritiesPage() {
   return (
@@ -62,7 +78,30 @@ export default function FavoritiesPage() {
         title="Saved Apartments"
         description="Manage your favorite apartments and stay updated on their availability"
       />
-      <main>main</main>
+      <main className="container px-4 py-8">
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          <div className={`space-y-6 lg:block`}>
+            <SortByOptions
+              sortOption={"priceAsc"}
+              onSortChange={() => {}}
+              onToggleFilters={() => {}}
+            />
+            <ApartmentFilters />
+          </div>
+
+          <div>
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+              {favoritesData.map((apartment) => (
+                <ApartmentCard
+                  key={apartment.id}
+                  apartment={apartment}
+                  onToggleFavorite={() => {}}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
