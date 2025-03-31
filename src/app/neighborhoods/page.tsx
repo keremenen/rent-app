@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
+import NeighborhoodGuide from "@/components/neighborhood-guide";
 
 const neighborhoods = [
   {
@@ -220,6 +221,7 @@ export default function NeighborhoodsListPage() {
             )}
           </TabsContent>
         </Tabs>
+        <NeighborhoodGuide />
       </main>
     </div>
   );
