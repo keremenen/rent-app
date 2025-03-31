@@ -1,4 +1,3 @@
-"use client";
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { NeighborhoodHeader } from "@/components/neighborhood-header";
@@ -139,22 +138,14 @@ export default function NeighborhoodPage() {
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <SortByOptions
-              sortOption={"priceAsc"}
-              onSortChange={() => {}}
-              onToggleFilters={() => {}}
-            />
+            <SortByOptions sortOption={"priceAsc"} />
             <ApartmentFilters />
           </div>
 
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
               {neighborhoodApartments.map((apartment) => (
-                <ApartmentCard
-                  key={apartment.id}
-                  apartment={apartment}
-                  onToggleFavorite={() => {}}
-                />
+                <ApartmentCard key={apartment.id} apartment={apartment} />
               ))}
             </div>
           </div>

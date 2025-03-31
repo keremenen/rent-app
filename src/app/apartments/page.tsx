@@ -1,11 +1,8 @@
-"use client";
-
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
-import { useState } from "react";
 
 const exampleApartments = [
   {
@@ -107,40 +104,26 @@ const exampleApartments = [
 ];
 
 export default function ApartmentsListPage() {
-  const [viewMode, setViewMode] = useState<"list" | "map">("list");
-
-  const handleSwitchViewMode = () => {
-    setViewMode(viewMode === "list" ? "map" : "list");
-  };
-
   return (
     <div className="bg-background min-h-screen">
       <ApartmentListHeader
         totalCount={exampleApartments.length}
-        viewMode={viewMode}
-        onViewModeChange={handleSwitchViewMode}
+        viewMode={"list"}
+        onViewModeChange={() => {}}
       />
       <main className="container px-4 py-8">
         <ShowFiltersButton length={exampleApartments.length} />
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <SortByOptions
-              sortOption={"priceAsc"}
-              onSortChange={() => {}}
-              onToggleFilters={() => {}}
-            />
+            <SortByOptions sortOption={"priceAsc"} />
             <ApartmentFilters />
           </div>
 
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {exampleApartments.map((apartment) => (
-                <ApartmentCard
-                  key={apartment.id}
-                  apartment={apartment}
-                  onToggleFavorite={() => {}}
-                />
+                <ApartmentCard key={apartment.id} apartment={apartment} />
               ))}
             </div>
           </div>
