@@ -1,4 +1,4 @@
-import { Building, DollarSign, MapPin } from "lucide-react";
+import { Building, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -86,14 +86,10 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-0">
-        <Button variant="outline" asChild>
-          <Link href={`/neighborhoods/${neighborhood.id}`}>Explore Area</Link>
-        </Button>
-        <Button asChild>
+      <CardFooter className="mt-auto flex p-4 pt-0">
+        <Button asChild className="w-full">
           <Link href={`/neighborhoods/${neighborhood.id}`}>
-            <MapPin className="mr-2 h-4 w-4" />
-            View Apartments
+            View Neighborhood
           </Link>
         </Button>
       </CardFooter>
