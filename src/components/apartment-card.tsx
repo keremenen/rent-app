@@ -29,13 +29,9 @@ type ApartmentCardProps = {
     isFavorite: boolean;
     amenities: string[];
   };
-  onToggleFavorite: () => void;
 };
 
-export function ApartmentCard({
-  apartment,
-  onToggleFavorite,
-}: ApartmentCardProps) {
+export function ApartmentCard({ apartment }: ApartmentCardProps) {
   return (
     <Card className="overflow-hidden p-0">
       <div className="relative">
@@ -58,7 +54,6 @@ export function ApartmentCard({
                 className="bg-background/80 hover:bg-background/90 absolute top-2 right-2"
                 onClick={(e) => {
                   e.preventDefault();
-                  onToggleFavorite();
                 }}
               >
                 <Heart

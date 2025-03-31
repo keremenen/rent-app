@@ -1,3 +1,4 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
@@ -11,15 +12,9 @@ import {
 
 type SortByOptionsProps = {
   sortOption: string;
-  onSortChange: (option: string) => void;
-  onToggleFilters: () => void;
 };
 
-export default function SortByOptions({
-  sortOption,
-  onSortChange,
-  onToggleFilters,
-}: SortByOptionsProps) {
+export default function SortByOptions({ sortOption }: SortByOptionsProps) {
   return (
     <Card>
       <CardHeader>
@@ -29,7 +24,7 @@ export default function SortByOptions({
             variant="ghost"
             size="icon"
             className="lg:hidden"
-            onClick={onToggleFilters}
+            onClick={() => {}}
           >
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle filters</span>
@@ -37,7 +32,7 @@ export default function SortByOptions({
         </div>
       </CardHeader>
       <CardContent>
-        <Select value={sortOption} onValueChange={onSortChange}>
+        <Select value={sortOption} onValueChange={() => {}}>
           <SelectTrigger>
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
