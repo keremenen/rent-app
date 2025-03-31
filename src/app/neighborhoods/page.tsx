@@ -19,7 +19,7 @@ const neighborhoods = [
     name: "Downtown",
     description:
       "Urban living with restaurants, nightlife, and cultural attractions.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 156,
     avgRent: 2800,
     walkScore: 95,
@@ -32,7 +32,7 @@ const neighborhoods = [
     name: "Midtown",
     description:
       "Central location with shopping, dining, and entertainment options.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 124,
     avgRent: 2500,
     walkScore: 92,
@@ -45,7 +45,7 @@ const neighborhoods = [
     name: "Uptown",
     description:
       "Quiet residential area with parks, schools, and family-friendly amenities.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 89,
     avgRent: 2200,
     walkScore: 85,
@@ -58,7 +58,7 @@ const neighborhoods = [
     name: "Brooklyn",
     description:
       "Trendy area with diverse culture, art galleries, and innovative dining.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 210,
     avgRent: 2400,
     walkScore: 90,
@@ -71,7 +71,7 @@ const neighborhoods = [
     name: "Queens",
     description:
       "Diverse community with international cuisine and cultural attractions.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 175,
     avgRent: 2100,
     walkScore: 82,
@@ -84,7 +84,7 @@ const neighborhoods = [
     name: "Bronx",
     description:
       "Historic area with parks, museums, and affordable housing options.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 120,
     avgRent: 1900,
     walkScore: 78,
@@ -97,7 +97,7 @@ const neighborhoods = [
     name: "Harlem",
     description:
       "Rich cultural heritage with historic sites, music venues, and soul food.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 95,
     avgRent: 2300,
     walkScore: 88,
@@ -110,7 +110,7 @@ const neighborhoods = [
     name: "Financial District",
     description:
       "Business hub with historic landmarks, luxury apartments, and waterfront views.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 110,
     avgRent: 3200,
     walkScore: 92,
@@ -123,7 +123,7 @@ const neighborhoods = [
     name: "Greenwich Village",
     description:
       "Bohemian area with historic charm, universities, and vibrant nightlife.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder-image.jpg",
     propertyCount: 85,
     avgRent: 3000,
     walkScore: 96,
