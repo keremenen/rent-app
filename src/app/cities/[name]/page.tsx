@@ -1,3 +1,4 @@
+import { CityHeader } from "@/components/city-header";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -10,7 +11,7 @@ const city = {
     "This city combines historic charm with modern innovation, creating a unique urban landscape. From its iconic skyline to its diverse neighborhoods, the city offers something for everyone. With a strong economy, excellent public transportation, and a rich cultural scene, it's an ideal place to live, work, and play.",
   history:
     "Founded in the early 18th century, this city has a rich and diverse history. It began as a small trading post before growing into a major industrial center in the 19th century. The 20th century brought significant urban development and economic diversification. Today, it stands as a global city with influence in finance, media, art, fashion, research, technology, education, and entertainment.",
-  image: "/placeholder.svg?height=600&width=1200",
+  image: "/placeholder-image.jpg",
   gallery: [
     "/placeholder.svg?height=400&width=600",
     "/placeholder.svg?height=400&width=600",
@@ -241,7 +242,7 @@ const city = {
 export default function CityPage() {
   return (
     <div className="bg-background min-h-screen">
-      {/* <CityHeader city={city} /> */}
+      <CityHeader city={city} />
 
       <main className="container px-4 py-8">
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:justify-between">
