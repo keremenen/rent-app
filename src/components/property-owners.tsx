@@ -76,9 +76,9 @@ export function PropertyOwners() {
 
           <div className="relative hidden md:block">
             <div className="bg-primary/10 absolute top-1/4 -left-4 h-64 w-64 rounded-full blur-3xl" />
-            <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-xl">
+            <div className="relative z-10 aspect-[4/3] overflow-hidden rounded-xl">
               <Image
-                src="/placeholder-image.jpg"
+                src="/assets/owners.jpg"
                 alt="Property owner using the platform"
                 fill
                 className="object-cover"

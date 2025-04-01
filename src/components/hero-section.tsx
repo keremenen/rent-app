@@ -29,7 +29,7 @@ export function HeroSection() {
     <section className="relative">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/placeholder-image.jpg"
+          src="/assets/slider.jpg"
           alt="Modern apartment building"
           fill
           className="object-cover brightness-[0.7]"
