@@ -33,10 +33,9 @@ model CityGalleryImage {
 }
 
 model CityStats {
-  id         String @id @default(cuid())
-  population Int
-  area       Int
-
+  id          String @id @default(cuid())
+  population  Int
+  area        Int
   walkScore   Int
   commuteTime Int
   cityId      String @unique
@@ -44,11 +43,11 @@ model CityStats {
 }
 
 model CityLocation {
-  id       String @id @default(cuid())
-  cityId   String @unique
-  latitude Float
-
-  city City @relation(fields: [cityId], references: [id])
+  id        String @id @default(cuid())
+  cityId    String @unique
+  latitude  Float
+  longitude Float
+  city      City   @relation(fields: [cityId], references: [id])
 }
 
 model Neighborhood {

@@ -12,10 +12,12 @@ const cites = [
     gallery: [
       {
         id: "gd-01",
+        alt: "Gdańsk image 1",
         imageUrl: "gdansk-01.jpg",
       },
       {
         id: "gd-02",
+        alt: "Gdańsk image 2",
         imageUrl: "gdansk-02.jpg",
       },
     ],
@@ -34,10 +36,12 @@ const cites = [
         gallery: [
           {
             id: "wrzeszcz-01",
+            alt: "Wrzeszcz image 1",
             imageUrl: "wrzeszcz-01.jpg",
           },
           {
             id: "wrzeszcz-02",
+            alt: "Wrzeszcz image 2",
             imageUrl: "wrzeszcz-02.jpg",
           },
         ],
@@ -75,6 +79,7 @@ async function main() {
           create: city.gallery.map((galleryItem) => ({
             id: galleryItem.id,
             imageUrl: galleryItem.imageUrl,
+            altText: galleryItem.alt, // Ensure altText is provided
           })),
         },
         neighborhoods: {
@@ -94,10 +99,25 @@ async function main() {
             gallery: {
               create: neighborhood.gallery.map((galleryItem) => ({
                 id: galleryItem.id,
+                altText: galleryItem.alt,
                 imageUrl: galleryItem.imageUrl,
               })),
             },
           })),
+        },
+        location: {
+          create: {
+            latitude: city.location.latitude,
+            longitude: city.location.longitude,
+          },
+        },
+        statistics: {
+          create: {
+            population: city.statistics.population,
+            area: city.statistics.area,
+            walkScore: city.statistics.walkScore,
+            commuteTime: city.statistics.commuteTime,
+          },
         },
       },
     });
