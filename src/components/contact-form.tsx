@@ -1,9 +1,5 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,7 +26,8 @@ export function ContactForm() {
       <CardHeader>
         <CardTitle>Send Us a Message</CardTitle>
         <CardDescription>
-          Fill out the form below and we'll get back to you as soon as possible.
+          Fill out the form below and we&apos;ll get back to you as soon as
+          possible.
         </CardDescription>
       </CardHeader>
       <CardContent>
