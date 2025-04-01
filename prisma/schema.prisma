@@ -17,9 +17,9 @@ model City {
   longDescription String
   imageUrl        String
   gallery         CityGalleryImage[]
-  statistics      CityStats?
-  cityLocation    CityLocation?
   neighborhoods   Neighborhood[]
+  location        CityLocation?
+  statistics      CityStats?
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
 }
@@ -35,19 +35,20 @@ model CityGalleryImage {
 model CityStats {
   id         String @id @default(cuid())
   population Int
-  area       Float
-  cityId     String @unique
-  city       City   @relation(fields: [cityId], references: [id])
+  area       Int
+
+  walkScore   Int
+  commuteTime Int
+  cityId      String @unique
+  city        City   @relation(fields: [cityId], references: [id])
 }
 
 model CityLocation {
-  id          String @id @default(cuid())
-  cityId      String @unique
-  latitude    Float
-  longitude   Float
-  walkScore   Int
-  commuteTime Int
-  city        City   @relation(fields: [cityId], references: [id])
+  id       String @id @default(cuid())
+  cityId   String @unique
+  latitude Float
+
+  city City @relation(fields: [cityId], references: [id])
 }
 
 model Neighborhood {

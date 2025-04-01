@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { stat } from "fs";
 const prisma = new PrismaClient();
 
 const cites = [
@@ -42,6 +43,18 @@ const cites = [
         ],
       },
     ],
+    location: {
+      id: "gdansk-location",
+      latitude: 54.352,
+      longitude: 18.646,
+    },
+    statistics: {
+      id: "gdansk-stats",
+      population: 470000,
+      area: 262.0,
+      walkScore: 85,
+      commuteTime: 30,
+    },
   },
 ];
 
