@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CityNeighborhoods } from "@/components/city-neighborhoods";
 
 const city = {
   id: "1",
@@ -67,7 +67,7 @@ const city = {
       name: "Downtown",
       description:
         "The bustling heart of the city with high-rise apartments and vibrant nightlife.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 156,
       avgRent: 2800,
       popular: true,
@@ -77,7 +77,7 @@ const city = {
       name: "Midtown",
       description:
         "A central location with a mix of residential and commercial properties.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 124,
       avgRent: 2500,
       popular: true,
@@ -87,7 +87,7 @@ const city = {
       name: "Uptown",
       description:
         "A quieter residential area with historic homes and tree-lined streets.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 89,
       avgRent: 2200,
       popular: false,
@@ -97,7 +97,7 @@ const city = {
       name: "West Side",
       description:
         "A trendy area with art galleries, boutiques, and innovative dining.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 210,
       avgRent: 2400,
       popular: true,
@@ -107,7 +107,7 @@ const city = {
       name: "East Side",
       description:
         "A diverse community with international cuisine and cultural attractions.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 175,
       avgRent: 2100,
       popular: false,
@@ -117,7 +117,7 @@ const city = {
       name: "North Side",
       description:
         "A family-friendly area with parks, good schools, and affordable housing.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/placeholder-image.jpg",
       propertyCount: 120,
       avgRent: 1900,
       popular: true,
@@ -321,7 +321,7 @@ export default function CityPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* <CityNeighborhoods neighborhoods={city.neighborhoods} cityId={city.id} /> */}
+                <CityNeighborhoods neighborhoods={city.neighborhoods} />
               </CardContent>
             </Card>
 
