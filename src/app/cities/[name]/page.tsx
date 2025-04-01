@@ -11,6 +11,7 @@ import {
 import { CityNeighborhoods } from "@/components/city-neighborhoods";
 import { CityAttractions } from "@/components/city-attractions";
 import { CityGallery } from "@/components/city-gallery";
+import { CityMap } from "@/components/city-map";
 
 const city = {
   id: "1",
@@ -349,7 +350,7 @@ export default function CityPage() {
                 <CardDescription>{city.name} on the map</CardDescription>
               </CardHeader>
               <CardContent>
-                {/* <CityMap city={city} neighborhoods={city.neighborhoods} /> */}
+                <CityMap city={city} neighborhoods={city.neighborhoods} />
 
                 <div className="mt-4 grid grid-cols-2 gap-2 text-center">
                   <div>
@@ -378,17 +379,6 @@ export default function CityPage() {
                   </Button>
                   <Button variant="outline" className="w-full" asChild>
                     <Link href="/contact">Contact a Local Agent</Link>
-                  </Button>
-                </div>
-
-                <div className="mt-6 rounded-lg border p-4">
-                  <h3 className="mb-2 font-semibold">Moving to {city.name}?</h3>
-                  <p className="text-muted-foreground mb-3 text-sm">
-                    Get our free relocation guide with insider tips on
-                    neighborhoods, transportation, schools, and more.
-                  </p>
-                  <Button variant="secondary" className="w-full">
-                    Download Guide
                   </Button>
                 </div>
               </CardContent>
