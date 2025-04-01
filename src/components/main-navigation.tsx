@@ -102,12 +102,7 @@ export function MainNavigation() {
           >
             Neighborhoods
           </Link>
-          <Link
-            href="/about"
-            className="hover:text-primary text-sm font-medium"
-          >
-            About Us
-          </Link>
+
           <Link
             href="/contact"
             className="hover:text-primary text-sm font-medium"
