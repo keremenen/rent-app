@@ -14,25 +14,68 @@ model City {
   id              String             @id @default(cuid())
   name            String
   description     String
-  longDescription Int
+  longDescription String
   imageUrl        String
   gallery         CityGalleryEntry[]
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
-  statistics      CityStatistics?
+  neighborhoods   Neighborhood[]
+  statistics      CityStats?
+  cityLocation    CityLocation?
 }
 
 model CityGalleryEntry {
   id       String @id @default(cuid())
   cityId   String
+  altText  String
   imageUrl String
   city     City   @relation(fields: [cityId], references: [id])
 }
 
-model CityStatistics {
+model CityStats {
   id         String @id @default(cuid())
-  cityId     String @unique
   population Int
   area       Float
+  cityId     String @unique
   city       City   @relation(fields: [cityId], references: [id])
+}
+
+model CityLocation {
+  id          String @id @default(cuid())
+  cityId      String @unique
+  latitude    Float
+  longitude   Float
+  walkScore   Int
+  commuteTime Int
+  city        City   @relation(fields: [cityId], references: [id])
+}
+
+model Neighborhood {
+  id          String                     @id @default(cuid())
+  name        String
+  description String
+  imageUrl    String
+  cityId      String                     @unique
+  city        City                       @relation(fields: [cityId], references: [id])
+  statistics  NeighborhoodStats?
+  createdAt   DateTime                   @default(now())
+  updatedAt   DateTime                   @updatedAt
+  gallery     NeighborhoodGalleryEntry[]
+}
+
+model NeighborhoodStats {
+  id             String       @id @default(cuid())
+  neighborhoodId String       @unique
+  averageRent    Float
+  walkScore      Float
+  transitScore   Float
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+}
+
+model NeighborhoodGalleryEntry {
+  id             String       @id @default(cuid())
+  neighborhoodId String
+  altText        String
+  imageUrl       String
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
 }

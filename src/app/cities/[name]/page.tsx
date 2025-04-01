@@ -187,26 +187,17 @@ export default function CityPage() {
               <CardContent className="space-y-4">
                 <p>{city.longDescription}</p>
 
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div className="bg-muted rounded-lg p-3 text-center">
                     <p className="text-muted-foreground text-sm">Population</p>
                     <p className="text-xl font-bold">
                       {city.stats.population.toLocaleString()}
                     </p>
                   </div>
-                  <div className="bg-muted rounded-lg p-3 text-center">
-                    <p className="text-muted-foreground text-sm">Founded</p>
-                    <p className="text-xl font-bold">{city.stats.founded}</p>
-                  </div>
+
                   <div className="bg-muted rounded-lg p-3 text-center">
                     <p className="text-muted-foreground text-sm">Area</p>
                     <p className="text-xl font-bold">{city.stats.area} sq mi</p>
-                  </div>
-                  <div className="bg-muted rounded-lg p-3 text-center">
-                    <p className="text-muted-foreground text-sm">Avg Income</p>
-                    <p className="text-xl font-bold">
-                      ${city.stats.averageIncome.toLocaleString()}
-                    </p>
                   </div>
                 </div>
               </CardContent>
