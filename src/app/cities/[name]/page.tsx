@@ -36,25 +36,6 @@ const city = {
     founded: 1624,
     averageIncome: 75000,
   },
-  economy: {
-    majorIndustries: [
-      "Finance",
-      "Technology",
-      "Healthcare",
-      "Education",
-      "Media",
-      "Tourism",
-    ],
-    unemployment: 4.2, // percentage
-    jobGrowth: 2.1, // percentage
-    majorEmployers: [
-      "City University",
-      "Memorial Hospital",
-      "Global Financial",
-      "Tech Innovations Inc.",
-      "Media Conglomerate",
-    ],
-  },
   neighborhoods: [
     {
       id: "downtown",
@@ -162,29 +143,6 @@ const city = {
     },
   ],
   transportation: {
-    subway: {
-      lines: 10,
-      stations: 472,
-      dailyRiders: 5500000,
-      description:
-        "Extensive subway system connecting all boroughs, running 24/7.",
-    },
-    bus: {
-      routes: 234,
-      dailyRiders: 2100000,
-      description:
-        "Comprehensive bus network covering areas not served by subway.",
-    },
-    bike: {
-      lanes: 1375, // miles
-      sharingProgram: "City Bikes with 800+ stations and 13,000+ bikes",
-      description:
-        "Growing network of protected bike lanes and popular bike-sharing program.",
-    },
-    airports: [
-      "International Airport (20 miles from downtown)",
-      "Regional Airport (15 miles from downtown)",
-    ],
     walkability: 88, // out of 100
     commuteTime: 35, // average in minutes
   },
