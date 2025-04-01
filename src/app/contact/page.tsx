@@ -1,3 +1,4 @@
+import { ContactInfo } from "@/components/contact-info";
 import { PageHeader } from "@/components/page-headers";
 
 export default function ContactPage() {
@@ -9,7 +10,7 @@ export default function ContactPage() {
       />
       <main className="container px-4 py-12">
         <div className="grid gap-10 lg:grid-cols-2">
-          {/* <ContactInfo /> */}
+          <ContactInfo />
           {/* <ContactForm /> */}
         </div>
       </main>
