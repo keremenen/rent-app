@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CityNeighborhoods } from "@/components/city-neighborhoods";
+import { CityAttractions } from "@/components/city-attractions";
 
 const city = {
   id: "1",
@@ -128,42 +129,42 @@ const city = {
       name: "City Museum",
       description:
         "World-class museum featuring art and artifacts from around the globe.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "Culture",
     },
     {
       name: "Central Park",
       description:
         "Expansive urban park with walking trails, lakes, and recreational facilities.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "Outdoors",
     },
     {
       name: "Historic District",
       description:
         "Preserved historic neighborhood with architecture from the 19th century.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "History",
     },
     {
       name: "Science Center",
       description:
         "Interactive museum with exhibits on science, technology, and innovation.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "Education",
     },
     {
       name: "Waterfront Promenade",
       description:
         "Scenic walkway along the river with shops, restaurants, and views.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "Outdoors",
     },
     {
       name: "Performing Arts Center",
       description:
         "Venue for theater, music, dance, and other performing arts.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/placeholder-image.jpg",
       category: "Entertainment",
     },
   ],
@@ -325,7 +326,7 @@ export default function CityPage() {
               </CardContent>
             </Card>
 
-            {/* <CityAttractions attractions={city.attractions} /> */}
+            <CityAttractions attractions={city.attractions} className="mb-8" />
 
             <Card className="mb-8">
               <CardHeader>
