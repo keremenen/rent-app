@@ -6,7 +6,7 @@ import { PopularNeighborhoods } from "@/components/popular-neighborhoods";
 import { PropertyOwners } from "@/components/property-owners";
 import { Testimonials } from "@/components/testimonials";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <HeroSection />

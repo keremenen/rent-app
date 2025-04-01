@@ -10,7 +10,6 @@ type CityCardProps = {
   city: {
     id: string;
     name: string;
-    state: string;
     description: string;
     image: string;
     population: number;
@@ -44,9 +43,7 @@ export function CityCard({ city }: CityCardProps) {
       <CardContent className="p-4">
         <div className="mb-2 flex items-center justify-between">
           <Link href={`/cities/${city.id}`} className="hover:underline">
-            <h3 className="text-xl font-semibold">
-              {city.name}, {city.state}
-            </h3>
+            <h3 className="text-xl font-semibold">{city.name}</h3>
           </Link>
         </div>
 

@@ -9,3 +9,30 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model City {
+  id              String             @id @default(cuid())
+  name            String
+  description     String
+  longDescription Int
+  imageUrl        String
+  gallery         CityGalleryEntry[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  statistics      CityStatistics?
+}
+
+model CityGalleryEntry {
+  id       String @id @default(cuid())
+  cityId   String
+  imageUrl String
+  city     City   @relation(fields: [cityId], references: [id])
+}
+
+model CityStatistics {
+  id         String @id @default(cuid())
+  cityId     String @unique
+  population Int
+  area       Float
+  city       City   @relation(fields: [cityId], references: [id])
+}
