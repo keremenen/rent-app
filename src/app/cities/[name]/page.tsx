@@ -20,8 +20,7 @@ const city = {
     "A vibrant metropolis offering diverse neighborhoods, cultural attractions, and economic opportunities.",
   longDescription:
     "This city combines historic charm with modern innovation, creating a unique urban landscape. From its iconic skyline to its diverse neighborhoods, the city offers something for everyone. With a strong economy, excellent public transportation, and a rich cultural scene, it's an ideal place to live, work, and play.",
-  history:
-    "Founded in the early 18th century, this city has a rich and diverse history. It began as a small trading post before growing into a major industrial center in the 19th century. The 20th century brought significant urban development and economic diversification. Today, it stands as a global city with influence in finance, media, art, fashion, research, technology, education, and entertainment.",
+
   image: "/placeholder-image.jpg",
   gallery: [
     "/placeholder-image.jpg",
@@ -34,16 +33,8 @@ const city = {
   stats: {
     population: 8500000,
     area: 302.6, // square miles
-    density: 28317, // people per square mile
     founded: 1624,
-    timezone: "Eastern Time Zone",
     averageIncome: 75000,
-    medianAge: 36.5,
-    climate: "Humid subtropical",
-    averageTemp: {
-      summer: 76,
-      winter: 35,
-    },
   },
   economy: {
     majorIndustries: [
@@ -197,55 +188,7 @@ const city = {
     walkability: 88, // out of 100
     commuteTime: 35, // average in minutes
   },
-  costOfLiving: {
-    index: 180, // 100 is national average
-    housing: {
-      averageRent: {
-        studio: 2200,
-        oneBedroom: 2800,
-        twoBedroom: 3500,
-        threeBedroom: 4500,
-      },
-      averageHomeCost: 750000,
-    },
-    utilities: {
-      monthly: 175, // average monthly cost
-      internet: 70, // average monthly cost
-    },
-    groceries: {
-      index: 114, // 100 is national average
-      examples: [
-        { item: "Gallon of Milk", price: 4.5 },
-        { item: "Loaf of Bread", price: 3.75 },
-        { item: "Dozen Eggs", price: 4.25 },
-      ],
-    },
-    dining: {
-      inexpensiveMeal: 20,
-      midRangeMeal: 75,
-      fastFood: 12,
-    },
-    transportation: {
-      publicTransitPass: 127, // monthly
-      gasoline: 3.85, // per gallon
-      rideshare: 25, // average 5-mile trip
-    },
-  },
-  realEstate: {
-    marketOverview:
-      "Competitive market with high demand and limited inventory, especially in desirable neighborhoods.",
-    trends: [
-      "Increasing demand for apartments with home office space",
-      "Growing interest in neighborhoods with outdoor amenities",
-      "Rising prices in areas with good schools and transportation",
-      "New luxury developments in previously industrial areas",
-    ],
-    averageDaysOnMarket: 45,
-    inventoryLevel: "Low",
-    priceGrowth: 5.2, // percentage year over year
-    rentalGrowth: 3.8, // percentage year over year
-    newDevelopments: 28, // number of major new residential developments
-  },
+
   latitude: 40.7128,
   longitude: -74.006,
 };
@@ -285,11 +228,6 @@ export default function CityPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p>{city.longDescription}</p>
-
-                <div>
-                  <h3 className="mb-2 font-semibold">History</h3>
-                  <p>{city.history}</p>
-                </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
                   <div className="bg-muted rounded-lg p-3 text-center">
