@@ -1,23 +1,27 @@
 import { PrismaClient } from "@prisma/client";
-import { stat } from "fs";
 const prisma = new PrismaClient();
 
-const cites = [
+const cities = [
   {
     id: "gd",
     name: "Gdańsk",
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
-    imageUrl: "main	-gdansk.jpg",
+    imageUrl: "main-gdansk.jpg",
     gallery: [
       {
         id: "gd-01",
-        alt: "Gdańsk image 1",
+        altText: "Gdańsk image 1",
         imageUrl: "gdansk-01.jpg",
       },
       {
         id: "gd-02",
-        alt: "Gdańsk image 2",
+        altText: "Gdańsk image 2",
+        imageUrl: "gdansk-02.jpg",
+      },
+      {
+        id: "gd-03",
+        altText: "Gdańsk image 2",
         imageUrl: "gdansk-02.jpg",
       },
     ],
@@ -36,12 +40,12 @@ const cites = [
         gallery: [
           {
             id: "wrzeszcz-01",
-            alt: "Wrzeszcz image 1",
-            imageUrl: "wrzeszcz-01.jpg",
+            altText: "Wrzeszcz image 1",
+            imageUrl: "wrzeszcz-01.jpg1",
           },
           {
             id: "wrzeszcz-02",
-            alt: "Wrzeszcz image 2",
+            altText: "Wrzeszcz image 2",
             imageUrl: "wrzeszcz-02.jpg",
           },
         ],
@@ -65,63 +69,136 @@ const cites = [
 async function main() {
   console.log("Start seeding ...");
 
-  for (const city of cites) {
-    const result = await prisma.city.upsert({
+  for (const city of cities) {
+    // Upsert the city
+    const cityResult = await prisma.city.upsert({
       where: { id: city.id },
-      update: {}, // You can define specific fields to update here
+      update: {
+        name: city.name,
+        description: city.description,
+        longDescription: city.longDescription,
+        imageUrl: city.imageUrl,
+      },
       create: {
         id: city.id,
         name: city.name,
         description: city.description,
         longDescription: city.longDescription,
         imageUrl: city.imageUrl,
-        gallery: {
-          create: city.gallery.map((galleryItem) => ({
-            id: galleryItem.id,
-            imageUrl: galleryItem.imageUrl,
-            altText: galleryItem.alt, // Ensure altText is provided
-          })),
-        },
-        neighborhoods: {
-          create: city.neighborhoods.map((neighborhood) => ({
-            id: neighborhood.id,
-            name: neighborhood.name,
-            description: neighborhood.description,
-            imageUrl: neighborhood.imageUrl,
-            statistics: {
-              create: {
-                id: neighborhood.statistics.id,
-                averageRent: neighborhood.statistics.averageRent,
-                walkScore: neighborhood.statistics.walkScore,
-                transitScore: neighborhood.statistics.transitScore,
-              },
-            },
-            gallery: {
-              create: neighborhood.gallery.map((galleryItem) => ({
-                id: galleryItem.id,
-                altText: galleryItem.alt,
-                imageUrl: galleryItem.imageUrl,
-              })),
-            },
-          })),
-        },
-        location: {
-          create: {
-            latitude: city.location.latitude,
-            longitude: city.location.longitude,
-          },
-        },
-        statistics: {
-          create: {
-            population: city.statistics.population,
-            area: city.statistics.area,
-            walkScore: city.statistics.walkScore,
-            commuteTime: city.statistics.commuteTime,
-          },
-        },
       },
     });
-    console.log(`Created city with id: ${result.id}`);
+
+    console.log(`Created or updated city with id: ${cityResult.id}`);
+
+    // Update or create CityGalleryImage
+    for (const galleryItem of city.gallery) {
+      await prisma.cityGalleryImage.upsert({
+        where: { id: galleryItem.id },
+        update: {
+          altText: galleryItem.altText,
+          imageUrl: galleryItem.imageUrl,
+        },
+        create: {
+          id: galleryItem.id,
+          altText: galleryItem.altText,
+          imageUrl: galleryItem.imageUrl,
+          cityId: city.id,
+        },
+      });
+    }
+
+    // Update or create CityStats
+    if (city.statistics) {
+      await prisma.cityStats.upsert({
+        where: { id: city.statistics.id },
+        update: {
+          population: city.statistics.population,
+          area: city.statistics.area,
+          walkScore: city.statistics.walkScore,
+          commuteTime: city.statistics.commuteTime,
+        },
+        create: {
+          id: city.statistics.id,
+          population: city.statistics.population,
+          area: city.statistics.area,
+          walkScore: city.statistics.walkScore,
+          commuteTime: city.statistics.commuteTime,
+          cityId: city.id,
+        },
+      });
+    }
+
+    // Update or create CityLocation
+    if (city.location) {
+      await prisma.cityLocation.upsert({
+        where: { id: city.location.id },
+        update: {
+          latitude: city.location.latitude,
+          longitude: city.location.longitude,
+        },
+        create: {
+          id: city.location.id,
+          latitude: city.location.latitude,
+          longitude: city.location.longitude,
+          cityId: city.id,
+        },
+      });
+    }
+
+    // Update or create Neighborhoods and their nested relations
+    for (const neighborhood of city.neighborhoods) {
+      const neighborhoodResult = await prisma.neighborhood.upsert({
+        where: { id: neighborhood.id },
+        update: {
+          name: neighborhood.name,
+          description: neighborhood.description,
+          imageUrl: neighborhood.imageUrl,
+        },
+        create: {
+          id: neighborhood.id,
+          name: neighborhood.name,
+          description: neighborhood.description,
+          imageUrl: neighborhood.imageUrl,
+          cityId: city.id,
+        },
+      });
+
+      // Update or create NeighborhoodStats
+      if (neighborhood.statistics) {
+        await prisma.neighborhoodStats.upsert({
+          where: { id: neighborhood.statistics.id },
+          update: {
+            averageRent: neighborhood.statistics.averageRent,
+            walkScore: neighborhood.statistics.walkScore,
+            transitScore: neighborhood.statistics.transitScore,
+          },
+          create: {
+            id: neighborhood.statistics.id,
+            averageRent: neighborhood.statistics.averageRent,
+            walkScore: neighborhood.statistics.walkScore,
+            transitScore: neighborhood.statistics.transitScore,
+            neighborhoodId: neighborhoodResult.id,
+          },
+        });
+      }
+
+      // Update or create NeighborhoodGalleryImage
+      for (const galleryItem of neighborhood.gallery) {
+        await prisma.neighborhoodGalleryImage.upsert({
+          where: { id: galleryItem.id },
+          update: {
+            altText: galleryItem.altText,
+            imageUrl: galleryItem.imageUrl,
+          },
+          create: {
+            id: galleryItem.id,
+            altText: galleryItem.altText,
+            imageUrl: galleryItem.imageUrl,
+            neighborhoodId: neighborhoodResult.id,
+          },
+        });
+      }
+    }
   }
 
   console.log("Seeding finished.");
