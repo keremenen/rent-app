@@ -16,15 +16,15 @@ model City {
   description     String
   longDescription String
   imageUrl        String
-  gallery         CityGalleryEntry[]
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  neighborhoods   Neighborhood[]
+  gallery         CityGalleryImage[]
   statistics      CityStats?
   cityLocation    CityLocation?
+  neighborhoods   Neighborhood[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 }
 
-model CityGalleryEntry {
+model CityGalleryImage {
   id       String @id @default(cuid())
   cityId   String
   altText  String
@@ -58,9 +58,9 @@ model Neighborhood {
   cityId      String                     @unique
   city        City                       @relation(fields: [cityId], references: [id])
   statistics  NeighborhoodStats?
+  gallery     NeighborhoodGalleryImage[]
   createdAt   DateTime                   @default(now())
   updatedAt   DateTime                   @updatedAt
-  gallery     NeighborhoodGalleryEntry[]
 }
 
 model NeighborhoodStats {
@@ -72,7 +72,7 @@ model NeighborhoodStats {
   neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
 }
 
-model NeighborhoodGalleryEntry {
+model NeighborhoodGalleryImage {
   id             String       @id @default(cuid())
   neighborhoodId String
   altText        String
