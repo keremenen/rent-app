@@ -1,6 +1,14 @@
 import { CityHeader } from "@/components/city-header";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const city = {
   id: "1",
@@ -253,6 +261,7 @@ export default function CityPage() {
             </p>
           </div>
 
+          {/* CITY GREETER */}
           <div className="flex gap-2">
             <Button variant="outline" asChild>
               <Link href="/cities">View All Cities</Link>
@@ -260,6 +269,128 @@ export default function CityPage() {
             <Button asChild>
               <Link href={`/cities/2/apartments`}>Browse Apartments</Link>
             </Button>
+          </div>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>About {city.name}</CardTitle>
+                <CardDescription>
+                  Overview and history of the city
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p>{city.longDescription}</p>
+
+                <div>
+                  <h3 className="mb-2 font-semibold">History</h3>
+                  <p>{city.history}</p>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+                  <div className="bg-muted rounded-lg p-3 text-center">
+                    <p className="text-muted-foreground text-sm">Population</p>
+                    <p className="text-xl font-bold">
+                      {city.stats.population.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="bg-muted rounded-lg p-3 text-center">
+                    <p className="text-muted-foreground text-sm">Founded</p>
+                    <p className="text-xl font-bold">{city.stats.founded}</p>
+                  </div>
+                  <div className="bg-muted rounded-lg p-3 text-center">
+                    <p className="text-muted-foreground text-sm">Area</p>
+                    <p className="text-xl font-bold">{city.stats.area} sq mi</p>
+                  </div>
+                  <div className="bg-muted rounded-lg p-3 text-center">
+                    <p className="text-muted-foreground text-sm">Avg Income</p>
+                    <p className="text-xl font-bold">
+                      ${city.stats.averageIncome.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Featured Neighborhoods</CardTitle>
+                <CardDescription>
+                  Popular areas to live in {city.name}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* <CityNeighborhoods neighborhoods={city.neighborhoods} cityId={city.id} /> */}
+              </CardContent>
+            </Card>
+
+            {/* <CityAttractions attractions={city.attractions} /> */}
+
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Photo Gallery</CardTitle>
+                <CardDescription>
+                  Explore {city.name} through photos
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* <CityGallery images={city.gallery} /> */}
+              </CardContent>
+            </Card>
+          </div>
+
+          <div>
+            <Card className="sticky top-20">
+              <CardHeader>
+                <CardTitle>Location</CardTitle>
+                <CardDescription>{city.name} on the map</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* <CityMap city={city} neighborhoods={city.neighborhoods} /> */}
+
+                <div className="mt-4 grid grid-cols-2 gap-2 text-center">
+                  <div>
+                    <div className="text-primary text-2xl font-bold">
+                      {city.transportation.walkability}
+                    </div>
+                    <div className="text-muted-foreground text-xs">
+                      Walk Score
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-primary text-2xl font-bold">
+                      {city.transportation.commuteTime} min
+                    </div>
+                    <div className="text-muted-foreground text-xs">
+                      Avg Commute
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 space-y-3">
+                  <Button className="w-full" asChild>
+                    <Link href={`/cities/gdansk/apartments`}>
+                      Browse All Apartments
+                    </Link>
+                  </Button>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link href="/contact">Contact a Local Agent</Link>
+                  </Button>
+                </div>
+
+                <div className="mt-6 rounded-lg border p-4">
+                  <h3 className="mb-2 font-semibold">Moving to {city.name}?</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    Get our free relocation guide with insider tips on
+                    neighborhoods, transportation, schools, and more.
+                  </p>
+                  <Button variant="secondary" className="w-full">
+                    Download Guide
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
