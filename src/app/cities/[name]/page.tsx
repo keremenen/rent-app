@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { CityNeighborhoods } from "@/components/city-neighborhoods";
 import { CityAttractions } from "@/components/city-attractions";
+import { CityGallery } from "@/components/city-gallery";
 
 const city = {
   id: "1",
@@ -22,12 +23,12 @@ const city = {
     "Founded in the early 18th century, this city has a rich and diverse history. It began as a small trading post before growing into a major industrial center in the 19th century. The 20th century brought significant urban development and economic diversification. Today, it stands as a global city with influence in finance, media, art, fashion, research, technology, education, and entertainment.",
   image: "/placeholder-image.jpg",
   gallery: [
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
+    "/placeholder-image.jpg",
   ],
   stats: {
     population: 8500000,
@@ -336,7 +337,7 @@ export default function CityPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* <CityGallery images={city.gallery} /> */}
+                <CityGallery images={city.gallery} />
               </CardContent>
             </Card>
           </div>
