@@ -12,9 +12,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-interface CityGalleryProps {
+type CityGalleryProps = {
   images: string[];
-}
+};
 
 export function CityGallery({ images }: CityGalleryProps) {
   return (
