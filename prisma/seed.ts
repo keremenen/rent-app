@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const cities = [
   {
-    id: "gd",
+    id: "gdansk",
     name: "Gdańsk",
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
@@ -66,7 +66,7 @@ const cities = [
     },
   },
   {
-    id: "ga",
+    id: "gdynia",
     name: "Gdynia",
     description: "Gdynia short description",
     longDescription: "Gdynia long description",
@@ -129,7 +129,7 @@ const cities = [
     },
   },
   {
-    id: "sp",
+    id: "sopot",
     name: "Sopot",
     description: "Sopot short description",
     longDescription: "Sopot long description",

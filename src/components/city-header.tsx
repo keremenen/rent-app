@@ -7,7 +7,7 @@ type CityHeaderProps = {
     id: string;
     name: string;
     description: string;
-    image: string;
+    imageUrl: string;
   };
 };
 
@@ -16,7 +16,7 @@ export function CityHeader({ city }: CityHeaderProps) {
     <div className="relative">
       <div className="absolute inset-0 z-0">
         <Image
-          src={city.image || "/placeholder-image.jpg"}
+          src={city.imageUrl || "/placeholder-image.jpg"}
           alt={`${city.name} skyline`}
           fill
           className="object-cover brightness-[0.6]"
