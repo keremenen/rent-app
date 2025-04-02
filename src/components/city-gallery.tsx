@@ -47,9 +47,9 @@ export function CityGallery({ gallery }: CityGalleryProps) {
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl">
+            <DialogContent className="w-full max-w-7xl">
               <DialogTitle>
-                {/* <FullscreenGallery images={gallery} initialIndex={index} /> */}
+                <FullscreenGallery gallery={gallery} initialIndex={index} />
               </DialogTitle>
             </DialogContent>
           </Dialog>
@@ -60,27 +60,29 @@ export function CityGallery({ gallery }: CityGalleryProps) {
 }
 
 function FullscreenGallery({
-  images,
+  gallery,
   initialIndex,
 }: {
-  images: string[];
+  gallery: {
+    imageUrl: string;
+  }[];
   initialIndex: number;
 }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % gallery.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
   };
 
   return (
     <div className="relative">
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src={images[currentIndex] || "/placeholder.svg"}
+          src={gallery[currentIndex].imageUrl || "/placeholder.svg"}
           alt={`City image ${currentIndex + 1}`}
           fill
           className="object-contain"
@@ -104,7 +106,7 @@ function FullscreenGallery({
           <span className="sr-only">Next image</span>
         </Button>
         <div className="bg-background/80 absolute bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm">
-          {currentIndex + 1} / {images.length}
+          {currentIndex + 1} / {gallery.length}
         </div>
       </div>
     </div>
