@@ -7,7 +7,8 @@ const cities = [
     name: "Gdańsk",
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
-    imageUrl: "main-gdansk.jpg",
+    imageUrl:
+      "https://img.freepik.com/free-photo/beautiful-view-port-colorful-buildings-captured-copenhagen-denmark_181624-8571.jpg?t=st=1743609325~exp=1743612925~hmac=6eea68bede2a42ac76c3c671539a21abb805ab570ad5127184aa49a5d9f06e39&w=996",
     gallery: [
       {
         id: "gd-01",
