@@ -8,7 +8,7 @@ const cities = [
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
     imageUrl:
-      "https://img.freepik.com/free-photo/colorful-building-facades-along-nyhavn-canal-copenhagen-denmark_181624-23190.jpg?t=st=1743610231~exp=1743613831~hmac=34ff01a64ec844f07e2d4ed7911473309cdce7c738a7672012528fe4254c12c7&w=826",
+      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/main.jpg",
     gallery: [
       {
         id: "gd-01",
@@ -71,7 +71,7 @@ const cities = [
     description: "Gdynia short description",
     longDescription: "Gdynia long description",
     imageUrl:
-      "https://img.freepik.com/free-photo/view-pier-sellin_181624-52451.jpg?t=st=1743610414~exp=1743614014~hmac=484bb1d83911f987996d76626df0da17b25b878fe99608aebfbf633217b46462&w=996",
+      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdynia/main.jpg",
     gallery: [
       {
         id: "ga-01",
@@ -134,7 +134,7 @@ const cities = [
     description: "Sopot short description",
     longDescription: "Sopot long description",
     imageUrl:
-      "https://img.freepik.com/free-photo/bird-eye-shot-city-public-beach-pier-gloomy-day_181624-28622.jpg?t=st=1743610298~exp=1743613898~hmac=4742b0796730b960e51b64f3ab2b4aa495f94a9fb7c42bd5258f82306fa32503&w=826",
+      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/sopot/main.jpg",
     gallery: [
       {
         id: "sp-01",
