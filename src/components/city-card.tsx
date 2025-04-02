@@ -2,7 +2,7 @@ import { Building, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
@@ -34,11 +34,8 @@ export function CityCard({ city }: CityCardProps) {
               fill
               className="object-cover transition-transform duration-500 hover:scale-105"
             />
-            {/* {city.featured && (
-              <Badge className="bg-primary absolute top-2 left-2">
-                Featured
-              </Badge>
-            )} */}
+
+            <Badge className="bg-primary absolute top-2 left-2">Featured</Badge>
           </div>
         </Link>
       </div>
