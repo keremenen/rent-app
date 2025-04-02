@@ -13,32 +13,34 @@ import {
 } from "@/components/ui/dialog";
 
 type CityGalleryProps = {
-  images: string[];
+  gallery: {
+    imageUrl: string;
+  }[];
 };
 
-export function CityGallery({ images }: CityGalleryProps) {
+export function CityGallery({ gallery }: CityGalleryProps) {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-        {images.slice(0, 6).map((image, index) => (
+        {gallery.slice(0, 6).map((galleryItem, index) => (
           <Dialog key={index}>
             <DialogTrigger asChild>
               <div
                 className={`relative cursor-pointer overflow-hidden rounded-md ${
-                  index === 5 && images.length > 6 ? "relative" : ""
+                  index === 5 && gallery.length > 6 ? "relative" : ""
                 }`}
               >
                 <div className="relative aspect-square">
                   <Image
-                    src={image || "/placeholder.svg"}
+                    src={galleryItem.imageUrl || "/placeholder.svg"}
                     alt={`City image ${index + 1}`}
                     fill
                     className="object-cover transition-transform hover:scale-105"
                   />
-                  {index === 5 && images.length > 6 && (
+                  {index === 5 && gallery.length > 6 && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
                       <span className="text-lg font-medium">
-                        +{images.length - 6} more
+                        +{gallery.length - 6} more
                       </span>
                     </div>
                   )}
@@ -47,7 +49,7 @@ export function CityGallery({ images }: CityGalleryProps) {
             </DialogTrigger>
             <DialogContent className="max-w-4xl">
               <DialogTitle>
-                <FullscreenGallery images={images} initialIndex={index} />
+                {/* <FullscreenGallery images={gallery} initialIndex={index} /> */}
               </DialogTitle>
             </DialogContent>
           </Dialog>

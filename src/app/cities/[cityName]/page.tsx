@@ -210,22 +210,25 @@ export default async function CityPage({
               </CardHeader>
               <CardContent className="space-y-4">
                 <p>{city.longDescription}</p>
+                {city.statistics && (
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="bg-muted rounded-lg p-3 text-center">
+                      <p className="text-muted-foreground text-sm">
+                        Population
+                      </p>
+                      <p className="text-xl font-bold">
+                        {city.statistics.population}
+                      </p>
+                    </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="bg-muted rounded-lg p-3 text-center">
-                    <p className="text-muted-foreground text-sm">Population</p>
-                    <p className="text-xl font-bold">
-                      {city.statistics.population}
-                    </p>
+                    <div className="bg-muted rounded-lg p-3 text-center">
+                      <p className="text-muted-foreground text-sm">Area</p>
+                      <p className="text-xl font-bold">
+                        {city.statistics.area} sq mi
+                      </p>
+                    </div>
                   </div>
-
-                  <div className="bg-muted rounded-lg p-3 text-center">
-                    <p className="text-muted-foreground text-sm">Area</p>
-                    <p className="text-xl font-bold">
-                      {city.statistics.area} sq mi
-                    </p>
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
 
@@ -252,7 +255,7 @@ export default async function CityPage({
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CityGallery images={city.gallery} />
+                  <CityGallery gallery={city.gallery} />
                 </CardContent>
               </Card>
             )}

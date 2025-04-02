@@ -13,17 +13,38 @@ const cities = [
       {
         id: "gd-01",
         altText: "Gdańsk image 1",
-        imageUrl: "gdansk-01.jpg",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-02",
         altText: "Gdańsk image 2",
-        imageUrl: "gdansk-02.jpg",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/2.jpg",
       },
       {
         id: "gd-03",
-        altText: "Gdańsk image 2",
-        imageUrl: "gdansk-02.jpg",
+        altText: "Gdańsk image 3",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/3.jpg",
+      },
+      {
+        id: "gd-04",
+        altText: "Gdańsk image 4",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/4.jpg",
+      },
+      {
+        id: "gd-05",
+        altText: "Gdańsk image 5",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/5.jpg",
+      },
+      {
+        id: "gd-06",
+        altText: "Gdańsk image 6",
+        imageUrl:
+          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/6.jpg",
       },
     ],
     neighborhoods: [
