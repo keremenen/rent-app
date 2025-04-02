@@ -8,7 +8,7 @@ const cities = [
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
     imageUrl:
-      "https://img.freepik.com/free-photo/beautiful-view-port-colorful-buildings-captured-copenhagen-denmark_181624-8571.jpg?t=st=1743609325~exp=1743612925~hmac=6eea68bede2a42ac76c3c671539a21abb805ab570ad5127184aa49a5d9f06e39&w=996",
+      "https://img.freepik.com/free-photo/colorful-building-facades-along-nyhavn-canal-copenhagen-denmark_181624-23190.jpg?t=st=1743610231~exp=1743613831~hmac=34ff01a64ec844f07e2d4ed7911473309cdce7c738a7672012528fe4254c12c7&w=826",
     gallery: [
       {
         id: "gd-01",
@@ -59,6 +59,132 @@ const cities = [
     },
     statistics: {
       id: "gdansk-stats",
+      population: 470000,
+      area: 262.0,
+      walkScore: 85,
+      commuteTime: 30,
+    },
+  },
+  {
+    id: "ga",
+    name: "Gdynia",
+    description: "Gdynia short description",
+    longDescription: "Gdynia long description",
+    imageUrl:
+      "https://img.freepik.com/free-photo/view-pier-sellin_181624-52451.jpg?t=st=1743610414~exp=1743614014~hmac=484bb1d83911f987996d76626df0da17b25b878fe99608aebfbf633217b46462&w=996",
+    gallery: [
+      {
+        id: "ga-01",
+        altText: "Gdańsk image 1",
+        imageUrl: "gdansk-01.jpg",
+      },
+      {
+        id: "ga-02",
+        altText: "Gdańsk image 2",
+        imageUrl: "gdansk-02.jpg",
+      },
+      {
+        id: "ga-03",
+        altText: "Gdańsk image 2",
+        imageUrl: "gdansk-02.jpg",
+      },
+    ],
+    neighborhoods: [
+      {
+        id: "chylonia",
+        name: "Chylonia",
+        description: "Wrzeszcz description",
+        imageUrl: "wrzeszcz-main.jpg",
+        statistics: {
+          id: "wrzeszcz-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+        gallery: [
+          {
+            id: "chylonia-01",
+            altText: "Wrzeszcz image 1",
+            imageUrl: "wrzeszcz-01.jpg1",
+          },
+          {
+            id: "chylonia-02",
+            altText: "Wrzeszcz image 2",
+            imageUrl: "wrzeszcz-02.jpg",
+          },
+        ],
+      },
+    ],
+    location: {
+      id: "gdynia-location",
+      latitude: 54.352,
+      longitude: 18.646,
+    },
+    statistics: {
+      id: "gdynia-stats",
+      population: 470000,
+      area: 262.0,
+      walkScore: 85,
+      commuteTime: 30,
+    },
+  },
+  {
+    id: "sp",
+    name: "Sopot",
+    description: "Sopot short description",
+    longDescription: "Sopot long description",
+    imageUrl:
+      "https://img.freepik.com/free-photo/bird-eye-shot-city-public-beach-pier-gloomy-day_181624-28622.jpg?t=st=1743610298~exp=1743613898~hmac=4742b0796730b960e51b64f3ab2b4aa495f94a9fb7c42bd5258f82306fa32503&w=826",
+    gallery: [
+      {
+        id: "sp-01",
+        altText: "Gdańsk image 1",
+        imageUrl: "gdansk-01.jpg",
+      },
+      {
+        id: "sp-02",
+        altText: "Gdańsk image 2",
+        imageUrl: "gdansk-02.jpg",
+      },
+      {
+        id: "sp-03",
+        altText: "Gdańsk image 2",
+        imageUrl: "gdansk-02.jpg",
+      },
+    ],
+    neighborhoods: [
+      {
+        id: "przylesie",
+        name: "Przylesie",
+        description: "Przylesie description",
+        imageUrl: "wrzeszcz-main.jpg",
+        statistics: {
+          id: "wrzeszcz-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+        gallery: [
+          {
+            id: "przylesie-01",
+            altText: "Wrzeszcz image 1",
+            imageUrl: "wrzeszcz-01.jpg1",
+          },
+          {
+            id: "przylesie-02",
+            altText: "Wrzeszcz image 2",
+            imageUrl: "wrzeszcz-02.jpg",
+          },
+        ],
+      },
+    ],
+    location: {
+      id: "sopot-location",
+      latitude: 54.352,
+      longitude: 18.646,
+    },
+    statistics: {
+      id: "sopot-stats",
       population: 470000,
       area: 262.0,
       walkScore: 85,
