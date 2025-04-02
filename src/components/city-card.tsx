@@ -18,21 +18,21 @@ type CityCardProps = {
       area: number;
       walkScore: number;
       commuteTime: number;
-    };
+    } | null;
   };
 };
 
-export function CityCard({ city }: CityTy) {
+export function CityCard({ city }: CityCardProps) {
   return (
     <Card className="gap-2 overflow-hidden py-0">
       <div className="relative">
         <Link href={`/cities/${city.id}`}>
-          <div className="relative aspect-[4/3] w-full">
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
               src={city.imageUrl || "/placeholder.svg"}
               alt={`${city.name} skyline`}
               fill
-              className="object-cover transition-transform hover:scale-105"
+              className="object-cover transition-transform duration-500 hover:scale-105"
             />
             {/* {city.featured && (
               <Badge className="bg-primary absolute top-2 left-2">
@@ -53,28 +53,29 @@ export function CityCard({ city }: CityTy) {
         <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
           {city.description}
         </p>
+        {city.statistics && (
+          <div className="grid grid-cols-3 gap-2 text-sm">
+            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+              <Users className="text-muted-foreground h-4 w-4" />
+              <span className="text-muted-foreground text-xs">Population</span>
+              <span className="font-medium">
+                {formatNumber(city.statistics.population)}
+              </span>
+            </div>
 
-        <div className="grid grid-cols-3 gap-2 text-sm">
-          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-            <Users className="text-muted-foreground h-4 w-4" />
-            <span className="text-muted-foreground text-xs">Population</span>
-            <span className="font-medium">
-              {formatNumber(city.statistics.population)}
-            </span>
-          </div>
+            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+              <Building className="text-muted-foreground h-4 w-4" />
+              <span className="text-muted-foreground text-xs">Avg. Rent</span>
+              <span className="font-medium">$2 0000</span>
+            </div>
 
-          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-            <Building className="text-muted-foreground h-4 w-4" />
-            <span className="text-muted-foreground text-xs">Avg. Rent</span>
-            <span className="font-medium">$2 0000</span>
+            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+              <Building className="text-muted-foreground h-4 w-4" />
+              <span className="text-muted-foreground text-xs">Properties</span>
+              <span className="font-medium">7</span>
+            </div>
           </div>
-
-          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-            <Building className="text-muted-foreground h-4 w-4" />
-            <span className="text-muted-foreground text-xs">Properties</span>
-            <span className="font-medium">7</span>
-          </div>
-        </div>
+        )}
       </CardContent>
 
       <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-0">

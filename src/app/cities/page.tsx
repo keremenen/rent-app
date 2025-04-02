@@ -139,21 +139,22 @@ export default async function CitiesPage() {
         title="Explore Cities"
         description="Discover the perfect city for your next home"
       />
-      {cities.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
-          <h3 className="mb-2 text-lg font-medium">No cities found</h3>
-          <p className="text-muted-foreground">
-            Try adjusting your search criteria
-          </p>
-        </div>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cities.map((city) => (
-            <CityCard key={city.id} city={city} />
-          ))}
-        </div>
-      )}
-      <main className="container px-4 py-8"></main>
+      <main className="container px-4 py-8">
+        {cities.length === 0 ? (
+          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+            <h3 className="mb-2 text-lg font-medium">No cities found</h3>
+            <p className="text-muted-foreground">
+              Try adjusting your search criteria
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {cities.map((city) => (
+              <CityCard key={city.id} city={city} />
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }
