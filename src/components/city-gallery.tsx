@@ -1,17 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import {
   Card,
   CardContent,
@@ -41,100 +36,56 @@ export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
   );
 }
 
-function CityGalleryImageWrapper({ gallery }) {
+type CityGalleryImageWrapperProps = {
+  gallery: {
+    imageUrl: string;
+  }[];
+};
+
+function CityGalleryImageWrapper({ gallery }: CityGalleryImageWrapperProps) {
   return (
     <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
       {gallery.slice(0, 6).map((galleryItem, index) => (
-        <SingleCityGalleryImage image={galleryItem.imageUrl} />
+        <SingleCityGalleryImage imageUrl={galleryItem.imageUrl} key={index} />
       ))}
     </div>
   );
 }
 
-function SingleCityGalleryImage({ gallery }: CityGalleryProps) {
+function SingleCityGalleryImage({ imageUrl }: { imageUrl: string }) {
   return (
-    <Dialog key={index}>
+    <Dialog>
       <DialogTrigger asChild>
-        <div
-          className={`relative cursor-pointer overflow-hidden rounded-md ${
-            index === 5 && gallery.length > 6 ? "relative" : ""
-          }`}
-        >
-          <div className="relative aspect-square">
-            <Image
-              src={galleryItem.imageUrl || "/placeholder.svg"}
-              alt={`City image ${index + 1}`}
-              fill
-              className="object-cover transition-transform hover:scale-105"
-            />
-            {index === 5 && gallery.length > 6 && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-                <span className="text-lg font-medium">
-                  +{gallery.length - 6} more
-                </span>
-              </div>
-            )}
-          </div>
+        <div className="relative aspect-square">
+          <Image
+            src={imageUrl || "/placeholder.svg"}
+            alt={`City image`}
+            fill
+            className="object-cover transition-transform hover:scale-105"
+          />
         </div>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-7xl">
+      <DialogContent className="w-full">
         <DialogTitle>
-          <FullscreenGallery gallery={gallery} initialIndex={index} />
+          <FullscreenGallery imageUrl={imageUrl} />
         </DialogTitle>
       </DialogContent>
     </Dialog>
   );
 }
 
-function FullscreenGallery({
-  gallery,
-  initialIndex,
-}: {
-  gallery: {
-    imageUrl: string;
-  }[];
-  initialIndex: number;
-}) {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
-
-  const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % gallery.length);
-  };
-
-  const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
-
+function FullscreenGallery({ imageUrl }: { imageUrl: string }) {
   return (
     <div className="relative">
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src={gallery[currentIndex].imageUrl || "/placeholder.svg"}
-          alt={`City image ${currentIndex + 1}`}
+          src={imageUrl || "/placeholder.svg"}
+          alt={`City image`}
           fill
           className="object-contain"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="bg-background/80 hover:bg-background/90 absolute top-1/2 left-2 -translate-y-1/2"
-          onClick={prevImage}
-        >
-          <ChevronLeft className="h-6 w-6" />
-          <span className="sr-only">Previous image</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="bg-background/80 hover:bg-background/90 absolute top-1/2 right-2 -translate-y-1/2"
-          onClick={nextImage}
-        >
-          <ChevronRight className="h-6 w-6" />
-          <span className="sr-only">Next image</span>
-        </Button>
-        <div className="bg-background/80 absolute bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm">
-          {currentIndex + 1} / {gallery.length}
-        </div>
+
+        <div className="bg-background/80 absolute bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm"></div>
       </div>
     </div>
   );
