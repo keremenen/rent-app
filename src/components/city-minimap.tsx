@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 type CityMinimapProps = {
   lat: number;
