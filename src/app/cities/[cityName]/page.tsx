@@ -40,7 +40,7 @@ export default async function CityPage({
         cityDescription={city.description}
       />
 
-      <main className="container px-4 py-8">
+      <main className="container space-y-8 px-4 py-8">
         <CityHeader cityName={city.name} />
 
         <div className="grid gap-8 lg:grid-cols-3">
