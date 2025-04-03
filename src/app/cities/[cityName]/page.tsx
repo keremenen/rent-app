@@ -202,7 +202,7 @@ export default async function CityPage({
         </div>
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <CityDescription city={city} />
+            <CityDescription city={city} className="mb-8" />
             <Card className="mb-8">
               <CardHeader>
                 <CardTitle>Featured Neighborhoods</CardTitle>

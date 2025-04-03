@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type CityDescriptionProps = {
   city: {
@@ -15,11 +16,15 @@ type CityDescriptionProps = {
       area: number;
     } | null;
   };
+  className?: string;
 };
 
-export default function CityDescription({ city }: CityDescriptionProps) {
+export default function CityDescription({
+  city,
+  className,
+}: CityDescriptionProps) {
   return (
-    <Card className="mb-8">
+    <Card className={cn(className)}>
       <CardHeader>
         <CardTitle>About {city.name}</CardTitle>
         <CardDescription>Overview and history of the city</CardDescription>
