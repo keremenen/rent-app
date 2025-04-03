@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-export default function CityHeader({ cityName }: { cityName: string }) {
+type CityHeaderProps = {
+  cityName: string;
+  cityId: string;
+};
+
+export default function CityHeader({ cityName, cityId }: CityHeaderProps) {
   return (
-    <div className="mb-8 flex flex-col gap-4 md:flex-row md:justify-between">
+    <div className="flex flex-col gap-4 md:flex-row md:justify-between">
       <div>
         <h2 className="text-2xl font-bold">Discover {cityName}</h2>
         <p className="text-muted-foreground">
@@ -16,7 +21,7 @@ export default function CityHeader({ cityName }: { cityName: string }) {
           <Link href="/cities">View All Cities</Link>
         </Button>
         <Button asChild>
-          <Link href={`/cities/2/apartments`}>Browse Apartments</Link>
+          <Link href={`/cities/${cityId}/apartments`}>Browse Apartments</Link>
         </Button>
       </div>
     </div>
