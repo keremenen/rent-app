@@ -3,21 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 type CityHeroProps = {
-  city: {
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-  };
+  backgroundImage: string;
+  cityName: string;
+  cityDescription: string;
+  cityId: string;
 };
 
-export function CityHero({ city }: CityHeroProps) {
+export function CityHero({
+  cityId,
+  backgroundImage,
+  cityName,
+  cityDescription,
+}: CityHeroProps) {
   return (
     <div className="relative">
       <div className="absolute inset-0 z-0">
         <Image
-          src={city.imageUrl || "/placeholder-image.jpg"}
-          alt={`${city.name} skyline`}
+          src={backgroundImage || "/placeholder-image.jpg"}
+          alt={`${cityName} background image`}
           fill
           className="object-cover brightness-[0.6]"
           priority
@@ -31,20 +34,20 @@ export function CityHero({ city }: CityHeroProps) {
               Cities
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span>{city.name}</span>
+            <span>{cityName}</span>
           </div>
 
           <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            {city.name}
+            {cityName}
           </h1>
 
           <p className="mb-6 max-w-2xl text-white/90 md:text-lg">
-            {city.description}
+            {cityDescription}
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Link
-              href={`/cities/${city.id}/apartments`}
+              href={`/cities/${cityId}/apartments`}
               className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-2 text-sm font-medium"
             >
               Browse Apartments
@@ -54,12 +57,6 @@ export function CityHero({ city }: CityHeroProps) {
               className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30"
             >
               Explore Neighborhoods
-            </Link>
-            <Link
-              href="#attractions"
-              className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30"
-            >
-              City Attractions
             </Link>
           </div>
         </div>
