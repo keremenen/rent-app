@@ -344,23 +344,6 @@ async function main() {
           },
         });
       }
-
-      // Update or create NeighborhoodGalleryImage
-      for (const galleryItem of neighborhood.gallery) {
-        await prisma.neighborhoodGalleryImage.upsert({
-          where: { id: galleryItem.id },
-          update: {
-            altText: galleryItem.altText,
-            imageUrl: galleryItem.imageUrl,
-          },
-          create: {
-            id: galleryItem.id,
-            altText: galleryItem.altText,
-            imageUrl: galleryItem.imageUrl,
-            neighborhoodId: neighborhoodResult.id,
-          },
-        });
-      }
     }
   }
 

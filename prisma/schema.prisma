@@ -55,11 +55,13 @@ model Neighborhood {
   name        String
   description String
   imageUrl    String
-  cityId      String             @unique
+  cityId      String
   city        City               @relation(fields: [cityId], references: [id])
   statistics  NeighborhoodStats?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
+
+  @@unique([cityId, name])
 }
 
 model NeighborhoodStats {
