@@ -15,6 +15,7 @@ import { CityMap } from "@/components/city-map";
 import prisma from "@/lib/db";
 
 import CityDescription from "@/components/city-description";
+import CityHeader from "@/components/city-header";
 
 // const city = {
 //   id: "1",
@@ -182,24 +183,7 @@ export default async function CityPage({
       <CityHero city={city} />
 
       <main className="container px-4 py-8">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Discover {city.name}</h2>
-            <p className="text-muted-foreground">
-              Explore neighborhoods, attractions, and city information
-            </p>
-          </div>
-
-          {/* CITY GREETER */}
-          <div className="flex gap-2">
-            <Button variant="outline" asChild>
-              <Link href="/cities">View All Cities</Link>
-            </Button>
-            <Button asChild>
-              <Link href={`/cities/2/apartments`}>Browse Apartments</Link>
-            </Button>
-          </div>
-        </div>
+        <CityHeader cityName={city.name} />
 
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
