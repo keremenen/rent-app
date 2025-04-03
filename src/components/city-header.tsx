@@ -11,7 +11,6 @@ export default function CityHeader({ cityName }: { cityName: string }) {
         </p>
       </div>
 
-      {/* CITY GREETER */}
       <div className="flex gap-2">
         <Button variant="outline" asChild>
           <Link href="/cities">View All Cities</Link>
