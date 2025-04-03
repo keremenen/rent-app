@@ -52,18 +52,66 @@ const cities = [
           walkScore: 85,
           transitScore: 90,
         },
-        gallery: [
-          {
-            id: "wrzeszcz-01",
-            altText: "Wrzeszcz image 1",
-            imageUrl: "wrzeszcz-01.jpg1",
-          },
-          {
-            id: "wrzeszcz-02",
-            altText: "Wrzeszcz image 2",
-            imageUrl: "wrzeszcz-02.jpg",
-          },
-        ],
+      },
+      {
+        id: "brzezno",
+        name: "Brzeźno",
+        description: "Brzeźno description",
+        imageUrl: "/images/neighborhoods/gdansk/brzezno/main.jpg",
+        statistics: {
+          id: "brzezno-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+      },
+      {
+        id: "przymorze",
+        name: "Przymorze",
+        description: "Przymorze description",
+        imageUrl: "/images/neighborhoods/gdansk/przymorze/main.jpg",
+        statistics: {
+          id: "przymorze-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+      },
+      {
+        id: "zaspa",
+        name: "Zaspa",
+        description: "Zaspa description",
+        imageUrl: "/images/neighborhoods/gdansk/zaspa/main.jpg",
+        statistics: {
+          id: "zaspa-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+      },
+      {
+        id: "jasien",
+        name: "Jasień",
+        description: "Jasień description",
+        imageUrl: "/images/neighborhoods/gdansk/jasien/main.jpg",
+        statistics: {
+          id: "wrzeszcz-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
+      },
+      {
+        id: "srodmiescie",
+        name: "Śródmieście",
+        description: "Śródmieście description",
+        imageUrl: "/images/neighborhoods/gdansk/srodmiescie/main.jpg",
+        statistics: {
+          id: "srodmiescie-stats",
+          averageRent: 1500,
+          walkScore: 85,
+          transitScore: 90,
+        },
       },
     ],
     location: {
@@ -114,18 +162,6 @@ const cities = [
           walkScore: 85,
           transitScore: 90,
         },
-        gallery: [
-          {
-            id: "chylonia-01",
-            altText: "Wrzeszcz image 1",
-            imageUrl: "wrzeszcz-01.jpg1",
-          },
-          {
-            id: "chylonia-02",
-            altText: "Wrzeszcz image 2",
-            imageUrl: "wrzeszcz-02.jpg",
-          },
-        ],
       },
     ],
     location: {
@@ -176,18 +212,6 @@ const cities = [
           walkScore: 85,
           transitScore: 90,
         },
-        gallery: [
-          {
-            id: "przylesie-01",
-            altText: "Wrzeszcz image 1",
-            imageUrl: "wrzeszcz-01.jpg1",
-          },
-          {
-            id: "przylesie-02",
-            altText: "Wrzeszcz image 2",
-            imageUrl: "wrzeszcz-02.jpg",
-          },
-        ],
       },
     ],
     location: {

@@ -8,12 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CityNeighborhoods } from "@/components/city-neighborhoods";
-import { CityAttractions } from "@/components/city-attractions";
 import { CityGallery } from "@/components/city-gallery";
-import { CityMap } from "@/components/city-map";
 import prisma from "@/lib/db";
-
 import CityDescription from "@/components/city-description";
 import CityHeader from "@/components/city-header";
 import CityFeaturedNeighborhoods from "@/components/city-featured-neighborhoods";

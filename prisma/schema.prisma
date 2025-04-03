@@ -51,16 +51,15 @@ model CityLocation {
 }
 
 model Neighborhood {
-  id          String                     @id @default(cuid())
+  id          String             @id @default(cuid())
   name        String
   description String
   imageUrl    String
-  cityId      String                     @unique
-  city        City                       @relation(fields: [cityId], references: [id])
+  cityId      String             @unique
+  city        City               @relation(fields: [cityId], references: [id])
   statistics  NeighborhoodStats?
-  gallery     NeighborhoodGalleryImage[]
-  createdAt   DateTime                   @default(now())
-  updatedAt   DateTime                   @updatedAt
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 }
 
 model NeighborhoodStats {
@@ -69,13 +68,5 @@ model NeighborhoodStats {
   averageRent    Float
   walkScore      Float
   transitScore   Float
-  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
-}
-
-model NeighborhoodGalleryImage {
-  id             String       @id @default(cuid())
-  neighborhoodId String
-  altText        String
-  imageUrl       String
   neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
 }
