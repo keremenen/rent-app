@@ -45,7 +45,7 @@ const cities = [
         id: "wrzeszcz",
         name: "Wrzeszcz",
         description: "Wrzeszcz description",
-        imageUrl: "wrzeszcz-main.jpg",
+        imageUrl: "/images/neighborhoods/gdansk/wrzeszcz/main.jpg",
         statistics: {
           id: "wrzeszcz-stats",
           averageRent: 1500,
