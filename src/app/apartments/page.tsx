@@ -105,7 +105,7 @@ const exampleApartments = [
 
 export default function ApartmentsListPage() {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <ApartmentListHeader
         totalCount={exampleApartments.length}
         viewMode={"list"}

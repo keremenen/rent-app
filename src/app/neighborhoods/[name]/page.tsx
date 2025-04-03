@@ -114,7 +114,7 @@ const neighborhood = {
 };
 export default function NeighborhoodPage() {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <NeighborhoodHeader
         neighborhood={{
           id: "downtown",

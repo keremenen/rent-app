@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-headers";
 
 export default function ContactPage() {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <PageHeader
         title="Contact Us"
         description="Have questions or need assistance? We're here to help you find your perfect home."

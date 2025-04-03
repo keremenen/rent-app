@@ -124,7 +124,7 @@ const neighborhoods = [
 
 export default function NeighborhoodsListPage() {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <PageHeader
         title="Explore Neighborhoods"
         description="Discover the perfect neighborhood for your lifestyle and preferences"

@@ -127,14 +127,16 @@ import prisma from "@/lib/db";
 
 export default async function CitiesPage() {
   // Fetch cities from the database
-  const cities = await prisma.city.findMany({
+  let cities = await prisma.city.findMany({
     include: {
       statistics: true,
     },
   });
 
+  cities = [];
+
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <PageHeader
         title="Explore Cities"
         description="Discover the perfect city for your next home"

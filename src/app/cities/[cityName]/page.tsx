@@ -177,7 +177,7 @@ export default async function CityPage({
   }
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <CityHeader city={city} />
 
       <main className="container px-4 py-8">
