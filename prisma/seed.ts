@@ -7,44 +7,37 @@ const cities = [
     name: "Gdańsk",
     description: "Gdańsk short description",
     longDescription: "Gdańsk long description",
-    imageUrl:
-      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/main.jpg",
+    imageUrl: "/images/cities/gdansk/main.jpg",
     gallery: [
       {
         id: "gd-01",
         altText: "Gdańsk image 1",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/1.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-02",
         altText: "Gdańsk image 2",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/2.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-03",
         altText: "Gdańsk image 3",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/3.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-04",
         altText: "Gdańsk image 4",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/4.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-05",
         altText: "Gdańsk image 5",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/5.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
       {
         id: "gd-06",
         altText: "Gdańsk image 6",
-        imageUrl:
-          "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdansk/gallery/6.jpg",
+        imageUrl: "/images/cities/gdansk/gallery/1.jpg",
       },
     ],
     neighborhoods: [
@@ -91,8 +84,7 @@ const cities = [
     name: "Gdynia",
     description: "Gdynia short description",
     longDescription: "Gdynia long description",
-    imageUrl:
-      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/gdynia/main.jpg",
+    imageUrl: "/images/cities/gdynia/main.jpg",
     gallery: [
       {
         id: "ga-01",
@@ -154,8 +146,7 @@ const cities = [
     name: "Sopot",
     description: "Sopot short description",
     longDescription: "Sopot long description",
-    imageUrl:
-      "https://meukqnzugrtbicbmsfkl.supabase.co/storage/v1/object/public/images/cities/sopot/main.jpg",
+    imageUrl: "/images/cities/sopot/main.jpg",
     gallery: [
       {
         id: "sp-01",

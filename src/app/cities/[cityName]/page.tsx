@@ -255,7 +255,7 @@ export default async function CityPage({
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CityGallery gallery={city.gallery} />
+                  <CityGallery images={city.gallery} />
                 </CardContent>
               </Card>
             )}
