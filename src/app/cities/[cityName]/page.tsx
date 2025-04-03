@@ -1,4 +1,4 @@
-import { CityHeader } from "@/components/city-header";
+import { CityHero } from "@/components/city-hero";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -179,7 +179,7 @@ export default async function CityPage({
 
   return (
     <div className="bg-background">
-      <CityHeader city={city} />
+      <CityHero city={city} />
 
       <main className="container px-4 py-8">
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:justify-between">
@@ -200,6 +200,7 @@ export default async function CityPage({
             </Button>
           </div>
         </div>
+
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <CityDescription city={city} className="mb-8" />

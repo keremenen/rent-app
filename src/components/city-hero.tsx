@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-type CityHeaderProps = {
+type CityHeroProps = {
   city: {
     id: string;
     name: string;
@@ -11,7 +11,7 @@ type CityHeaderProps = {
   };
 };
 
-export function CityHeader({ city }: CityHeaderProps) {
+export function CityHero({ city }: CityHeroProps) {
   return (
     <div className="relative">
       <div className="absolute inset-0 z-0">
