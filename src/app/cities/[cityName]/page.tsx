@@ -14,6 +14,8 @@ import { CityGallery } from "@/components/city-gallery";
 import { CityMap } from "@/components/city-map";
 import prisma from "@/lib/db";
 
+import CityDescription from "@/components/city-description";
+
 // const city = {
 //   id: "1",
 //   name: "Gdańsk",
@@ -158,7 +160,6 @@ export default async function CityPage({
   params: Promise<{ cityName: string }>;
 }) {
   const { cityName } = await params;
-  console.log(cityName);
 
   const city = await prisma.city.findUnique({
     where: { id: cityName },
@@ -201,37 +202,7 @@ export default async function CityPage({
         </div>
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle>About {city.name}</CardTitle>
-                <CardDescription>
-                  Overview and history of the city
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>{city.longDescription}</p>
-                {city.statistics && (
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="bg-muted rounded-lg p-3 text-center">
-                      <p className="text-muted-foreground text-sm">
-                        Population
-                      </p>
-                      <p className="text-xl font-bold">
-                        {city.statistics.population}
-                      </p>
-                    </div>
-
-                    <div className="bg-muted rounded-lg p-3 text-center">
-                      <p className="text-muted-foreground text-sm">Area</p>
-                      <p className="text-xl font-bold">
-                        {city.statistics.area} sq mi
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
+            <CityDescription city={city} />
             <Card className="mb-8">
               <CardHeader>
                 <CardTitle>Featured Neighborhoods</CardTitle>
@@ -255,7 +226,7 @@ export default async function CityPage({
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CityGallery images={city.gallery} />
+                  <CityGallery gallery={city.gallery} />
                 </CardContent>
               </Card>
             )}
