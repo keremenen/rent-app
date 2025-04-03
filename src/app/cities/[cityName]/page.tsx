@@ -33,8 +33,8 @@ export default async function CityPage({
 
   if (!city) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <h1 className="text-2xl font-bold">City not found</h1>
+      <div className="flex flex-1 items-center justify-center">
+        <h1 className="text-2xl font-semibold">City not found</h1>
       </div>
     );
   }
@@ -54,10 +54,6 @@ export default async function CityPage({
               cityName={city.name}
               neighborhoods={city.neighborhoods}
             />
-
-            {/* Uncomment when attractions data is available */}
-            {/* <CityAttractions attractions={attractions} className="mb-8" /> */}
-
             <CityGallery gallery={city.gallery} cityName={city.name} />
 
             {/* <Card className="mb-8">
