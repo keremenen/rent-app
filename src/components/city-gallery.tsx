@@ -24,7 +24,7 @@ type CityGalleryProps = {
 
 export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
   return (
-    <Card className="mb-8">
+    <Card>
       <CardHeader>
         <CardTitle>Photo Gallery</CardTitle>
         <CardDescription>Explore {cityName} through photos</CardDescription>

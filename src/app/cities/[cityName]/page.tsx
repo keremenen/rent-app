@@ -1,19 +1,10 @@
 import { CityHero } from "@/components/city-hero";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import prisma from "@/lib/db";
 import CityDescription from "@/components/city-description";
 import CityHeader from "@/components/city-header";
 import CityFeaturedNeighborhoods from "@/components/city-featured-neighborhoods";
 import CityGallery from "@/components/city-gallery";
+import CityMinimap from "@/components/city-minimap";
 
 export default async function CityPage({
   params,
@@ -28,6 +19,7 @@ export default async function CityPage({
       gallery: true,
       statistics: true,
       neighborhoods: true,
+      location: true,
     },
   });
 
@@ -47,68 +39,21 @@ export default async function CityPage({
         <CityHeader cityName={city.name} />
 
         <div className="grid gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <CityDescription city={city} className="mb-8" />
-
+          <div className="space-y-8 lg:col-span-2">
+            <CityDescription city={city} />
             <CityFeaturedNeighborhoods
               cityName={city.name}
               neighborhoods={city.neighborhoods}
             />
             <CityGallery gallery={city.gallery} cityName={city.name} />
-
-            {/* <Card className="mb-8">
-              <CardHeader>
-                <CardTitle>Photo Gallery</CardTitle>
-                <CardDescription>
-                  Explore {city.name} through photos
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <CityGallery gallery={city.gallery} />
-              </CardContent>
-            </Card> */}
           </div>
 
           <div>
-            <Card className="sticky top-20">
-              <CardHeader>
-                <CardTitle>Location</CardTitle>
-                <CardDescription>{city.name} on the map</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {/* <CityMap city={city} neighborhoods={city.neighborhoods} /> */}
-
-                <div className="mt-4 grid grid-cols-2 gap-2 text-center">
-                  <div>
-                    <div className="text-primary text-2xl font-bold">
-                      {city.statistics.walkScore}
-                    </div>
-                    <div className="text-muted-foreground text-xs">
-                      Walk Score
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-primary text-2xl font-bold">
-                      {city.statistics.commuteTime} min
-                    </div>
-                    <div className="text-muted-foreground text-xs">
-                      Avg Commute
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 space-y-3">
-                  <Button className="w-full" asChild>
-                    <Link href={`/cities/gdansk/apartments`}>
-                      Browse All Apartments
-                    </Link>
-                  </Button>
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link href="/contact">Contact a Local Agent</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <CityMinimap
+              lat={city.location?.latitude}
+              lng={city.location?.longitude}
+              cityName={city.name}
+            />
           </div>
         </div>
       </main>
