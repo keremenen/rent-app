@@ -8,11 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CityGallery } from "@/components/city-gallery";
+
 import prisma from "@/lib/db";
 import CityDescription from "@/components/city-description";
 import CityHeader from "@/components/city-header";
 import CityFeaturedNeighborhoods from "@/components/city-featured-neighborhoods";
+import CityGallery from "@/components/city-gallery";
 
 export default async function CityPage({
   params,
@@ -54,21 +55,22 @@ export default async function CityPage({
               neighborhoods={city.neighborhoods}
             />
 
-            {/* <CityAttractions attractions={city.attractions} className="mb-8" /> */}
+            {/* Uncomment when attractions data is available */}
+            {/* <CityAttractions attractions={attractions} className="mb-8" /> */}
 
-            {city.gallery.length > 0 && (
-              <Card className="mb-8">
-                <CardHeader>
-                  <CardTitle>Photo Gallery</CardTitle>
-                  <CardDescription>
-                    Explore {city.name} through photos
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <CityGallery gallery={city.gallery} />
-                </CardContent>
-              </Card>
-            )}
+            <CityGallery gallery={city.gallery} cityName={city.name} />
+
+            {/* <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Photo Gallery</CardTitle>
+                <CardDescription>
+                  Explore {city.name} through photos
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CityGallery gallery={city.gallery} />
+              </CardContent>
+            </Card> */}
           </div>
 
           <div>

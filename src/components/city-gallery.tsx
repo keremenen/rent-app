@@ -12,50 +12,77 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 type CityGalleryProps = {
+  cityName: string;
   gallery: {
     imageUrl: string;
   }[];
 };
 
-export function CityGallery({ gallery }: CityGalleryProps) {
+export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
   return (
-    <div>
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-        {gallery.slice(0, 6).map((galleryItem, index) => (
-          <Dialog key={index}>
-            <DialogTrigger asChild>
-              <div
-                className={`relative cursor-pointer overflow-hidden rounded-md ${
-                  index === 5 && gallery.length > 6 ? "relative" : ""
-                }`}
-              >
-                <div className="relative aspect-square">
-                  <Image
-                    src={galleryItem.imageUrl || "/placeholder.svg"}
-                    alt={`City image ${index + 1}`}
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                  />
-                  {index === 5 && gallery.length > 6 && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
-                      <span className="text-lg font-medium">
-                        +{gallery.length - 6} more
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="w-full max-w-7xl">
-              <DialogTitle>
-                <FullscreenGallery gallery={gallery} initialIndex={index} />
-              </DialogTitle>
-            </DialogContent>
-          </Dialog>
-        ))}
-      </div>
+    <Card className="mb-8">
+      <CardHeader>
+        <CardTitle>Photo Gallery</CardTitle>
+        <CardDescription>Explore {cityName} through photos</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <CityGalleryImageWrapper gallery={gallery} />
+      </CardContent>
+    </Card>
+  );
+}
+
+function CityGalleryImageWrapper({ gallery }) {
+  return (
+    <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+      {gallery.slice(0, 6).map((galleryItem, index) => (
+        <SingleCityGalleryImage image={galleryItem.imageUrl} />
+      ))}
     </div>
+  );
+}
+
+function SingleCityGalleryImage({ gallery }: CityGalleryProps) {
+  return (
+    <Dialog key={index}>
+      <DialogTrigger asChild>
+        <div
+          className={`relative cursor-pointer overflow-hidden rounded-md ${
+            index === 5 && gallery.length > 6 ? "relative" : ""
+          }`}
+        >
+          <div className="relative aspect-square">
+            <Image
+              src={galleryItem.imageUrl || "/placeholder.svg"}
+              alt={`City image ${index + 1}`}
+              fill
+              className="object-cover transition-transform hover:scale-105"
+            />
+            {index === 5 && gallery.length > 6 && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
+                <span className="text-lg font-medium">
+                  +{gallery.length - 6} more
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </DialogTrigger>
+      <DialogContent className="w-full max-w-7xl">
+        <DialogTitle>
+          <FullscreenGallery gallery={gallery} initialIndex={index} />
+        </DialogTitle>
+      </DialogContent>
+    </Dialog>
   );
 }
 
