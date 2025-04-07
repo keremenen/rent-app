@@ -82,6 +82,7 @@ model Apartment {
   address         String
   description     String
   backgroundImage String
+  gallery         String
   amenities       String
   monthlyRent     Float
 
