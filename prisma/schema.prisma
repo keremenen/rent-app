@@ -75,9 +75,7 @@ model NeighborhoodStats {
 }
 
 model Apartment {
-  id String @id @default(cuid())
-
-  // MAIN FIELDS
+  id              String       @id @unique @default(cuid())
   title           String
   address         String
   description     String
@@ -85,18 +83,14 @@ model Apartment {
   gallery         String
   amenities       String
   monthlyRent     Float
-
-  // DETAILS
-  bedrooms      Int
-  bathrooms     Int
-  squareFootage Int
-  availableFrom DateTime
-
-  // REST
-  neighborhoodId String       @unique
-  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  bedrooms        Int
+  bathrooms       Int
+  squareFootage   Int
+  availableFrom   DateTime
+  neighborhoodId  String
+  neighborhood    Neighborhood @relation(fields: [neighborhoodId], references: [id])
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
   @@unique([neighborhoodId, title])
 }
