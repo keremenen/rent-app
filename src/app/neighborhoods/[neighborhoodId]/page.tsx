@@ -3,6 +3,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { NeighborhoodHeader } from "@/components/neighborhood-header";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import SortByOptions from "@/components/sort-by-options";
+import prisma from "@/lib/db";
 
 const neighborhoodApartments = [
   {
@@ -87,32 +88,17 @@ const neighborhoodApartments = [
   },
 ];
 
-const neighborhood = {
-  id: 1,
-  name: "DownTown",
-  description:
-    "A vibrant neighborhood with excellent dining, shopping, and entertainment options. Close to public transportation and major employment centers.",
-  image: "/placeholder.svg?height=600&width=1200",
-  stats: {
-    avgRent: 2800,
-    walkScore: 92,
-    transitScore: 95,
-    bikeScore: 85,
-    population: 45000,
-    medianIncome: 85000,
-  },
-  features: [
-    "Close to public transportation",
-    "Excellent dining options",
-    "Vibrant nightlife",
-    "Parks and green spaces",
-    "Shopping districts",
-    "Cultural attractions",
-  ],
-  latitude: 40.7128,
-  longitude: -74.006,
+type NeighborhoodParams = {
+  params: Promise<{ neighborhoodId: string }>;
 };
-export default function NeighborhoodPage() {
+
+export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
+  const { neighborhoodId } = await params;
+
+  const neighborhood = await prisma.neighborhood.findUnique({
+    where: { id: neighborhoodId },
+  });
+
   return (
     <div className="bg-background">
       <NeighborhoodHeader
@@ -128,7 +114,7 @@ export default function NeighborhoodPage() {
       />
       <main className="container px-4 py-8">
         <div className="mb-6 space-y-6">
-          <NeighborhoodStats neighborhood={neighborhood} />
+          {/* <NeighborhoodStats neighborhood={neighborhood} /> */}
           <div className="text-muted-foreground text-sm">
             {neighborhoodApartments.length}{" "}
             {neighborhoodApartments.length === 1 ? "apartment" : "apartments"}{" "}
