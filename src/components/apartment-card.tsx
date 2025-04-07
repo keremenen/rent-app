@@ -25,6 +25,7 @@ type ApartmentCardProps = {
     backgroundImage: string;
     availableFrom: Date;
     amenities: string;
+    monthlyRent: number;
   };
 };
 
@@ -43,52 +44,21 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
       </div>
 
       <CardContent className="p-4">
-        <Link href={`/apartments/${apartment.id}`} className="hover:underline">
-          <h3 className="mb-1 font-semibold">{apartment.title}</h3>
-        </Link>
-        <p className="text-muted-foreground mb-2 text-sm">
-          {apartment.address}
-        </p>
-        <p className="mb-3 text-xl font-bold">${apartment.price}/mo</p>
-        <div className="text-muted-foreground grid grid-cols-3 gap-2 text-sm">
-          <div className="flex items-center gap-1">
-            <BedDouble className="h-4 w-4" />
-            <span>{apartment.bedrooms}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Bath className="h-4 w-4" />
-            <span>{apartment.bathrooms}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Maximize className="h-4 w-4" />
-            <span>{apartment.squareFeet} sq ft</span>
-          </div>
-        </div>
-        <div className="text-muted-foreground mt-3 flex items-center gap-1 text-sm">
-          <Calendar className="h-4 w-4" />
-          <span>
-            Available{" "}
-            {new Date(apartment.availableFrom).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })}
-          </span>
-        </div>
-        {/* {apartment.amenities.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1">
-            {apartment.amenities.slice(0, 3).map((amenity) => (
-              <Badge key={amenity} variant="outline" className="text-xs">
-                {amenity}
-              </Badge>
-            ))}
-            {apartment.amenities.length > 3 && (
-              <Badge variant="outline" className="text-xs">
-                +{apartment.amenities.length - 3} more
-              </Badge>
-            )}
-          </div>
-        )} */}
+        <ApartmentCardMainInfo
+          id={apartment.id}
+          title={apartment.title}
+          address={apartment.address}
+          monthlyRent={apartment.monthlyRent}
+        />
+        <AparrtmendCardDetails
+          bedrooms={apartment.bedrooms}
+          bathrooms={apartment.bathrooms}
+          squareFeet={apartment.squareFeet}
+        />
+        <ApartmentCardAvailableFrom availableFrom={apartment.availableFrom} />
+        <ApartmentAmenities amenities={apartment.amenities} />
       </CardContent>
+
       <CardFooter className="mt-auto grid grid-cols-2 gap-2 p-4 pt-0">
         <Button variant="outline" asChild>
           <Link href={`/apartments/${apartment.id}`}>View Details</Link>
@@ -162,5 +132,93 @@ function FavouriteIndicator({ isFavorite }: { isFavorite: boolean }) {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
+  );
+}
+
+function ApartmentAmenities({ amenities }: { amenities: string }) {
+  return (
+    <div className="mt-3 flex flex-wrap gap-1">
+      {amenities
+        .split(",")
+        .slice(0, 3)
+        .map((amenity) => (
+          <Badge key={amenity} variant="outline" className="text-xs">
+            {amenity}
+          </Badge>
+        ))}
+      {amenities.length > 3 && (
+        <Badge variant="outline" className="text-xs">
+          +{amenities.length - 3} more
+        </Badge>
+      )}
+    </div>
+  );
+}
+
+function ApartmentCardMainInfo({
+  id,
+  title,
+  address,
+  monthlyRent,
+}: {
+  id: string;
+  title: string;
+  address: string;
+  monthlyRent: number;
+}) {
+  return (
+    <>
+      <Link href={`/apartments/${id}`} className="hover:underline">
+        <h3 className="mb-1 font-semibold">{title}</h3>
+      </Link>
+      <p className="text-muted-foreground mb-2 text-sm">{address}</p>
+      <p className="mb-3 text-xl font-bold">${monthlyRent}/mo</p>
+    </>
+  );
+}
+
+function AparrtmendCardDetails({
+  bedrooms,
+  bathrooms,
+  squareFeet,
+}: {
+  bedrooms: number;
+  bathrooms: number;
+  squareFeet: number;
+}) {
+  return (
+    <div className="text-muted-foreground grid grid-cols-3 gap-2 text-sm">
+      <div className="flex items-center gap-1">
+        <BedDouble className="h-4 w-4" />
+        <span>{bedrooms}</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <Bath className="h-4 w-4" />
+        <span>{bathrooms}</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <Maximize className="h-4 w-4" />
+        <span>{squareFeet} sq ft</span>
+      </div>
+    </div>
+  );
+}
+
+function ApartmentCardAvailableFrom({
+  availableFrom,
+}: {
+  availableFrom: Date;
+}) {
+  return (
+    <div className="text-muted-foreground mt-3 flex items-center gap-1 text-sm">
+      <Calendar className="h-4 w-4" />
+      <span>
+        Available{" "}
+        {new Date(availableFrom).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })}
+      </span>
+    </div>
   );
 }
