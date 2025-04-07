@@ -6,31 +6,32 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 type NeighborhoodHeaderProps = {
-  neighborhood: {
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-  };
+  id: string;
+  backgroundImage: string;
+  name: string;
+  description: string;
   apartmentCount: number;
-  viewMode: "list" | "map";
 };
 
 export function NeighborhoodHeader({
-  neighborhood,
+  backgroundImage,
+  name,
+  description,
   apartmentCount,
-  viewMode,
 }: NeighborhoodHeaderProps) {
+  const [viewMode, setViewMode] = useState("list"); // This should be dynamic based on user selection
+
   return (
     <div className="relative">
       <div className="absolute inset-0 z-0">
         <Image
-          src={neighborhood.image || "/placeholder.svg"}
-          alt={`${neighborhood.name} neighborhood`}
+          src={backgroundImage || "/placeholder.svg"}
+          alt={`${name} neighborhood`}
           fill
-          className="object-cover brightness-[0.6]"
+          className="object-cover brightness-[0.5]"
           priority
         />
       </div>
@@ -42,15 +43,15 @@ export function NeighborhoodHeader({
               Neighborhoods
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span>{neighborhood.name}</span>
+            <span>{name}</span>
           </div>
 
           <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            {neighborhood.name}
+            {name}
           </h1>
 
           <p className="mb-6 max-w-2xl text-white/90 md:text-lg">
-            {neighborhood.description}
+            {description}
           </p>
 
           <div className="flex items-center gap-4">
@@ -64,7 +65,9 @@ export function NeighborhoodHeader({
                 variant={viewMode === "list" ? "secondary" : "ghost"}
                 size="sm"
                 className="rounded-r-none border-r border-white/30 text-white hover:bg-white/20 hover:text-white"
-                onClick={() => {}}
+                onClick={() => {
+                  setViewMode("list");
+                }}
               >
                 <List className="mr-2 h-4 w-4" />
                 List
@@ -73,7 +76,9 @@ export function NeighborhoodHeader({
                 variant={viewMode === "map" ? "secondary" : "ghost"}
                 size="sm"
                 className="rounded-l-none text-white hover:bg-white/20 hover:text-white"
-                onClick={() => {}}
+                onClick={() => {
+                  setViewMode("map");
+                }}
               >
                 <MapPin className="mr-2 h-4 w-4" />
                 Map

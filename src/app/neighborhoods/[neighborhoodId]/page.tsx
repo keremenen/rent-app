@@ -99,18 +99,21 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
     where: { id: neighborhoodId },
   });
 
+  if (!neighborhood) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <h1 className="text-2xl font-semibold">Neighborhood not found</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background">
       <NeighborhoodHeader
-        neighborhood={{
-          id: "downtown",
-          name: "Downtown",
-          description:
-            "Downtown is the bustling heart of the city, known for its vibrant culture, shopping, and dining options. It's a hub for business and entertainment, making it a prime location for urban living.",
-          image: "/placeholder-image.jpg",
-        }}
+        backgroundImage={neighborhood.imageUrl}
+        name={neighborhood.name}
+        description={neighborhood?.description}
         apartmentCount={neighborhoodApartments.length}
-        viewMode={"list"}
       />
       <main className="container px-4 py-8">
         <div className="mb-6 space-y-6">
