@@ -60,6 +60,7 @@ model Neighborhood {
   statistics  NeighborhoodStats?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
+  Apartment   Apartment[]
 
   @@unique([cityId, name])
 }
@@ -71,4 +72,30 @@ model NeighborhoodStats {
   walkScore      Float
   transitScore   Float
   neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+}
+
+model Apartment {
+  id String @id @default(cuid())
+
+  // MAIN FIELDS
+  title           String
+  address         String
+  description     String
+  backgroundImage String
+  amenities       String
+  monthlyRent     Float
+
+  // DETAILS
+  beedrooms     Int
+  bathrooms     Int
+  squareFootage Int
+  availableFrom DateTime
+
+  // REST
+  neighborhoodId String       @unique
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([neighborhoodId, title])
 }
