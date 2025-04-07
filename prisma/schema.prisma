@@ -60,7 +60,7 @@ model Neighborhood {
   statistics  NeighborhoodStats?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  Apartment   Apartment[]
+  apartment   Apartment[]
 
   @@unique([cityId, name])
 }
@@ -86,7 +86,7 @@ model Apartment {
   monthlyRent     Float
 
   // DETAILS
-  beedrooms     Int
+  bedrooms      Int
   bathrooms     Int
   squareFootage Int
   availableFrom DateTime

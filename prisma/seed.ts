@@ -52,6 +52,19 @@ const cities = [
           walkScore: 85,
           transitScore: 90,
         },
+        apartments: {
+          id: "apt-01",
+          title: "Wrzeszcz Apartment 1",
+          address: "Wrzeszcz, Gdańsk, Poland",
+          description: "Wrzeszcz Apartment 1 description",
+          backgroundImage: "/images/apartments/apt-01/main.jpg",
+          amenities: "Feature 1, Feature 2, Feature 3",
+          monthlyRent: 1500,
+          bedrooms: 2,
+          bathrooms: 1,
+          squareFootage: 800,
+          availableFrom: new Date("2023-10-01"),
+        },
       },
       {
         id: "brzezno",
@@ -340,6 +353,39 @@ async function main() {
             averageRent: neighborhood.statistics.averageRent,
             walkScore: neighborhood.statistics.walkScore,
             transitScore: neighborhood.statistics.transitScore,
+            neighborhoodId: neighborhoodResult.id,
+          },
+        });
+      }
+
+      // Update or create Apartments
+      if (neighborhood.apartments) {
+        await prisma.apartment.upsert({
+          where: { id: neighborhood.apartments.id },
+          update: {
+            title: neighborhood.apartments.title,
+            address: neighborhood.apartments.address,
+            description: neighborhood.apartments.description,
+            backgroundImage: neighborhood.apartments.backgroundImage,
+            amenities: neighborhood.apartments.amenities,
+            monthlyRent: neighborhood.apartments.monthlyRent,
+            bedrooms: neighborhood.apartments.bedrooms,
+            bathrooms: neighborhood.apartments.bathrooms,
+            squareFootage: neighborhood.apartments.squareFootage,
+            availableFrom: neighborhood.apartments.availableFrom,
+          },
+          create: {
+            id: neighborhood.apartments.id,
+            title: neighborhood.apartments.title,
+            address: neighborhood.apartments.address,
+            description: neighborhood.apartments.description,
+            backgroundImage: neighborhood.apartments.backgroundImage,
+            amenities: neighborhood.apartments.amenities,
+            monthlyRent: neighborhood.apartments.monthlyRent,
+            bedrooms: neighborhood.apartments.bedrooms,
+            bathrooms: neighborhood.apartments.bathrooms,
+            squareFootage: neighborhood.apartments.squareFootage,
+            availableFrom: neighborhood.apartments.availableFrom,
             neighborhoodId: neighborhoodResult.id,
           },
         });
