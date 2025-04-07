@@ -9,18 +9,12 @@ import {
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-type CityMinimapProps = {
-  lat: number;
-  lng: number;
-  cityName: string;
-};
-
-export default function CityMinimap({ lat, lng, cityName }: CityMinimapProps) {
+export default function CityMinimap() {
   return (
     <Card className="sticky top-20">
       <CardHeader>
         <CardTitle>Location</CardTitle>
-        <CardDescription>{cityName} on the map</CardDescription>
+        <CardDescription>on the map</CardDescription>
       </CardHeader>
       <CardContent>
         {/* <CityMap city={city} neighborhoods={city.neighborhoods} /> */}

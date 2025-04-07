@@ -59,11 +59,7 @@ export default async function CityPage({
           </div>
 
           <div>
-            <CityMinimap
-              lat={city.location?.latitude}
-              lng={city.location?.longitude}
-              cityName={city.name}
-            />
+            <CityMinimap />
           </div>
         </div>
       </main>
