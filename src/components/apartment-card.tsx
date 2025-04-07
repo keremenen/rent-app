@@ -33,55 +33,15 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
     <Card className="overflow-hidden p-0">
       <div className="relative">
         <Link href={`/apartments/${apartment.id}`}>
-          <div className="relative aspect-[4/3] w-full bg-gray-500">
-            <Image
-              src={apartment.backgroundImage || "/placeholder.svg"}
-              alt={apartment.title}
-              fill
-              className="object-cover transition-transform hover:scale-105"
-            />
-          </div>
+          <ApartmentCardBackgroundImage
+            backgroundImage={apartment.backgroundImage}
+            title={apartment.title}
+          />
         </Link>
-        {/* <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="bg-background/80 hover:bg-background/90 absolute top-2 right-2"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <Heart
-                  className={`h-5 w-5 ${apartment.isFavorite ? "fill-primary text-primary" : "text-muted-foreground"}`}
-                />
-                <span className="sr-only">
-                  {apartment.isFavorite
-                    ? "Remove from favorites"
-                    : "Add to favorites"}
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>
-                {apartment.isFavorite
-                  ? "Remove from favorites"
-                  : "Add to favorites"}
-              </p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider> */}
-        {apartment.available ? (
-          <Badge className="absolute top-2 left-2 bg-green-500 hover:bg-green-600">
-            Available
-          </Badge>
-        ) : (
-          <Badge className="absolute top-2 left-2 bg-amber-500 hover:bg-amber-600">
-            Coming Soon
-          </Badge>
-        )}
+        <FavouriteIndicator isFavorite={false} />
+        <ApartmentBadge available={true} />
       </div>
+
       <CardContent className="p-4">
         <Link href={`/apartments/${apartment.id}`} className="hover:underline">
           <h3 className="mb-1 font-semibold">{apartment.title}</h3>
@@ -138,5 +98,69 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+function ApartmentCardBackgroundImage({
+  backgroundImage,
+  title,
+}: {
+  backgroundImage: string;
+  title: string;
+}) {
+  return (
+    <div className="relative aspect-[4/3] w-full bg-gray-500">
+      <Image
+        src={backgroundImage || "/placeholder.svg"}
+        alt={title}
+        fill
+        className="object-cover transition-transform hover:scale-105"
+      />
+    </div>
+  );
+}
+
+function ApartmentBadge({ available }: { available: boolean }) {
+  if (available) {
+    return (
+      <Badge className="absolute top-2 left-2 bg-green-700 hover:bg-green-600">
+        Available
+      </Badge>
+    );
+  } else {
+    return (
+      <Badge className="absolute top-2 left-2 bg-amber-700 hover:bg-amber-600">
+        Coming Soon
+      </Badge>
+    );
+  }
+}
+
+function FavouriteIndicator({ isFavorite }: { isFavorite: boolean }) {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="bg-background/80 hover:bg-background/90 absolute top-2 right-2"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <Heart
+              className={`h-5 w-5 ${isFavorite ? "fill-primary text-primary" : "text-muted-foreground"}`}
+            />
+            <span className="sr-only">
+              {isFavorite ? "Remove from favorites" : "Add to favorites"}
+            </span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{isFavorite ? "Remove from favorites" : "Add to favorites"}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
