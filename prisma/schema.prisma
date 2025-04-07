@@ -60,7 +60,7 @@ model Neighborhood {
   statistics  NeighborhoodStats?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  apartment   Apartment[]
+  apartments  Apartment[]
 
   @@unique([cityId, name])
 }

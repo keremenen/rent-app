@@ -19,15 +19,12 @@ type ApartmentCardProps = {
     id: string;
     title: string;
     address: string;
-    price: number;
-    bedrooms: string | number;
     bathrooms: number;
+    bedrooms: number;
     squareFeet: number;
-    image: string;
-    available: boolean;
-    availableFrom: string;
-    isFavorite: boolean;
-    amenities: string[];
+    backgroundImage: string;
+    availableFrom: Date;
+    amenities: string;
   };
 };
 
@@ -38,14 +35,14 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
         <Link href={`/apartments/${apartment.id}`}>
           <div className="relative aspect-[4/3] w-full bg-gray-500">
             <Image
-              src={apartment.image || "/placeholder.svg"}
+              src={apartment.backgroundImage || "/placeholder.svg"}
               alt={apartment.title}
               fill
               className="object-cover transition-transform hover:scale-105"
             />
           </div>
         </Link>
-        <TooltipProvider>
+        {/* <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -74,7 +71,7 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
               </p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipProvider> */}
         {apartment.available ? (
           <Badge className="absolute top-2 left-2 bg-green-500 hover:bg-green-600">
             Available
@@ -117,7 +114,7 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
             })}
           </span>
         </div>
-        {apartment.amenities.length > 0 && (
+        {/* {apartment.amenities.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1">
             {apartment.amenities.slice(0, 3).map((amenity) => (
               <Badge key={amenity} variant="outline" className="text-xs">
@@ -130,7 +127,7 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
               </Badge>
             )}
           </div>
-        )}
+        )} */}
       </CardContent>
       <CardFooter className="mt-auto grid grid-cols-2 gap-2 p-4 pt-0">
         <Button variant="outline" asChild>

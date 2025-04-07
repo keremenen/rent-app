@@ -9,7 +9,6 @@ import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 type NeighborhoodHeaderProps = {
-  id: string;
   backgroundImage: string;
   name: string;
   description: string;
