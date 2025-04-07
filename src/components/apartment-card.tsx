@@ -21,7 +21,7 @@ type ApartmentCardProps = {
     address: string;
     bathrooms: number;
     bedrooms: number;
-    squareFeet: number;
+    squareFootage: number;
     backgroundImage: string;
     availableFrom: Date;
     amenities: string;
@@ -53,7 +53,7 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
         <AparrtmendCardDetails
           bedrooms={apartment.bedrooms}
           bathrooms={apartment.bathrooms}
-          squareFeet={apartment.squareFeet}
+          squareFeet={apartment.squareFootage}
         />
         <ApartmentCardAvailableFrom availableFrom={apartment.availableFrom} />
         <ApartmentAmenities amenities={apartment.amenities} />
