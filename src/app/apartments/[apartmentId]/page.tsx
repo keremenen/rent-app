@@ -1,4 +1,3 @@
-// import { ApartmentAmenities } from "@/components/apartment-amenities";
 // import { ApartmentContact } from "@/components/apartment-contact";
 import { ApartmentSpecifications } from "@/components/apartment-specifications";
 import { ApartmentGallery } from "@/components/apartment-gallery";
