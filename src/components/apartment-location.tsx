@@ -4,17 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ApartmentLocationProps = {
   address: string;
-  latitude: number;
-  longitude: number;
-  nearbyTransit: string[];
 };
 
-export function ApartmentLocation({
-  address,
-  latitude,
-  longitude,
-  nearbyTransit,
-}: ApartmentLocationProps) {
+const nearbyTransit = [
+  "2 blocks to A/C/E subway lines",
+  "Bus stop on corner (M20, M104)",
+  "15 min walk to Penn Station",
+];
+
+export function ApartmentLocation({ address }: ApartmentLocationProps) {
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -27,12 +25,9 @@ export function ApartmentLocation({
         </div>
 
         <div className="bg-muted aspect-[16/9] w-full overflow-hidden rounded-md border">
-          {/* In a real app, you would integrate with Google Maps or similar */}
           <div className="flex h-full w-full items-center justify-center">
             <p className="text-muted-foreground text-center">
-              Map showing location at
-              <br />
-              Latitude: {latitude.toFixed(4)}, Longitude: {longitude.toFixed(4)}
+              Map showing location at Wrzeszcz
             </p>
           </div>
         </div>
