@@ -1,7 +1,7 @@
 // import { ApartmentAmenities } from "@/components/apartment-amenities";
 // import { ApartmentContact } from "@/components/apartment-contact";
 // import { ApartmentDetails } from "@/components/apartment-details";
-// import { ApartmentGallery } from "@/components/apartment-gallery";
+import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
 // import { ApartmentLocation } from "@/components/apartment-location";
 // import { SimilarApartments } from "@/components/similar-apartments";
@@ -91,10 +91,10 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
       <main className="container px-4 py-6 md:py-10">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            {/* <ApartmentGallery images={apartment.images} />
-            <ApartmentDetails apartment={apartment} />
-            <ApartmentAmenities amenities={apartment.amenities} />
-            <ApartmentLocation
+            <ApartmentGallery images={apartment.gallery.split(",")} />
+            {/* <ApartmentDetails apartment={apartment} /> */}
+            {/* <ApartmentAmenities amenities={apartment.amenities} /> */}
+            {/* <ApartmentLocation
               address={apartment.address}
               latitude={apartment.latitude}
               longitude={apartment.longitude}
