@@ -30,8 +30,6 @@ export function ApartmentGallery({ images }: ApartmentGalleryProps) {
     setFullscreenIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  console.log("images", images);
-
   return (
     <div className="mb-8 overflow-hidden rounded-xl border">
       <div className="relative aspect-[16/9] w-full">

@@ -91,7 +91,7 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
       <main className="container px-4 py-6 md:py-10">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <ApartmentGallery images={apartment.gallery.split(",")} />
+            <ApartmentGallery images={apartment.gallery.split(", ")} />
             {/* <ApartmentDetails apartment={apartment} /> */}
             {/* <ApartmentAmenities amenities={apartment.amenities} /> */}
             {/* <ApartmentLocation
