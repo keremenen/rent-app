@@ -31,7 +31,7 @@ export function ApartmentGallery({ images }: ApartmentGalleryProps) {
   };
 
   return (
-    <div className="mb-8 overflow-hidden rounded-xl border">
+    <div className="overflow-hidden rounded-xl border">
       <div className="relative aspect-[16/8] w-full">
         <Image
           src={images[currentIndex]}
