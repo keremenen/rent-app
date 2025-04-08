@@ -95,7 +95,12 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <ApartmentGallery images={apartment.gallery.split(", ")} />
-            <ApartmentSpecifications />
+            <ApartmentSpecifications
+              bathrooms={apartment.bathrooms}
+              bedrooms={apartment.bedrooms}
+              squareFootage={apartment.squareFootage}
+              availableFrom={apartment.availableFrom}
+            />
             {/* <ApartmentAmenities amenities={apartment.amenities} /> */}
             {/* <ApartmentLocation
               address={apartment.address}
