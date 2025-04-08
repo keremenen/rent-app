@@ -8,6 +8,7 @@ import prisma from "@/lib/db";
 import React from "react";
 import ApartmentDescription from "@/components/apartment-description";
 import { ApartmentLocation } from "@/components/apartment-location";
+import { ApartmentContact } from "@/components/apartment-contact";
 
 // const apartment = {
 //   id: "apt-304",
@@ -106,7 +107,10 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
             <ApartmentLocation address={apartment.address} />
           </div>
           <div className="lg-col-span-1">
-            {/* <ApartmentContact apartment={apartment} /> */}
+            <ApartmentContact
+              rent={apartment.monthlyRent}
+              availableFrom={apartment.availableFrom}
+            />
           </div>
         </div>
         {/* <SimilarApartments /> */}

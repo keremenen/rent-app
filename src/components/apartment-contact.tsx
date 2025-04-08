@@ -20,15 +20,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 
 type ApartmentContactProps = {
-  apartment: {
-    id: string;
-    title: string;
-    price: number;
-    availableFrom: string;
-  };
+  rent: number;
+  availableFrom: Date;
 };
 
-export function ApartmentContact({ apartment }: ApartmentContactProps) {
+export function ApartmentContact({
+  rent,
+  availableFrom,
+}: ApartmentContactProps) {
   const [contactMethod, setContactMethod] = useState("email");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,10 +48,10 @@ export function ApartmentContact({ apartment }: ApartmentContactProps) {
       <CardContent>
         <div className="bg-muted mb-8 rounded-lg p-4">
           <p className="text-muted-foreground text-sm">Monthly Rent</p>
-          <p className="text-2xl font-bold">${apartment.price}</p>
+          <p className="text-2xl font-bold">${rent}</p>
           <p className="text-muted-foreground text-sm">
             Available from{" "}
-            {new Date(apartment.availableFrom).toLocaleDateString("en-US", {
+            {new Date(availableFrom).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
               year: "numeric",
