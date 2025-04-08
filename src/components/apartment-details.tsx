@@ -11,43 +11,41 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 type ApartmentDetailsProps = {
-  apartment: {
-    bedrooms: number;
-    bathrooms: number;
-    squareFeet: number;
-    description: string;
-    features: string[];
-    available: boolean;
-    availableFrom: string;
-    leaseTerms: string;
-    petPolicy: string;
-  };
+  bedrooms: number;
+  bathrooms: number;
+  squareFootage: number;
+  availableFrom: string;
 };
 
-export function ApartmentDetails({ apartment }: ApartmentDetailsProps) {
+export function ApartmentDetails({
+  bedrooms,
+  bathrooms,
+  squareFootage,
+  availableFrom,
+}: ApartmentDetailsProps) {
   return (
     <div className="mb-8 space-y-6">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <div className="flex flex-col items-center rounded-lg border p-4">
           <BedDouble className="text-muted-foreground mb-2 h-6 w-6" />
           <p className="text-muted-foreground text-sm">Bedrooms</p>
-          <p className="text-xl font-bold">{apartment.bedrooms}</p>
+          <p className="text-xl font-bold">{bedrooms}</p>
         </div>
         <div className="flex flex-col items-center rounded-lg border p-4">
           <Bath className="text-muted-foreground mb-2 h-6 w-6" />
           <p className="text-muted-foreground text-sm">Bathrooms</p>
-          <p className="text-xl font-bold">{apartment.bathrooms}</p>
+          <p className="text-xl font-bold">{bathrooms}</p>
         </div>
         <div className="flex flex-col items-center rounded-lg border p-4">
           <Maximize className="text-muted-foreground mb-2 h-6 w-6" />
           <p className="text-muted-foreground text-sm">Square Feet</p>
-          <p className="text-xl font-bold">{apartment.squareFeet}</p>
+          <p className="text-xl font-bold">{squareFootage}</p>
         </div>
         <div className="flex flex-col items-center rounded-lg border p-4">
           <Calendar className="text-muted-foreground mb-2 h-6 w-6" />
           <p className="text-muted-foreground text-sm">Available</p>
           <p className="text-xl font-bold">
-            {new Date(apartment.availableFrom).toLocaleDateString("en-US", {
+            {new Date(availableFrom).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
             })}
