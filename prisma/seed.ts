@@ -59,7 +59,7 @@ const cities = [
           description: "Wrzeszcz Apartment 1 description",
           backgroundImage: "/images/apartments/apt-01/main.jpg",
           gallery:
-            "/images/apartments/apt-01/gallery/1.jpg, /images/apartments/apt-01/gallery/2.jpg, /images/apartments/apt-01/gallery/3.jpg, /images/apartments/apt-01/gallery/4.jpg, /images/apartments/apt-01/gallery/5.jpg, /images/apartments/apt-01/gallery/6.jpg, /images/apartments/apt-01/gallery/7.jpg",
+            "/images/apartments/apt-01/gallery/1.jpg, /images/apartments/apt-01/gallery/2.jpg, /images/apartments/apt-01/gallery/3.jpg, /images/apartments/apt-01/gallery/4.jpg, /images/apartments/apt-01/gallery/5.jpg, /images/apartments/apt-01/gallery/6.jpg",
           amenities: "Feature 1, Feature 2, Feature 3",
           monthlyRent: 1500,
           bedrooms: 2,

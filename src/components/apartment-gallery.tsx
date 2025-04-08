@@ -32,7 +32,7 @@ export function ApartmentGallery({ images }: ApartmentGalleryProps) {
 
   return (
     <div className="mb-8 overflow-hidden rounded-xl border">
-      <div className="relative aspect-[16/9] w-full">
+      <div className="relative aspect-[16/8] w-full">
         <Image
           src={images[currentIndex]}
           alt={`Apartment image ${currentIndex + 1}`}
@@ -105,11 +105,11 @@ export function ApartmentGallery({ images }: ApartmentGalleryProps) {
           {currentIndex + 1} / {images.length}
         </div>
       </div>
-      <div className="grid grid-cols-5 gap-2 p-2">
+      <div className="mt-4 flex flex-row gap-2 overflow-hidden p-2">
         {images.map((image, index) => (
           <button
             key={index}
-            className={`relative aspect-square overflow-hidden rounded-md border ${
+            className={`relative aspect-[4/3] basis-40 overflow-hidden rounded-md border ${
               index === currentIndex ? "ring-primary ring-2" : ""
             }`}
             onClick={() => setCurrentIndex(index)}
