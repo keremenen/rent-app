@@ -1,15 +1,13 @@
 // import { ApartmentAmenities } from "@/components/apartment-amenities";
 // import { ApartmentContact } from "@/components/apartment-contact";
-import {
-  ApartmentDetails,
-  ApartmentSpecifications,
-} from "@/components/apartment-specifications";
+import { ApartmentSpecifications } from "@/components/apartment-specifications";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
 // import { ApartmentLocation } from "@/components/apartment-location";
 // import { SimilarApartments } from "@/components/similar-apartments";
 import prisma from "@/lib/db";
 import React from "react";
+import ApartmentDescription from "@/components/apartment-description";
 
 // const apartment = {
 //   id: "apt-304",
@@ -100,6 +98,10 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
               bedrooms={apartment.bedrooms}
               squareFootage={apartment.squareFootage}
               availableFrom={apartment.availableFrom}
+            />
+            <ApartmentDescription
+              description={apartment.description}
+              features={apartment.amenities.split(", ")}
             />
             {/* <ApartmentAmenities amenities={apartment.amenities} /> */}
             {/* <ApartmentLocation
