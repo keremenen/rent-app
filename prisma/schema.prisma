@@ -6,91 +6,58 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model City {
-  id              String             @id @default(cuid())
-  name            String
-  description     String
-  longDescription String
-  imageUrl        String
-  gallery         CityGalleryImage[]
-  neighborhoods   Neighborhood[]
-  location        CityLocation?
-  statistics      CityStats?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-}
+  id               String   @id @default(cuid())
+  name             String
+  shortDescription String?
+  longDescription  String?
+  gallery          String[] @default([])
+  latitude         Decimal?
+  longitude        Decimal?
+  population       BigInt?
+  area             Decimal?
+  walkscore        Decimal?
+  commuteTime      Decimal?
+  createdAt        DateTime @default(now())
 
-model CityGalleryImage {
-  id       String @id @default(cuid())
-  cityId   String
-  altText  String
-  imageUrl String
-  city     City   @relation(fields: [cityId], references: [id])
-}
-
-model CityStats {
-  id          String @id @default(cuid())
-  population  Int
-  area        Int
-  walkScore   Int
-  commuteTime Int
-  cityId      String @unique
-  city        City   @relation(fields: [cityId], references: [id])
-}
-
-model CityLocation {
-  id        String @id @default(cuid())
-  cityId    String @unique
-  latitude  Float
-  longitude Float
-  city      City   @relation(fields: [cityId], references: [id])
+  neighborhoods Neighborhood[]
 }
 
 model Neighborhood {
-  id          String             @id @default(cuid())
-  name        String
-  description String
-  imageUrl    String
+  id          String   @id @default(cuid())
   cityId      String
-  city        City               @relation(fields: [cityId], references: [id])
-  statistics  NeighborhoodStats?
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-  apartments  Apartment[]
+  name        String
+  description String?
+  thumbnail   String?
+  averageRent Decimal?
+  walkscore   Decimal?
+  commuteTime Decimal?
+  createdAt   DateTime @default(now())
 
-  @@unique([cityId, name])
-}
-
-model NeighborhoodStats {
-  id             String       @id @default(cuid())
-  neighborhoodId String       @unique
-  averageRent    Float
-  walkScore      Float
-  transitScore   Float
-  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+  city       City        @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  apartments Apartment[]
 }
 
 model Apartment {
-  id              String       @id @unique @default(cuid())
-  title           String
-  address         String
-  description     String
-  backgroundImage String
-  gallery         String
-  amenities       String
-  monthlyRent     Float
-  bedrooms        Int
-  bathrooms       Int
-  squareFootage   Int
-  availableFrom   DateTime
-  neighborhoodId  String
-  neighborhood    Neighborhood @relation(fields: [neighborhoodId], references: [id])
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id             String    @id @default(cuid())
+  neighborhoodId String
+  title          String
+  address        String
+  description    String?
+  thumbnail      String?
+  gallery        String[]  @default([])
+  amenities      String[]  @default([])
+  monthlyRent    Decimal?
+  bedrooms       Int?
+  bathrooms      Int?
+  squareFootage  Decimal?
+  availableFrom  DateTime?
+  createdAt      DateTime  @default(now())
 
-  @@unique([neighborhoodId, title])
+  neighborhood Neighborhood @relation(fields: [neighborhoodId], references: [id], onDelete: Cascade)
 }

@@ -3,11 +3,7 @@ import { PageHeader } from "@/components/page-headers";
 import prisma from "@/lib/db";
 
 export default async function CitiesPage() {
-  const cities = await prisma.city.findMany({
-    include: {
-      statistics: true,
-    },
-  });
+  const cities = await prisma.city.findMany();
 
   return (
     <div className="bg-background pb-8">
