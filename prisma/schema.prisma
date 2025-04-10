@@ -17,6 +17,7 @@ model City {
   shortDescription String?
   longDescription  String?
   gallery          String[] @default([])
+  coverImage       String?
   latitude         Decimal?
   longitude        Decimal?
   population       BigInt?
