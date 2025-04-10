@@ -15,12 +15,6 @@ export default async function CityPage({
 
   const city = await prisma.city.findUnique({
     where: { id: cityName },
-    include: {
-      gallery: true,
-      statistics: true,
-      neighborhoods: true,
-      location: true,
-    },
   });
 
   if (!city) {
