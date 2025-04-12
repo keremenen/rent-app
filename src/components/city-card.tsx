@@ -6,7 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-export function CityCard({ city }) {
+export function CityCard({
+  city,
+}: {
+  city: {
+    id: string;
+    name: string;
+    description: string;
+    coverImage?: string | null;
+    statistics?: {
+      population: number;
+      averageRent: number;
+      propertiesCount: number;
+    };
+  };
+}) {
   console.log(city.coverImage);
   return (
     <Card className="gap-2 overflow-hidden py-0">

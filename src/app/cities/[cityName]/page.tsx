@@ -31,7 +31,7 @@ export default async function CityPage({
         cityId={city.id}
         backgroundImage={city.coverImage!}
         cityName={city.name}
-        cityDescription={city.shortDescription}
+        cityDescription={city.shortDescription!}
       />
 
       <main className="container space-y-8 px-4 py-8">
