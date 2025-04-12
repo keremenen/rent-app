@@ -5,11 +5,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { City } from "@/lib/types";
 
-type CityCardProps = City;
-
-export function CityCard({ city }: CityCardProps) {
+export function CityCard({ city }) {
   console.log(city.coverImage);
   return (
     <Card className="gap-2 overflow-hidden py-0">
