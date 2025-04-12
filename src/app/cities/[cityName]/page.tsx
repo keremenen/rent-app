@@ -29,7 +29,7 @@ export default async function CityPage({
     <div className="bg-background">
       <CityHero
         cityId={city.id}
-        backgroundImage={city.imageUrl}
+        backgroundImage={city.coverImage!}
         cityName={city.name}
         cityDescription={city.description}
       />
@@ -37,7 +37,7 @@ export default async function CityPage({
       <main className="container space-y-8 px-4 py-8">
         <CityHeader cityName={city.name} cityId={city.id} />
 
-        <div className="grid gap-8 lg:grid-cols-3">
+        {/* <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
             <CityDescription
               cityName={city.name}
@@ -55,7 +55,7 @@ export default async function CityPage({
           <div>
             <CityMinimap />
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
