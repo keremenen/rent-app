@@ -7,8 +7,11 @@ const cities = [
     name: "Gdańsk",
     shortDescription: "Piękne miasto nad morzem",
     longDescription: "Gdańsk to historyczne miasto z bogatą przeszłością",
-    gallery: ["https://example.com/image-placeholder.jpg"],
-    coverImage: "https://example.com/image-placeholder.jpg",
+    gallery: [
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/1.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/2.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/3.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/4.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/5.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/6.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/7.jpg",
+    ],
+    coverImage:
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
     latitude: 54.352,
     longitude: 18.6466,
     population: 466000,
