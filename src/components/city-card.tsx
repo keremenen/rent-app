@@ -5,31 +5,19 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { City } from "@/lib/types";
 
-type CityCardProps = {
-  city: {
-    id: string;
-    name: string;
-    description: string;
-    longDescription: string;
-    imageUrl: string;
-    statistics: {
-      population: number;
-      area: number;
-      walkScore: number;
-      commuteTime: number;
-    } | null;
-  };
-};
+type CityCardProps = City;
 
 export function CityCard({ city }: CityCardProps) {
+  console.log(city.coverImage);
   return (
     <Card className="gap-2 overflow-hidden py-0">
       <div className="relative">
         <Link href={`/cities/${city.id}`}>
           <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
-              src={city.imageUrl || "/placeholder.svg"}
+              src={city.coverImage || "/placeholder.svg"}
               alt={`${city.name} skyline`}
               fill
               className="object-cover transition-transform duration-500 hover:scale-105"

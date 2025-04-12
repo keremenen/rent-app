@@ -348,7 +348,8 @@ const cities = [
     shortDescription: "Miasto portowe",
     longDescription: "Gdynia to dynamicznie rozwijające się miasto",
     gallery: ["https://example.com/image-placeholder.jpg"],
-    coverImage: "https://example.com/image-placeholder.jpg",
+    coverImage:
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/main.jpg",
     latitude: 54.52,
     longitude: 18.5333,
     population: 245000,
@@ -672,7 +673,8 @@ const cities = [
     shortDescription: "Miasto nad morzem",
     longDescription: "Sopot to popularne miasto wypoczynkowe",
     gallery: ["https://example.com/image-placeholder.jpg"],
-    coverImage: "https://example.com/image-placeholder.jpg",
+    coverImage:
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/sopot/main.jpg",
     latitude: 54.4433,
     longitude: 18.5667,
     population: 38000,
