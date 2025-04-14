@@ -20,7 +20,7 @@ model City {
   coverImage       String
   latitude         Decimal
   longitude        Decimal
-  population       BigInt
+  population       Int
   area             Decimal
   walkscore        Decimal
   commuteTime      Decimal
