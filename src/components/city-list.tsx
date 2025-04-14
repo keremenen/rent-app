@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
+import { JSX } from "react";
 
 type City = {
   id: string;
@@ -112,7 +113,7 @@ function CityCardDescription({
 
 function CityCardStats({ population }: { population: number }) {
   return (
-    <div className="grid grid-cols-3 gap-2 text-sm">
+    <div className="flex gap-2 text-sm">
       <StatCard
         icon={<Users className="text-muted-foreground h-4 w-4" />}
         label="Population"
@@ -142,7 +143,7 @@ function StatCard({
   value: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+    <div className="flex flex-1 flex-col items-center gap-1 rounded-md border p-2">
       {icon}
       <span className="text-muted-foreground text-xs">{label}</span>
       <span className="font-medium">{value}</span>
