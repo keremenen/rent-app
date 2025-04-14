@@ -18,7 +18,6 @@ type CityCardProps = {
   };
 };
 export function CityCard({ city }: CityCardProps) {
-  console.log(city.coverImage);
   return (
     <Card className="gap-2 overflow-hidden py-0">
       <div className="relative">
