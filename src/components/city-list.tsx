@@ -1,4 +1,3 @@
-import { City } from "@/lib/types";
 import { CityCard } from "./city-card";
 
 type CityListProps = {
