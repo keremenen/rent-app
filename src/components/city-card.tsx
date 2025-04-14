@@ -6,7 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-export function CityCard({ city }: {}) {
+type CityCardProps = {
+  city: {
+    id: string;
+    name: string;
+    coverImage: string | null;
+    shortDescription: string;
+    longDescription: string;
+    population: number;
+    area: number;
+  };
+};
+export function CityCard({ city }: CityCardProps) {
   console.log(city.coverImage);
   return (
     <Card className="gap-2 overflow-hidden py-0">
@@ -33,31 +44,27 @@ export function CityCard({ city }: {}) {
         </div>
 
         <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
-          {city.description}
+          {city.shortDescription}
         </p>
-        {city.statistics && (
-          <div className="grid grid-cols-3 gap-2 text-sm">
-            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-              <Users className="text-muted-foreground h-4 w-4" />
-              <span className="text-muted-foreground text-xs">Population</span>
-              <span className="font-medium">
-                {formatNumber(city.statistics.population)}
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-              <Building className="text-muted-foreground h-4 w-4" />
-              <span className="text-muted-foreground text-xs">Avg. Rent</span>
-              <span className="font-medium">$2 0000</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1 rounded-md border p-2">
-              <Building className="text-muted-foreground h-4 w-4" />
-              <span className="text-muted-foreground text-xs">Properties</span>
-              <span className="font-medium">7</span>
-            </div>
+        <div className="grid grid-cols-3 gap-2 text-sm">
+          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+            <Users className="text-muted-foreground h-4 w-4" />
+            <span className="text-muted-foreground text-xs">Population</span>
+            <span className="font-medium">{formatNumber(city.population)}</span>
           </div>
-        )}
+
+          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+            <Building className="text-muted-foreground h-4 w-4" />
+            <span className="text-muted-foreground text-xs">Avg. Rent</span>
+            <span className="font-medium">$2 0000</span>
+          </div>
+
+          <div className="flex flex-col items-center gap-1 rounded-md border p-2">
+            <Building className="text-muted-foreground h-4 w-4" />
+            <span className="text-muted-foreground text-xs">Properties</span>
+            <span className="font-medium">7</span>
+          </div>
+        </div>
       </CardContent>
 
       <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-0">
@@ -76,11 +83,12 @@ export function CityCard({ city }: {}) {
 }
 
 function formatNumber(num: number): string {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + "M";
+  const formattedNumber = Number(num);
+  if (formattedNumber >= 1000000) {
+    return (formattedNumber / 1000000).toFixed(1) + "M";
   }
-  if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "K";
+  if (formattedNumber >= 1000) {
+    return (formattedNumber / 1000).toFixed(1) + "K";
   }
-  return num.toString();
+  return formattedNumber.toString();
 }
