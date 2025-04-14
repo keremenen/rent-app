@@ -14,16 +14,16 @@ datasource db {
 model City {
   id               String   @id @default(cuid())
   name             String
-  shortDescription String?
-  longDescription  String?
+  shortDescription String
+  longDescription  String
   gallery          String[] @default([])
-  coverImage       String?
-  latitude         Decimal?
-  longitude        Decimal?
-  population       BigInt?
-  area             Decimal?
-  walkscore        Decimal?
-  commuteTime      Decimal?
+  coverImage       String
+  latitude         Decimal
+  longitude        Decimal
+  population       BigInt
+  area             Decimal
+  walkscore        Decimal
+  commuteTime      Decimal
   createdAt        DateTime @default(now())
 
   neighborhoods Neighborhood[]
