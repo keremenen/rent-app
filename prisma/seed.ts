@@ -15,6 +15,7 @@ const cities = [
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/5.jpg",
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/6.jpg",
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/7.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/8.jpeg",
     ],
     coverImage:
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
