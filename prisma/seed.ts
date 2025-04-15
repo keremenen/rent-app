@@ -8,7 +8,13 @@ const cities = [
     shortDescription: "Piękne miasto nad morzem",
     longDescription: "Gdańsk to historyczne miasto z bogatą przeszłością",
     gallery: [
-      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/1.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/2.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/3.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/4.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/5.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/6.jpg, https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/7.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/1.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/2.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/3.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/4.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/5.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/6.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/gallery/7.jpg",
     ],
     coverImage:
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",

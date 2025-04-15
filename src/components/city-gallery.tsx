@@ -17,9 +17,7 @@ import {
 
 type CityGalleryProps = {
   cityName: string;
-  gallery: {
-    imageUrl: string;
-  }[];
+  gallery: string[];
 };
 
 export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
@@ -37,16 +35,14 @@ export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
 }
 
 type CityGalleryImageWrapperProps = {
-  gallery: {
-    imageUrl: string;
-  }[];
+  gallery: string[];
 };
 
 function CityGalleryImageWrapper({ gallery }: CityGalleryImageWrapperProps) {
   return (
     <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
       {gallery.slice(0, 6).map((galleryItem, index) => (
-        <SingleCityGalleryImage imageUrl={galleryItem.imageUrl} key={index} />
+        <SingleCityGalleryImage imageUrl={galleryItem} key={index} />
       ))}
     </div>
   );
