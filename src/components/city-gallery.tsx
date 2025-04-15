@@ -41,7 +41,7 @@ type GalleryGridProps = {
 function GalleryGrid({ gallery }: GalleryGridProps) {
   return (
     <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-      {gallery.slice(0, 6).map((imageUrl, index) => (
+      {gallery.slice(0, 8).map((imageUrl, index) => (
         <GalleryImage imageUrl={imageUrl} key={index} />
       ))}
     </div>
