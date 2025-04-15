@@ -5,12 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Decimal } from "@prisma/client/runtime/library";
 
 type CityDescriptionProps = {
   cityName: string;
   cityDescription: string;
   population: number;
-  area: number;
+  area: Decimal;
 };
 
 export default function CityDescription({
@@ -26,20 +27,37 @@ export default function CityDescription({
         <CardDescription>Overview and history of the city</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p>{cityDescription}</p>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="bg-muted rounded-lg p-3 text-center">
-            <p className="text-muted-foreground text-sm">Population</p>
-            <p className="text-xl font-bold">{population}</p>
-          </div>
-
-          <div className="bg-muted rounded-lg p-3 text-center">
-            <p className="text-muted-foreground text-sm">Area</p>
-            <p className="text-xl font-bold">{area} m²</p>
-          </div>
-        </div>
+        <section>{cityDescription}</section>
+        <CityStats population={population} area={area} />
       </CardContent>
     </Card>
+  );
+}
+
+type CityStatsProps = {
+  population: number;
+  area: Decimal;
+};
+
+function CityStats({ population, area }: CityStatsProps) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      <StatCard label="Population" value={population.toString()} />
+      <StatCard label="Area" value={`${area.toString()} m²`} />
+    </div>
+  );
+}
+
+type StatCardProps = {
+  label: string;
+  value: string;
+};
+
+function StatCard({ label, value }: StatCardProps) {
+  return (
+    <div className="bg-muted rounded-lg p-3 text-center">
+      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="text-xl font-bold">{value}</p>
+    </div>
   );
 }

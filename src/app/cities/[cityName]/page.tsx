@@ -39,17 +39,17 @@ export default async function CityPage({
 
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
-            {/* <CityDescription
+            <CityDescription
               cityName={city.name}
               cityDescription={city.longDescription}
-              population={city.statistics!.population}
-              area={city.statistics!.area}
-            /> */}
-            <CityFeaturedNeighborhoods
+              population={city.population}
+              area={city.area}
+            />
+            {/* <CityFeaturedNeighborhoods
               cityName={city.name}
               neighborhoods={city.neighborhoods}
-            />
-            <CityGallery gallery={city.gallery} cityName={city.name} />
+            /> */}
+            {/* <CityGallery gallery={city.gallery} cityName={city.name} /> */}
           </div>
 
           <div>
