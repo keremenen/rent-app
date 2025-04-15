@@ -28,6 +28,7 @@ const cities = [
     neighborhoods: {
       create: [
         {
+          id: "srodmiescie-gdansk",
           name: "Śródmieście",
           description: "Centrum miasta",
           thumbnail:
@@ -80,6 +81,7 @@ const cities = [
           },
         },
         {
+          id: "wrzeszcz",
           name: "Wrzeszcz",
           description: "Dzielnica akademicka",
           thumbnail:
@@ -132,6 +134,7 @@ const cities = [
           },
         },
         {
+          id: "oliwa",
           name: "Oliwa",
           description: "Dzielnica z pięknymi parkami",
           thumbnail:
@@ -184,6 +187,7 @@ const cities = [
           },
         },
         {
+          id: "przymorze",
           name: "Przymorze",
           description: "Dzielnica nad morzem",
           thumbnail:
@@ -249,6 +253,7 @@ const cities = [
           },
         },
         {
+          id: "nowy-port",
           name: "Nowy Port",
           description: "Dzielnica portowa",
           thumbnail:
@@ -301,6 +306,7 @@ const cities = [
           },
         },
         {
+          id: "stogi",
           name: "Stogi",
           description: "Dzielnica przemysłowa",
           thumbnail:
@@ -372,6 +378,7 @@ const cities = [
     neighborhoods: {
       create: [
         {
+          id: "srodmiescie-gdynia",
           name: "Śródmieście",
           description: "Centrum miasta",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -423,6 +430,7 @@ const cities = [
           },
         },
         {
+          id: "redlowo",
           name: "Redłowo",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -474,6 +482,7 @@ const cities = [
           },
         },
         {
+          id: "wzgorze-sw-maksymiliana",
           name: "Wzgórze św. Maksymiliana",
           description: "Dzielnica z centrum handlowym",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -525,6 +534,7 @@ const cities = [
           },
         },
         {
+          id: "dzialki-lesne",
           name: "Działki Leśne",
           description: "Dzielnica willowa",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -576,6 +586,7 @@ const cities = [
           },
         },
         {
+          id: "kamienna-gora",
           name: "Kamienna Góra",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -627,6 +638,7 @@ const cities = [
           },
         },
         {
+          id: "okswyie",
           name: "Oksywie",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -697,6 +709,7 @@ const cities = [
     neighborhoods: {
       create: [
         {
+          id: "dolny-sopot",
           name: "Dolny Sopot",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -748,6 +761,7 @@ const cities = [
           },
         },
         {
+          id: "gorny-sopot",
           name: "Górny Sopot",
           description: "Dzielnica z pięknymi parkami",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -799,6 +813,7 @@ const cities = [
           },
         },
         {
+          id: "kamienny-potok",
           name: "Kamienny Potok",
           description: "Dzielnica z zielenią",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -850,6 +865,7 @@ const cities = [
           },
         },
         {
+          id: "karlikowo",
           name: "Karlikowo",
           description: "Dzielnica willowa",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -901,6 +917,7 @@ const cities = [
           },
         },
         {
+          id: "brodwino",
           name: "Brodwino",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
@@ -952,6 +969,7 @@ const cities = [
           },
         },
         {
+          id: "swiemirowo",
           name: "Świemirowo",
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
