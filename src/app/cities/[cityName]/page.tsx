@@ -17,6 +17,16 @@ export default async function CityPage({
     where: { id: cityName },
   });
 
+  const neighborhoods = await prisma.neighborhood.findMany({
+    where: { cityId: city?.id },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      thumbnail: true,
+    },
+  });
+
   if (!city) {
     return (
       <div className="flex flex-1 items-center justify-center">
@@ -45,10 +55,10 @@ export default async function CityPage({
               population={city.population}
               area={city.area}
             />
-            {/* <CityFeaturedNeighborhoods
+            <CityFeaturedNeighborhoods
               cityName={city.name}
-              neighborhoods={city.neighborhoods}
-            /> */}
+              neighborhoods={neighborhoods}
+            />
             {/* <CityGallery gallery={city.gallery} cityName={city.name} /> */}
           </div>
 

@@ -30,18 +30,17 @@ model City {
 }
 
 model Neighborhood {
-  id          String   @id @default(cuid())
+  id          String      @id @default(cuid())
   cityId      String
   name        String
-  description String?
-  thumbnail   String?
-  averageRent Decimal?
-  walkscore   Decimal?
-  commuteTime Decimal?
-  createdAt   DateTime @default(now())
-
-  city       City        @relation(fields: [cityId], references: [id], onDelete: Cascade)
-  apartments Apartment[]
+  description String
+  thumbnail   String
+  averageRent Decimal
+  walkscore   Decimal
+  commuteTime Decimal
+  createdAt   DateTime    @default(now())
+  city        City        @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  apartments  Apartment[]
 }
 
 model Apartment {
