@@ -59,13 +59,13 @@ export default async function CityPage({
               cityName={city.name}
               neighborhoods={neighborhoods}
             />
-            <CityGallery gallery={city.gallery} cityName={city.name} />
           </div>
 
           <div>
             <CityMinimap />
           </div>
         </div>
+        <CityGallery gallery={city.gallery} cityName={city.name} />
       </main>
     </div>
   );

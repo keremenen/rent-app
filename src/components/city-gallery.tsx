@@ -28,34 +28,38 @@ export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
         <CardDescription>Explore {cityName} through photos</CardDescription>
       </CardHeader>
       <CardContent>
-        <CityGalleryImageWrapper gallery={gallery} />
+        <GalleryGrid gallery={gallery} />
       </CardContent>
     </Card>
   );
 }
 
-type CityGalleryImageWrapperProps = {
+type GalleryGridProps = {
   gallery: string[];
 };
 
-function CityGalleryImageWrapper({ gallery }: CityGalleryImageWrapperProps) {
+function GalleryGrid({ gallery }: GalleryGridProps) {
   return (
     <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-      {gallery.slice(0, 6).map((galleryItem, index) => (
-        <SingleCityGalleryImage imageUrl={galleryItem} key={index} />
+      {gallery.slice(0, 6).map((imageUrl, index) => (
+        <GalleryImage imageUrl={imageUrl} key={index} />
       ))}
     </div>
   );
 }
 
-function SingleCityGalleryImage({ imageUrl }: { imageUrl: string }) {
+type GalleryImageProps = {
+  imageUrl: string;
+};
+
+function GalleryImage({ imageUrl }: GalleryImageProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="relative aspect-square">
+        <div className="relative aspect-16/12 overflow-hidden rounded-lg">
           <Image
             src={imageUrl || "/placeholder.svg"}
-            alt={`City image`}
+            alt="City image"
             fill
             className="object-cover transition-transform hover:scale-105"
           />
@@ -63,24 +67,27 @@ function SingleCityGalleryImage({ imageUrl }: { imageUrl: string }) {
       </DialogTrigger>
       <DialogContent className="w-full">
         <DialogTitle>
-          <FullscreenGallery imageUrl={imageUrl} />
+          <FullscreenImage imageUrl={imageUrl} />
         </DialogTitle>
       </DialogContent>
     </Dialog>
   );
 }
 
-function FullscreenGallery({ imageUrl }: { imageUrl: string }) {
+type FullscreenImageProps = {
+  imageUrl: string;
+};
+
+function FullscreenImage({ imageUrl }: FullscreenImageProps) {
   return (
     <div className="relative">
       <div className="relative aspect-[16/9] w-full">
         <Image
           src={imageUrl || "/placeholder.svg"}
-          alt={`City image`}
+          alt="City image"
           fill
           className="object-contain"
         />
-
         <div className="bg-background/80 absolute bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm"></div>
       </div>
     </div>
