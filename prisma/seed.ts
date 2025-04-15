@@ -29,7 +29,8 @@ const cities = [
         {
           name: "Śródmieście",
           description: "Centrum miasta",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2500.0,
           walkscore: 90,
           commuteTime: 10,
@@ -80,7 +81,8 @@ const cities = [
         {
           name: "Wrzeszcz",
           description: "Dzielnica akademicka",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/wrzeszcz/main.jpg",
           averageRent: 2000.0,
           walkscore: 80,
           commuteTime: 15,
@@ -131,7 +133,8 @@ const cities = [
         {
           name: "Oliwa",
           description: "Dzielnica z pięknymi parkami",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/wrzeszcz/main.jpg",
           averageRent: 2200.0,
           walkscore: 85,
           commuteTime: 12,
@@ -182,7 +185,8 @@ const cities = [
         {
           name: "Przymorze",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/przymorze/main.jpg",
           averageRent: 2500.0,
           walkscore: 90,
           commuteTime: 10,
@@ -246,7 +250,8 @@ const cities = [
         {
           name: "Nowy Port",
           description: "Dzielnica portowa",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/nowy-port/main.webp",
           averageRent: 2300.0,
           walkscore: 80,
           commuteTime: 15,
@@ -297,7 +302,8 @@ const cities = [
         {
           name: "Stogi",
           description: "Dzielnica przemysłowa",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/stogi/main.jpg",
           averageRent: 2000.0,
           walkscore: 75,
           commuteTime: 20,
