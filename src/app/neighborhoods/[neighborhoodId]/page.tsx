@@ -97,9 +97,6 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
 
   const neighborhood = await prisma.neighborhood.findUnique({
     where: { id: neighborhoodId },
-    include: {
-      apartments: true,
-    },
   });
 
   if (!neighborhood) {
@@ -116,32 +113,32 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
         backgroundImage={neighborhood.imageUrl}
         name={neighborhood.name}
         description={neighborhood?.description}
-        apartmentCount={neighborhood.apartments.length}
+        apartmentCount={7}
       />
       <main className="container px-4 py-8">
-        <div className="mb-6 space-y-6">
-          {/* <NeighborhoodStats neighborhood={neighborhood} /> */}
-          <div className="text-muted-foreground text-sm">
-            {neighborhood.apartments.length}{" "}
-            {neighborhood.apartments.length === 1 ? "apartment" : "apartments"}{" "}
-            available
-          </div>
-        </div>
+        {/* <div className="mb-6 space-y-6"> */}
+        {/* <NeighborhoodStats neighborhood={neighborhood} /> */}
+        {/* <div className="text-muted-foreground text-sm"> */}
+        {/* {neighborhood.apartments.length}{" "}
+            {neighborhood.apartments.length === 1 ? "apartment" : "apartments"}{" "} */}
+        {/* available */}
+        {/* </div> */}
+        {/* </div> */}
 
-        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
-          <div className={`space-y-6 lg:block`}>
-            <SortByOptions sortOption={"priceAsc"} />
-            <ApartmentFilters />
-          </div>
+        {/* <div className="grid gap-6 lg:grid-cols-[300px_1fr]"> */}
+        {/* <div className={`space-y-6 lg:block`}> */}
+        {/* <SortByOptions sortOption={"priceAsc"} /> */}
+        {/* <ApartmentFilters /> */}
+        {/* </div> */}
 
-          <div>
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-              {neighborhood.apartments.map((apartment) => (
+        {/* <div> */}
+        {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"> */}
+        {/* {neighborhood.apartments.map((apartment) => (
                 <ApartmentCard key={apartment.id} apartment={apartment} />
-              ))}
-            </div>
-          </div>
-        </div>
+              ))} */}
+        {/* </div> */}
+        {/* </div> */}
+        {/* </div> */}
       </main>
     </div>
   );
