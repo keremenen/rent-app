@@ -101,6 +101,18 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
 
   const apartments = await prisma.apartment.findMany({
     where: { neighborhoodId: neighborhoodId },
+    select: {
+      id: true,
+      title: true,
+      address: true,
+      bathrooms: true,
+      bedrooms: true,
+      squareFootage: true,
+      thumbnail: true,
+      availableFrom: true,
+      amenities: true,
+      monthlyRent: true,
+    },
   });
 
   if (!neighborhood) {
@@ -141,7 +153,19 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
               {apartments.map((apartment) => (
-                <ApartmentCard key={apartment.id} {...apartment} />
+                <ApartmentCard
+                  key={apartment.id}
+                  address={apartment.address}
+                  amenities={apartment.amenities}
+                  id={apartment.id}
+                  thumbnail={apartment.thumbnail}
+                  monthlyRent={Number(apartment.monthlyRent)}
+                  title={apartment.title}
+                  bedrooms={apartment.bedrooms}
+                  bathrooms={apartment.bathrooms}
+                  squareFootage={apartment.squareFootage}
+                  availableFrom={apartment.availableFrom}
+                />
               ))}
             </div>
           </div>

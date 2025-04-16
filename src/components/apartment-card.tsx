@@ -13,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+// import { Decimal } from "@prisma/client/runtime/library";
 
 type ApartmentCardProps = {
   id: string;
@@ -23,7 +24,7 @@ type ApartmentCardProps = {
   squareFootage: number;
   thumbnail: string;
   availableFrom: Date;
-  amenities: string;
+  amenities: string[];
   monthlyRent: number;
 };
 
@@ -144,17 +145,14 @@ function FavouriteIndicator({ isFavorite }: { isFavorite: boolean }) {
   );
 }
 
-function ApartmentAmenities({ amenities }: { amenities: string }) {
+function ApartmentAmenities({ amenities }: { amenities: string[] }) {
   return (
     <div className="mt-3 flex flex-wrap gap-1">
-      {amenities
-        .split(",")
-        .slice(0, 3)
-        .map((amenity) => (
-          <Badge key={amenity} variant="outline" className="text-xs">
-            {amenity}
-          </Badge>
-        ))}
+      {amenities.slice(0, 3).map((amenity: string) => (
+        <Badge key={amenity} variant="outline" className="text-xs">
+          {amenity}
+        </Badge>
+      ))}
       {amenities.length > 3 && (
         <Badge variant="outline" className="text-xs">
           +{amenities.length - 3} more

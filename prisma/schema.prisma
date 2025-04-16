@@ -45,20 +45,20 @@ model Neighborhood {
 }
 
 model Apartment {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   neighborhoodId String
   title          String
   address        String
-  description    String?
-  thumbnail      String?
-  gallery        String[]  @default([])
-  amenities      String[]  @default([])
-  monthlyRent    Decimal?
-  bedrooms       Int?
-  bathrooms      Int?
-  squareFootage  Decimal?
-  availableFrom  DateTime?
-  createdAt      DateTime  @default(now())
+  description    String
+  thumbnail      String
+  gallery        String[] @default([])
+  amenities      String[] @default([])
+  monthlyRent    Decimal
+  bedrooms       Int
+  bathrooms      Int
+  squareFootage  Decimal
+  availableFrom  DateTime
+  createdAt      DateTime @default(now())
 
   neighborhood Neighborhood @relation(fields: [neighborhoodId], references: [id], onDelete: Cascade)
 }
