@@ -36,6 +36,14 @@ const cities = [
           averageRent: 2500.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -89,6 +97,14 @@ const cities = [
           averageRent: 2000.0,
           walkscore: 80,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -142,6 +158,14 @@ const cities = [
           averageRent: 2200.0,
           walkscore: 85,
           commuteTime: 12,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -195,6 +219,14 @@ const cities = [
           averageRent: 2500.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -261,6 +293,14 @@ const cities = [
           averageRent: 2300.0,
           walkscore: 80,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -314,6 +354,14 @@ const cities = [
           averageRent: 2000.0,
           walkscore: 75,
           commuteTime: 20,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -385,6 +433,14 @@ const cities = [
           averageRent: 2800.0,
           walkscore: 95,
           commuteTime: 5,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -437,6 +493,14 @@ const cities = [
           averageRent: 3000.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -489,6 +553,14 @@ const cities = [
           averageRent: 2900.0,
           walkscore: 95,
           commuteTime: 5,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -541,6 +613,14 @@ const cities = [
           averageRent: 2500.0,
           walkscore: 80,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -593,6 +673,14 @@ const cities = [
           averageRent: 3200.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -645,6 +733,14 @@ const cities = [
           averageRent: 3100.0,
           walkscore: 90,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -706,6 +802,14 @@ const cities = [
     area: 17.31,
     walkscore: 85,
     commuteTime: 20,
+    features: [
+      "Close to public transportation",
+      "Vibrant nightlife",
+      "Shopping districts",
+      "Excellent dining options",
+      "Parks and green spaces",
+      "Cultural attractions",
+    ],
     neighborhoods: {
       create: [
         {
@@ -768,6 +872,14 @@ const cities = [
           averageRent: 3000.0,
           walkscore: 85,
           commuteTime: 12,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -820,6 +932,14 @@ const cities = [
           averageRent: 2600.0,
           walkscore: 80,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -872,6 +992,14 @@ const cities = [
           averageRent: 3200.0,
           walkscore: 85,
           commuteTime: 12,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -924,6 +1052,14 @@ const cities = [
           averageRent: 2900.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
@@ -976,6 +1112,14 @@ const cities = [
           averageRent: 3100.0,
           walkscore: 90,
           commuteTime: 15,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {

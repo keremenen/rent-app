@@ -1,23 +1,20 @@
 import { Building, Car, DollarSign, Users, Wallet } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Decimal } from "@prisma/client/runtime/library";
 
 type NeighborhoodStatsProps = {
-  neighborhood: {
-    stats: {
-      avgRent: number;
-      walkScore: number;
-      transitScore: number;
-      bikeScore: number;
-      population: number;
-      medianIncome: number;
-    };
-    features: string[];
-  };
+  averageRent: number;
+  walkScore: Decimal;
+  population: number;
+  commuteTime: number;
 };
 
-export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
-  const { stats, features } = neighborhood;
-
+export function NeighborhoodStats({
+  averageRent,
+  commuteTime,
+  population,
+  walkScore,
+}: NeighborhoodStatsProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card className="p-0">
@@ -31,7 +28,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Average Rent</p>
-                <p className="font-medium">${stats.avgRent}/month</p>
+                <p className="font-medium">${averageRent}/month</p>
               </div>
             </div>
 
@@ -41,7 +38,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Transit Score</p>
-                <p className="font-medium">{stats.transitScore}/100</p>
+                <p className="font-medium">{commuteTime}/100</p>
               </div>
             </div>
 
@@ -51,7 +48,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Population</p>
-                <p className="font-medium">{stats.population}</p>
+                <p className="font-medium">{population}</p>
               </div>
             </div>
 
@@ -61,7 +58,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Median Income</p>
-                <p className="font-medium">${stats.medianIncome}</p>
+                <p className="font-medium">${walkScore}</p>
               </div>
             </div>
           </div>
@@ -72,7 +69,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
         <CardContent className="p-6">
           <h2 className="mb-4 text-xl font-semibold">Neighborhood Features</h2>
 
-          <ul className="grid gap-2 sm:grid-cols-2">
+          {/* <ul className="grid gap-2 sm:grid-cols-2">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center gap-2">
                 <div className="bg-primary/10 flex h-6 w-6 items-center justify-center rounded-full">
@@ -81,7 +78,7 @@ export function NeighborhoodStats({ neighborhood }: NeighborhoodStatsProps) {
                 <span>{feature}</span>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </CardContent>
       </Card>
     </div>

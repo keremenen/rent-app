@@ -1,7 +1,7 @@
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { NeighborhoodHeader } from "@/components/neighborhood-header";
-// import { NeighborhoodStats } from "@/components/neighborhood-stats";
+import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
 
@@ -99,6 +99,10 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
     where: { id: neighborhoodId },
   });
 
+  const apartments = await prisma.apartment.findMany({
+    where: { neighborhoodId: neighborhoodId },
+  });
+
   if (!neighborhood) {
     return (
       <div className="flex flex-1 items-center justify-center">
@@ -110,35 +114,40 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
   return (
     <div className="bg-background">
       <NeighborhoodHeader
-        backgroundImage={neighborhood.imageUrl}
+        backgroundImage={neighborhood.thumbnail}
         name={neighborhood.name}
         description={neighborhood?.description}
-        apartmentCount={7}
+        apartmentCount={apartments.length}
       />
       <main className="container px-4 py-8">
-        {/* <div className="mb-6 space-y-6"> */}
-        {/* <NeighborhoodStats neighborhood={neighborhood} /> */}
-        {/* <div className="text-muted-foreground text-sm"> */}
-        {/* {neighborhood.apartments.length}{" "}
+        <div className="mb-6 space-y-6">
+          <NeighborhoodStats
+            averageRent={2000}
+            commuteTime={neighborhood.commuteTime}
+            population={2}
+            walkScore={200}
+          />
+          {/* <div className="text-muted-foreground text-sm"> */}
+          {/* {neighborhood.apartments.length}{" "}
             {neighborhood.apartments.length === 1 ? "apartment" : "apartments"}{" "} */}
-        {/* available */}
-        {/* </div> */}
-        {/* </div> */}
+          {/* available */}
+          {/* </div> */}
+          {/* </div> */}
 
-        {/* <div className="grid gap-6 lg:grid-cols-[300px_1fr]"> */}
-        {/* <div className={`space-y-6 lg:block`}> */}
-        {/* <SortByOptions sortOption={"priceAsc"} /> */}
-        {/* <ApartmentFilters /> */}
-        {/* </div> */}
+          {/* <div className="grid gap-6 lg:grid-cols-[300px_1fr]"> */}
+          {/* <div className={`space-y-6 lg:block`}> */}
+          {/* <SortByOptions sortOption={"priceAsc"} /> */}
+          {/* <ApartmentFilters /> */}
+          {/* </div> */}
 
-        {/* <div> */}
-        {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"> */}
-        {/* {neighborhood.apartments.map((apartment) => (
+          {/* <div> */}
+          {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"> */}
+          {/* {neighborhood.apartments.map((apartment) => (
                 <ApartmentCard key={apartment.id} apartment={apartment} />
               ))} */}
-        {/* </div> */}
-        {/* </div> */}
-        {/* </div> */}
+          {/* </div> */}
+          {/* </div> */}
+        </div>
       </main>
     </div>
   );

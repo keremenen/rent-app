@@ -38,6 +38,7 @@ model Neighborhood {
   averageRent Decimal
   walkscore   Decimal
   commuteTime Decimal
+  features    String[]
   createdAt   DateTime    @default(now())
   city        City        @relation(fields: [cityId], references: [id], onDelete: Cascade)
   apartments  Apartment[]
