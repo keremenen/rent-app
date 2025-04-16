@@ -6,7 +6,7 @@ type NeighborhoodStatsProps = {
   averageRent: number;
   walkScore: Decimal;
   population: number;
-  commuteTime: number;
+  commuteTime: Decimal;
   features: string[];
 };
 
@@ -40,7 +40,7 @@ export function NeighborhoodStats({
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Transit Score</p>
-                <p className="font-medium">{commuteTime}/100</p>
+                <p className="font-medium">{Number(commuteTime)}/100</p>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ export function NeighborhoodStats({
                 <Wallet className="text-primary h-5 w-5" />
               </div>
               <div>
-                <p className="text-muted-foreground text-sm">Median Income</p>
+                <p className="text-muted-foreground text-sm">Walk Score</p>
                 <p className="font-medium">${Number(walkScore)}</p>
               </div>
             </div>

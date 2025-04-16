@@ -88,7 +88,7 @@ export default async function ApartmentPage({ params }: ApartmentPageParams) {
       <ApartmentHeader
         title={apartment.title}
         address={apartment.address}
-        monthlyRent={apartment.monthlyRent}
+        monthlyRent={20.0}
       />
       <main className="container px-4 py-6 md:py-10">
         <div className="grid gap-8 lg:grid-cols-3">
