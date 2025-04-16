@@ -15,28 +15,37 @@ import {
 } from "@/components/ui/tooltip";
 
 type ApartmentCardProps = {
-  apartment: {
-    id: string;
-    title: string;
-    address: string;
-    bathrooms: number;
-    bedrooms: number;
-    squareFootage: number;
-    backgroundImage: string;
-    availableFrom: Date;
-    amenities: string;
-    monthlyRent: number;
-  };
+  id: string;
+  title: string;
+  address: string;
+  bathrooms: number;
+  bedrooms: number;
+  squareFootage: number;
+  thumbnail: string;
+  availableFrom: Date;
+  amenities: string;
+  monthlyRent: number;
 };
 
-export function ApartmentCard({ apartment }: ApartmentCardProps) {
+export function ApartmentCard({
+  id,
+  thumbnail,
+  title,
+  address,
+  monthlyRent,
+  bedrooms,
+  bathrooms,
+  amenities,
+  availableFrom,
+  squareFootage,
+}: ApartmentCardProps) {
   return (
     <Card className="overflow-hidden p-0">
       <div className="relative">
-        <Link href={`/apartments/${apartment.id}`}>
+        <Link href={`/apartments/${id}`}>
           <ApartmentCardBackgroundImage
-            backgroundImage={apartment.backgroundImage}
-            title={apartment.title}
+            backgroundImage={thumbnail}
+            title={title}
           />
         </Link>
         <FavouriteIndicator isFavorite={false} />
@@ -45,26 +54,26 @@ export function ApartmentCard({ apartment }: ApartmentCardProps) {
 
       <CardContent className="p-4">
         <ApartmentCardMainInfo
-          id={apartment.id}
-          title={apartment.title}
-          address={apartment.address}
-          monthlyRent={apartment.monthlyRent}
+          id={id}
+          title={title}
+          address={address}
+          monthlyRent={monthlyRent}
         />
         <AparrtmendCardDetails
-          bedrooms={apartment.bedrooms}
-          bathrooms={apartment.bathrooms}
-          squareFeet={apartment.squareFootage}
+          bedrooms={bedrooms}
+          bathrooms={bathrooms}
+          squareFeet={squareFootage}
         />
-        <ApartmentCardAvailableFrom availableFrom={apartment.availableFrom} />
-        <ApartmentAmenities amenities={apartment.amenities} />
+        <ApartmentCardAvailableFrom availableFrom={availableFrom} />
+        <ApartmentAmenities amenities={amenities} />
       </CardContent>
 
       <CardFooter className="mt-auto grid grid-cols-2 gap-2 p-4 pt-0">
         <Button variant="outline" asChild>
-          <Link href={`/apartments/${apartment.id}`}>View Details</Link>
+          <Link href={`/apartments/${id}`}>View Details</Link>
         </Button>
         <Button asChild>
-          <Link href={`/apartments/${apartment.id}#contact`}>Contact</Link>
+          <Link href={`/apartments/${id}#contact`}>Contact</Link>
         </Button>
       </CardFooter>
     </Card>

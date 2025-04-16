@@ -141,7 +141,7 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
               {apartments.map((apartment) => (
-                <ApartmentCard key={apartment.id} apartment={apartment} />
+                <ApartmentCard key={apartment.id} {...apartment} />
               ))}
             </div>
           </div>
