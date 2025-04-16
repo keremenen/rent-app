@@ -21,7 +21,7 @@ export function NeighborhoodHeader({
   description,
   apartmentCount,
 }: NeighborhoodHeaderProps) {
-  const [viewMode, setViewMode] = useState("list"); // This should be dynamic based on user selection
+  const [viewMode, setViewMode] = useState("list");
 
   return (
     <div className="relative">
