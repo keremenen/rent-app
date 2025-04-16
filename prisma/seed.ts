@@ -802,14 +802,6 @@ const cities = [
     area: 17.31,
     walkscore: 85,
     commuteTime: 20,
-    features: [
-      "Close to public transportation",
-      "Vibrant nightlife",
-      "Shopping districts",
-      "Excellent dining options",
-      "Parks and green spaces",
-      "Cultural attractions",
-    ],
     neighborhoods: {
       create: [
         {
@@ -820,6 +812,14 @@ const cities = [
           averageRent: 2800.0,
           walkscore: 90,
           commuteTime: 10,
+          features: [
+            "Close to public transportation",
+            "Vibrant nightlife",
+            "Shopping districts",
+            "Excellent dining options",
+            "Parks and green spaces",
+            "Cultural attractions",
+          ],
           apartments: {
             create: [
               {
