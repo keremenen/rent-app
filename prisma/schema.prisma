@@ -36,7 +36,7 @@ model Neighborhood {
   description String
   thumbnail   String
   averageRent Decimal
-  walkscore   Decimal
+  walkScore   Decimal
   commuteTime Decimal
   features    String[]
   createdAt   DateTime    @default(now())

@@ -23,7 +23,7 @@ const cities = [
     longitude: 18.6466,
     population: 466000,
     area: 262.0,
-    walkscore: 80,
+    walkScore: 80,
     commuteTime: 30,
     neighborhoods: {
       create: [
@@ -34,7 +34,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2500.0,
-          walkscore: 90,
+          walkScore: 90,
           commuteTime: 10,
           features: [
             "Close to public transportation",
@@ -95,7 +95,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/wrzeszcz/main.jpg",
           averageRent: 2000.0,
-          walkscore: 80,
+          walkScore: 80,
           commuteTime: 15,
           features: [
             "Close to public transportation",
@@ -156,7 +156,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/wrzeszcz/main.jpg",
           averageRent: 2200.0,
-          walkscore: 85,
+          walkScore: 85,
           commuteTime: 12,
           features: [
             "Close to public transportation",
@@ -217,7 +217,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/przymorze/main.jpg",
           averageRent: 2500.0,
-          walkscore: 90,
+          walkScore: 90,
           commuteTime: 10,
           features: [
             "Close to public transportation",
@@ -291,7 +291,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/nowy-port/main.webp",
           averageRent: 2300.0,
-          walkscore: 80,
+          walkScore: 80,
           commuteTime: 15,
           features: [
             "Close to public transportation",
@@ -352,7 +352,7 @@ const cities = [
           thumbnail:
             "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/stogi/main.jpg",
           averageRent: 2000.0,
-          walkscore: 75,
+          walkScore: 75,
           commuteTime: 20,
           features: [
             "Close to public transportation",
@@ -421,7 +421,7 @@ const cities = [
     longitude: 18.5333,
     population: 245000,
     area: 135.0,
-    walkscore: 85,
+    walkScore: 85,
     commuteTime: 25,
     neighborhoods: {
       create: [
@@ -431,7 +431,7 @@ const cities = [
           description: "Centrum miasta",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 2800.0,
-          walkscore: 95,
+          walkScore: 95,
           commuteTime: 5,
           features: [
             "Close to public transportation",
@@ -491,7 +491,7 @@ const cities = [
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 3000.0,
-          walkscore: 90,
+          walkScore: 90,
           commuteTime: 10,
           features: [
             "Close to public transportation",
@@ -551,7 +551,7 @@ const cities = [
           description: "Dzielnica z centrum handlowym",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 2900.0,
-          walkscore: 95,
+          walkScore: 95,
           commuteTime: 5,
           features: [
             "Close to public transportation",
@@ -930,7 +930,7 @@ const cities = [
           description: "Dzielnica z zielenią",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 2600.0,
-          walkscore: 80,
+          walkScore: 80,
           commuteTime: 15,
           features: [
             "Close to public transportation",
@@ -990,7 +990,7 @@ const cities = [
           description: "Dzielnica willowa",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 3200.0,
-          walkscore: 85,
+          walkScore: 85,
           commuteTime: 12,
           features: [
             "Close to public transportation",
@@ -1050,7 +1050,7 @@ const cities = [
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 2900.0,
-          walkscore: 90,
+          walkScore: 90,
           commuteTime: 10,
           features: [
             "Close to public transportation",
@@ -1110,7 +1110,7 @@ const cities = [
           description: "Dzielnica nad morzem",
           thumbnail: "https://example.com/image-placeholder.jpg",
           averageRent: 3100.0,
-          walkscore: 90,
+          walkScore: 90,
           commuteTime: 15,
           features: [
             "Close to public transportation",

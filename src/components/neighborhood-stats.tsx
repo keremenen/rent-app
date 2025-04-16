@@ -7,6 +7,7 @@ type NeighborhoodStatsProps = {
   walkScore: Decimal;
   population: number;
   commuteTime: number;
+  features: string[];
 };
 
 export function NeighborhoodStats({
@@ -14,6 +15,7 @@ export function NeighborhoodStats({
   commuteTime,
   population,
   walkScore,
+  features,
 }: NeighborhoodStatsProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -58,7 +60,7 @@ export function NeighborhoodStats({
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">Median Income</p>
-                <p className="font-medium">${walkScore}</p>
+                <p className="font-medium">${Number(walkScore)}</p>
               </div>
             </div>
           </div>
@@ -69,7 +71,7 @@ export function NeighborhoodStats({
         <CardContent className="p-6">
           <h2 className="mb-4 text-xl font-semibold">Neighborhood Features</h2>
 
-          {/* <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="grid gap-2 sm:grid-cols-2">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center gap-2">
                 <div className="bg-primary/10 flex h-6 w-6 items-center justify-center rounded-full">
@@ -78,7 +80,7 @@ export function NeighborhoodStats({
                 <span>{feature}</span>
               </li>
             ))}
-          </ul> */}
+          </ul>
         </CardContent>
       </Card>
     </div>

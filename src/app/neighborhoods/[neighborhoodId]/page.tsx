@@ -125,7 +125,8 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
             averageRent={2000}
             commuteTime={neighborhood.commuteTime}
             population={2}
-            walkScore={200}
+            walkScore={neighborhood.walkScore}
+            features={neighborhood.features}
           />
           {/* <div className="text-muted-foreground text-sm"> */}
           {/* {neighborhood.apartments.length}{" "}
