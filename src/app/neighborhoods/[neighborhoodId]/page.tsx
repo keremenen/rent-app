@@ -128,26 +128,23 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
             walkScore={neighborhood.walkScore}
             features={neighborhood.features}
           />
-          {/* <div className="text-muted-foreground text-sm"> */}
-          {/* {neighborhood.apartments.length}{" "}
-            {neighborhood.apartments.length === 1 ? "apartment" : "apartments"}{" "} */}
-          {/* available */}
-          {/* </div> */}
-          {/* </div> */}
+          <div className="text-muted-foreground text-sm">
+            {apartments.length === 1 ? "apartment" : "apartments"} available
+          </div>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          <div className={`space-y-6 lg:block`}>
+            <SortByOptions sortOption={"priceAsc"} />
+            <ApartmentFilters />
+          </div>
 
-          {/* <div className="grid gap-6 lg:grid-cols-[300px_1fr]"> */}
-          {/* <div className={`space-y-6 lg:block`}> */}
-          {/* <SortByOptions sortOption={"priceAsc"} /> */}
-          {/* <ApartmentFilters /> */}
-          {/* </div> */}
-
-          {/* <div> */}
-          {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"> */}
-          {/* {neighborhood.apartments.map((apartment) => (
+          <div>
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+              {apartments.map((apartment) => (
                 <ApartmentCard key={apartment.id} apartment={apartment} />
-              ))} */}
-          {/* </div> */}
-          {/* </div> */}
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>
