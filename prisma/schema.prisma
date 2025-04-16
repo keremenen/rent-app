@@ -22,7 +22,7 @@ model City {
   longitude        Decimal
   population       Int
   area             Decimal
-  walkscore        Decimal
+  walkScore        Decimal
   commuteTime      Decimal
   createdAt        DateTime @default(now())
 
