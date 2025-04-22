@@ -9,13 +9,22 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { Menu } from "lucide-react";
 
+const FilterSection = ({
+  title,
+  items,
+  renderItem,
+}: {
+  title: string;
+  items: string[];
+  renderItem: (item: string) => React.JSX.Element;
+}) => (
+  <div className="mb-6 space-y-2">
+    <Label>{title}</Label>
+    <div className="grid grid-cols-2 gap-3">{items.map(renderItem)}</div>
+  </div>
+);
+
 export function ApartmentFilters() {
-  const [priceRange, setPriceRange] = useState([2000, 6000]);
-
-  const handleSetPriceRange = (value: number[]) => {
-    setPriceRange(value);
-  };
-
   return (
     <Card>
       <CardHeader>
@@ -41,81 +50,72 @@ export function ApartmentFilters() {
                 min={500}
                 max={10000}
                 step={100}
-                value={priceRange}
-                onValueChange={(value) => handleSetPriceRange(value)}
+                value={[2000, 5000]}
+                onValueChange={() => {}}
               />
             </div>
             <div className="mt-2 flex items-center justify-between text-sm">
-              <span>${priceRange[0]}</span>
-              <span>${priceRange[1]}</span>
+              <span>${2000}</span>
+              <span>${5000}</span>
             </div>
           </div>
 
-          <div className="mb-6 space-y-2">
-            <Label>Guests</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {["1", "2", "3", "4", "5+"].map((bathroom) => (
-                <div key={bathroom} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`bathroom-${bathroom}`}
-                    onCheckedChange={() => {}}
-                  />
-                  <Label
-                    htmlFor={`bathroom-${bathroom}`}
-                    className="cursor-pointer"
-                  >
-                    {bathroom}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FilterSection
+            title="Guests"
+            items={["1", "2", "3", "4", "5+"]}
+            renderItem={(guest) => (
+              <div key={guest} className="flex items-center space-x-2">
+                <Checkbox id={`guest-${guest}`} onCheckedChange={() => {}} />
+                <Label htmlFor={`guest-${guest}`} className="cursor-pointer">
+                  {guest}
+                </Label>
+              </div>
+            )}
+          />
 
-          <div className="mb-6 space-y-2">
-            <Label>Bedrooms</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {["Studio", "1", "2", "3", "4+"].map((bedroom) => (
-                <div key={bedroom} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`bedroom-${bedroom}`}
-                    onCheckedChange={() => {}}
-                  />
-                  <Label
-                    htmlFor={`bedroom-${bedroom}`}
-                    className="cursor-pointer"
-                  >
-                    {bedroom}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FilterSection
+            title="Bedrooms"
+            items={["Studio", "1", "2", "3", "4+"]}
+            renderItem={(bedroom) => (
+              <div key={bedroom} className="flex items-center space-x-2">
+                <Checkbox
+                  id={`bedroom-${bedroom}`}
+                  onCheckedChange={() => {}}
+                />
+                <Label
+                  htmlFor={`bedroom-${bedroom}`}
+                  className="cursor-pointer"
+                >
+                  {bedroom}
+                </Label>
+              </div>
+            )}
+          />
 
-          <div className="mb-6 space-y-2">
-            <Label>Amenities</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                "Washer/Dryer",
-                "Dishwasher",
-                "Gym",
-                "Pool",
-                "Balcony",
-                "Doorman",
-                "Elevator",
-                "Parking",
-              ].map((amenity) => (
-                <div key={amenity} className="flex items-center space-x-2">
-                  <Checkbox id={`amenity-${amenity}`} />
-                  <Label
-                    htmlFor={`amenity-${amenity}`}
-                    className="cursor-pointer"
-                  >
-                    {amenity}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FilterSection
+            title="Amenities"
+            items={[
+              "Washer/Dryer",
+              "Dishwasher",
+              "Gym",
+              "Pool",
+              "Balcony",
+              "Doorman",
+              "Elevator",
+              "Parking",
+            ]}
+            renderItem={(amenity) => (
+              <div key={amenity} className="flex items-center space-x-2">
+                <Checkbox id={`amenity-${amenity}`} />
+                <Label
+                  htmlFor={`amenity-${amenity}`}
+                  className="cursor-pointer"
+                >
+                  {amenity}
+                </Label>
+              </div>
+            )}
+          />
 
           <div className="space-y-2">
             <Label>Availability</Label>
@@ -124,31 +124,30 @@ export function ApartmentFilters() {
               onValueChange={() => {}}
               className="flex flex-col space-y-1"
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="all" id="all" />
-                <Label htmlFor="all" className="cursor-pointer">
-                  All
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="available" id="available" />
-                <Label htmlFor="available" className="cursor-pointer">
-                  Available Now
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="unavailable" id="unavailable" />
-                <Label htmlFor="unavailable" className="cursor-pointer">
-                  Coming Soon
-                </Label>
-              </div>
+              {[
+                { value: "all", label: "All" },
+                { value: "available", label: "Available Now" },
+                { value: "unavailable", label: "Coming Soon" },
+              ].map(({ value, label }) => (
+                <div key={value} className="flex items-center space-x-2">
+                  <RadioGroupItem value={value} id={value} />
+                  <Label htmlFor={value} className="cursor-pointer">
+                    {label}
+                  </Label>
+                </div>
+              ))}
             </RadioGroup>
           </div>
         </div>
 
-        <Button variant="outline" className="w-full" onClick={() => {}}>
-          Reset Filters
-        </Button>
+        <div className="space-y-4">
+          <Button variant="default" className="w-full">
+            Apply Filters
+          </Button>
+          <Button variant="outline" className="w-full" onClick={() => {}}>
+            Reset Filters
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
