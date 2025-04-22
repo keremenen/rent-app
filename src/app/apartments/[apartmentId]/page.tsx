@@ -1,11 +1,9 @@
-// import { ApartmentContact } from "@/components/apartment-contact";
+import React from "react";
+import prisma from "@/lib/db";
+
 import { ApartmentSpecifications } from "@/components/apartment-specifications";
 import { ApartmentGallery } from "@/components/apartment-gallery";
 import { ApartmentHeader } from "@/components/apartment-header";
-// import { ApartmentLocation } from "@/components/apartment-location";
-// import { SimilarApartments } from "@/components/similar-apartments";
-import prisma from "@/lib/db";
-import React from "react";
 import ApartmentDescription from "@/components/apartment-description";
 import { ApartmentLocation } from "@/components/apartment-location";
 import { ApartmentContact } from "@/components/apartment-contact";
@@ -14,49 +12,69 @@ type ApartmentPageParams = {
   params: Promise<{ apartmentId: string }>;
 };
 
-export default async function ApartmentPage({ params }: ApartmentPageParams) {
-  const { apartmentId } = await params;
-
-  const apartment = await prisma.apartment.findUnique({
+async function fetchApartment(apartmentId: string) {
+  return prisma.apartment.findUnique({
     where: { id: apartmentId },
   });
+}
+
+function ApartmentNotFound() {
+  return (
+    <div className="flex flex-1 items-center justify-center">
+      <h1 className="text-2xl font-semibold">Apartment not found</h1>
+    </div>
+  );
+}
+
+export default async function ApartmentPage({ params }: ApartmentPageParams) {
+  const { apartmentId } = await params;
+  const apartment = await fetchApartment(apartmentId);
 
   if (!apartment) {
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <h1 className="text-2xl font-semibold">Apartment not found</h1>
-      </div>
-    );
+    return <ApartmentNotFound />;
   }
+
+  const {
+    title,
+    address,
+    monthlyRent,
+    gallery,
+    bathrooms,
+    bedrooms,
+    squareFootage,
+    availableFrom,
+    description,
+    amenities,
+  } = apartment;
 
   return (
     <div>
       <ApartmentHeader
-        title={apartment.title}
-        address={apartment.address}
-        monthlyRent={Number(apartment.monthlyRent)}
+        title={title}
+        address={address}
+        monthlyRent={Number(monthlyRent)}
       />
       <main className="container px-4 py-6 md:py-10">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
-            <ApartmentGallery images={apartment.gallery} />
+            <ApartmentGallery images={gallery} />
             <ApartmentSpecifications
-              bathrooms={apartment.bathrooms}
-              bedrooms={apartment.bedrooms}
-              squareFootage={Number(apartment.squareFootage)}
-              availableFrom={apartment.availableFrom}
+              bathrooms={bathrooms}
+              bedrooms={bedrooms}
+              squareFootage={Number(squareFootage)}
+              availableFrom={availableFrom}
             />
             <ApartmentDescription
-              description={apartment.description}
-              features={apartment.amenities.split(", ")}
+              description={description}
+              features={amenities}
             />
-            {/* <ApartmentLocation address={apartment.address} /> */}
+            <ApartmentLocation address={address} />
           </div>
           <div className="lg-col-span-1">
-            {/* <ApartmentContact
-              rent={apartment.monthlyRent}
-              availableFrom={apartment.availableFrom}
-            /> */}
+            <ApartmentContact
+              rent={Number(monthlyRent)}
+              availableFrom={availableFrom}
+            />
           </div>
         </div>
         {/* <SimilarApartments /> */}
