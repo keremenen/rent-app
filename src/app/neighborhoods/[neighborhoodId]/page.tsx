@@ -163,7 +163,7 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
                   title={apartment.title}
                   bedrooms={apartment.bedrooms}
                   bathrooms={apartment.bathrooms}
-                  squareFootage={apartment.squareFootage}
+                  squareFootage={Number(apartment.squareFootage)}
                   availableFrom={apartment.availableFrom}
                 />
               ))}
