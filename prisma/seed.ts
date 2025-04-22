@@ -47,6 +47,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-001",
                 title: "Mieszkanie w centrum",
                 address: "ul. Długa 12",
                 description: "Przytulne mieszkanie w historycznym budynku",
@@ -60,6 +61,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-002",
                 title: "Mieszkanie z widokiem",
                 address: "ul. Mariacka 5",
                 description: "Mieszkanie z pięknym widokiem na miasto",
@@ -73,6 +75,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-003",
                 title: "Mieszkanie dla studentów",
                 address: "ul. Słowackiego 20",
                 description: "Mieszkanie idealne dla studentów",
@@ -108,6 +111,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-004",
                 title: "Mieszkanie blisko uczelni",
                 address: "ul. Wita Stwosza 10",
                 description: "Mieszkanie idealne dla studentów",
@@ -121,6 +125,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-005",
                 title: "Mieszkanie z ogrodem",
                 address: "ul. Do Studzienki 15",
                 description: "Mieszkanie z pięknym ogrodem",
@@ -134,6 +139,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-006",
                 title: "Mieszkanie dla singla",
                 address: "ul. Słowackiego 25",
                 description: "Mieszkanie idealne dla singla",
@@ -169,6 +175,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-007",
                 title: "Mieszkanie w spokojnej okolicy",
                 address: "ul. Grunwaldzka 50",
                 description: "Mieszkanie w spokojnej okolicy",
@@ -182,6 +189,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-008",
                 title: "Mieszkanie z widokiem na park",
                 address: "ul. Oliwska 30",
                 description: "Mieszkanie z pięknym widokiem na park",
@@ -195,6 +203,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-009",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Spacerowa 10",
                 description: "Mieszkanie idealne dla rodziny",
@@ -230,6 +239,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-010",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Hryniewickiego 20",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -243,6 +253,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-011",
                 title: "Mieszkanie z tarasem",
                 address: "ul. Chłopska 15",
                 description: "Mieszkanie z pięknym tarasem",
@@ -256,6 +267,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-012",
                 title: "Mieszkanie dla par",
                 address: "ul. Gdańska 10",
                 description: "Mieszkanie idealne dla par",
@@ -269,6 +281,7 @@ const cities = [
                 availableFrom: new Date("2024-03-01"),
               },
               {
+                id: "apt-013",
                 title: "Mieszkanie dla singla",
                 address: "ul. Chłopska 5",
                 description: "Mieszkanie idealne dla singla",
@@ -304,6 +317,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-014",
                 title: "Mieszkanie w okolicy portu",
                 address: "ul. Na Stępce 25",
                 description: "Mieszkanie w okolicy portu",
@@ -317,6 +331,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-015",
                 title: "Mieszkanie z widokiem na port",
                 address: "ul. Letnica 10",
                 description: "Mieszkanie z pięknym widokiem na port",
@@ -330,6 +345,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-016",
                 title: "Mieszkanie dla singla",
                 address: "ul. Gdyńska 5",
                 description: "Mieszkanie idealne dla singla",
@@ -365,6 +381,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-017",
                 title: "Mieszkanie w okolicy przemysłu",
                 address: "ul. Stogi 30",
                 description: "Mieszkanie w okolicy przemysłu",
@@ -378,6 +395,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-018",
                 title: "Mieszkanie z widokiem na tereny zielone",
                 address: "ul. Słowackiego 40",
                 description: "Mieszkanie z pięknym widokiem na tereny zielone",
@@ -391,6 +409,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-019",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Spacerowa 20",
                 description: "Mieszkanie idealne dla rodziny",
@@ -444,6 +463,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-020",
                 title: "Mieszkanie w centrum",
                 address: "ul. Świętojańska 10",
                 description: "Przytulne mieszkanie w historycznym budynku",
@@ -457,6 +477,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-021",
                 title: "Mieszkanie z widokiem na morze",
                 address: "ul. 10 Lutego 20",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -470,6 +491,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-022",
                 title: "Mieszkanie dla singla",
                 address: "ul. Władysława IV 5",
                 description: "Mieszkanie idealne dla singla",
@@ -504,6 +526,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-023",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Redłowska 15",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -517,6 +540,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-024",
                 title: "Mieszkanie z tarasem",
                 address: "ul. Kępa Redłowska 10",
                 description: "Mieszkanie z pięknym tarasem",
@@ -530,6 +554,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-025",
                 title: "Mieszkanie dla par",
                 address: "ul. Redłowska 20",
                 description: "Mieszkanie idealne dla par",
@@ -564,6 +589,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-026",
                 title: "Mieszkanie blisko centrum handlowego",
                 address: "ul. Morska 25",
                 description: "Mieszkanie w okolicy Riviera",
@@ -577,6 +603,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-027",
                 title: "Mieszkanie z widokiem na miasto",
                 address: "ul. Wzgórze św. Maksymiliana 10",
                 description: "Mieszkanie z pięknym widokiem na miasto",
@@ -590,6 +617,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-028",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Wzgórze św. Maksymiliana 20",
                 description: "Mieszkanie idealne dla rodziny",
@@ -624,6 +652,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-029",
                 title: "Mieszkanie w willi",
                 address: "ul. Leśna 15",
                 description: "Mieszkanie w pięknej willi",
@@ -637,6 +666,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-030",
                 title: "Mieszkanie z ogrodem",
                 address: "ul. Sosnowa 10",
                 description: "Mieszkanie z pięknym ogrodem",
@@ -650,6 +680,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-031",
                 title: "Mieszkanie dla singla",
                 address: "ul. Dębowa 20",
                 description: "Mieszkanie idealne dla singla",
@@ -684,6 +715,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-032",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Kamienna Góra 10",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -697,6 +729,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-033",
                 title: "Mieszkanie z tarasem",
                 address: "ul. Kamienna Góra 20",
                 description: "Mieszkanie z pięknym tarasem",
@@ -710,6 +743,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-034",
                 title: "Mieszkanie dla par",
                 address: "ul. Kamienna Góra 25",
                 description: "Mieszkanie idealne dla par",
@@ -744,6 +778,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-035",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Oksywie 15",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -757,6 +792,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-036",
                 title: "Mieszkanie z widokiem na port",
                 address: "ul. Oksywie 20",
                 description: "Mieszkanie z pięknym widokiem na port",
@@ -770,6 +806,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-037",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Oksywie 25",
                 description: "Mieszkanie idealne dla rodziny",
@@ -823,6 +860,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-038",
                 title: "Mieszkanie nad morzem",
                 address: "ul. 3 Maja 10",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -836,6 +874,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-039",
                 title: "Mieszkanie z tarasem",
                 address: "ul. Bohaterów Monte Cassino 20",
                 description: "Mieszkanie z pięknym tarasem",
@@ -849,6 +888,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-040",
                 title: "Mieszkanie dla par",
                 address: "ul. Morska 15",
                 description: "Mieszkanie idealne dla par",
@@ -883,6 +923,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-041",
                 title: "Mieszkanie w spokojnej okolicy",
                 address: "ul. Mikołaja Reja 25",
                 description: "Mieszkanie w spokojnej okolicy",
@@ -896,6 +937,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-042",
                 title: "Mieszkanie z widokiem na park",
                 address: "ul. Jacka Malczewskiego 10",
                 description: "Mieszkanie z pięknym widokiem na park",
@@ -909,6 +951,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-043",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Spacerowa 20",
                 description: "Mieszkanie idealne dla rodziny",
@@ -943,6 +986,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-044",
                 title: "Mieszkanie w spokojnej okolicy",
                 address: "ul. Kamienny Potok 15",
                 description: "Mieszkanie w spokojnej okolicy",
@@ -956,6 +1000,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-045",
                 title: "Mieszkanie z ogrodem",
                 address: "ul. Oskara Kolberga 10",
                 description: "Mieszkanie z pięknym ogrodem",
@@ -969,6 +1014,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-046",
                 title: "Mieszkanie dla singla",
                 address: "ul. Władysława Cieszyńskiego 5",
                 description: "Mieszkanie idealne dla singla",
@@ -1003,6 +1049,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-047",
                 title: "Mieszkanie w willi",
                 address: "ul. Karlikowska 20",
                 description: "Mieszkanie w pięknej willi",
@@ -1016,6 +1063,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-048",
                 title: "Mieszkanie z ogrodem",
                 address: "ul. Wyścigi 10",
                 description: "Mieszkanie z pięknym ogrodem",
@@ -1029,6 +1077,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-049",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Wyścigi 20",
                 description: "Mieszkanie idealne dla rodziny",
@@ -1063,6 +1112,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-050",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Oskara Kolberga 25",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -1076,6 +1126,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-051",
                 title: "Mieszkanie z tarasem",
                 address: "ul. Władysława Cieszyńskiego 15",
                 description: "Mieszkanie z pięknym tarasem",
@@ -1089,6 +1140,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-052",
                 title: "Mieszkanie dla par",
                 address: "ul. Oskara Kolberga 10",
                 description: "Mieszkanie idealne dla par",
@@ -1123,6 +1175,7 @@ const cities = [
           apartments: {
             create: [
               {
+                id: "apt-053",
                 title: "Mieszkanie nad morzem",
                 address: "ul. Mikołaja Reja 30",
                 description: "Mieszkanie z pięknym widokiem na morze",
@@ -1136,6 +1189,7 @@ const cities = [
                 availableFrom: new Date("2024-01-01"),
               },
               {
+                id: "apt-054",
                 title: "Mieszkanie z widokiem na port",
                 address: "ul. Mikołaja Reja 35",
                 description: "Mieszkanie z pięknym widokiem na port",
@@ -1149,6 +1203,7 @@ const cities = [
                 availableFrom: new Date("2024-02-01"),
               },
               {
+                id: "apt-055",
                 title: "Mieszkanie dla rodziny",
                 address: "ul. Mikołaja Reja 40",
                 description: "Mieszkanie idealne dla rodziny",
