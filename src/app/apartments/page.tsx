@@ -1,11 +1,18 @@
 import { ApartmentCard } from "@/components/apartment-card";
+
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
 
-export default async function ApartmentsListPage() {
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+export default async function ApartmentsListPage(props) {
+  const searchParams = await props.searchParams;
+  const query = searchParams.query;
+  console.log("query", query);
+
   const apartments = await prisma.apartment.findMany({
     select: {
       id: true,
