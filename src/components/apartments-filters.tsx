@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { Menu } from "lucide-react";
+import { useState } from "react";
 
 const FilterSection = ({
   title,
@@ -25,6 +25,13 @@ const FilterSection = ({
 );
 
 export function ApartmentFilters() {
+  const [filterOptions, setFilterOptions] = useState({
+    priceRange: [1000, 6000],
+    bedrooms: [] as string[],
+    amenities: [] as string[],
+    availability: "all",
+  });
+
   return (
     <Card>
       <CardHeader>
@@ -50,28 +57,32 @@ export function ApartmentFilters() {
                 min={500}
                 max={10000}
                 step={100}
-                value={[2000, 5000]}
-                onValueChange={() => {}}
+                value={filterOptions.priceRange}
+                onValueChange={(value) =>
+                  setFilterOptions((prev) => ({ ...prev, priceRange: value }))
+                }
               />
             </div>
             <div className="mt-2 flex items-center justify-between text-sm">
-              <span>${2000}</span>
-              <span>${5000}</span>
+              <span>${500}</span>
+              <span>${10000}</span>
             </div>
           </div>
 
-          <FilterSection
+          {/* <FilterSection
             title="Guests"
             items={["1", "2", "3", "4", "5+"]}
             renderItem={(guest) => (
               <div key={guest} className="flex items-center space-x-2">
-                <Checkbox id={`guest-${guest}`} onCheckedChange={() => {}} />
+                <Checkbox id={`guest-${guest}`} onCheckedChange={() => {
+                  
+                }} />
                 <Label htmlFor={`guest-${guest}`} className="cursor-pointer">
                   {guest}
                 </Label>
               </div>
             )}
-          />
+          /> */}
 
           <FilterSection
             title="Bedrooms"
@@ -80,7 +91,14 @@ export function ApartmentFilters() {
               <div key={bedroom} className="flex items-center space-x-2">
                 <Checkbox
                   id={`bedroom-${bedroom}`}
-                  onCheckedChange={() => {}}
+                  onCheckedChange={() => {
+                    setFilterOptions((prev) => ({
+                      ...prev,
+                      bedrooms: prev.bedrooms.includes(bedroom)
+                        ? prev.bedrooms.filter((b) => b !== bedroom)
+                        : [...prev.bedrooms, bedroom],
+                    }));
+                  }}
                 />
                 <Label
                   htmlFor={`bedroom-${bedroom}`}
@@ -106,7 +124,17 @@ export function ApartmentFilters() {
             ]}
             renderItem={(amenity) => (
               <div key={amenity} className="flex items-center space-x-2">
-                <Checkbox id={`amenity-${amenity}`} />
+                <Checkbox
+                  id={`amenity-${amenity}`}
+                  onCheckedChange={() => {
+                    setFilterOptions((prev) => ({
+                      ...prev,
+                      amenities: prev.amenities.includes(amenity)
+                        ? prev.amenities.filter((a) => a !== amenity)
+                        : [...prev.amenities, amenity],
+                    }));
+                  }}
+                />
                 <Label
                   htmlFor={`amenity-${amenity}`}
                   className="cursor-pointer"
@@ -120,8 +148,10 @@ export function ApartmentFilters() {
           <div className="space-y-2">
             <Label>Availability</Label>
             <RadioGroup
-              value={"all"}
-              onValueChange={() => {}}
+              value={filterOptions.availability}
+              onValueChange={(value) =>
+                setFilterOptions((prev) => ({ ...prev, availability: value }))
+              }
               className="flex flex-col space-y-1"
             >
               {[
@@ -141,7 +171,40 @@ export function ApartmentFilters() {
         </div>
 
         <div className="space-y-4">
-          <Button variant="default" className="w-full">
+          <Button
+            variant="default"
+            className="w-full"
+            onClick={() => {
+              const buildSearchParams = () => {
+                const params = new URLSearchParams();
+
+                const { priceRange, bedrooms, amenities, availability } =
+                  filterOptions;
+
+                if (priceRange) {
+                  params.set("minPrice", priceRange[0].toString());
+                  params.set("maxPrice", priceRange[1].toString());
+                }
+
+                if (bedrooms.length > 0) {
+                  params.set("bedrooms", bedrooms.join(","));
+                }
+
+                if (amenities.length > 0) {
+                  params.set("amenities", amenities.join(","));
+                }
+
+                if (availability) {
+                  params.set("availability", availability);
+                }
+
+                return params;
+              };
+
+              // Redirect to the same page with search params
+              window.location.search = buildSearchParams().toString();
+            }}
+          >
             Apply Filters
           </Button>
           <Button variant="outline" className="w-full" onClick={() => {}}>
