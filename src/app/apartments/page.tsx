@@ -1,25 +1,46 @@
+"use client";
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
+import { ApartmentEssential } from "@/lib/types";
+import { useEffect, useState } from "react";
 
-export default async function ApartmentsListPage() {
-  const apartments = await prisma.apartment.findMany({
-    select: {
-      id: true,
-      title: true,
-      address: true,
-      bathrooms: true,
-      bedrooms: true,
-      squareFootage: true,
-      thumbnail: true,
-      availableFrom: true,
-      amenities: true,
-      monthlyRent: true,
-    },
+export default function ApartmentsListPage() {
+  const [filterOptions, setFilterOptions] = useState({
+    priceRange: [1000, 6000],
+    bedrooms: [] as string[],
+    bathrooms: [] as string[],
+    amenities: [] as string[],
+    availability: "all",
+    neighborhoods: [] as string[],
   });
+
+  const [apartments, setApartments] = useState<ApartmentEssential[]>([]);
+
+  useEffect(() => {
+    async function fetchApartments() {
+      const fetchedApartments = await prisma.apartment.findMany({
+        select: {
+          id: true,
+          title: true,
+          address: true,
+          bathrooms: true,
+          bedrooms: true,
+          squareFootage: true,
+          thumbnail: true,
+          availableFrom: true,
+          amenities: true,
+          monthlyRent: true,
+        },
+      });
+      setApartments(fetchedApartments);
+    }
+
+    fetchApartments();
+  }, []);
 
   if (!apartments) {
     return (

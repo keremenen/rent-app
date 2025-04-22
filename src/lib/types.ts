@@ -14,3 +14,16 @@ export type City = {
   commuteTime: Decimal | null;
   createdAt: Date;
 };
+
+export type ApartmentEssential = {
+  id: string;
+  title: string;
+  address: string;
+  bathrooms: number;
+  bedrooms: number;
+  squareFootage: Decimal;
+  thumbnail: string;
+  availableFrom: Date;
+  amenities: string[];
+  monthlyRent: Decimal;
+};
