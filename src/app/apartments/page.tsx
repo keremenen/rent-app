@@ -8,10 +8,12 @@ import prisma from "@/lib/db";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
-export default async function ApartmentsListPage(props) {
+export default async function ApartmentsListPage(props: {
+  searchParams: SearchParams;
+}) {
   const searchParams = await props.searchParams;
-  const query = searchParams.query;
-  console.log("query", query);
+
+  console.log("query", searchParams);
 
   const apartments = await prisma.apartment.findMany({
     select: {
