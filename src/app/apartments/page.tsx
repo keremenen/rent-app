@@ -61,8 +61,8 @@ export default async function ApartmentsListPage(props: {
           <div className={`space-y-6 lg:block`}>
             {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
-              minPrice={Number(minPrice)}
-              maxPrice={Number(maxPrice)}
+              minPrice={minPrice ? Number(minPrice) : undefined}
+              maxPrice={maxPrice ? Number(maxPrice) : undefined}
               bedrooms={bedrooms}
               amenities={amenities}
               availability={availability}

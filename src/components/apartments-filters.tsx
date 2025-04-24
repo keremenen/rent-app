@@ -9,6 +9,10 @@ import { Slider } from "@/components/ui/slider";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
+const DEFAULT_PRICE_RANGE = [500, 10000];
+const DEFAULT_PRICE_RANGE_VALUE = [1000, 5000];
+const PRICE_STEPS = 100;
+
 const FilterSection = ({
   title,
   items,
@@ -39,16 +43,18 @@ export function ApartmentFilters({
   amenities,
   availability,
 }: ApartmentFiltersProps) {
-  const [filterOptions, setFilterOptions] = useState({
-    priceRange:
-      minPrice !== undefined && maxPrice !== undefined
-        ? [minPrice, maxPrice]
-        : [500, 5000],
-    bedrooms: bedrooms?.split(",") || ([] as string[]),
-    amenities: amenities?.split(",") || ([] as string[]),
+  console.log("minPrice", minPrice);
+  const [filterOptions, setFilterOptions] = useState(() => ({
+    priceRange: [
+      minPrice ?? DEFAULT_PRICE_RANGE_VALUE[0],
+      maxPrice ?? DEFAULT_PRICE_RANGE_VALUE[1],
+    ],
+    bedrooms: bedrooms?.split(",") || [],
+    amenities: amenities?.split(",") || [],
     availability: availability || "all",
-  });
+  }));
 
+  console.log("priceRange", filterOptions.priceRange);
   return (
     <Card>
       <CardHeader>
@@ -71,10 +77,13 @@ export function ApartmentFilters({
             <Label>Price Range</Label>
             <div className="mt-6 px-2">
               <Slider
-                min={500}
-                max={10000}
-                step={100}
-                defaultValue={[minPrice || 1000, maxPrice || 5000]}
+                min={DEFAULT_PRICE_RANGE[0]}
+                max={DEFAULT_PRICE_RANGE[1]}
+                step={PRICE_STEPS}
+                defaultValue={[
+                  minPrice || DEFAULT_PRICE_RANGE_VALUE[0],
+                  maxPrice || DEFAULT_PRICE_RANGE_VALUE[1],
+                ]}
                 onValueChange={(value) =>
                   setFilterOptions((prev) => ({ ...prev, priceRange: value }))
                 }
