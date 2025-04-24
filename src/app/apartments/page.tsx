@@ -35,6 +35,10 @@ export default async function ApartmentsListPage(props: {
       monthlyRent: true,
     },
     where: {
+      monthlyRent: {
+        gte: Number(minPrice) || undefined,
+        lte: Number(maxPrice) || undefined,
+      },
       OR: parsedBedrooms?.map((bedroomCount) => ({ bedrooms: bedroomCount })),
     },
   });
