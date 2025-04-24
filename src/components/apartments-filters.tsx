@@ -81,8 +81,8 @@ export function ApartmentFilters({
               />
             </div>
             <div className="mt-2 flex items-center justify-between text-sm">
-              <span>${500}</span>
-              <span>${10000}</span>
+              <span>${filterOptions.priceRange[0]}</span>
+              <span>${filterOptions.priceRange[1]}</span>
             </div>
           </div>
 
