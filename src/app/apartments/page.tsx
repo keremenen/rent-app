@@ -1,5 +1,4 @@
 import { ApartmentCard } from "@/components/apartment-card";
-
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
@@ -14,6 +13,14 @@ export default async function ApartmentsListPage(props: {
   const { minPrice, maxPrice, bedrooms, amenities, availability } =
     await props.searchParams;
 
+  const parseCommaSeparatedString = (value?: string) =>
+    value
+      ?.split(",")
+      .map((item) => Number(item.trim()))
+      .filter((num) => !isNaN(num));
+
+  const parsedBedrooms = parseCommaSeparatedString(bedrooms);
+
   const apartments = await prisma.apartment.findMany({
     select: {
       id: true,
@@ -26,6 +33,9 @@ export default async function ApartmentsListPage(props: {
       availableFrom: true,
       amenities: true,
       monthlyRent: true,
+    },
+    where: {
+      OR: parsedBedrooms?.map((bedroomCount) => ({ bedrooms: bedroomCount })),
     },
   });
 
