@@ -45,7 +45,6 @@ export function ApartmentFilters({
     availability: "all",
   });
 
-  console.log(bedrooms);
   return (
     <Card>
       <CardHeader>
