@@ -28,8 +28,8 @@ type ApartmentFiltersProps = {
   minPrice?: number;
   maxPrice?: number;
   bedrooms?: string;
-  amenities?: string | string[];
-  availability?: string | string[];
+  amenities?: string;
+  availability?: string;
 };
 
 export function ApartmentFilters({
@@ -41,7 +41,7 @@ export function ApartmentFilters({
   const [filterOptions, setFilterOptions] = useState({
     priceRange: [minPrice, maxPrice],
     bedrooms: bedrooms?.split(",") || ([] as string[]),
-    amenities: amenities || ([] as string[]),
+    amenities: amenities?.split(",") || ([] as string[]),
     availability: "all",
   });
 
@@ -127,6 +127,7 @@ export function ApartmentFilters({
               <div key={amenity} className="flex items-center space-x-2">
                 <Checkbox
                   id={`amenity-${amenity}`}
+                  checked={filterOptions.amenities.includes(amenity)}
                   onCheckedChange={() => {
                     setFilterOptions((prev) => ({
                       ...prev,
