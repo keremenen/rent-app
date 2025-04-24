@@ -24,14 +24,28 @@ const FilterSection = ({
   </div>
 );
 
-export function ApartmentFilters() {
+type ApartmentFiltersProps = {
+  minPrice?: number;
+  maxPrice?: number;
+  bedrooms?: string;
+  amenities?: string | string[];
+  availability?: string | string[];
+};
+
+export function ApartmentFilters({
+  minPrice,
+  maxPrice,
+  bedrooms,
+  amenities,
+}: ApartmentFiltersProps) {
   const [filterOptions, setFilterOptions] = useState({
-    priceRange: [1000, 6000],
-    bedrooms: [] as string[],
-    amenities: [] as string[],
+    priceRange: [minPrice, maxPrice],
+    bedrooms: bedrooms?.split(",") || ([] as string[]),
+    amenities: amenities || ([] as string[]),
     availability: "all",
   });
 
+  console.log(bedrooms);
   return (
     <Card>
       <CardHeader>
@@ -57,7 +71,7 @@ export function ApartmentFilters() {
                 min={500}
                 max={10000}
                 step={100}
-                value={filterOptions.priceRange}
+                defaultValue={[minPrice || 1000, maxPrice || 5000]}
                 onValueChange={(value) =>
                   setFilterOptions((prev) => ({ ...prev, priceRange: value }))
                 }
@@ -69,21 +83,6 @@ export function ApartmentFilters() {
             </div>
           </div>
 
-          {/* <FilterSection
-            title="Guests"
-            items={["1", "2", "3", "4", "5+"]}
-            renderItem={(guest) => (
-              <div key={guest} className="flex items-center space-x-2">
-                <Checkbox id={`guest-${guest}`} onCheckedChange={() => {
-                  
-                }} />
-                <Label htmlFor={`guest-${guest}`} className="cursor-pointer">
-                  {guest}
-                </Label>
-              </div>
-            )}
-          /> */}
-
           <FilterSection
             title="Bedrooms"
             items={["Studio", "1", "2", "3", "4+"]}
@@ -91,11 +90,14 @@ export function ApartmentFilters() {
               <div key={bedroom} className="flex items-center space-x-2">
                 <Checkbox
                   id={`bedroom-${bedroom}`}
+                  checked={filterOptions.bedrooms.includes(bedroom)}
                   onCheckedChange={() => {
                     setFilterOptions((prev) => ({
                       ...prev,
                       bedrooms: prev.bedrooms.includes(bedroom)
-                        ? prev.bedrooms.filter((b) => b !== bedroom)
+                        ? Array.isArray(prev.bedrooms)
+                          ? prev.bedrooms.filter((b: string) => b !== bedroom)
+                          : []
                         : [...prev.bedrooms, bedroom],
                     }));
                   }}

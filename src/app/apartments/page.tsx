@@ -6,14 +6,13 @@ import ShowFiltersButton from "@/components/show-filters-button";
 import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
 
-type SearchParams = { [key: string]: string | string[] | undefined };
+type SearchParams = { [key: string]: string | undefined };
 
 export default async function ApartmentsListPage(props: {
   searchParams: SearchParams;
 }) {
-  const searchParams = await props.searchParams;
-
-  console.log("query", searchParams);
+  const { minPrice, maxPrice, bedrooms, amenities, availability } =
+    await props.searchParams;
 
   const apartments = await prisma.apartment.findMany({
     select: {
@@ -47,7 +46,13 @@ export default async function ApartmentsListPage(props: {
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
             <SortByOptions sortOption={"priceAsc"} />
-            <ApartmentFilters />
+            <ApartmentFilters
+              minPrice={Number(minPrice)}
+              maxPrice={Number(maxPrice)}
+              bedrooms={bedrooms}
+              amenities={amenities}
+              availability={availability}
+            />
           </div>
 
           <div>
