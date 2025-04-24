@@ -2,7 +2,7 @@ import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
-import SortByOptions from "@/components/sort-by-options";
+// import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
 
 type SearchParams = { [key: string]: string | undefined };
@@ -55,7 +55,7 @@ export default async function ApartmentsListPage(props: {
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <SortByOptions sortOption={"priceAsc"} />
+            {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
               minPrice={Number(minPrice)}
               maxPrice={Number(maxPrice)}
