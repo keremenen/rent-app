@@ -37,12 +37,16 @@ export function ApartmentFilters({
   maxPrice,
   bedrooms,
   amenities,
+  availability,
 }: ApartmentFiltersProps) {
   const [filterOptions, setFilterOptions] = useState({
-    priceRange: [minPrice, maxPrice],
+    priceRange:
+      minPrice !== undefined && maxPrice !== undefined
+        ? [minPrice, maxPrice]
+        : [500, 5000],
     bedrooms: bedrooms?.split(",") || ([] as string[]),
     amenities: amenities?.split(",") || ([] as string[]),
-    availability: "all",
+    availability: availability || "all",
   });
 
   return (
@@ -162,7 +166,11 @@ export function ApartmentFilters({
                 { value: "unavailable", label: "Coming Soon" },
               ].map(({ value, label }) => (
                 <div key={value} className="flex items-center space-x-2">
-                  <RadioGroupItem value={value} id={value} />
+                  <RadioGroupItem
+                    value={value}
+                    id={value}
+                    checked={filterOptions.availability === value}
+                  />
                   <Label htmlFor={value} className="cursor-pointer">
                     {label}
                   </Label>
