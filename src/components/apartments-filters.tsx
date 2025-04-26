@@ -11,8 +11,8 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 const DEFAULT_PRICE_RANGE = [500, 10000];
-const DEFAULT_PRICE_RANGE_VALUE = [1000, 5000];
-const PRICE_STEPS = 100;
+const DEFAULT_PRICE_RANGE_VALUES = [1000, 5000];
+const DEFAULT_PRICE_STEP_VALUE = 100;
 
 const FilterSection = ({
   title,
@@ -30,29 +30,35 @@ const FilterSection = ({
 );
 
 type ApartmentFiltersProps = {
-  minPrice?: number;
-  maxPrice?: number;
-  bedrooms?: string;
-  amenities?: string;
-  availability?: string;
+  priceRange?: number[];
+  filters?: {
+    priceRangeValues?: number[];
+  };
+  // maxPrice?: number;
+  // bedrooms?: string;
+  // amenities?: string;
+  // availability?: string;
 };
 
 export function ApartmentFilters({
-  minPrice,
-  maxPrice,
-  bedrooms,
-  amenities,
-  availability,
+  priceRange,
+  filters,
 }: ApartmentFiltersProps) {
-  const [filterOptions, setFilterOptions] = useState(() => ({
-    priceRange: [
-      minPrice ?? DEFAULT_PRICE_RANGE_VALUE[0],
-      maxPrice ?? DEFAULT_PRICE_RANGE_VALUE[1],
-    ],
-    bedrooms: bedrooms?.split(",") || [],
-    amenities: amenities?.split(",") || [],
-    availability: availability || "all",
+  const [currentFilters, setCurrentFilters] = useState(() => ({
+    priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE_VALUES,
   }));
+  const handleFilterChange = (newFilters: any) => {
+    setCurrentFilters((prev) => ({
+      ...prev,
+      ...newFilters,
+    }));
+  };
+  // const [filterOptions, setFilterOptions] = useState(() => ({
+  //   currentPriceRangeValues:
+  //   bedrooms: bedrooms?.split(",") || [],
+  //   amenities: amenities?.split(",") || [],
+  //   availability: availability || "all",
+  // }));
 
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
@@ -79,14 +85,12 @@ export function ApartmentFilters({
         className={cn("space-y-6", isHidden && isMobile && "hidden")}
       >
         <PriceRangeSection
-          // currentPriceRange={DEFAULT_PRICE_RANGE}
-          currentPriceRangeValues={filterOptions.priceRange}
-          // setFilterOptions={setFilterOptions}
-          // minPrice={minPrice}
-          // maxPrice={maxPrice}
+          priceRange={priceRange}
+          priceRangeValues={currentFilters.priceRangeValues}
+          onValueChange={handleFilterChange}
         />
         <div className="space-y-4">
-          <FilterSection
+          {/* <FilterSection
             title="Bedrooms"
             items={["Studio", "1", "2", "3", "4+"]}
             renderItem={(bedroom) => (
@@ -113,9 +117,9 @@ export function ApartmentFilters({
                 </Label>
               </div>
             )}
-          />
+          /> */}
 
-          <FilterSection
+          {/* <FilterSection
             title="Amenities"
             items={[
               "Washer/Dryer",
@@ -149,9 +153,9 @@ export function ApartmentFilters({
                 </Label>
               </div>
             )}
-          />
+          /> */}
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label>Availability</Label>
             <RadioGroup
               value={filterOptions.availability}
@@ -177,10 +181,10 @@ export function ApartmentFilters({
                 </div>
               ))}
             </RadioGroup>
-          </div>
+          </div> */}
         </div>
 
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           <Button
             variant="default"
             className="w-full"
@@ -220,7 +224,7 @@ export function ApartmentFilters({
           <Button variant="outline" className="w-full" onClick={() => {}}>
             Reset Filters
           </Button>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );
@@ -228,13 +232,14 @@ export function ApartmentFilters({
 
 type PriceRangeSectionProps = {
   priceRange?: number[];
-  currentPriceRangeValues?: number[];
-  setFilterOptions: (prev: { priceRange: number[] }) => void;
+  priceRangeValues: number[];
+  onValueChange: (value: { priceRangeValues: number[] }) => void;
 };
 
 export default function PriceRangeSection({
   priceRange,
-  currentPriceRangeValues,
+  priceRangeValues,
+  onValueChange,
 }: PriceRangeSectionProps) {
   return (
     <div className="mb-6">
@@ -243,19 +248,14 @@ export default function PriceRangeSection({
         <Slider
           min={priceRange ? priceRange[0] : DEFAULT_PRICE_RANGE[0]}
           max={priceRange ? priceRange[1] : DEFAULT_PRICE_RANGE[1]}
-          step={PRICE_STEPS}
-          defaultValue={[
-            currentPriceRangeValues[0],
-            currentPriceRangeValues[1],
-          ]}
-          onValueChange={(value) =>
-            setFilterOptions((prev) => ({ ...prev, priceRange: value }))
-          }
+          step={DEFAULT_PRICE_STEP_VALUE}
+          defaultValue={priceRangeValues}
+          onValueChange={(value) => onValueChange({ priceRangeValues: value })}
         />
       </div>
       <div className="mt-2 flex items-center justify-between text-sm">
-        <span>{priceRange ? priceRange[0] : DEFAULT_PRICE_RANGE[0]}</span>
-        <span>{priceRange ? priceRange[1] : DEFAULT_PRICE_RANGE[1]}</span>
+        <span>{priceRangeValues[0]}</span>
+        <span>{priceRangeValues[1]}</span>
       </div>
     </div>
   );
