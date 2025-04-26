@@ -63,7 +63,7 @@ export default async function ApartmentsListPage(props: {
             <ApartmentFilters
               priceRange={[100, 8000]}
               filters={{
-                priceRangeValues: [300, 400],
+                priceRangeValues: [300, 4000],
               }}
               filterCheckboxSections={[
                 { label: "Bedrooms", values: ["1", "2", "3"] },

@@ -80,7 +80,7 @@ export function ApartmentFilters({
         <div className="space-y-4">
           {filterCheckboxSections
             ? filterCheckboxSections.map((section, i) => (
-                <FilterSection section={section} key={i} />
+                <CheckboxSection section={section} key={i} />
               ))
             : null}
           {/* <FilterSection
@@ -261,14 +261,26 @@ type FilterSectionProps = {
   };
 };
 
-function FilterSection({ section }: FilterSectionProps) {
+function CheckboxSection({ section }: FilterSectionProps) {
   return (
     <div className="mb-6 space-y-2">
-      <Label>{section.label}</Label>
-      <div className="flex items-center space-x-2">
+      <Label className="mb-2">{section.label}</Label>
+      <div className="grid grid-cols-2 gap-2">
         {section.values.map((value, i) => (
-          <div></div>
-              )}
+          <div key={i} className="flex items-center">
+            <Checkbox
+              key={i}
+              className="cursor-pointer"
+              id={`checkbox-${value}`}
+            />
+            <Label
+              htmlFor={`checkbox-${value}`}
+              className="cursor-pointer pl-2"
+            >
+              {value}
+            </Label>
+          </div>
+        ))}
       </div>
     </div>
   );
