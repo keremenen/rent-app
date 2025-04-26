@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
+import { useMobile } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useState } from "react";
@@ -53,6 +54,7 @@ export function ApartmentFilters({
     availability: availability || "all",
   }));
 
+  const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
 
   console.log("priceRange", filterOptions.priceRange);
@@ -74,7 +76,9 @@ export function ApartmentFilters({
           </Button>
         </div>
       </CardHeader>
-      <CardContent className={cn("space-y-6", isHidden && "hidden")}>
+      <CardContent
+        className={cn("space-y-6", isHidden && isMobile && "hidden")}
+      >
         <div className="space-y-4">
           <div className="mb-6">
             <Label>Price Range</Label>
