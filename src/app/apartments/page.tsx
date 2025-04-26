@@ -61,7 +61,7 @@ export default async function ApartmentsListPage(props: {
           <div className={`space-y-6 lg:block`}>
             {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
-              priceRange={[100, 8000]}
+              priceRange={[100, 4000]}
               filters={{
                 priceRangeValues: [300, 4000],
                 checkboxValues: [

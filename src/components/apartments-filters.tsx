@@ -10,8 +10,6 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
-const DEFAULT_PRICE_RANGE = [500, 10000];
-const DEFAULT_PRICE_RANGE_VALUES = [1000, 5000];
 const DEFAULT_PRICE_STEP_VALUE = 100;
 
 type ApartmentFiltersProps = {
@@ -33,7 +31,7 @@ export function ApartmentFilters({
   filterCheckboxSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
-    priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE_VALUES,
+    priceRangeValues: filters?.priceRangeValues ?? [],
     checkboxValues: filters?.checkboxValues ?? [],
   }));
 
@@ -74,21 +72,22 @@ export function ApartmentFilters({
       <CardContent
         className={cn("space-y-6", isHidden && isMobile && "hidden")}
       >
-        <PriceRangeSection
-          priceRange={priceRange}
-          priceRangeValues={currentFilters.priceRangeValues}
-          onValueChange={handleFilterChange}
-        />
+        {priceRange && (
+          <PriceRangeSection
+            priceRange={priceRange}
+            priceRangeValues={currentFilters.priceRangeValues}
+            onValueChange={handleFilterChange}
+          />
+        )}
         <div className="space-y-4">
-          {filterCheckboxSections
-            ? filterCheckboxSections.map((section, i) => (
-                <CheckboxSection
-                  section={section}
-                  key={i}
-                  checkedBoxes={currentFilters.checkboxValues}
-                />
-              ))
-            : null}
+          {filterCheckboxSections &&
+            filterCheckboxSections.map((section, i) => (
+              <CheckboxSection
+                section={section}
+                key={i}
+                checkedBoxes={currentFilters.checkboxValues}
+              />
+            ))}
           {/* <FilterSection
             title="Bedrooms"
             items={["Studio", "1", "2", "3", "4+"]}
@@ -230,7 +229,7 @@ export function ApartmentFilters({
 }
 
 type PriceRangeSectionProps = {
-  priceRange?: number[];
+  priceRange: number[];
   priceRangeValues: number[];
   onValueChange: (value: { priceRangeValues: number[] }) => void;
 };
@@ -245,8 +244,8 @@ function PriceRangeSection({
       <Label>Price Range</Label>
       <div className="mt-6 px-2">
         <Slider
-          min={priceRange ? priceRange[0] : DEFAULT_PRICE_RANGE[0]}
-          max={priceRange ? priceRange[1] : DEFAULT_PRICE_RANGE[1]}
+          min={priceRange[0]}
+          max={priceRange[1]}
           step={DEFAULT_PRICE_STEP_VALUE}
           defaultValue={priceRangeValues}
           onValueChange={(value) => onValueChange({ priceRangeValues: value })}
