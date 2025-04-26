@@ -65,11 +65,10 @@ export default async function ApartmentsListPage(props: {
               filters={{
                 priceRangeValues: [300, 400],
               }}
-              // minPrice={minPrice ? Number(minPrice) : undefined}
-              // maxPrice={maxPrice ? Number(maxPrice) : undefined}
-              // bedrooms={bedrooms}
-              // amenities={amenities}
-              // availability={availability}
+              filterCheckboxSections={[
+                { label: "Bedrooms", values: ["1", "2", "3"] },
+                { label: "Amenities", values: ["Pool", "Gym", "Parking"] },
+              ]}
             />
           </div>
 

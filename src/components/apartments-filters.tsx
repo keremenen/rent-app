@@ -14,26 +14,12 @@ const DEFAULT_PRICE_RANGE = [500, 10000];
 const DEFAULT_PRICE_RANGE_VALUES = [1000, 5000];
 const DEFAULT_PRICE_STEP_VALUE = 100;
 
-const FilterSection = ({
-  title,
-  items,
-  renderItem,
-}: {
-  title: string;
-  items: string[];
-  renderItem: (item: string) => React.JSX.Element;
-}) => (
-  <div className="mb-6 space-y-2">
-    <Label>{title}</Label>
-    <div className="grid grid-cols-2 gap-3">{items.map(renderItem)}</div>
-  </div>
-);
-
 type ApartmentFiltersProps = {
   priceRange?: number[];
   filters?: {
     priceRangeValues?: number[];
   };
+  filterCheckboxSections: { label: string; values: string[] }[];
   // maxPrice?: number;
   // bedrooms?: string;
   // amenities?: string;
@@ -43,10 +29,12 @@ type ApartmentFiltersProps = {
 export function ApartmentFilters({
   priceRange,
   filters,
+  filterCheckboxSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
     priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE_VALUES,
   }));
+
   const handleFilterChange = (newFilters: any) => {
     setCurrentFilters((prev) => ({
       ...prev,
@@ -90,6 +78,11 @@ export function ApartmentFilters({
           onValueChange={handleFilterChange}
         />
         <div className="space-y-4">
+          {filterCheckboxSections
+            ? filterCheckboxSections.map((section, i) => (
+                <FilterSection section={section} key={i} />
+              ))
+            : null}
           {/* <FilterSection
             title="Bedrooms"
             items={["Studio", "1", "2", "3", "4+"]}
@@ -236,7 +229,7 @@ type PriceRangeSectionProps = {
   onValueChange: (value: { priceRangeValues: number[] }) => void;
 };
 
-export default function PriceRangeSection({
+function PriceRangeSection({
   priceRange,
   priceRangeValues,
   onValueChange,
@@ -256,6 +249,26 @@ export default function PriceRangeSection({
       <div className="mt-2 flex items-center justify-between text-sm">
         <span>{priceRangeValues[0]}</span>
         <span>{priceRangeValues[1]}</span>
+      </div>
+    </div>
+  );
+}
+
+type FilterSectionProps = {
+  section: {
+    label: string;
+    values: string[];
+  };
+};
+
+function FilterSection({ section }: FilterSectionProps) {
+  return (
+    <div className="mb-6 space-y-2">
+      <Label>{section.label}</Label>
+      <div className="flex items-center space-x-2">
+        {section.values.map((value, i) => (
+          <div></div>
+              )}
       </div>
     </div>
   );
