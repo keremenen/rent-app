@@ -1,11 +1,11 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
+import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
@@ -43,7 +43,6 @@ export function ApartmentFilters({
   amenities,
   availability,
 }: ApartmentFiltersProps) {
-  console.log("minPrice", minPrice);
   const [filterOptions, setFilterOptions] = useState(() => ({
     priceRange: [
       minPrice ?? DEFAULT_PRICE_RANGE_VALUE[0],
@@ -53,6 +52,8 @@ export function ApartmentFilters({
     amenities: amenities?.split(",") || [],
     availability: availability || "all",
   }));
+
+  const [isHidden, setIsHidden] = useState(false);
 
   console.log("priceRange", filterOptions.priceRange);
   return (
@@ -64,14 +65,16 @@ export function ApartmentFilters({
             variant="ghost"
             size="icon"
             className="lg:hidden"
-            onClick={() => {}}
+            onClick={() => {
+              setIsHidden((prev) => !prev);
+            }}
           >
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle filters</span>
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className={cn("space-y-6", isHidden && "hidden")}>
         <div className="space-y-4">
           <div className="mb-6">
             <Label>Price Range</Label>
