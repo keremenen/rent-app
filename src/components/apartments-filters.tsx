@@ -41,12 +41,6 @@ export function ApartmentFilters({
       ...newFilters,
     }));
   };
-  // const [filterOptions, setFilterOptions] = useState(() => ({
-  //   currentPriceRangeValues:
-  //   bedrooms: bedrooms?.split(",") || [],
-  //   amenities: amenities?.split(",") || [],
-  //   availability: availability || "all",
-  // }));
 
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
@@ -88,70 +82,6 @@ export function ApartmentFilters({
                 checkedBoxes={currentFilters.checkboxValues}
               />
             ))}
-          {/* <FilterSection
-            title="Bedrooms"
-            items={["Studio", "1", "2", "3", "4+"]}
-            renderItem={(bedroom) => (
-              <div key={bedroom} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`bedroom-${bedroom}`}
-                  checked={filterOptions.bedrooms.includes(bedroom)}
-                  onCheckedChange={() => {
-                    setFilterOptions((prev) => ({
-                      ...prev,
-                      bedrooms: prev.bedrooms.includes(bedroom)
-                        ? Array.isArray(prev.bedrooms)
-                          ? prev.bedrooms.filter((b: string) => b !== bedroom)
-                          : []
-                        : [...prev.bedrooms, bedroom],
-                    }));
-                  }}
-                />
-                <Label
-                  htmlFor={`bedroom-${bedroom}`}
-                  className="cursor-pointer"
-                >
-                  {bedroom}
-                </Label>
-              </div>
-            )}
-          /> */}
-
-          {/* <FilterSection
-            title="Amenities"
-            items={[
-              "Washer/Dryer",
-              "Dishwasher",
-              "Gym",
-              "Pool",
-              "Balcony",
-              "Doorman",
-              "Elevator",
-              "Parking",
-            ]}
-            renderItem={(amenity) => (
-              <div key={amenity} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`amenity-${amenity}`}
-                  checked={filterOptions.amenities.includes(amenity)}
-                  onCheckedChange={() => {
-                    setFilterOptions((prev) => ({
-                      ...prev,
-                      amenities: prev.amenities.includes(amenity)
-                        ? prev.amenities.filter((a) => a !== amenity)
-                        : [...prev.amenities, amenity],
-                    }));
-                  }}
-                />
-                <Label
-                  htmlFor={`amenity-${amenity}`}
-                  className="cursor-pointer"
-                >
-                  {amenity}
-                </Label>
-              </div>
-            )}
-          /> */}
 
           {/* <div className="space-y-2">
             <Label>Availability</Label>
@@ -259,7 +189,7 @@ function PriceRangeSection({
   );
 }
 
-type FilterSectionProps = {
+type CheckboxSectionProps = {
   section: {
     sectionName: string;
     values: string[];
@@ -267,7 +197,7 @@ type FilterSectionProps = {
   checkedBoxes?: { forSection: string; values: string[] }[];
 };
 
-function CheckboxSection({ section, checkedBoxes }: FilterSectionProps) {
+function CheckboxSection({ section, checkedBoxes }: CheckboxSectionProps) {
   return (
     <div className="mb-6 space-y-2">
       <Label className="mb-2">{section.sectionName}</Label>
