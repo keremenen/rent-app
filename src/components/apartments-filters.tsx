@@ -7,7 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useMobile } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
+import { Menu, Radio } from "lucide-react";
 import { useState } from "react";
 
 const DEFAULT_PRICE_STEP_VALUE = 100;
@@ -17,8 +17,10 @@ type ApartmentFiltersProps = {
   filters?: {
     priceRangeValues?: number[];
     checkboxValues?: { forSection: string; values: string[] }[];
+    radioGroupValues?: { forSection: string; value: string }[];
   };
   filterCheckboxSections?: { sectionName: string; values: string[] }[];
+  radioGroupSections?: { sectionName: string; values: string[] }[];
   // maxPrice?: number;
   // bedrooms?: string;
   // amenities?: string;
@@ -29,10 +31,12 @@ export function ApartmentFilters({
   priceRange,
   filters,
   filterCheckboxSections,
+  radioGroupSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
     priceRangeValues: filters?.priceRangeValues ?? [],
     checkboxValues: filters?.checkboxValues ?? [],
+    radioGroupValues: filters?.radioGroupValues ?? [],
   }));
 
   const handleFilterChange = (newFilters: any) => {
@@ -83,33 +87,16 @@ export function ApartmentFilters({
               />
             ))}
 
-          {/* <div className="space-y-2">
-            <Label>Availability</Label>
-            <RadioGroup
-              value={filterOptions.availability}
-              onValueChange={(value) =>
-                setFilterOptions((prev) => ({ ...prev, availability: value }))
-              }
-              className="flex flex-col space-y-1"
-            >
-              {[
-                { value: "all", label: "All" },
-                { value: "available", label: "Available Now" },
-                { value: "unavailable", label: "Coming Soon" },
-              ].map(({ value, label }) => (
-                <div key={value} className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    value={value}
-                    id={value}
-                    checked={filterOptions.availability === value}
-                  />
-                  <Label htmlFor={value} className="cursor-pointer">
-                    {label}
-                  </Label>
-                </div>
+          <div className="space-y-4">
+            {radioGroupSections &&
+              radioGroupSections.map((section, i) => (
+                <RadioGroupSection
+                  key={i}
+                  section={section}
+                  selectedValue={currentFilters.radioGroupValues}
+                />
               ))}
-            </RadioGroup>
-          </div> */}
+          </div>
         </div>
 
         {/* <div className="space-y-4">
@@ -223,5 +210,42 @@ function CheckboxSection({ section, checkedBoxes }: CheckboxSectionProps) {
         ))}
       </div>
     </div>
+  );
+}
+
+type RadioGroupSectionProps = {
+  section: {
+    sectionName: string;
+    values: string[];
+  };
+  selectedValue?: { forSection: string; value: string }[];
+};
+
+function RadioGroupSection({ section, selectedValue }: RadioGroupSectionProps) {
+  return (
+    <section>
+      <Label className="mb-2">{section.sectionName}</Label>
+      <RadioGroup
+        defaultValue="1"
+        value="2"
+        // onValueChange={(value) =>
+        //   setFilterOptions((prev) => ({ ...prev, availability: value }))
+        // }
+        className="flex flex-col"
+      >
+        {section.values.map((value, i) => (
+          <div key={i} className="flex items-center space-x-2">
+            <RadioGroupItem
+              value={value}
+              id={value.toLowerCase()}
+              // checked={filterOptions.availability === value}
+            />
+            <Label htmlFor={value.toLowerCase()} className="cursor-pointer">
+              {value}
+            </Label>
+          </div>
+        ))}
+      </RadioGroup>
+    </section>
   );
 }

@@ -68,10 +68,14 @@ export default async function ApartmentsListPage(props: {
                   { forSection: "Bedrooms", values: ["1", "2"] },
                   { forSection: "Amenities", values: ["3", "1"] },
                 ],
+                radioGroupValues: [{ forSection: "Availability", value: "3" }],
               }}
               filterCheckboxSections={[
                 { sectionName: "Bedrooms", values: ["1", "2", "3"] },
                 { sectionName: "Amenities", values: ["1", "2", "3"] },
+              ]}
+              radioGroupSections={[
+                { sectionName: "Availability", values: ["1", "2", "3"] },
               ]}
             />
           </div>
