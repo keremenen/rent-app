@@ -57,7 +57,6 @@ export function ApartmentFilters({
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
 
-  console.log("priceRange", filterOptions.priceRange);
   return (
     <Card>
       <CardHeader>
@@ -79,29 +78,14 @@ export function ApartmentFilters({
       <CardContent
         className={cn("space-y-6", isHidden && isMobile && "hidden")}
       >
+        <PriceRangeSection
+          // currentPriceRange={DEFAULT_PRICE_RANGE}
+          currentPriceRangeValues={filterOptions.priceRange}
+          // setFilterOptions={setFilterOptions}
+          // minPrice={minPrice}
+          // maxPrice={maxPrice}
+        />
         <div className="space-y-4">
-          <div className="mb-6">
-            <Label>Price Range</Label>
-            <div className="mt-6 px-2">
-              <Slider
-                min={DEFAULT_PRICE_RANGE[0]}
-                max={DEFAULT_PRICE_RANGE[1]}
-                step={PRICE_STEPS}
-                defaultValue={[
-                  minPrice || DEFAULT_PRICE_RANGE_VALUE[0],
-                  maxPrice || DEFAULT_PRICE_RANGE_VALUE[1],
-                ]}
-                onValueChange={(value) =>
-                  setFilterOptions((prev) => ({ ...prev, priceRange: value }))
-                }
-              />
-            </div>
-            <div className="mt-2 flex items-center justify-between text-sm">
-              <span>${filterOptions.priceRange[0]}</span>
-              <span>${filterOptions.priceRange[1]}</span>
-            </div>
-          </div>
-
           <FilterSection
             title="Bedrooms"
             items={["Studio", "1", "2", "3", "4+"]}
@@ -239,5 +223,40 @@ export function ApartmentFilters({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+type PriceRangeSectionProps = {
+  priceRange?: number[];
+  currentPriceRangeValues?: number[];
+  setFilterOptions: (prev: { priceRange: number[] }) => void;
+};
+
+export default function PriceRangeSection({
+  priceRange,
+  currentPriceRangeValues,
+}: PriceRangeSectionProps) {
+  return (
+    <div className="mb-6">
+      <Label>Price Range</Label>
+      <div className="mt-6 px-2">
+        <Slider
+          min={priceRange ? priceRange[0] : DEFAULT_PRICE_RANGE[0]}
+          max={priceRange ? priceRange[1] : DEFAULT_PRICE_RANGE[1]}
+          step={PRICE_STEPS}
+          defaultValue={[
+            currentPriceRangeValues[0],
+            currentPriceRangeValues[1],
+          ]}
+          onValueChange={(value) =>
+            setFilterOptions((prev) => ({ ...prev, priceRange: value }))
+          }
+        />
+      </div>
+      <div className="mt-2 flex items-center justify-between text-sm">
+        <span>{priceRange ? priceRange[0] : DEFAULT_PRICE_RANGE[0]}</span>
+        <span>{priceRange ? priceRange[1] : DEFAULT_PRICE_RANGE[1]}</span>
+      </div>
+    </div>
   );
 }
