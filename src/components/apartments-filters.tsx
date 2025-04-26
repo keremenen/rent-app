@@ -40,12 +40,14 @@ export function ApartmentFilters({
   }));
 
   const handleFilterChange = (newFilters: any) => {
+    console.log("newFilters", newFilters);
     setCurrentFilters((prev) => ({
       ...prev,
       ...newFilters,
     }));
   };
 
+  console.log("currentFilters", currentFilters);
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
 
@@ -81,6 +83,7 @@ export function ApartmentFilters({
           {filterCheckboxSections &&
             filterCheckboxSections.map((section, i) => (
               <CheckboxSection
+                onCheckboxChange={handleFilterChange}
                 section={section}
                 key={i}
                 checkedBoxes={currentFilters.checkboxValues}
@@ -141,9 +144,14 @@ type CheckboxSectionProps = {
     values: string[];
   };
   checkedBoxes?: { forSection: string; values: string[] }[];
+  onCheckboxChange: (newFilters: {}) => void;
 };
 
-function CheckboxSection({ section, checkedBoxes }: CheckboxSectionProps) {
+function CheckboxSection({
+  section,
+  checkedBoxes,
+  onCheckboxChange,
+}: CheckboxSectionProps) {
   return (
     <div className="mb-6 space-y-2">
       <Label className="mb-2">{section.sectionName}</Label>
@@ -156,6 +164,34 @@ function CheckboxSection({ section, checkedBoxes }: CheckboxSectionProps) {
                   checkbox.forSection === section.sectionName &&
                   checkbox.values.includes(value),
               )}
+              onCheckedChange={() => {
+                const updatedCheckboxValues =
+                  checkedBoxes?.map((checkbox) =>
+                    checkbox.forSection === section.sectionName
+                      ? {
+                          ...checkbox,
+                          values: checkbox.values.includes(value)
+                            ? checkbox.values.filter((v) => v !== value)
+                            : [...checkbox.values, value],
+                        }
+                      : checkbox,
+                  ) || [];
+
+                if (
+                  !checkedBoxes?.some(
+                    (checkbox) => checkbox.forSection === section.sectionName,
+                  )
+                ) {
+                  updatedCheckboxValues.push({
+                    forSection: section.sectionName,
+                    values: [value],
+                  });
+                }
+
+                onCheckboxChange({
+                  checkboxValues: updatedCheckboxValues,
+                });
+              }}
               className="cursor-pointer"
               id={`checkbox-${section.sectionName}-${value}`}
             />
