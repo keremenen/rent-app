@@ -98,48 +98,7 @@ export function ApartmentFilters({
               ))}
           </div>
         </div>
-
-        {/* <div className="space-y-4">
-          <Button
-            variant="default"
-            className="w-full"
-            onClick={() => {
-              const buildSearchParams = () => {
-                const params = new URLSearchParams();
-
-                const { priceRange, bedrooms, amenities, availability } =
-                  filterOptions;
-
-                if (priceRange) {
-                  params.set("minPrice", priceRange[0].toString());
-                  params.set("maxPrice", priceRange[1].toString());
-                }
-
-                if (bedrooms.length > 0) {
-                  params.set("bedrooms", bedrooms.join(","));
-                }
-
-                if (amenities.length > 0) {
-                  params.set("amenities", amenities.join(","));
-                }
-
-                if (availability) {
-                  params.set("availability", availability);
-                }
-
-                return params;
-              };
-
-              // Redirect to the same page with search params
-              window.location.search = buildSearchParams().toString();
-            }}
-          >
-            Apply Filters
-          </Button>
-          <Button variant="outline" className="w-full" onClick={() => {}}>
-            Reset Filters
-          </Button>
-        </div> */}
+        <FilterActions />
       </CardContent>
     </Card>
   );
@@ -252,5 +211,51 @@ function RadioGroupSection({ section, selectedValue }: RadioGroupSectionProps) {
         ))}
       </RadioGroup>
     </section>
+  );
+}
+
+function FilterActions() {
+  return (
+    <div className="space-y-4">
+      <Button
+        variant="default"
+        className="w-full"
+        // onClick={() => {
+        //   const buildSearchParams = () => {
+        //     const params = new URLSearchParams();
+
+        //     const { priceRange, bedrooms, amenities, availability } =
+        //       filterOptions;
+
+        //     if (priceRange) {
+        //       params.set("minPrice", priceRange[0].toString());
+        //       params.set("maxPrice", priceRange[1].toString());
+        //     }
+
+        //     if (bedrooms.length > 0) {
+        //       params.set("bedrooms", bedrooms.join(","));
+        //     }
+
+        //     if (amenities.length > 0) {
+        //       params.set("amenities", amenities.join(","));
+        //     }
+
+        //     if (availability) {
+        //       params.set("availability", availability);
+        //     }
+
+        //     return params;
+        //   };
+
+        //   // Redirect to the same page with search params
+        //   window.location.search = buildSearchParams().toString();
+        // }}
+      >
+        Apply Filters
+      </Button>
+      <Button variant="outline" className="w-full" onClick={() => {}}>
+        Reset Filters
+      </Button>
+    </div>
   );
 }
