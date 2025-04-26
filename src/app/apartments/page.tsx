@@ -64,10 +64,14 @@ export default async function ApartmentsListPage(props: {
               priceRange={[100, 8000]}
               filters={{
                 priceRangeValues: [300, 4000],
+                checkboxValues: [
+                  { forSection: "Bedrooms", values: ["1", "2"] },
+                  { forSection: "Amenities", values: ["3", "1"] },
+                ],
               }}
               filterCheckboxSections={[
-                { label: "Bedrooms", values: ["1", "2", "3"] },
-                { label: "Amenities", values: ["Pool", "Gym", "Parking"] },
+                { sectionName: "Bedrooms", values: ["1", "2", "3"] },
+                { sectionName: "Amenities", values: ["1", "2", "3"] },
               ]}
             />
           </div>

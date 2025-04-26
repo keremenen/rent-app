@@ -18,8 +18,9 @@ type ApartmentFiltersProps = {
   priceRange?: number[];
   filters?: {
     priceRangeValues?: number[];
+    checkboxValues?: { forSection: string; values: string[] }[];
   };
-  filterCheckboxSections: { label: string; values: string[] }[];
+  filterCheckboxSections?: { sectionName: string; values: string[] }[];
   // maxPrice?: number;
   // bedrooms?: string;
   // amenities?: string;
@@ -33,6 +34,7 @@ export function ApartmentFilters({
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
     priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE_VALUES,
+    checkboxValues: filters?.checkboxValues ?? [],
   }));
 
   const handleFilterChange = (newFilters: any) => {
@@ -80,7 +82,11 @@ export function ApartmentFilters({
         <div className="space-y-4">
           {filterCheckboxSections
             ? filterCheckboxSections.map((section, i) => (
-                <CheckboxSection section={section} key={i} />
+                <CheckboxSection
+                  section={section}
+                  key={i}
+                  checkedBoxes={currentFilters.checkboxValues}
+                />
               ))
             : null}
           {/* <FilterSection
@@ -256,25 +262,30 @@ function PriceRangeSection({
 
 type FilterSectionProps = {
   section: {
-    label: string;
+    sectionName: string;
     values: string[];
   };
+  checkedBoxes?: { forSection: string; values: string[] }[];
 };
 
-function CheckboxSection({ section }: FilterSectionProps) {
+function CheckboxSection({ section, checkedBoxes }: FilterSectionProps) {
   return (
     <div className="mb-6 space-y-2">
-      <Label className="mb-2">{section.label}</Label>
+      <Label className="mb-2">{section.sectionName}</Label>
       <div className="grid grid-cols-2 gap-2">
         {section.values.map((value, i) => (
           <div key={i} className="flex items-center">
             <Checkbox
-              key={i}
+              checked={checkedBoxes?.some(
+                (checkbox) =>
+                  checkbox.forSection === section.sectionName &&
+                  checkbox.values.includes(value),
+              )}
               className="cursor-pointer"
-              id={`checkbox-${value}`}
+              id={`checkbox-${section.sectionName}-${value}`}
             />
             <Label
-              htmlFor={`checkbox-${value}`}
+              htmlFor={`checkbox-${section.sectionName}-${value}`}
               className="cursor-pointer pl-2"
             >
               {value}
