@@ -227,20 +227,25 @@ function RadioGroupSection({ section, selectedValue }: RadioGroupSectionProps) {
       <Label className="mb-2">{section.sectionName}</Label>
       <RadioGroup
         defaultValue="1"
-        value="2"
-        // onValueChange={(value) =>
-        //   setFilterOptions((prev) => ({ ...prev, availability: value }))
-        // }
-        className="flex flex-col"
+        value={
+          selectedValue?.find(
+            (radio) => radio.forSection === section.sectionName,
+          )?.value
+        }
+        className="flex flex-col space-y-1"
       >
         {section.values.map((value, i) => (
-          <div key={i} className="flex items-center space-x-2">
+          <div key={i} className="flex items-center">
             <RadioGroupItem
+              className="cursor-pointer"
               value={value}
               id={value.toLowerCase()}
               // checked={filterOptions.availability === value}
             />
-            <Label htmlFor={value.toLowerCase()} className="cursor-pointer">
+            <Label
+              htmlFor={value.toLowerCase()}
+              className="cursor-pointer pl-2"
+            >
               {value}
             </Label>
           </div>
