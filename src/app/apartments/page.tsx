@@ -3,6 +3,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import prisma from "@/lib/db";
+import { parseCommaSeparatedString } from "@/lib/utils";
 
 type SearchParams = { [key: string]: string | undefined };
 
@@ -11,12 +12,7 @@ export default async function ApartmentsListPage(props: {
 }) {
   const { minPrice, maxPrice, bedrooms } = await props.searchParams;
 
-  const parseCommaSeparatedString = (value?: string) =>
-    value
-      ?.split(",")
-      .map((item) => Number(item.trim()))
-      .filter((num) => !isNaN(num));
-
+  // Parse the bedrooms string into an array of numbers
   const parsedBedrooms = parseCommaSeparatedString(bedrooms);
 
   const apartments = await prisma.apartment.findMany({

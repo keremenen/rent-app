@@ -15,3 +15,11 @@ export function formatNumber(num: number): string {
   }
   return formattedNumber.toString();
 }
+
+export function parseCommaSeparatedString(value?: string): number[] | null {
+  if (!value) return null;
+  return value
+    ?.split(",")
+    .map((item) => Number(item.trim()))
+    .filter((num) => !isNaN(num));
+}
