@@ -16,29 +16,33 @@ import {
 // import { Decimal } from "@prisma/client/runtime/library";
 
 type ApartmentCardProps = {
-  id: string;
-  title: string;
-  address: string;
-  bathrooms: number;
-  bedrooms: number;
-  squareFootage: number;
-  thumbnail: string;
-  availableFrom: Date;
-  amenities: string[];
-  monthlyRent: number;
+  apartment: {
+    id: string;
+    title: string;
+    address: string;
+    bathrooms: number;
+    bedrooms: number;
+    squareFootage: number;
+    thumbnail: string;
+    availableFrom: Date;
+    amenities: string[];
+    monthlyRent: number;
+  };
 };
 
 export function ApartmentCard({
-  id,
-  thumbnail,
-  title,
-  address,
-  monthlyRent,
-  bedrooms,
-  bathrooms,
-  amenities,
-  availableFrom,
-  squareFootage,
+  apartment: {
+    id,
+    title,
+    address,
+    bathrooms,
+    bedrooms,
+    squareFootage,
+    thumbnail,
+    availableFrom,
+    amenities,
+    monthlyRent,
+  },
 }: ApartmentCardProps) {
   return (
     <Card className="overflow-hidden p-0">
@@ -58,7 +62,7 @@ export function ApartmentCard({
           id={id}
           title={title}
           address={address}
-          monthlyRent={monthlyRent}
+          monthlyRent={Number(monthlyRent)}
         />
         <AparrtmendCardDetails
           bedrooms={bedrooms}
@@ -205,7 +209,7 @@ function AparrtmendCardDetails({
       </div>
       <div className="flex items-center gap-1">
         <Maximize className="h-4 w-4" />
-        <span>{squareFeet} sq ft</span>
+        <span>{Number(squareFeet)} sq ft</span>
       </div>
     </div>
   );

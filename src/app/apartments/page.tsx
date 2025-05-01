@@ -2,7 +2,6 @@ import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
-// import SortByOptions from "@/components/sort-by-options";
 import prisma from "@/lib/db";
 
 type SearchParams = { [key: string]: string | undefined };
@@ -10,8 +9,7 @@ type SearchParams = { [key: string]: string | undefined };
 export default async function ApartmentsListPage(props: {
   searchParams: SearchParams;
 }) {
-  const { minPrice, maxPrice, bedrooms, amenities, availability } =
-    await props.searchParams;
+  const { minPrice, maxPrice, bedrooms } = await props.searchParams;
 
   const parseCommaSeparatedString = (value?: string) =>
     value
@@ -43,6 +41,13 @@ export default async function ApartmentsListPage(props: {
     },
   });
 
+  // Convert Prisma Decimal fields to plain numbers
+  const plainApartments = apartments.map((apartment) => ({
+    ...apartment,
+    squareFootage: apartment.squareFootage?.toNumber(),
+    monthlyRent: apartment.monthlyRent?.toNumber(),
+  }));
+
   if (!apartments) {
     return (
       <div className="flex flex-1 items-center justify-center">
@@ -61,9 +66,9 @@ export default async function ApartmentsListPage(props: {
           <div className={`space-y-6 lg:block`}>
             {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
-              priceRange={[100, 4000]}
+              priceRange={[1000, 4000]}
               filters={{
-                priceRangeValues: [300, 4000],
+                priceRangeValues: [300, 2000],
                 checkboxValues: [
                   { forSection: "Bedrooms", values: ["1", "2"] },
                   { forSection: "Amenities", values: ["3", "1"] },
@@ -85,20 +90,8 @@ export default async function ApartmentsListPage(props: {
 
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {apartments.map((apartment) => (
-                <ApartmentCard
-                  key={apartment.id}
-                  address={apartment.address}
-                  amenities={apartment.amenities}
-                  id={apartment.id}
-                  thumbnail={apartment.thumbnail}
-                  monthlyRent={Number(apartment.monthlyRent)}
-                  title={apartment.title}
-                  bedrooms={apartment.bedrooms}
-                  bathrooms={apartment.bathrooms}
-                  squareFootage={Number(apartment.squareFootage)}
-                  availableFrom={apartment.availableFrom}
-                />
+              {plainApartments.map((apartment) => (
+                <ApartmentCard key={apartment.id} apartment={apartment} />
               ))}
             </div>
           </div>
