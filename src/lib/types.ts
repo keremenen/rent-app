@@ -27,3 +27,29 @@ export type ApartmentEssential = {
   amenities: string[];
   monthlyRent: Decimal;
 };
+
+export type Apartment = {
+  id: string;
+  title: string;
+  address: string;
+  bathrooms: number;
+  bedrooms: number;
+  squareFootage: Decimal;
+  thumbnail: string;
+  availableFrom: Date;
+  amenities: string[];
+  monthlyRent: Decimal;
+};
+
+export type ConvertedApartment = {
+  id: string;
+  title: string;
+  address: string;
+  bathrooms: number;
+  bedrooms: number;
+  squareFootage: number;
+  thumbnail: string;
+  availableFrom: Date;
+  amenities: string[];
+  monthlyRent: number;
+};

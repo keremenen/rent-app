@@ -3,7 +3,6 @@
 import { Bath, BedDouble, Calendar, Heart, Maximize } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -13,21 +12,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-// import { Decimal } from "@prisma/client/runtime/library";
+import { Apartment } from "@/lib/types";
 
 type ApartmentCardProps = {
-  apartment: {
-    id: string;
-    title: string;
-    address: string;
-    bathrooms: number;
-    bedrooms: number;
-    squareFootage: number;
-    thumbnail: string;
-    availableFrom: Date;
-    amenities: string[];
-    monthlyRent: number;
-  };
+  apartment: Apartment;
 };
 
 export function ApartmentCard({
@@ -67,7 +55,7 @@ export function ApartmentCard({
         <AparrtmendCardDetails
           bedrooms={bedrooms}
           bathrooms={bathrooms}
-          squareFeet={squareFootage}
+          squareFeet={Number(squareFootage)}
         />
         <ApartmentCardAvailableFrom availableFrom={availableFrom} />
         <ApartmentAmenities amenities={amenities} />

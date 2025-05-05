@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { ApartmentEssential } from "./types";
+import prisma from "./db";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -42,4 +44,40 @@ export function capitalizeFirstLetter(string: string): string {
 
 export function checkIfArrayIsEmpty(array: number[]): boolean {
   return array.length === 0;
+}
+// Convert Prisma apartment object Decimal fields to plain numbers
+export function convertApartmentsToPlain(apartments: ApartmentEssential[]) {
+  return apartments.map((apartment: ApartmentEssential) => ({
+    ...apartment,
+    squareFootage: apartment.squareFootage?.toNumber(),
+    monthlyRent: apartment.monthlyRent?.toNumber(),
+  }));
+}
+
+// Function that takes number as paramenter and fetches apartments from the Prisma DB
+// and returns them as an array of objects
+export async function getApartments({ take }: { take: number }) {
+  try {
+    const apartments = await prisma.apartment.findMany({
+      select: {
+        id: true,
+        title: true,
+        thumbnail: true,
+        bedrooms: true,
+        bathrooms: true,
+        squareFootage: true,
+        monthlyRent: true,
+        address: true,
+        availableFrom: true,
+        amenities: true,
+      },
+      take: take,
+    });
+    return convertApartmentsToPlain(apartments);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching apartments:", error.message);
+      return [];
+    }
+  }
 }
