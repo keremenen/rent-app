@@ -56,8 +56,11 @@ export function convertApartmentsToPlain(apartments: ApartmentEssential[]) {
 
 // Function that takes number as paramenter and fetches apartments from the Prisma DB
 // and returns them as an array of objects
-export async function getApartments({ take }: { take: number }) {
+export async function getRandomApartments({ take }: { take: number }) {
   try {
+    const totalApartments = await prisma.apartment.count();
+    const randomOFfset = Math.floor(Math.random() * (totalApartments - take));
+
     const apartments = await prisma.apartment.findMany({
       select: {
         id: true,
@@ -71,6 +74,7 @@ export async function getApartments({ take }: { take: number }) {
         availableFrom: true,
         amenities: true,
       },
+      skip: randomOFfset,
       take: take,
     });
     return convertApartmentsToPlain(apartments);

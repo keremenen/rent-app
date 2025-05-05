@@ -5,19 +5,17 @@ import { Newsletter } from "@/components/newsletter";
 import { PopularNeighborhoods } from "@/components/popular-neighborhoods";
 import { PropertyOwners } from "@/components/property-owners";
 import { Testimonials } from "@/components/testimonials";
-import { getApartments } from "@/lib/utils";
+import { getRandomApartments } from "@/lib/utils";
 
 export default async function Home() {
-  const featuredApartments = await getApartments({
+  const randomApartments = await getRandomApartments({
     take: 4,
   });
 
   return (
     <main>
       <HeroSection />
-      {featuredApartments && (
-        <FeaturedApartments apartments={featuredApartments} />
-      )}
+      {randomApartments && <FeaturedApartments apartments={randomApartments} />}
       <HowItWorks />
       <PopularNeighborhoods />
       <PropertyOwners />
