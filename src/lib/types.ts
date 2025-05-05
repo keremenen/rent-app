@@ -28,6 +28,8 @@ export type ApartmentEssential = {
   monthlyRent: Decimal;
 };
 
+// PRISMA
+
 export type Apartment = {
   id: string;
   title: string;
@@ -52,4 +54,11 @@ export type ConvertedApartment = {
   availableFrom: Date;
   amenities: string[];
   monthlyRent: number;
+};
+
+export type NeighborhoodEssential = {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
 };

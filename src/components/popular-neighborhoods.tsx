@@ -3,35 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { NeighborhoodEssential } from "@/lib/types";
 
-const neighborhoods = [
-  {
-    id: "downtown",
-    name: "Downtown",
-    description:
-      "Urban living with restaurants, nightlife, and cultural attractions.",
-    propertyCount: 156,
-    image: "/placeholder-image.jpg",
-  },
-  {
-    id: "midtown",
-    name: "Midtown",
-    description:
-      "Central location with shopping, dining, and entertainment options.",
-    propertyCount: 124,
-    image: "/placeholder-image.jpg",
-  },
-  {
-    id: "uptown",
-    name: "Uptown",
-    description:
-      "Quiet residential area with parks, schools, and family-friendly amenities.",
-    propertyCount: 89,
-    image: "/placeholder-image.jpg",
-  },
-];
+type PopularNeighborhoodsProps = {
+  neighborhoods: NeighborhoodEssential[];
+};
 
-export function PopularNeighborhoods() {
+export function PopularNeighborhoods({
+  neighborhoods,
+}: PopularNeighborhoodsProps) {
   return (
     <section className="bg-background py-16">
       <div className="container px-4">
@@ -50,7 +30,7 @@ export function PopularNeighborhoods() {
               <div className="relative aspect-[3/2] w-full">
                 <Link href={`/neighborhoods/${neighborhood.id}`}>
                   <Image
-                    src={neighborhood.image}
+                    src={neighborhood.thumbnail}
                     alt={neighborhood.name}
                     fill
                     className="object-cover transition-transform hover:scale-105"
@@ -63,7 +43,7 @@ export function PopularNeighborhoods() {
                     {neighborhood.name}
                   </h3>
                   <p className="text-sm text-white/80">
-                    {neighborhood.propertyCount} properties
+                    {/* {neighborhood.propertyCount} properties */}
                   </p>
                 </div>
               </div>
