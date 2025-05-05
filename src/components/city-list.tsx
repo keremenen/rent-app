@@ -39,7 +39,7 @@ function CitiesEmptyState() {
 
 function CityGrid({ cities }: { cities: City[] }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
       {cities.map((city) => (
         <CityCard key={city.id} city={city} />
       ))}

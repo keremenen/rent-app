@@ -604,7 +604,16 @@ const cities = [
     name: "Gdynia",
     shortDescription: "Miasto portowe",
     longDescription: "Gdynia to dynamicznie rozwijające się miasto",
-    gallery: ["https://example.com/image-placeholder.jpg"],
+    gallery: [
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/1.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/2.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/3.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/4.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/5.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/6.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/7.jpg",
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/gallery/8.jpg",
+    ],
     coverImage:
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdynia/main.jpg",
     latitude: 54.52,
