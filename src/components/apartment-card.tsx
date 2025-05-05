@@ -12,10 +12,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Apartment } from "@/lib/types";
+import { ConvertedApartment } from "@/lib/types";
 
 type ApartmentCardProps = {
-  apartment: Apartment;
+  apartment: ConvertedApartment;
 };
 
 export function ApartmentCard({
