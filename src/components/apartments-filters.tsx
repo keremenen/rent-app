@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
-const DEFAULT_PRICE_STEP_VALUE = 200;
+const DEFAULT_PRICE_STEP_VALUE = 100;
+const DEFAULT_PRICE_RANGE = [1500, 2000];
 
 type ApartmentFiltersProps = {
   priceRange?: number[];
@@ -31,7 +32,7 @@ export function ApartmentFilters({
   radioGroupSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
-    priceRangeValues: filters?.priceRangeValues ?? [],
+    priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE,
     checkboxValues: filters?.checkboxValues ?? [],
     radioGroupValues: filters?.radioGroupValues ?? [],
   }));
