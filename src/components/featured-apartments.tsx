@@ -1,8 +1,6 @@
-import { ArrowRight, Bath, BedDouble, Maximize } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ApartmentCard } from "./apartment-card";
 import { ConvertedApartment } from "@/lib/types";
 
@@ -27,46 +25,6 @@ export function FeaturedApartments({ apartments }: FeaturedApartmentsProps) {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {apartments.map((apartment) => (
             <ApartmentCard key={apartment.id} apartment={apartment} />
-            // <Card key={apartment.id} className="overflow-hidden p-0">
-            //   <div className="relative aspect-[4/3] w-full">
-            //     <Link href={`/apartments/${apartment.id}`}>
-            //       <Image
-            //         src={apartment.thumbnail}
-            //         alt={apartment.title}
-            //         fill
-            //         className="object-cover transition-transform duration-500 hover:scale-105"
-            //       />
-            //     </Link>
-            //   </div>
-            //   <CardContent className="p-4 pb-0">
-            //     <h3 className="mb-1 font-semibold">{apartment.title}</h3>
-            //     <p className="text-muted-foreground mb-2 text-sm">
-            //       {apartment.address}
-            //     </p>
-            //     <p className="mb-3 text-xl font-bold">
-            //       ${apartment.monthlyRent}/mo
-            //     </p>
-            //     <div className="text-muted-foreground flex justify-between text-sm">
-            //       <div className="flex items-center gap-1">
-            //         <BedDouble className="h-4 w-4" />
-            //         <span>{apartment.bedrooms}</span>
-            //       </div>
-            //       <div className="flex items-center gap-1">
-            //         <Bath className="h-4 w-4" />
-            //         <span>{apartment.bathrooms}</span>
-            //       </div>
-            //       <div className="flex items-center gap-1">
-            //         <Maximize className="h-4 w-4" />
-            //         <span>{apartment.squareFootage} sq ft</span>
-            //       </div>
-            //     </div>
-            //   </CardContent>
-            //   <CardFooter className="p-4 pt-0">
-            //     <Button variant="outline" className="w-full" asChild>
-            //       <Link href={`/apartments/${apartment.id}`}>View Details</Link>
-            //     </Button>
-            //   </CardFooter>
-            // </Card>
           ))}
         </div>
 

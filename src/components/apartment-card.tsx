@@ -33,7 +33,7 @@ export function ApartmentCard({
   },
 }: ApartmentCardProps) {
   return (
-    <Card className="overflow-hidden p-0">
+    <Card className="gap-2 overflow-hidden p-0">
       <div className="relative">
         <Link href={`/apartments/${id}`}>
           <ApartmentCardBackgroundImage
@@ -81,7 +81,7 @@ function ApartmentCardBackgroundImage({
   title: string;
 }) {
   return (
-    <div className="relative aspect-[4/3] w-full bg-gray-500">
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-500">
       <Image
         src={backgroundImage || "/placeholder.svg"}
         alt={title}
