@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
-const DEFAULT_PRICE_STEP_VALUE = 100;
+const DEFAULT_PRICE_STEP_VALUE = 200;
 
 type ApartmentFiltersProps = {
   priceRange?: number[];
@@ -45,7 +45,7 @@ export function ApartmentFilters({
       ...prev,
       ...value,
     }));
-    console.log("currentFilters", currentFilters);
+    console.log("currentFilters", currentFilters.priceRangeValues);
   };
 
   const isMobile = useMobile();
@@ -126,7 +126,7 @@ function PriceRangeSection({
           min={priceRange[0]}
           max={priceRange[1]}
           step={DEFAULT_PRICE_STEP_VALUE}
-          defaultValue={priceRangeValues}
+          value={priceRangeValues}
           onValueChange={(value) => onValueChange({ priceRangeValues: value })}
         />
       </div>
