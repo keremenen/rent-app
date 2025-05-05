@@ -138,3 +138,51 @@ export async function getApartmentsByNeighborhoodId(id: string) {
     }
   }
 }
+
+export const generatePrismaFilters = ({
+  minprice,
+  maxprice,
+  bedrooms,
+  amenities,
+}: {
+  minprice?: string;
+  maxprice?: string;
+  bedrooms?: string;
+  amenities?: string;
+}) => {
+  const filters = [];
+
+  if (minprice || maxprice) {
+    filters.push({
+      monthlyRent: {
+        gte: minprice ? Number(minprice) : 0,
+        lte: maxprice ? Number(maxprice) : 10_000,
+      },
+    });
+  }
+
+  if (bedrooms) {
+    const parsedBedrooms = parseStringsToNumberArray(bedrooms);
+
+    if (parsedBedrooms && parsedBedrooms.length > 0) {
+      filters.push({
+        bedrooms: {
+          in: parsedBedrooms,
+        },
+      });
+    }
+  }
+
+  if (amenities) {
+    const parsedAmenities = parseStringsToStringArray(amenities);
+    if (parsedAmenities && parsedAmenities.length > 0) {
+      filters.push({
+        amenities: {
+          hasEvery: parsedAmenities,
+        },
+      });
+    }
+  }
+
+  return filters;
+};

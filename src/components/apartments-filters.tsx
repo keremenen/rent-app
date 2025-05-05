@@ -12,11 +12,10 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 const DEFAULT_PRICE_STEP_VALUE = 100;
-const DEFAULT_PRICE_RANGE = [1500, 2000];
-const DEFAULT_PRICE_RANGE_VALUES = [1500, 2000];
 
 type ApartmentFiltersProps = {
-  priceRange?: number[];
+  priceRange: number[];
+  priceRangeInitialValues: number[];
   filters?: {
     priceRangeValues?: number[];
     checkboxValues?: { forSection: string; values: string[] }[];
@@ -30,10 +29,11 @@ export function ApartmentFilters({
   priceRange,
   filters,
   checkboxSections,
+  priceRangeInitialValues,
   radioGroupSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
-    priceRangeValues: filters?.priceRangeValues ?? DEFAULT_PRICE_RANGE,
+    priceRangeValues: filters?.priceRangeValues ?? priceRangeInitialValues,
     checkboxValues: filters?.checkboxValues ?? [],
     radioGroupValues: filters?.radioGroupValues ?? [],
   }));
@@ -51,9 +51,11 @@ export function ApartmentFilters({
 
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
+  console.log("currentFilters", currentFilters);
 
   return (
     <Card>
+      {/* HEADER */}
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Filters</CardTitle>
@@ -73,6 +75,7 @@ export function ApartmentFilters({
       <CardContent
         className={cn("space-y-6", isHidden && isMobile && "hidden")}
       >
+        {/* PRICE RANGE COMPONENT */}
         {priceRange && (
           <PriceRangeSection
             priceRange={priceRange}
@@ -81,6 +84,7 @@ export function ApartmentFilters({
           />
         )}
         <div className="space-y-4">
+          {/* CHECKBOX COMPONENTS */}
           {checkboxSections &&
             checkboxSections.map((section, i) => (
               <CheckboxSection
@@ -92,6 +96,7 @@ export function ApartmentFilters({
             ))}
 
           <div className="space-y-4">
+            {/* RADIO GROUP COMPONENTS */}
             {radioGroupSections &&
               radioGroupSections.map((section, i) => (
                 <RadioGroupSection

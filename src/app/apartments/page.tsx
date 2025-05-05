@@ -3,10 +3,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import prisma from "@/lib/db";
-import {
-  parseStringsToStringArray,
-  parseStringsToNumberArray,
-} from "@/lib/utils";
+import { generatePrismaFilters } from "@/lib/utils";
 
 type SearchParams = { [key: string]: string | undefined };
 
@@ -15,9 +12,7 @@ export default async function ApartmentsListPage(props: {
 }) {
   const { minprice, maxprice, bedrooms, amenities } = await props.searchParams;
 
-  // Parse the bedrooms string into an array of numbers
-  const parsedBedrooms = parseStringsToNumberArray(bedrooms);
-  const parsedAnities = parseStringsToStringArray(amenities);
+  const prismaFilters = generatePrismaFilters(await props.searchParams);
 
   const apartments = await prisma.apartment.findMany({
     select: {
@@ -33,27 +28,11 @@ export default async function ApartmentsListPage(props: {
       monthlyRent: true,
     },
     where: {
-      monthlyRent: {
-        gte: Number(minprice) || undefined,
-        lte: Number(maxprice) || undefined,
-      },
-      OR: parsedBedrooms?.map((bedroomCount) => ({ bedrooms: bedroomCount })),
-      AND: parsedAnities?.map((amenity) => ({
-        amenities: {
-          has: amenity,
-        },
-      })),
+      AND: prismaFilters,
     },
   });
 
-  // Convert Prisma Decimal fields to plain numbers
-  const plainApartments = apartments.map((apartment) => ({
-    ...apartment,
-    squareFootage: apartment.squareFootage?.toNumber(),
-    monthlyRent: apartment.monthlyRent?.toNumber(),
-  }));
-
-  if (!apartments) {
+  if (!apartments || apartments.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center">
         <h1 className="text-2xl font-semibold">No apartments found</h1>
@@ -61,42 +40,11 @@ export default async function ApartmentsListPage(props: {
     );
   }
 
-  const generateFiltersObject = () => {
-    const currentFilters = {};
-
-    if (minprice || maxprice) {
-      Object.assign(currentFilters, {
-        priceRangeValues: [
-          minprice ? Number(minprice) : 0,
-          maxprice ? Number(maxprice) : Infinity,
-        ],
-      });
-    }
-
-    if (bedrooms) {
-      Object.assign(currentFilters, {
-        checkboxValues: [
-          {
-            forSection: "bedrooms",
-            values: parseStringsToStringArray(bedrooms),
-          },
-        ],
-      });
-    }
-
-    if (amenities) {
-      Object.assign(currentFilters, {
-        checkboxValues: [
-          {
-            forSection: "amenities",
-            values: parseStringsToStringArray(amenities),
-          },
-        ],
-      });
-    }
-
-    return currentFilters;
-  };
+  const plainApartments = apartments.map((apartment) => ({
+    ...apartment,
+    squareFootage: apartment.squareFootage?.toNumber(),
+    monthlyRent: apartment.monthlyRent?.toNumber(),
+  }));
 
   return (
     <div className="bg-background">
@@ -109,7 +57,7 @@ export default async function ApartmentsListPage(props: {
             {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
               priceRange={[1000, 4000]}
-              filters={generateFiltersObject()}
+              priceRangeInitialValues={[1800, 2000]}
               checkboxSections={[
                 { sectionName: "bedrooms", values: ["1", "2", "3", "4"] },
                 { sectionName: "amenities", values: ["Wi-Fi", "TV", "Ogród"] },
