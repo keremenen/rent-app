@@ -45,7 +45,7 @@ export function ApartmentFilters({
       ...prev,
       ...value,
     }));
-    console.log("currentFilters", currentFilters.priceRangeValues);
+    console.log("currentFilters", currentFilters);
   };
 
   const isMobile = useMobile();
@@ -97,6 +97,7 @@ export function ApartmentFilters({
                   key={i}
                   section={section}
                   selectedValue={currentFilters.radioGroupValues}
+                  onRadioGroupChange={handleFilterChange}
                 />
               ))}
           </div>
@@ -207,28 +208,50 @@ type RadioGroupSectionProps = {
     values: string[];
   };
   selectedValue?: { forSection: string; value: string }[];
+  onRadioGroupChange: (value: {
+    radioGroupValues: { forSection: string; value: string }[];
+  }) => void;
 };
 
-function RadioGroupSection({ section, selectedValue }: RadioGroupSectionProps) {
+function RadioGroupSection({
+  section,
+  selectedValue,
+  onRadioGroupChange,
+}: RadioGroupSectionProps) {
+  const getDefaultValue = () => {
+    const selected = selectedValue?.find(
+      (radio) => radio.forSection === section.sectionName,
+    );
+    return selected
+      ? selected.value.toLowerCase()
+      : section.values[0].toLowerCase();
+  };
+
+  const handleRadioGroupChange = (value: string) => {
+    onRadioGroupChange({
+      radioGroupValues: (selectedValue ?? []).map((radio) => {
+        if (radio.forSection === section.sectionName) {
+          return { ...radio, value };
+        }
+        return radio;
+      }),
+    });
+  };
+
   return (
     <section>
       <Label className="mb-2">{section.sectionName}</Label>
       <RadioGroup
-        defaultValue="1"
-        value={
-          selectedValue?.find(
-            (radio) => radio.forSection === section.sectionName,
-          )?.value
-        }
+        defaultValue={getDefaultValue()}
+        onValueChange={handleRadioGroupChange}
         className="flex flex-col space-y-1"
       >
         {section.values.map((value, i) => (
           <div key={i} className="flex items-center">
             <RadioGroupItem
               className="cursor-pointer"
-              value={value}
+              value={value.toLowerCase()}
               id={value.toLowerCase()}
-              // checked={filterOptions.availability === value}
             />
             <Label
               htmlFor={value.toLowerCase()}
