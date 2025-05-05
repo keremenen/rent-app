@@ -66,8 +66,8 @@ export default async function ApartmentsListPage(props: {
               filters={{
                 priceRangeValues: [300, 2000],
                 checkboxValues: [
-                  { forSection: "Bedrooms", values: ["1", "2"] },
-                  { forSection: "Amenities", values: ["3", "1"] },
+                  { forSection: "Bedrooms", values: ["3"] },
+                  { forSection: "Amenities", values: ["1", "2"] },
                 ],
                 radioGroupValues: [{ forSection: "Availability", value: "2" }],
               }}

@@ -7,7 +7,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useMobile } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { Menu, Radio } from "lucide-react";
+
+import { Menu } from "lucide-react";
 import { useState } from "react";
 
 const DEFAULT_PRICE_STEP_VALUE = 100;
@@ -21,10 +22,6 @@ type ApartmentFiltersProps = {
   };
   filterCheckboxSections?: { sectionName: string; values: string[] }[];
   radioGroupSections?: { sectionName: string; values: string[] }[];
-  // maxPrice?: number;
-  // bedrooms?: string;
-  // amenities?: string;
-  // availability?: string;
 };
 
 export function ApartmentFilters({
@@ -39,15 +36,18 @@ export function ApartmentFilters({
     radioGroupValues: filters?.radioGroupValues ?? [],
   }));
 
-  const handleFilterChange = (newFilters: any) => {
-    console.log("newFilters", newFilters);
+  const handleFilterChange = (value: {
+    priceRangeValues?: number[];
+    checkboxValues?: { forSection: string; values: string[] }[];
+    radioGroupValues?: { forSection: string; value: string }[];
+  }) => {
     setCurrentFilters((prev) => ({
       ...prev,
-      ...newFilters,
+      ...value,
     }));
+    console.log("currentFilters", currentFilters);
   };
 
-  console.log("currentFilters", currentFilters);
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
 
@@ -144,7 +144,9 @@ type CheckboxSectionProps = {
     values: string[];
   };
   checkedBoxes?: { forSection: string; values: string[] }[];
-  onCheckboxChange: (newFilters: {}) => void;
+  onCheckboxChange: (value: {
+    checkboxValues: { forSection: string; values: string[] }[];
+  }) => void;
 };
 
 function CheckboxSection({
@@ -152,6 +154,22 @@ function CheckboxSection({
   checkedBoxes,
   onCheckboxChange,
 }: CheckboxSectionProps) {
+  const handleCheckboxChange = (value: string) => {
+    onCheckboxChange({
+      checkboxValues: (checkedBoxes ?? []).map((checkbox) => {
+        if (checkbox.forSection === section.sectionName) {
+          return {
+            ...checkbox,
+            values: checkbox.values.includes(value)
+              ? checkbox.values.filter((v) => v !== value)
+              : [...checkbox.values, value],
+          };
+        }
+        return checkbox;
+      }),
+    });
+  };
+
   return (
     <div className="mb-6 space-y-2">
       <Label className="mb-2">{section.sectionName}</Label>
@@ -165,32 +183,7 @@ function CheckboxSection({
                   checkbox.values.includes(value),
               )}
               onCheckedChange={() => {
-                const updatedCheckboxValues =
-                  checkedBoxes?.map((checkbox) =>
-                    checkbox.forSection === section.sectionName
-                      ? {
-                          ...checkbox,
-                          values: checkbox.values.includes(value)
-                            ? checkbox.values.filter((v) => v !== value)
-                            : [...checkbox.values, value],
-                        }
-                      : checkbox,
-                  ) || [];
-
-                if (
-                  !checkedBoxes?.some(
-                    (checkbox) => checkbox.forSection === section.sectionName,
-                  )
-                ) {
-                  updatedCheckboxValues.push({
-                    forSection: section.sectionName,
-                    values: [value],
-                  });
-                }
-
-                onCheckboxChange({
-                  checkboxValues: updatedCheckboxValues,
-                });
+                handleCheckboxChange(value);
               }}
               className="cursor-pointer"
               id={`checkbox-${section.sectionName}-${value}`}
