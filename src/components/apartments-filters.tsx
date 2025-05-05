@@ -45,7 +45,6 @@ export function ApartmentFilters({
       ...prev,
       ...value,
     }));
-    console.log("currentFilters", currentFilters);
   };
 
   const isMobile = useMobile();
@@ -102,7 +101,7 @@ export function ApartmentFilters({
               ))}
           </div>
         </div>
-        <FilterActions />
+        <FilterActions currentFilters={currentFilters} />
       </CardContent>
     </Card>
   );
@@ -266,42 +265,51 @@ function RadioGroupSection({
   );
 }
 
-function FilterActions() {
+type FilterActionsProps = {
+  currentFilters: {
+    priceRangeValues: number[];
+    checkboxValues: { forSection: string; values: string[] }[];
+    radioGroupValues: { forSection: string; value: string }[];
+  };
+};
+
+function FilterActions(currentFilters: FilterActionsProps) {
+  const { currentFilters: filters } = currentFilters;
+
+  const buildSearchParams = () => {
+    const params = new URLSearchParams();
+
+    const { priceRangeValues, checkboxValues, radioGroupValues } = filters;
+
+    if (priceRangeValues) {
+      params.set("minPrice", priceRangeValues[0].toString());
+      params.set("maxPrice", priceRangeValues[1].toString());
+    }
+
+    if (checkboxValues.length > 0) {
+      checkboxValues.forEach((checkbox) => {
+        params.set(checkbox.forSection, checkbox.values.join(","));
+      });
+    }
+
+    if (radioGroupValues.length > 0) {
+      radioGroupValues.forEach((radio) => {
+        params.set(radio.forSection, radio.value);
+      });
+    }
+
+    return params;
+  };
   return (
     <div className="space-y-4">
       <Button
         variant="default"
         className="w-full"
-        // onClick={() => {
-        //   const buildSearchParams = () => {
-        //     const params = new URLSearchParams();
-
-        //     const { priceRange, bedrooms, amenities, availability } =
-        //       filterOptions;
-
-        //     if (priceRange) {
-        //       params.set("minPrice", priceRange[0].toString());
-        //       params.set("maxPrice", priceRange[1].toString());
-        //     }
-
-        //     if (bedrooms.length > 0) {
-        //       params.set("bedrooms", bedrooms.join(","));
-        //     }
-
-        //     if (amenities.length > 0) {
-        //       params.set("amenities", amenities.join(","));
-        //     }
-
-        //     if (availability) {
-        //       params.set("availability", availability);
-        //     }
-
-        //     return params;
-        //   };
-
-        //   // Redirect to the same page with search params
-        //   window.location.search = buildSearchParams().toString();
-        // }}
+        onClick={() => {
+          buildSearchParams();
+          // Redirect to the same page with search params
+          window.location.search = buildSearchParams().toString();
+        }}
       >
         Apply Filters
       </Button>
