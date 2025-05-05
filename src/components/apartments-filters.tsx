@@ -51,7 +51,6 @@ export function ApartmentFilters({
 
   const isMobile = useMobile();
   const [isHidden, setIsHidden] = useState(false);
-  console.log("currentFilters", currentFilters);
 
   return (
     <Card>

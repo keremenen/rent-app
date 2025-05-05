@@ -3,7 +3,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import prisma from "@/lib/db";
-import { generatePrismaFilters } from "@/lib/utils";
+import { generatePrismaFilters, parseStringsToStringArray } from "@/lib/utils";
 
 type SearchParams = { [key: string]: string | undefined };
 
@@ -13,6 +13,36 @@ export default async function ApartmentsListPage(props: {
   const { minprice, maxprice, bedrooms, amenities } = await props.searchParams;
 
   const prismaFilters = generatePrismaFilters(await props.searchParams);
+
+  const generateFilterObject = ({
+    minprice,
+    maxprice,
+    bedrooms,
+    amenities,
+  }) => {
+    const filters: {
+      priceRangeValues?: [string | undefined, string | undefined];
+      bedrooms?: { in: string[] };
+      amenities?: { hasSome: string[] };
+    } = {};
+    if (minprice || maxprice) {
+      filters.priceRangeValues = [minprice, maxprice];
+    }
+    if (bedrooms) {
+      filters.checkboxValues.bedrooms = parseStringsToStringArray(bedrooms);
+    }
+    // if (amenities) {
+    //   filters.push({ amenities: { hasSome: amenities.split(",") } });
+    // }
+    return filters;
+  };
+
+  const filterObject = generateFilterObject({
+    minprice,
+    maxprice,
+    bedrooms,
+    amenities,
+  });
 
   const apartments = await prisma.apartment.findMany({
     select: {
@@ -46,6 +76,7 @@ export default async function ApartmentsListPage(props: {
     monthlyRent: apartment.monthlyRent?.toNumber(),
   }));
 
+  console.log("Filter Object:", filterObject);
   return (
     <div className="bg-background">
       <ApartmentListHeader totalCount={apartments.length} viewMode={"list"} />
@@ -58,6 +89,7 @@ export default async function ApartmentsListPage(props: {
             <ApartmentFilters
               priceRange={[1000, 4000]}
               priceRangeInitialValues={[1800, 2000]}
+              filters={filterObject}
               checkboxSections={[
                 { sectionName: "bedrooms", values: ["1", "2", "3", "4"] },
                 { sectionName: "amenities", values: ["Wi-Fi", "TV", "Ogród"] },
