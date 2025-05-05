@@ -38,13 +38,10 @@ export function PopularNeighborhoods({
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 </Link>
-                <div className="absolute bottom-0 p-4 text-white">
-                  <h3 className="mb-1 text-xl font-semibold">
+                <div className="relative flex h-full items-center justify-center p-4 text-white">
+                  <h3 className="mb-1 text-2xl font-semibold">
                     {neighborhood.name}
                   </h3>
-                  <p className="text-sm text-white/80">
-                    {/* {neighborhood.propertyCount} properties */}
-                  </p>
                 </div>
               </div>
               <CardContent className="p-4 pt-0">
