@@ -23,3 +23,7 @@ export function parseCommaSeparatedString(value?: string): number[] | null {
     .map((item) => Number(item.trim()))
     .filter((num) => !isNaN(num));
 }
+
+export function capitalizeFirstLetter(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

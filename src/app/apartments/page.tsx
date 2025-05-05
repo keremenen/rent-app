@@ -66,20 +66,20 @@ export default async function ApartmentsListPage(props: {
               filters={{
                 priceRangeValues: [1200, 3000],
                 checkboxValues: [
-                  { forSection: "Bedrooms", values: ["3"] },
-                  { forSection: "Amenities", values: ["1", "2"] },
+                  { forSection: "amenities", values: ["1", "2"] },
                 ],
                 radioGroupValues: [
-                  { forSection: "Availability", value: "All" },
+                  { forSection: "availability", value: "All" },
                 ],
               }}
-              filterCheckboxSections={[
-                { sectionName: "Bedrooms", values: ["1", "2", "3"] },
-                { sectionName: "Amenities", values: ["1", "2", "3"] },
+              checkboxSections={[
+                { sectionName: "bedrooms", values: ["1", "2", "3"] },
+                // { sectionName: "Kitchens", values: ["1", "2", "3"] },
+                { sectionName: "amenities", values: ["1", "2", "3"] },
               ]}
               radioGroupSections={[
                 {
-                  sectionName: "Availability",
+                  sectionName: "availability",
                   values: ["All", "Available Now", "Comming Soon"],
                 },
               ]}

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useMobile } from "@/lib/hooks";
-import { cn } from "@/lib/utils";
+import { capitalizeFirstLetter, cn } from "@/lib/utils";
 
 import { Menu } from "lucide-react";
 import { useState } from "react";
@@ -21,14 +21,14 @@ type ApartmentFiltersProps = {
     checkboxValues?: { forSection: string; values: string[] }[];
     radioGroupValues?: { forSection: string; value: string }[];
   };
-  filterCheckboxSections?: { sectionName: string; values: string[] }[];
+  checkboxSections?: { sectionName: string; values: string[] }[];
   radioGroupSections?: { sectionName: string; values: string[] }[];
 };
 
 export function ApartmentFilters({
   priceRange,
   filters,
-  filterCheckboxSections,
+  checkboxSections,
   radioGroupSections,
 }: ApartmentFiltersProps) {
   const [currentFilters, setCurrentFilters] = useState(() => ({
@@ -80,8 +80,8 @@ export function ApartmentFilters({
           />
         )}
         <div className="space-y-4">
-          {filterCheckboxSections &&
-            filterCheckboxSections.map((section, i) => (
+          {checkboxSections &&
+            checkboxSections.map((section, i) => (
               <CheckboxSection
                 onCheckboxChange={handleFilterChange}
                 section={section}
@@ -156,24 +156,37 @@ function CheckboxSection({
   onCheckboxChange,
 }: CheckboxSectionProps) {
   const handleCheckboxChange = (value: string) => {
+    const existingSection = checkedBoxes?.find(
+      (checkbox) => checkbox.forSection === section.sectionName,
+    );
+
+    const updatedCheckboxValues = existingSection
+      ? (checkedBoxes || []).map(
+          (checkbox) =>
+            checkbox.forSection === section.sectionName
+              ? {
+                  ...checkbox,
+                  values: checkbox.values.includes(value)
+                    ? checkbox.values.filter((v) => v !== value) // Remove the value
+                    : [...checkbox.values, value], // Add the value
+                }
+              : checkbox, // Keep other sections unchanged
+        )
+      : [
+          ...(checkedBoxes || []), // Preserve existing sections
+          { forSection: section.sectionName, values: [value] }, // Add a new section
+        ];
+
     onCheckboxChange({
-      checkboxValues: (checkedBoxes ?? []).map((checkbox) => {
-        if (checkbox.forSection === section.sectionName) {
-          return {
-            ...checkbox,
-            values: checkbox.values.includes(value)
-              ? checkbox.values.filter((v) => v !== value)
-              : [...checkbox.values, value],
-          };
-        }
-        return checkbox;
-      }),
+      checkboxValues: updatedCheckboxValues,
     });
   };
 
   return (
     <div className="mb-6 space-y-2">
-      <Label className="mb-2">{section.sectionName}</Label>
+      <Label className="mb-2">
+        {capitalizeFirstLetter(section.sectionName)}
+      </Label>
       <div className="grid grid-cols-2 gap-2">
         {section.values.map((value, i) => (
           <div key={i} className="flex items-center">
@@ -240,7 +253,9 @@ function RadioGroupSection({
 
   return (
     <section>
-      <Label className="mb-2">{section.sectionName}</Label>
+      <Label className="mb-2">
+        {capitalizeFirstLetter(section.sectionName)}
+      </Label>
       <RadioGroup
         defaultValue={getDefaultValue()}
         onValueChange={handleRadioGroupChange}
@@ -274,30 +289,25 @@ type FilterActionsProps = {
   };
 };
 
-function FilterActions(currentFilters: FilterActionsProps) {
-  const { currentFilters: filters } = currentFilters;
-
+function FilterActions({ currentFilters }: FilterActionsProps) {
   const buildSearchParams = () => {
     const params = new URLSearchParams();
 
-    const { priceRangeValues, checkboxValues, radioGroupValues } = filters;
+    // Add price range values to the search params
+    params.append("minprice", currentFilters.priceRangeValues[0].toString());
+    params.append("maxprice", currentFilters.priceRangeValues[1].toString());
 
-    if (priceRangeValues) {
-      params.set("minPrice", priceRangeValues[0].toString());
-      params.set("maxPrice", priceRangeValues[1].toString());
-    }
+    // Add checkbox values to the search params
+    currentFilters.checkboxValues.forEach((checkbox) => {
+      if (checkbox.values.length > 0) {
+        params.append(checkbox.forSection, checkbox.values.join(","));
+      }
+    });
 
-    if (checkboxValues.length > 0) {
-      checkboxValues.forEach((checkbox) => {
-        params.set(checkbox.forSection, checkbox.values.join(","));
-      });
-    }
-
-    if (radioGroupValues.length > 0) {
-      radioGroupValues.forEach((radio) => {
-        params.set(radio.forSection, radio.value);
-      });
-    }
+    // Add radio group values to the search params
+    currentFilters.radioGroupValues.forEach((radio) => {
+      params.append(radio.forSection, radio.value);
+    });
 
     return params;
   };
@@ -308,6 +318,7 @@ function FilterActions(currentFilters: FilterActionsProps) {
         className="w-full"
         onClick={() => {
           buildSearchParams();
+
           // Redirect to the same page with search params
           window.location.search = buildSearchParams().toString();
         }}
