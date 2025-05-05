@@ -28,6 +28,18 @@ export type ApartmentEssential = {
   monthlyRent: Decimal;
 };
 
+export type PNeighborhood = {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  averageRent: Decimal;
+  walkScore: Decimal;
+  commuteTime: Decimal;
+  features: string[];
+  createdAt: Date;
+};
+
 // PRISMA
 
 export type Apartment = {

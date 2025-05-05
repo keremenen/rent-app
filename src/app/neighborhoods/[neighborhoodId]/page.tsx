@@ -2,8 +2,10 @@ import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { NeighborhoodHeader } from "@/components/neighborhood-header";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
-import SortByOptions from "@/components/sort-by-options";
-import prisma from "@/lib/db";
+import {
+  getApartmentsByNeighborhoodId,
+  getNeighborhoodById,
+} from "@/lib/utils";
 
 type NeighborhoodParams = {
   params: Promise<{ neighborhoodId: string }>;
@@ -12,25 +14,9 @@ type NeighborhoodParams = {
 export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
   const { neighborhoodId } = await params;
 
-  const neighborhood = await prisma.neighborhood.findUnique({
-    where: { id: neighborhoodId },
-  });
+  const neighborhood = await getNeighborhoodById(neighborhoodId);
 
-  const apartments = await prisma.apartment.findMany({
-    where: { neighborhoodId: neighborhoodId },
-    select: {
-      id: true,
-      title: true,
-      address: true,
-      bathrooms: true,
-      bedrooms: true,
-      squareFootage: true,
-      thumbnail: true,
-      availableFrom: true,
-      amenities: true,
-      monthlyRent: true,
-    },
-  });
+  const apartments = await getApartmentsByNeighborhoodId(neighborhoodId);
 
   if (!neighborhood) {
     return (
@@ -46,7 +32,7 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
         backgroundImage={neighborhood.thumbnail}
         name={neighborhood.name}
         description={neighborhood?.description}
-        apartmentCount={apartments.length}
+        apartmentCount={4}
       />
       <main className="container px-4 py-8">
         <div className="mb-6 space-y-6">
@@ -58,31 +44,21 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
             features={neighborhood.features}
           />
           <div className="text-muted-foreground text-sm">
-            {apartments.length === 1 ? "apartment" : "apartments"} available
+            {`${apartments?.length || 0} ${
+              apartments?.length === 1 ? "apartment" : "apartments"
+            } available`}
           </div>
         </div>
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <SortByOptions sortOption={"priceAsc"} />
+            {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters />
           </div>
 
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
               {apartments.map((apartment) => (
-                <ApartmentCard
-                  key={apartment.id}
-                  address={apartment.address}
-                  amenities={apartment.amenities}
-                  id={apartment.id}
-                  thumbnail={apartment.thumbnail}
-                  monthlyRent={Number(apartment.monthlyRent)}
-                  title={apartment.title}
-                  bedrooms={apartment.bedrooms}
-                  bathrooms={apartment.bathrooms}
-                  squareFootage={Number(apartment.squareFootage)}
-                  availableFrom={apartment.availableFrom}
-                />
+                <ApartmentCard key={apartment.id} apartment={apartment} />
               ))}
             </div>
           </div>

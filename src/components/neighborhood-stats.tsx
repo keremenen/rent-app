@@ -1,12 +1,11 @@
 import { Building, Car, DollarSign, Users, Wallet } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Decimal } from "@prisma/client/runtime/library";
 
 type NeighborhoodStatsProps = {
   averageRent: number;
-  walkScore: Decimal;
+  walkScore: number;
   population: number;
-  commuteTime: Decimal;
+  commuteTime: number;
   features: string[];
 };
 

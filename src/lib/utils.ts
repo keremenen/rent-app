@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ApartmentEssential } from "./types";
+import { ApartmentEssential, PNeighborhood } from "./types";
 import prisma from "./db";
 
 export function cn(...inputs: ClassValue[]) {
@@ -54,6 +54,16 @@ export function convertApartmentsToPlain(apartments: ApartmentEssential[]) {
   }));
 }
 
+//Conver Prisma neighborhood object Decimal fields to plain numbers
+export function convertNeighborhoodToPlain(neighborhood: PNeighborhood) {
+  return {
+    ...neighborhood,
+    averageRent: neighborhood.averageRent?.toNumber(),
+    walkScore: neighborhood.walkScore?.toNumber(),
+    commuteTime: neighborhood.commuteTime?.toNumber(),
+  };
+}
+
 // Function that takes number as paramenter and fetches apartments from the Prisma DB
 // and returns them as an array of objects
 export async function getRandomApartments({ take }: { take: number }) {
@@ -76,6 +86,49 @@ export async function getRandomApartments({ take }: { take: number }) {
       },
       skip: randomOFfset,
       take: take,
+    });
+    return convertApartmentsToPlain(apartments);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching apartments:", error.message);
+      return [];
+    }
+  }
+}
+
+export async function getNeighborhoodById(id: string) {
+  try {
+    const neighborhood = await prisma.neighborhood.findUnique({
+      where: { id: id },
+    });
+    if (!neighborhood) {
+      return null;
+    }
+    return convertNeighborhoodToPlain(neighborhood);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching neighborhood:", error.message);
+      return null;
+    }
+  }
+}
+
+export async function getApartmentsByNeighborhoodId(id: string) {
+  try {
+    const apartments = await prisma.apartment.findMany({
+      where: { neighborhoodId: id },
+      select: {
+        id: true,
+        title: true,
+        thumbnail: true,
+        bedrooms: true,
+        bathrooms: true,
+        squareFootage: true,
+        monthlyRent: true,
+        address: true,
+        availableFrom: true,
+        amenities: true,
+      },
     });
     return convertApartmentsToPlain(apartments);
   } catch (error) {
