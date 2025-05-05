@@ -49,8 +49,8 @@ export function PropertyOwners() {
               {benefits.map((benefit, index) => (
                 <Card key={index} className="border-primary/10 py-0">
                   <CardContent className="flex flex-col items-start p-4">
-                    <div className="bg-primary/10 mb-3 flex h-10 w-10 items-center justify-center rounded-full">
-                      <benefit.icon className="text-primary h-5 w-5" />
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100/80">
+                      <benefit.icon className="h-5 w-5 text-blue-500" />
                     </div>
                     <h3 className="mb-1 font-semibold">{benefit.title}</h3>
                     <p className="text-muted-foreground text-sm">
