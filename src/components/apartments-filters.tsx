@@ -86,12 +86,12 @@ export function ApartmentFilters({
         <div className="space-y-4">
           {/* CHECKBOX COMPONENTS */}
           {checkboxSections &&
-            checkboxSections.map((section, i) => (
+            checkboxSections.map((checkboxSection, i) => (
               <CheckboxSection
                 onCheckboxChange={handleFilterChange}
-                section={section}
+                section={checkboxSection}
                 key={i}
-                checkedBoxes={currentFilters.checkboxValues}
+                checkedCheckboxes={currentFilters.checkboxValues}
               />
             ))}
 
@@ -150,7 +150,7 @@ type CheckboxSectionProps = {
     sectionName: string;
     values: string[];
   };
-  checkedBoxes?: { forSection: string; values: string[] }[];
+  checkedCheckboxes?: { forSection: string; values: string[] }[];
   onCheckboxChange: (value: {
     checkboxValues: { forSection: string; values: string[] }[];
   }) => void;
@@ -158,16 +158,16 @@ type CheckboxSectionProps = {
 
 function CheckboxSection({
   section,
-  checkedBoxes,
+  checkedCheckboxes,
   onCheckboxChange,
 }: CheckboxSectionProps) {
   const handleCheckboxChange = (value: string) => {
-    const existingSection = checkedBoxes?.find(
+    const existingSection = checkedCheckboxes?.find(
       (checkbox) => checkbox.forSection === section.sectionName,
     );
 
     const updatedCheckboxValues = existingSection
-      ? (checkedBoxes || []).map(
+      ? (checkedCheckboxes || []).map(
           (checkbox) =>
             checkbox.forSection === section.sectionName
               ? {
@@ -179,7 +179,7 @@ function CheckboxSection({
               : checkbox, // Keep other sections unchanged
         )
       : [
-          ...(checkedBoxes || []), // Preserve existing sections
+          ...(checkedCheckboxes || []), // Preserve existing sections
           { forSection: section.sectionName, values: [value] }, // Add a new section
         ];
 
@@ -197,13 +197,13 @@ function CheckboxSection({
         {section.values.map((value, i) => (
           <div key={i} className="flex items-center">
             <Checkbox
-              checked={checkedBoxes?.some(
+              checked={checkedCheckboxes?.some(
                 (checkbox) =>
                   checkbox.forSection === section.sectionName &&
-                  checkbox.values.includes(value),
+                  checkbox.values.includes(value.toLowerCase()),
               )}
               onCheckedChange={() => {
-                handleCheckboxChange(value);
+                handleCheckboxChange(value.toLowerCase());
               }}
               className="cursor-pointer"
               id={`checkbox-${section.sectionName}-${value}`}
