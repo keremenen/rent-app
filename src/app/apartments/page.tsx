@@ -3,17 +3,21 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import prisma from "@/lib/db";
-import { parseCommaSeparatedString } from "@/lib/utils";
+import {
+  parseStringsToStringArray,
+  parseStringsToNumberArray,
+} from "@/lib/utils";
 
 type SearchParams = { [key: string]: string | undefined };
 
 export default async function ApartmentsListPage(props: {
   searchParams: SearchParams;
 }) {
-  const { minPrice, maxPrice, bedrooms } = await props.searchParams;
+  const { minprice, maxprice, bedrooms, amenities } = await props.searchParams;
 
   // Parse the bedrooms string into an array of numbers
-  const parsedBedrooms = parseCommaSeparatedString(bedrooms);
+  const parsedBedrooms = parseStringsToNumberArray(bedrooms);
+  const parsedAnities = parseStringsToStringArray(amenities);
 
   const apartments = await prisma.apartment.findMany({
     select: {
@@ -30,10 +34,15 @@ export default async function ApartmentsListPage(props: {
     },
     where: {
       monthlyRent: {
-        gte: Number(minPrice) || undefined,
-        lte: Number(maxPrice) || undefined,
+        gte: Number(minprice) || undefined,
+        lte: Number(maxprice) || undefined,
       },
       OR: parsedBedrooms?.map((bedroomCount) => ({ bedrooms: bedroomCount })),
+      AND: parsedAnities?.map((amenity) => ({
+        amenities: {
+          has: amenity,
+        },
+      })),
     },
   });
 
@@ -52,6 +61,43 @@ export default async function ApartmentsListPage(props: {
     );
   }
 
+  const generateFiltersObject = () => {
+    const currentFilters = {};
+
+    if (minprice || maxprice) {
+      Object.assign(currentFilters, {
+        priceRangeValues: [
+          minprice ? Number(minprice) : 0,
+          maxprice ? Number(maxprice) : Infinity,
+        ],
+      });
+    }
+
+    if (bedrooms) {
+      Object.assign(currentFilters, {
+        checkboxValues: [
+          {
+            forSection: "bedrooms",
+            values: parseStringsToStringArray(bedrooms),
+          },
+        ],
+      });
+    }
+
+    if (amenities) {
+      Object.assign(currentFilters, {
+        checkboxValues: [
+          {
+            forSection: "amenities",
+            values: parseStringsToStringArray(amenities),
+          },
+        ],
+      });
+    }
+
+    return currentFilters;
+  };
+
   return (
     <div className="bg-background">
       <ApartmentListHeader totalCount={apartments.length} viewMode={"list"} />
@@ -63,19 +109,10 @@ export default async function ApartmentsListPage(props: {
             {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
               priceRange={[1000, 4000]}
-              filters={{
-                priceRangeValues: [1200, 3000],
-                checkboxValues: [
-                  { forSection: "amenities", values: ["1", "2"] },
-                ],
-                radioGroupValues: [
-                  { forSection: "availability", value: "All" },
-                ],
-              }}
+              filters={generateFiltersObject()}
               checkboxSections={[
-                { sectionName: "bedrooms", values: ["1", "2", "3"] },
-                // { sectionName: "Kitchens", values: ["1", "2", "3"] },
-                { sectionName: "amenities", values: ["1", "2", "3"] },
+                { sectionName: "bedrooms", values: ["1", "2", "3", "4"] },
+                { sectionName: "amenities", values: ["Wi-Fi", "TV", "Ogród"] },
               ]}
               radioGroupSections={[
                 {

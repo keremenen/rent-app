@@ -16,7 +16,9 @@ export function formatNumber(num: number): string {
   return formattedNumber.toString();
 }
 
-export function parseCommaSeparatedString(value?: string): number[] | null {
+// This function takes a string of comma-separated values and returns an array of numbers.
+// If the string is empty or undefined, it returns null.
+export function parseStringsToNumberArray(value?: string): number[] | null {
   if (!value) return null;
   return value
     ?.split(",")
@@ -24,6 +26,20 @@ export function parseCommaSeparatedString(value?: string): number[] | null {
     .filter((num) => !isNaN(num));
 }
 
+// This function takes a string of comma-separated values and returns an array of strings.
+// If the string is empty or undefined, it returns null.
+export function parseStringsToStringArray(value?: string): string[] | null {
+  if (!value) return null;
+  return value
+    ?.split(",")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+}
+
 export function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function checkIfArrayIsEmpty(array: number[]): boolean {
+  return array.length === 0;
 }

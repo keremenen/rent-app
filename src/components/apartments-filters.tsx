@@ -13,6 +13,7 @@ import { useState } from "react";
 
 const DEFAULT_PRICE_STEP_VALUE = 100;
 const DEFAULT_PRICE_RANGE = [1500, 2000];
+const DEFAULT_PRICE_RANGE_VALUES = [1500, 2000];
 
 type ApartmentFiltersProps = {
   priceRange?: number[];
