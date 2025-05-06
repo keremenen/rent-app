@@ -63,10 +63,13 @@ export function PropertyOwners() {
 
             <div className="flex flex-col gap-4 sm:flex-row">
               <Button asChild>
-                <Link href="/contact">
+                <Link href="/list-property">
                   List Your Property
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/owner-resources">Learn More</Link>
               </Button>
             </div>
           </div>
