@@ -42,10 +42,7 @@ export default async function ApartmentsListPage(props: {
 
   return (
     <div className="bg-background">
-      <ApartmentListHeader
-        totalCount={plainApartments.length}
-        viewMode={"list"}
-      />
+      <ApartmentListHeader totalCount={plainApartments.length} />
       <main className="container px-4 py-8">
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
