@@ -26,9 +26,7 @@ export default async function Home() {
       <HeroSection />
       {<FeaturedApartments apartments={randomApartments} />}
       <HowItWorks />
-      {popularNeighborhoods && (
-        <PopularNeighborhoods neighborhoods={popularNeighborhoods} />
-      )}
+      <PopularNeighborhoods neighborhoods={popularNeighborhoods} />
       <PropertyOwners />
       <Testimonials />
       <Newsletter />

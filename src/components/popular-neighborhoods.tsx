@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { NeighborhoodEssential } from "@/lib/types";
+import SectionHeader from "./section-header";
 
 type PopularNeighborhoodsProps = {
   neighborhoods: NeighborhoodEssential[];
@@ -15,58 +16,74 @@ export function PopularNeighborhoods({
   return (
     <section className="bg-background py-16">
       <div className="container px-4">
-        <div className="mb-10 flex flex-col items-center text-center">
-          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Popular Neighborhoods
-          </h2>
-          <p className="text-muted-foreground max-w-2xl">
-            Explore the most sought-after neighborhoods in the city
-          </p>
-        </div>
+        <SectionHeader
+          title={"Popular Neighborhoods"}
+          description="Explore the most sought-after neighborhoods in the city"
+        />
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {neighborhoods.map((neighborhood) => (
-            <Card key={neighborhood.id} className="overflow-hidden py-0">
-              <div className="relative aspect-[3/2] w-full">
-                <Link href={`/neighborhoods/${neighborhood.id}`}>
-                  <Image
-                    src={neighborhood.thumbnail}
-                    alt={neighborhood.name}
-                    fill
-                    className="object-cover transition-transform hover:scale-105"
-                  />
+        {neighborhoods && neighborhoods.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {neighborhoods.map((neighborhood) => (
+              <NeighborhoodCard
+                key={neighborhood.id}
+                neighborhoodDetails={neighborhood}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmtpyContainer />
+        )}
+      </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                </Link>
-                <div className="relative flex h-full items-center justify-center p-4 text-white">
-                  <h3 className="mb-1 text-2xl font-semibold">
-                    {neighborhood.name}
-                  </h3>
-                </div>
-              </div>
-              <CardContent className="p-4 pt-0">
-                <p className="text-muted-foreground mb-4">
-                  {neighborhood.description}
-                </p>
-                <Button variant="outline" className="w-full" asChild>
-                  <Link href={`/neighborhoods/${neighborhood.id}`}>
-                    Explore {neighborhood.name}
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-center">
-          <Button asChild>
-            <Link href="/neighborhoods">
-              View All Neighborhoods
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+      <div className="mt-10 flex justify-center">
+        <Button asChild>
+          <Link href="/neighborhoods">
+            View All Neighborhoods
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
       </div>
     </section>
+  );
+}
+
+type NeighborhoodCardProps = {
+  neighborhoodDetails: NeighborhoodEssential;
+};
+
+function NeighborhoodCard(neighborhood: NeighborhoodCardProps) {
+  const { id, name, description, thumbnail } = neighborhood.neighborhoodDetails;
+  return (
+    <Card key={id} className="overflow-hidden py-0">
+      <div className="relative aspect-[3/2] w-full">
+        <Link href={`/neighborhoods/${id}`}>
+          <Image
+            src={thumbnail}
+            alt={name}
+            fill
+            className="object-cover transition-transform hover:scale-105"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        </Link>
+        <div className="relative flex h-full items-center justify-center p-4 text-white">
+          <h3 className="mb-1 text-2xl font-semibold">{name}</h3>
+        </div>
+      </div>
+      <CardContent className="p-4 pt-0">
+        <p className="text-muted-foreground mb-4">{description}</p>
+        <Button variant="outline" className="w-full" asChild>
+          <Link href={`/neighborhoods/${id}`}>Explore {name}</Link>
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+function EmtpyContainer() {
+  return (
+    <div className="mb-6 flex items-center justify-center">
+      <h2>no neighborhoods found</h2>
+    </div>
   );
 }
