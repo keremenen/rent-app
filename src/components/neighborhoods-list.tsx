@@ -9,6 +9,7 @@
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
+import { useSearchContext } from "@/lib/hooks";
 
 type NeighborhoodsListProps = {
   neighborhoods: {
@@ -25,6 +26,7 @@ type NeighborhoodsListProps = {
 export default function NeighborhoodsList({
   neighborhoods,
 }: NeighborhoodsListProps) {
+  const { searchQuery, handleSearchQueryChange } = useSearchContext();
   return (
     <section>
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -33,8 +35,10 @@ export default function NeighborhoodsList({
           <Input
             placeholder="Search neighborhoods..."
             className="pl-9"
-            value={"searchQuery"}
-            onChange={() => {}}
+            value={searchQuery}
+            onChange={(e) => {
+              handleSearchQueryChange(e.target.value);
+            }}
           />
         </div>
         {/* 

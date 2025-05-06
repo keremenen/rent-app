@@ -2,21 +2,20 @@
 
 import { createContext, useState } from "react";
 
-type NeighborhoodSearchContextProvider = {
+type SearchContextProvider = {
   children: React.ReactNode;
 };
 
-type TNeighborhoodSearchContext = {
+type TSearchContext = {
   searchQuery: string;
   handleSearchQueryChange: (query: string) => void;
 };
 
-export const NeighborhoodSearchContext =
-  createContext<TNeighborhoodSearchContext | null>(null);
+export const SearchContext = createContext<TSearchContext | null>(null);
 
-export default function NeighborhoodSearchContextProvider({
+export default function SearchContextProvider({
   children,
-}: NeighborhoodSearchContextProvider) {
+}: SearchContextProvider) {
   // State to hold the search query
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -25,13 +24,13 @@ export default function NeighborhoodSearchContextProvider({
   };
 
   return (
-    <NeighborhoodSearchContext.Provider
+    <SearchContext.Provider
       value={{
         searchQuery,
         handleSearchQueryChange,
       }}
     >
       {children}
-    </NeighborhoodSearchContext.Provider>
+    </SearchContext.Provider>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { NeighborhoodSearchContext } from "@/contexts/neighborhood-search-context-provider";
+import { SearchContext } from "@/contexts/search-context-provider";
 import { useContext, useEffect, useState } from "react";
 
 export function useMobile() {
@@ -26,8 +26,8 @@ export function useMobile() {
   return isMobile;
 }
 
-export function useNeighborhoodSearchContext() {
-  const context = useContext(NeighborhoodSearchContext);
+export function useSearchContext() {
+  const context = useContext(SearchContext);
 
   if (!context) {
     throw new Error(
