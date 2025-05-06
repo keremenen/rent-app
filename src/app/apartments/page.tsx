@@ -1,7 +1,6 @@
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
-import ShowFiltersButton from "@/components/show-filters-button";
 import {
   convertApartmentsToPlain,
   generateFilterObject,
