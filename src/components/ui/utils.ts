@@ -1,7 +1,7 @@
+import prisma from "@/lib/db";
+import { ApartmentEssential, PNeighborhood } from "@/lib/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ApartmentEssential, PNeighborhood } from "./types";
-import prisma from "./db";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
