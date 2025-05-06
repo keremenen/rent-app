@@ -1,4 +1,5 @@
 import { Building, CheckCircle, Search, UserCheck } from "lucide-react";
+import SectionHeader from "./section-header";
 
 const steps = [
   {
@@ -31,14 +32,10 @@ export function HowItWorks() {
   return (
     <section className="bg-muted/50 py-16">
       <div className="container px-4">
-        <div className="mb-10 flex flex-col items-center text-center">
-          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            How It Works
-          </h2>
-          <p className="text-muted-foreground max-w-2xl">
-            Finding and renting your perfect apartment has never been easier
-          </p>
-        </div>
+        <SectionHeader
+          title="How It Works"
+          description="Finding and renting your perfect apartment has never been easier"
+        />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
