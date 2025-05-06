@@ -47,11 +47,8 @@ export default async function ApartmentsListPage(props: {
         viewMode={"list"}
       />
       <main className="container px-4 py-8">
-        <ShowFiltersButton length={plainApartments.length} />
-
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            {/* <SortByOptions sortOption={"priceAsc"} /> */}
             <ApartmentFilters
               priceRange={[1000, 4000]}
               priceRangeInitialValues={[1800, 2000]}

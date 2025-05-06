@@ -52,23 +52,21 @@ export function ApartmentFilters({
   const [isHidden, setIsHidden] = useState(false);
 
   return (
-    <Card>
+    <Card className="py-2 lg:py-6">
       {/* HEADER */}
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>Filters</CardTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
-            onClick={() => {
-              setIsHidden((prev) => !prev);
-            }}
-          >
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle filters</span>
-          </Button>
-        </div>
+      <CardHeader className="flex items-center justify-between">
+        <CardTitle>Filters</CardTitle>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          onClick={() => {
+            setIsHidden((prev) => !prev);
+          }}
+        >
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle filters</span>
+        </Button>
       </CardHeader>
       <CardContent
         className={cn("space-y-6", isHidden && isMobile && "hidden")}
