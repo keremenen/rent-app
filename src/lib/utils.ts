@@ -46,7 +46,10 @@ export function checkIfArrayIsEmpty(array: number[]): boolean {
   return array.length === 0;
 }
 // Convert Prisma apartment object Decimal fields to plain numbers
-export function convertApartmentsToPlain(apartments: ApartmentEssential[]) {
+export function convertApartmentsToPlain(
+  apartments: ApartmentEssential[] | undefined,
+) {
+  if (!apartments) return [];
   return apartments.map((apartment: ApartmentEssential) => ({
     ...apartment,
     squareFootage: apartment.squareFootage?.toNumber(),
@@ -225,7 +228,7 @@ export const generateFilterObject = ({
   };
 
   const filters: FilterObject = {
-    priceRangeValues: [],
+    priceRangeValues: undefined,
   };
 
   if (minprice && maxprice) {

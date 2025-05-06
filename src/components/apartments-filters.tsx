@@ -7,7 +7,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useMobile } from "@/lib/hooks";
 import { capitalizeFirstLetter, cn } from "@/lib/utils";
-
 import { Menu } from "lucide-react";
 import { useState } from "react";
 

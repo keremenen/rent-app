@@ -3,6 +3,7 @@ import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
 import {
+  convertApartmentsToPlain,
   generateFilterObject,
   generatePrismaFilters,
   getApartmentsByFilters,
@@ -36,26 +37,17 @@ export default async function ApartmentsListPage(props: {
   // Fetch apartments based on the generated Prisma filters
   const apartments = await getApartmentsByFilters(prismaFilters);
 
-  if (!apartments || apartments.length === 0) {
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <h1 className="text-2xl font-semibold">No apartments found</h1>
-      </div>
-    );
-  }
+  // Convert apartments to a plain format for easier rendering
+  const plainApartments = convertApartmentsToPlain(apartments);
 
-  const plainApartments = apartments.map((apartment) => ({
-    ...apartment,
-    squareFootage: apartment.squareFootage?.toNumber(),
-    monthlyRent: apartment.monthlyRent?.toNumber(),
-  }));
-
-  console.log("Filter Object:", filterObject);
   return (
     <div className="bg-background">
-      <ApartmentListHeader totalCount={apartments.length} viewMode={"list"} />
+      <ApartmentListHeader
+        totalCount={plainApartments.length}
+        viewMode={"list"}
+      />
       <main className="container px-4 py-8">
-        <ShowFiltersButton length={apartments.length} />
+        <ShowFiltersButton length={plainApartments.length} />
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
@@ -63,7 +55,7 @@ export default async function ApartmentsListPage(props: {
             <ApartmentFilters
               priceRange={[1000, 4000]}
               priceRangeInitialValues={[1800, 2000]}
-              // filters={filterObject}
+              filters={filterObject}
               checkboxSections={[
                 {
                   sectionName: "bedrooms",
@@ -82,9 +74,17 @@ export default async function ApartmentsListPage(props: {
 
           <div>
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {plainApartments.map((apartment) => (
-                <ApartmentCard key={apartment.id} apartment={apartment} />
-              ))}
+              {plainApartments.length > 0 ? (
+                plainApartments.map((apartment) => (
+                  <ApartmentCard key={apartment.id} apartment={apartment} />
+                ))
+              ) : (
+                <div className="flex flex-1 items-center justify-center">
+                  <h1 className="text-2xl font-semibold">
+                    No apartments found
+                  </h1>
+                </div>
+              )}
             </div>
           </div>
         </div>
