@@ -23,7 +23,7 @@ export default async function Home() {
   return (
     <main>
       <HeroSection />
-      {<FeaturedApartments apartments={randomApartments} />}
+      <FeaturedApartments apartments={randomApartments} />
       <HowItWorks />
       <PopularNeighborhoods neighborhoods={popularNeighborhoods} />
       <PropertyOwners />
