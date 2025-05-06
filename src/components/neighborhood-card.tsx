@@ -1,4 +1,3 @@
-import { Building, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,15 +18,8 @@ type NeighborhoodCardProps = {
 };
 
 export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
-  const {
-    id,
-    name,
-    description,
-    thumbnail,
-    averageRent,
-    walkScore,
-    commuteTime,
-  } = neighborhood;
+  const { id, name, description, thumbnail, walkScore, commuteTime } =
+    neighborhood;
 
   return (
     <Card className="gap-y-4 overflow-hidden py-0">
