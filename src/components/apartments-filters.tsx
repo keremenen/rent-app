@@ -199,10 +199,10 @@ function CheckboxSection({
               checked={checkedCheckboxes?.some(
                 (checkbox) =>
                   checkbox.forSection === section.sectionName &&
-                  checkbox.values.includes(value.toLowerCase()),
+                  checkbox.values.includes(value),
               )}
               onCheckedChange={() => {
-                handleCheckboxChange(value.toLowerCase());
+                handleCheckboxChange(value);
               }}
               className="cursor-pointer"
               id={`checkbox-${section.sectionName}-${value}`}
@@ -232,51 +232,46 @@ type RadioGroupSectionProps = {
 };
 
 function RadioGroupSection({
-  section,
+  section: { sectionName, values },
   selectedValue,
   onRadioGroupChange,
 }: RadioGroupSectionProps) {
   const getDefaultValue = () => {
-    const selected = selectedValue?.find(
-      (radio) => radio.forSection === section.sectionName,
+    // Check if selectedValue is defined and has values
+    const selectedRadio = selectedValue?.find(
+      (radio) => radio.forSection === sectionName,
     );
-    return selected
-      ? selected.value.toLowerCase()
-      : section.values[0].toLowerCase();
+    // If selectedValue is found, return its value; otherwise, return the first value in the section
+    return selectedRadio ? selectedRadio.value : values[0];
   };
 
-  const handleRadioGroupChange = (value: string) => {
+  const handleRadioGroupChange = (value: string, sectionName: string) => {
     onRadioGroupChange({
-      radioGroupValues: (selectedValue ?? []).map((radio) => {
-        if (radio.forSection === section.sectionName) {
-          return { ...radio, value };
-        }
-        return radio;
-      }),
+      radioGroupValues: [
+        {
+          forSection: sectionName,
+          value: value,
+        },
+      ],
     });
   };
 
   return (
     <section>
-      <Label className="mb-2">
-        {capitalizeFirstLetter(section.sectionName)}
-      </Label>
+      <Label className="mb-2">{capitalizeFirstLetter(sectionName)}</Label>
       <RadioGroup
         defaultValue={getDefaultValue()}
-        onValueChange={handleRadioGroupChange}
+        onValueChange={(value) => handleRadioGroupChange(value, sectionName)}
         className="flex flex-col space-y-1"
       >
-        {section.values.map((value, i) => (
+        {values.map((value, i) => (
           <div key={i} className="flex items-center">
             <RadioGroupItem
               className="cursor-pointer"
-              value={value.toLowerCase()}
-              id={value.toLowerCase()}
+              value={value}
+              id={value}
             />
-            <Label
-              htmlFor={value.toLowerCase()}
-              className="cursor-pointer pl-2"
-            >
+            <Label htmlFor={value} className="cursor-pointer pl-2">
               {value}
             </Label>
           </div>
@@ -314,6 +309,7 @@ function FilterActions({ currentFilters }: FilterActionsProps) {
       params.append(radio.forSection, radio.value);
     });
 
+    console.log("Search Params:", params.toString());
     return params;
   };
   return (
@@ -324,7 +320,7 @@ function FilterActions({ currentFilters }: FilterActionsProps) {
         onClick={() => {
           buildSearchParams();
 
-          // Redirect to the same page with search params
+          // Update the URL with the new search params
           window.location.search = buildSearchParams().toString();
         }}
       >

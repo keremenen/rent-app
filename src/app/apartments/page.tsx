@@ -10,30 +10,72 @@ type SearchParams = { [key: string]: string | undefined };
 export default async function ApartmentsListPage(props: {
   searchParams: SearchParams;
 }) {
-  const { minprice, maxprice, bedrooms, amenities } = await props.searchParams;
+  const { minprice, maxprice, bedrooms, amenities, availability } =
+    await props.searchParams;
 
-  const prismaFilters = generatePrismaFilters(await props.searchParams);
+  const prismaFilters = generatePrismaFilters({
+    minprice,
+    maxprice,
+    bedrooms,
+    amenities,
+  });
 
   const generateFilterObject = ({
     minprice,
     maxprice,
     bedrooms,
     amenities,
+    availability,
+  }: {
+    minprice: string | undefined;
+    maxprice: string | undefined;
+    bedrooms: string | undefined;
+    amenities: string | undefined;
+    availability: string | undefined;
   }) => {
-    const filters: {
-      priceRangeValues?: [string | undefined, string | undefined];
-      bedrooms?: { in: string[] };
-      amenities?: { hasSome: string[] };
-    } = {};
-    if (minprice || maxprice) {
-      filters.priceRangeValues = [minprice, maxprice];
+    type FilterObject = {
+      priceRangeValues: number[] | undefined;
+      checkboxValues?: { forSection: string; values: string[] }[] | undefined;
+      radioGroupValues?: { forSection: string; value: string }[] | undefined;
+    };
+
+    const filters: FilterObject = {
+      priceRangeValues: [],
+    };
+
+    if (minprice && maxprice) {
+      filters.priceRangeValues = [Number(minprice), Number(maxprice)];
     }
+
     if (bedrooms) {
-      filters.checkboxValues.bedrooms = parseStringsToStringArray(bedrooms);
+      const parsedBedrooms = parseStringsToStringArray(bedrooms);
+      filters.checkboxValues = [
+        {
+          forSection: "bedrooms",
+          values: parsedBedrooms!,
+        },
+      ];
     }
-    // if (amenities) {
-    //   filters.push({ amenities: { hasSome: amenities.split(",") } });
-    // }
+
+    if (amenities) {
+      const parsedAmenities = parseStringsToStringArray(amenities);
+      filters.checkboxValues = [
+        {
+          forSection: "amenities",
+          values: parsedAmenities!,
+        },
+      ];
+    }
+
+    if (availability) {
+      filters.radioGroupValues = [
+        {
+          forSection: "availability",
+          value: availability,
+        },
+      ];
+    }
+
     return filters;
   };
 
@@ -42,6 +84,7 @@ export default async function ApartmentsListPage(props: {
     maxprice,
     bedrooms,
     amenities,
+    availability,
   });
 
   const apartments = await prisma.apartment.findMany({
@@ -70,6 +113,15 @@ export default async function ApartmentsListPage(props: {
     );
   }
 
+  // const temporaryFilterObject = {
+  //   priceRangeValues: [1000, 4000],
+  //   checkboxValues: [
+  //     { forSection: "bedrooms", values: ["1", "2"] },
+  //     { forSection: "amenities", values: ["Wi-Fi", "TV"] },
+  //   ],
+  //   radioGroupValues: [{ forSection: "availability", value: "Available Now" }],
+  // };
+
   const plainApartments = apartments.map((apartment) => ({
     ...apartment,
     squareFootage: apartment.squareFootage?.toNumber(),
@@ -91,7 +143,10 @@ export default async function ApartmentsListPage(props: {
               priceRangeInitialValues={[1800, 2000]}
               filters={filterObject}
               checkboxSections={[
-                { sectionName: "bedrooms", values: ["1", "2", "3", "4"] },
+                {
+                  sectionName: "bedrooms",
+                  values: ["1", "2", "3", "4", "Studio"],
+                },
                 { sectionName: "amenities", values: ["Wi-Fi", "TV", "Ogród"] },
               ]}
               radioGroupSections={[
