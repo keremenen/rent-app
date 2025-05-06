@@ -6,10 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
 
 type NeighborhoodsListProps = {
@@ -60,52 +58,23 @@ export default function NeighborhoodsList({
         </div>
       </div>
 
-      <Tabs
-        defaultValue="all"
-        value={"all"}
-        onValueChange={() => {}}
-        className="mb-8"
-      >
-        <TabsList className="mb-4">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="featured">Featured</TabsTrigger>
-          <TabsTrigger value="urban">Urban</TabsTrigger>
-          <TabsTrigger value="residential">Residential</TabsTrigger>
-          <TabsTrigger value="trendy">Trendy</TabsTrigger>
-          <TabsTrigger value="affordable">Affordable</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value={"all"}>
-          {neighborhoods.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
-              <h3 className="mb-2 text-lg font-medium">
-                No neighborhoods found
-              </h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search criteria
-              </p>
-              {/* {searchQuery && (
-                  <Button
-                    variant="outline"
-                    className="mt-4"
-                    onClick={() => setSearchQuery("")}
-                  >
-                    Clear Search
-                  </Button>
-                )} */}
-            </div>
-          ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {neighborhoods.map((neighborhood) => (
-                <NeighborhoodCard
-                  key={neighborhood.id}
-                  neighborhood={neighborhood}
-                />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      {neighborhoods.length === 0 ? (
+        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+          <h3 className="mb-2 text-lg font-medium">No neighborhoods found</h3>
+          <p className="text-muted-foreground">
+            Try adjusting your search criteria
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {neighborhoods.map((neighborhood) => (
+            <NeighborhoodCard
+              key={neighborhood.id}
+              neighborhood={neighborhood}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
