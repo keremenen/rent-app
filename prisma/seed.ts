@@ -628,7 +628,8 @@ const cities = [
           id: "srodmiescie-gdynia",
           name: "Śródmieście",
           description: "Centrum miasta",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2800.0,
           walkScore: 95.0,
           commuteTime: 5,
@@ -718,7 +719,8 @@ const cities = [
           id: "redlowo",
           name: "Redłowo",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3000.0,
           walkScore: 90.0,
           commuteTime: 10,
@@ -808,7 +810,8 @@ const cities = [
           id: "wzgorze-sw-maksymiliana",
           name: "Wzgórze św. Maksymiliana",
           description: "Dzielnica z centrum handlowym",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2900.0,
           walkScore: 95.0,
           commuteTime: 5,
@@ -898,7 +901,8 @@ const cities = [
           id: "dzialki-lesne",
           name: "Działki Leśne",
           description: "Dzielnica willowa",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2500.0,
           walkScore: 80.0,
           commuteTime: 15,
@@ -988,7 +992,8 @@ const cities = [
           id: "kamienna-gora",
           name: "Kamienna Góra",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3200.0,
           walkScore: 90.0,
           commuteTime: 10,
@@ -1078,7 +1083,8 @@ const cities = [
           id: "okswyie",
           name: "Oksywie",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3100.0,
           walkScore: 90.0,
           commuteTime: 15,
@@ -1172,7 +1178,9 @@ const cities = [
     name: "Sopot",
     shortDescription: "Miasto nad morzem",
     longDescription: "Sopot to popularne miasto wypoczynkowe",
-    gallery: ["https://example.com/image-placeholder.jpg"],
+    gallery: [
+      "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
+    ],
     coverImage:
       "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/sopot/main.jpg",
     latitude: 54.4433,
@@ -1187,7 +1195,8 @@ const cities = [
           id: "dolny-sopot",
           name: "Dolny Sopot",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2800.0,
           walkScore: 90.0,
           commuteTime: 10,
@@ -1277,7 +1286,8 @@ const cities = [
           id: "gorny-sopot",
           name: "Górny Sopot",
           description: "Dzielnica z pięknymi parkami",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3000.0,
           walkScore: 85.0,
           commuteTime: 12,
@@ -1367,7 +1377,8 @@ const cities = [
           id: "kamienny-potok",
           name: "Kamienny Potok",
           description: "Dzielnica z zielenią",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2600.0,
           walkScore: 80.0,
           commuteTime: 15,
@@ -1457,7 +1468,8 @@ const cities = [
           id: "karlikowo",
           name: "Karlikowo",
           description: "Dzielnica willowa",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3200.0,
           walkScore: 85.0,
           commuteTime: 12,
@@ -1547,7 +1559,8 @@ const cities = [
           id: "brodwino",
           name: "Brodwino",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 2900.0,
           walkScore: 90.0,
           commuteTime: 10,
@@ -1637,7 +1650,8 @@ const cities = [
           id: "swiemirowo",
           name: "Świemirowo",
           description: "Dzielnica nad morzem",
-          thumbnail: "https://example.com/image-placeholder.jpg",
+          thumbnail:
+            "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/neighborhoods/srodmiescie/main.jpg",
           averageRent: 3100.0,
           walkScore: 90.0,
           commuteTime: 15,

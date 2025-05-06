@@ -30,7 +30,7 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
   } = neighborhood;
 
   return (
-    <Card className="overflow-hidden py-0">
+    <Card className="gap-y-4 overflow-hidden py-0">
       <div className="relative">
         <Link href={`/neighborhoods/${id}`}>
           <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -44,7 +44,7 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
         </Link>
       </div>
 
-      <CardContent className="p-4">
+      <CardContent className="px-4 py-0">
         <div className="mb-2 flex items-center justify-between">
           <Link href={`/neighborhoods/${id}`} className="hover:underline">
             <h3 className="text-xl font-semibold">{name}</h3>
@@ -57,24 +57,15 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
         </p>
 
         <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="flex items-center gap-1">
-            <Building className="text-muted-foreground h-4 w-4" />
-          </div>
-
-          <div className="flex items-center gap-1">
-            <DollarSign className="text-muted-foreground h-4 w-4" />
-            <span>Avg. ${averageRent}/mo</span>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <span className="inline-block h-4 w-4 rounded-full bg-green-500 text-center text-xs text-white">
+          <div className="flex items-center justify-center gap-1">
+            <span className="flex h-6 w-8 items-center justify-center rounded-full bg-green-700/60 text-center text-xs text-white">
               {walkScore}
             </span>
             <span>Walk Score</span>
           </div>
 
-          <div className="flex items-center gap-1">
-            <span className="inline-block h-4 w-4 rounded-full bg-blue-500 text-center text-xs text-white">
+          <div className="flex items-center justify-center gap-1">
+            <span className="flex h-6 w-8 items-center justify-center rounded-full bg-blue-700/60 text-center text-xs text-white">
               {commuteTime}
             </span>
             <span>Transit Score</span>

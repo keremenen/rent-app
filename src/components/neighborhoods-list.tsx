@@ -1,11 +1,11 @@
 "use client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
@@ -37,7 +37,7 @@ export default function NeighborhoodsList({
             onChange={() => {}}
           />
         </div>
-
+        {/* 
         <div className="flex items-center gap-2">
           <span className="text-muted-foreground text-sm">Sort by:</span>
           <Select value={"popular"} onValueChange={() => {}}>
@@ -52,7 +52,7 @@ export default function NeighborhoodsList({
               <SelectItem value="priceDesc">Avg. Rent (High to Low)</SelectItem>
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
       </div>
 
       {neighborhoods.length === 0 ? (
