@@ -1,3 +1,4 @@
+"use client";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,14 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { NeighborhoodEssential } from "@/lib/types";
 import SectionHeader from "./section-header";
+import { useNeighborhoodContext } from "@/lib/hooks";
 
 type PopularNeighborhoodsProps = {
-  neighborhoods: NeighborhoodEssential[];
+  display: string[];
 };
 
-export function PopularNeighborhoods({
-  neighborhoods,
-}: PopularNeighborhoodsProps) {
+export function PopularNeighborhoods({ display }: PopularNeighborhoodsProps) {
+  const { neighborhoods } = useNeighborhoodContext();
+
+  const filteredNeighborhoods = neighborhoods.filter((neighborhood) =>
+    display.some((item) => neighborhood.name.includes(item)),
+  );
+
   return (
     <section className="bg-background py-16">
       <div className="container px-4">
@@ -21,9 +27,9 @@ export function PopularNeighborhoods({
           description="Explore the most sought-after neighborhoods in the city"
         />
 
-        {neighborhoods && neighborhoods.length > 0 ? (
+        {filteredNeighborhoods && filteredNeighborhoods.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-3">
-            {neighborhoods.map((neighborhood) => (
+            {filteredNeighborhoods.map((neighborhood) => (
               <NeighborhoodCard
                 key={neighborhood.id}
                 neighborhoodDetails={neighborhood}

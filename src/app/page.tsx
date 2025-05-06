@@ -4,7 +4,6 @@ import { HowItWorks } from "@/components/how-it-works";
 import { PopularNeighborhoods } from "@/components/popular-neighborhoods";
 import { PropertyOwners } from "@/components/property-owners";
 import { Testimonials } from "@/components/testimonials";
-import prisma from "@/lib/db";
 import { getRandomApartments } from "@/lib/utils";
 
 export default async function Home() {
@@ -12,20 +11,12 @@ export default async function Home() {
     take: 4,
   });
 
-  const popularNeighborhoods = await prisma.neighborhood.findMany({
-    where: {
-      name: {
-        in: ["Wrzeszcz", "Oliwa", "Przymorze"],
-      },
-    },
-  });
-
   return (
     <main>
       <HeroSection />
       <FeaturedApartments apartments={randomApartments} />
       <HowItWorks />
-      <PopularNeighborhoods neighborhoods={popularNeighborhoods} />
+      <PopularNeighborhoods display={["Wrzeszcz", "Oliwa", "Przymorze"]} />
       <PropertyOwners />
       <Testimonials />
     </main>
