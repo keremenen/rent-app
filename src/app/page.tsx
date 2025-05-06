@@ -29,7 +29,7 @@ export default async function Home() {
       <PopularNeighborhoods neighborhoods={popularNeighborhoods} />
       <PropertyOwners />
       <Testimonials />
-      <Newsletter />
+      {/* <Newsletter /> */}
     </main>
   );
 }
