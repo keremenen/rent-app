@@ -295,3 +295,25 @@ export async function getApartmentsByFilters(filters: PrismaFilter[]) {
     }
   }
 }
+
+export async function getAllCities() {
+  try {
+    const cities = await prisma.city.findMany({
+      select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        coverImage: true,
+        population: true,
+        area: true,
+      },
+    });
+    return cities;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching cities:", error.message);
+      return [];
+    }
+  }
+  return [];
+}

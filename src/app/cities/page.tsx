@@ -1,18 +1,9 @@
 import CityList from "@/components/city-list";
 import { PageHeader } from "@/components/page-headers";
-import prisma from "@/lib/db";
+import { getAllCities } from "@/lib/utils";
 
 export default async function CitiesPage() {
-  const cities = await prisma.city.findMany({
-    select: {
-      id: true,
-      name: true,
-      shortDescription: true,
-      coverImage: true,
-      population: true,
-      area: true,
-    },
-  });
+  const cities = await getAllCities();
 
   return (
     <div className="bg-background pb-8">
