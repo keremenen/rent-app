@@ -1,8 +1,5 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,13 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-export function ContactInfo() {
-  const officeHours = [
-    { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
-    { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
-    { day: "Sunday", hours: "Closed" },
-  ];
+const officeHours = [
+  { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
+  { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
+  { day: "Sunday", hours: "Closed" },
+];
 
+export function ContactInfo() {
   return (
     <div className="space-y-6">
       <Card>
@@ -29,7 +26,7 @@ export function ContactInfo() {
         <CardContent className="space-y-4">
           <div className="relative aspect-video overflow-hidden rounded-md">
             <Image
-              src="/placeholder-image.jpg"
+              src="/assets/contact-image.jpg"
               alt="Office building"
               fill
               className="object-cover"
@@ -70,7 +67,7 @@ export function ContactInfo() {
 
           <Separator />
 
-          <div>
+          <section>
             <div className="mb-2 flex items-start gap-3">
               <Clock className="text-primary mt-0.5 h-5 w-5" />
               <p className="font-medium">Office Hours</p>
@@ -83,35 +80,7 @@ export function ContactInfo() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <Separator />
-
-          <div>
-            <p className="mb-2 font-medium">Connect With Us</p>
-            <div className="flex space-x-2">
-              <Button variant="outline" size="icon" asChild>
-                <Link href="#" aria-label="Facebook">
-                  fLogo
-                </Link>
-              </Button>
-              <Button variant="outline" size="icon" asChild>
-                <Link href="#" aria-label="Twitter">
-                  xLogo
-                </Link>
-              </Button>
-              <Button variant="outline" size="icon" asChild>
-                <Link href="#" aria-label="Instagram">
-                  iLogo
-                </Link>
-              </Button>
-              <Button variant="outline" size="icon" asChild>
-                <Link href="#" aria-label="LinkedIn">
-                  LLogo
-                </Link>
-              </Button>
-            </div>
-          </div>
+          </section>
         </CardContent>
       </Card>
 
