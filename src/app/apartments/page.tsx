@@ -2,8 +2,11 @@ import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
 import ShowFiltersButton from "@/components/show-filters-button";
-import prisma from "@/lib/db";
-import { generatePrismaFilters, parseStringsToStringArray } from "@/lib/utils";
+import {
+  generateFilterObject,
+  generatePrismaFilters,
+  getApartmentsByFilters,
+} from "@/lib/utils";
 
 type SearchParams = { [key: string]: string | undefined };
 
@@ -13,6 +16,7 @@ export default async function ApartmentsListPage(props: {
   const { minprice, maxprice, bedrooms, amenities, availability } =
     await props.searchParams;
 
+  // Generate Prisma filters based on the search parameters
   const prismaFilters = generatePrismaFilters({
     minprice,
     maxprice,
@@ -20,65 +24,7 @@ export default async function ApartmentsListPage(props: {
     amenities,
   });
 
-  const generateFilterObject = ({
-    minprice,
-    maxprice,
-    bedrooms,
-    amenities,
-    availability,
-  }: {
-    minprice: string | undefined;
-    maxprice: string | undefined;
-    bedrooms: string | undefined;
-    amenities: string | undefined;
-    availability: string | undefined;
-  }) => {
-    type FilterObject = {
-      priceRangeValues: number[] | undefined;
-      checkboxValues?: { forSection: string; values: string[] }[] | undefined;
-      radioGroupValues?: { forSection: string; value: string }[] | undefined;
-    };
-
-    const filters: FilterObject = {
-      priceRangeValues: [],
-    };
-
-    if (minprice && maxprice) {
-      filters.priceRangeValues = [Number(minprice), Number(maxprice)];
-    }
-
-    if (bedrooms) {
-      const parsedBedrooms = parseStringsToStringArray(bedrooms);
-      filters.checkboxValues = [
-        {
-          forSection: "bedrooms",
-          values: parsedBedrooms!,
-        },
-      ];
-    }
-
-    if (amenities) {
-      const parsedAmenities = parseStringsToStringArray(amenities);
-      filters.checkboxValues = [
-        {
-          forSection: "amenities",
-          values: parsedAmenities!,
-        },
-      ];
-    }
-
-    if (availability) {
-      filters.radioGroupValues = [
-        {
-          forSection: "availability",
-          value: availability,
-        },
-      ];
-    }
-
-    return filters;
-  };
-
+  // Generate filter object for the UI based on the search parameters
   const filterObject = generateFilterObject({
     minprice,
     maxprice,
@@ -87,23 +33,8 @@ export default async function ApartmentsListPage(props: {
     availability,
   });
 
-  const apartments = await prisma.apartment.findMany({
-    select: {
-      id: true,
-      title: true,
-      address: true,
-      bathrooms: true,
-      bedrooms: true,
-      squareFootage: true,
-      thumbnail: true,
-      availableFrom: true,
-      amenities: true,
-      monthlyRent: true,
-    },
-    where: {
-      AND: prismaFilters,
-    },
-  });
+  // Fetch apartments based on the generated Prisma filters
+  const apartments = await getApartmentsByFilters(prismaFilters);
 
   if (!apartments || apartments.length === 0) {
     return (
@@ -112,15 +43,6 @@ export default async function ApartmentsListPage(props: {
       </div>
     );
   }
-
-  // const temporaryFilterObject = {
-  //   priceRangeValues: [1000, 4000],
-  //   checkboxValues: [
-  //     { forSection: "bedrooms", values: ["1", "2"] },
-  //     { forSection: "amenities", values: ["Wi-Fi", "TV"] },
-  //   ],
-  //   radioGroupValues: [{ forSection: "availability", value: "Available Now" }],
-  // };
 
   const plainApartments = apartments.map((apartment) => ({
     ...apartment,
@@ -141,7 +63,7 @@ export default async function ApartmentsListPage(props: {
             <ApartmentFilters
               priceRange={[1000, 4000]}
               priceRangeInitialValues={[1800, 2000]}
-              filters={filterObject}
+              // filters={filterObject}
               checkboxSections={[
                 {
                   sectionName: "bedrooms",
