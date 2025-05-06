@@ -1,15 +1,9 @@
 "use client";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
 import { useNeighborhoodContext, useSearchContext } from "@/lib/hooks";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function NeighborhoodsList() {
   const { searchQuery, handleSearchQueryChange } = useSearchContext();
@@ -39,12 +33,19 @@ export default function NeighborhoodsList() {
         <EmptyContainer />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredNeighborhoods.map((neighborhood) => (
-            <NeighborhoodCard
-              key={neighborhood.id}
-              neighborhood={neighborhood}
-            />
-          ))}
+          <AnimatePresence>
+            {filteredNeighborhoods.map((neighborhood) => (
+              <motion.div
+                key={neighborhood.id}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }} // Dodano przesunięcie w dół
+                animate={{ opacity: 1, y: 0, scale: 1 }} // Powrót do pozycji początkowej
+                exit={{ opacity: 0, y: -40, scale: 0.9 }} // Przesunięcie w górę przy usuwaniu
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <NeighborhoodCard neighborhood={neighborhood} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       )}
     </section>
