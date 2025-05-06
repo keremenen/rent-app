@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import SectionHeader from "./section-header";
 
 export function Testimonials() {
   const testimonials = [
@@ -33,50 +34,46 @@ export function Testimonials() {
   return (
     <section className="bg-muted/30 py-16">
       <div className="container px-4">
-        <div className="mb-10 flex flex-col items-center text-center">
-          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            What Our Users Say
-          </h2>
-          <p className="text-muted-foreground max-w-2xl">
-            Hear from tenants and property owners who have found success with
-            our platform
-          </p>
-        </div>
+        <SectionHeader
+          title="What Our Users Say"
+          description="Real testimonials from our satisfied users"
+        />
 
         <div className="grid gap-6 md:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="overflow-hidden py-0">
-              <CardContent className="p-6">
-                <div className="mb-4 flex">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${i < testimonial.rating ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
-                    />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-6 italic">
-                  {`"${testimonial.quote}"`}
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                    <Image
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
+          {testimonials &&
+            testimonials.map((testimonial, index) => (
+              <Card key={index} className="overflow-hidden py-0">
+                <CardContent className="p-6">
+                  <div className="mb-4 flex">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-5 w-5 ${i < testimonial.rating ? "fill-yellow-400 text-yellow-400" : "text-muted"}`}
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <h3 className="font-semibold">{testimonial.name}</h3>
-                    <p className="text-muted-foreground text-sm">
-                      {testimonial.role}
-                    </p>
+                  <p className="text-muted-foreground mb-6 italic">
+                    {`"${testimonial.quote}"`}
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                      <Image
+                        src={testimonial.image || "/placeholder.svg"}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{testimonial.name}</h3>
+                      <p className="text-muted-foreground text-sm">
+                        {testimonial.role}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
         </div>
       </div>
     </section>
