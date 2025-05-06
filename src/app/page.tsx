@@ -24,7 +24,7 @@ export default async function Home() {
   return (
     <main>
       <HeroSection />
-      {randomApartments && <FeaturedApartments apartments={randomApartments} />}
+      {<FeaturedApartments apartments={randomApartments} />}
       <HowItWorks />
       {popularNeighborhoods && (
         <PopularNeighborhoods neighborhoods={popularNeighborhoods} />

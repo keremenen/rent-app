@@ -22,20 +22,27 @@ export function FeaturedApartments({ apartments }: FeaturedApartmentsProps) {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {apartments.map((apartment) => (
-            <ApartmentCard key={apartment.id} apartment={apartment} />
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-center">
-          <Button asChild>
-            <Link href="/apartments">
-              View All Apartments
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+        {apartments.length > 0 ? (
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {apartments.map((apartment) => (
+                <ApartmentCard key={apartment.id} apartment={apartment} />
+              ))}
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Button asChild>
+                <Link href="/apartments">
+                  View All Apartments
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="mb-6 flex items-center justify-center">
+            <h2>no apartments found</h2>
+          </div>
+        )}
       </div>
     </section>
   );

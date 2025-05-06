@@ -5,17 +5,17 @@ import { Card, CardContent } from "@/components/ui/card";
 export function Testimonials() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      name: "Michael Chen",
       role: "Tenant",
-      image: "/placeholder-image.jpg",
+      image: "/users/user-1.jpg",
       quote:
         "I found my dream apartment in just two days using ApartmentHub. The search filters made it easy to find exactly what I was looking for, and the application process was seamless.",
       rating: 5,
     },
     {
-      name: "Michael Chen",
+      name: "Sarah Johnson",
       role: "Property Owner",
-      image: "/placeholder-image.jpg",
+      image: "/users/user-2.jpg",
       quote:
         "As a property owner, I've been able to find reliable tenants quickly. The platform's screening tools have saved me countless hours and helped me find the perfect match for my properties.",
       rating: 5,
@@ -23,7 +23,7 @@ export function Testimonials() {
     {
       name: "Emily Rodriguez",
       role: "Tenant",
-      image: "/placeholder-image.jpg",
+      image: "/users/user-3.jpg",
       quote:
         "The virtual tours feature was a game-changer during my apartment hunt. I was able to narrow down my options without leaving my current home, making the process so much more efficient.",
       rating: 4,

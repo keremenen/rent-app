@@ -97,6 +97,7 @@ export async function getRandomApartments({ take }: { take: number }) {
       return [];
     }
   }
+  return [];
 }
 
 export async function getNeighborhoodById(id: string) {
