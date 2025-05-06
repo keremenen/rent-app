@@ -15,13 +15,10 @@ type NeighborhoodsListProps = {
     id: string;
     name: string;
     description: string;
-    image: string;
-    propertyCount: number;
-    avgRent: number;
+    thumbnail: string;
+    averageRent: number;
     walkScore: number;
-    transitScore: number;
-    category: string;
-    featured?: boolean;
+    commuteTime: number;
   }[];
 };
 

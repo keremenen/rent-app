@@ -67,6 +67,15 @@ export function convertNeighborhoodToPlain(neighborhood: PNeighborhood) {
   };
 }
 
+export function convertNeighborhoodsToPlain(neighborhoods: PNeighborhood[]) {
+  return neighborhoods.map((neighborhood: PNeighborhood) => ({
+    ...neighborhood,
+    averageRent: neighborhood.averageRent?.toNumber(),
+    walkScore: neighborhood.walkScore?.toNumber(),
+    commuteTime: neighborhood.commuteTime?.toNumber(),
+  }));
+}
+
 // Function that takes number as paramenter and fetches apartments from the Prisma DB
 // and returns them as an array of objects
 export async function getRandomApartments({ take }: { take: number }) {

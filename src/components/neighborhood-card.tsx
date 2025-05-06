@@ -11,75 +11,71 @@ type NeighborhoodCardProps = {
     id: string;
     name: string;
     description: string;
-    image: string;
-    propertyCount: number;
-    avgRent: number;
+    thumbnail: string;
+    averageRent: number;
     walkScore: number;
-    transitScore: number;
-    featured?: boolean;
-    category: string;
+    commuteTime: number;
   };
 };
 
 export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
+  const {
+    id,
+    name,
+    description,
+    thumbnail,
+    averageRent,
+    walkScore,
+    commuteTime,
+  } = neighborhood;
+
   return (
     <Card className="overflow-hidden py-0">
       <div className="relative">
-        <Link href={`/neighborhoods/${neighborhood.id}`}>
-          <div className="relative aspect-[4/3] w-full">
+        <Link href={`/neighborhoods/${id}`}>
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
-              src={neighborhood.image || "/placeholder.svg"}
-              alt={neighborhood.name}
+              src={thumbnail || "/placeholder.svg"}
+              alt={name}
               fill
               className="object-cover transition-transform hover:scale-105"
             />
-            {neighborhood.featured && (
-              <Badge className="bg-primary absolute top-2 left-2">
-                Featured
-              </Badge>
-            )}
           </div>
         </Link>
       </div>
 
       <CardContent className="p-4">
         <div className="mb-2 flex items-center justify-between">
-          <Link
-            href={`/neighborhoods/${neighborhood.id}`}
-            className="hover:underline"
-          >
-            <h3 className="text-xl font-semibold">{neighborhood.name}</h3>
+          <Link href={`/neighborhoods/${id}`} className="hover:underline">
+            <h3 className="text-xl font-semibold">{name}</h3>
           </Link>
-          <Badge variant="outline" className="capitalize">
-            {neighborhood.category}
-          </Badge>
+          <Badge variant="outline" className="capitalize"></Badge>
         </div>
 
         <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
-          {neighborhood.description}
+          {description}
         </p>
 
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex items-center gap-1">
             <Building className="text-muted-foreground h-4 w-4" />
-            <span>{neighborhood.propertyCount} Properties</span>
           </div>
 
           <div className="flex items-center gap-1">
             <DollarSign className="text-muted-foreground h-4 w-4" />
-            <span>Avg. ${neighborhood.avgRent}/mo</span>
+            <span>Avg. ${averageRent}/mo</span>
           </div>
 
           <div className="flex items-center gap-1">
             <span className="inline-block h-4 w-4 rounded-full bg-green-500 text-center text-xs text-white">
-              {neighborhood.walkScore}
+              {walkScore}
             </span>
             <span>Walk Score</span>
           </div>
 
           <div className="flex items-center gap-1">
             <span className="inline-block h-4 w-4 rounded-full bg-blue-500 text-center text-xs text-white">
-              {neighborhood.transitScore}
+              {commuteTime}
             </span>
             <span>Transit Score</span>
           </div>
@@ -88,9 +84,7 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
 
       <CardFooter className="mt-auto flex p-4 pt-0">
         <Button asChild className="w-full">
-          <Link href={`/neighborhoods/${neighborhood.id}`}>
-            View Neighborhood
-          </Link>
+          <Link href={`/neighborhoods/${id}`}>View Neighborhood</Link>
         </Button>
       </CardFooter>
     </Card>
