@@ -1,5 +1,6 @@
 "use client";
 
+import { NeighborhoodContext } from "@/contexts/neighborhood-context-provider";
 import { SearchContext } from "@/contexts/search-context-provider";
 import { useContext, useEffect, useState } from "react";
 
@@ -32,6 +33,18 @@ export function useSearchContext() {
   if (!context) {
     throw new Error(
       "useSearchContext must be used within a SearchContextProvider",
+    );
+  }
+
+  return context;
+}
+
+export function useNeighborhoodContext() {
+  const context = useContext(NeighborhoodContext);
+
+  if (!context) {
+    throw new Error(
+      "useNeighborhoodContext must be used within a NeighborhoodContextProvider",
     );
   }
 

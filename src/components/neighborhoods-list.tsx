@@ -9,24 +9,16 @@
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { NeighborhoodCard } from "@/components/neighborhood-card";
-import { useSearchContext } from "@/lib/hooks";
+import { useNeighborhoodContext, useSearchContext } from "@/lib/hooks";
 
-type NeighborhoodsListProps = {
-  neighborhoods: {
-    id: string;
-    name: string;
-    description: string;
-    thumbnail: string;
-    averageRent: number;
-    walkScore: number;
-    commuteTime: number;
-  }[];
-};
-
-export default function NeighborhoodsList({
-  neighborhoods,
-}: NeighborhoodsListProps) {
+export default function NeighborhoodsList() {
   const { searchQuery, handleSearchQueryChange } = useSearchContext();
+  const { neighborhoods } = useNeighborhoodContext();
+
+  const filteredNeighborhoods = neighborhoods.filter((neighborhood) =>
+    neighborhood.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   return (
     <section>
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -41,34 +33,13 @@ export default function NeighborhoodsList({
             }}
           />
         </div>
-        {/* 
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground text-sm">Sort by:</span>
-          <Select value={"popular"} onValueChange={() => {}}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="popular">Most Popular</SelectItem>
-              <SelectItem value="nameAsc">Name (A-Z)</SelectItem>
-              <SelectItem value="nameDesc">Name (Z-A)</SelectItem>
-              <SelectItem value="priceAsc">Avg. Rent (Low to High)</SelectItem>
-              <SelectItem value="priceDesc">Avg. Rent (High to Low)</SelectItem>
-            </SelectContent>
-          </Select>
-        </div> */}
       </div>
 
-      {neighborhoods.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
-          <h3 className="mb-2 text-lg font-medium">No neighborhoods found</h3>
-          <p className="text-muted-foreground">
-            Try adjusting your search criteria
-          </p>
-        </div>
+      {filteredNeighborhoods.length === 0 ? (
+        <EmptyContainer />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {neighborhoods.map((neighborhood) => (
+          {filteredNeighborhoods.map((neighborhood) => (
             <NeighborhoodCard
               key={neighborhood.id}
               neighborhood={neighborhood}
@@ -77,5 +48,16 @@ export default function NeighborhoodsList({
         </div>
       )}
     </section>
+  );
+}
+
+function EmptyContainer() {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+      <h3 className="mb-2 text-lg font-medium">No neighborhoods found</h3>
+      <p className="text-muted-foreground">
+        Try adjusting your search criteria
+      </p>
+    </div>
   );
 }
