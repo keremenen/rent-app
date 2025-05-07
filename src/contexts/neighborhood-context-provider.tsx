@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 
 type Neighborhood = {
   id: string;
+  cityId: string;
   name: string;
   description: string;
   thumbnail: string;
@@ -14,6 +15,7 @@ type Neighborhood = {
 
 type TNeighborhoodContext = {
   neighborhoods: Neighborhood[];
+  getNeighborhoodsByCityId: (id: string) => Neighborhood[];
   handleSetNeighborhoods: (neighborhoods: Neighborhood[]) => void;
 };
 
@@ -32,6 +34,10 @@ export default function NeighborhoodContextProvider({
 }: NeighborhoodContextProvider) {
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>(data);
 
+  const getNeighborhoodsByCityId = (id: string) => {
+    return neighborhoods.filter((neighborhood) => neighborhood.cityId === id);
+  };
+
   const handleSetNeighborhoods = (neighborhoods: Neighborhood[]) => {
     setNeighborhoods(neighborhoods);
   };
@@ -40,6 +46,7 @@ export default function NeighborhoodContextProvider({
     <NeighborhoodContext.Provider
       value={{
         neighborhoods,
+        getNeighborhoodsByCityId,
         handleSetNeighborhoods,
       }}
     >

@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import {
   Card,
   CardContent,
@@ -11,49 +11,57 @@ import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Building, MapPin } from "lucide-react";
 import { Button } from "./ui/button";
+import { useCityContext, useNeighborhoodContext } from "@/lib/hooks";
 
-type Neighborhood = {
-  id: string;
-  name: string;
-  description: string;
-  thumbnail: string;
-};
+export default function CityFeaturedNeighborhoods() {
+  const { selectedCity } = useCityContext();
+  const { getNeighborhoodsByCityId } = useNeighborhoodContext();
+  console.log("CityFeaturedNeighborhoods");
 
-type CityNeighborhoodsProps = {
-  cityName: string;
-  neighborhoods: Neighborhood[];
-};
+  const neighborhoods = getNeighborhoodsByCityId(selectedCity!.id);
 
-type NeighborhoodsProps = {
-  neighborhoods: Neighborhood[];
-};
+  const { name } = selectedCity!;
 
-export default function CityFeaturedNeighborhoods({
-  cityName,
-  neighborhoods,
-}: CityNeighborhoodsProps) {
   return (
-    <Card className="mb-8">
+    <Card>
       <CardHeader>
         <CardTitle>Featured Neighborhoods</CardTitle>
-        <CardDescription>Popular areas to live in {cityName}</CardDescription>
+        <CardDescription>Popular areas to live in {name}</CardDescription>
       </CardHeader>
       <CardContent>
-        <NeighborhoodGrid neighborhoods={neighborhoods} />
+        <NeighborhoodGrid>
+          {neighborhoods.map((neighborhood) => (
+            <NeighborhoodCard
+              key={neighborhood.id}
+              neighborhood={neighborhood}
+            />
+          ))}
+        </NeighborhoodGrid>
       </CardContent>
     </Card>
   );
 }
 
-function NeighborhoodGrid({ neighborhoods }: NeighborhoodsProps) {
+type NeighborhoodsProps = {
+  children: React.ReactNode;
+};
+
+function NeighborhoodGrid({ children }: NeighborhoodsProps) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {neighborhoods.map((neighborhood) => (
-        <NeighborhoodCard key={neighborhood.id} neighborhood={neighborhood} />
-      ))}
-    </div>
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
   );
 }
+
+type Neighborhood = {
+  id: string;
+  cityId: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  averageRent: number;
+  walkScore: number;
+  commuteTime: number;
+};
 
 type NeighborhoodCardProps = {
   neighborhood: Neighborhood;

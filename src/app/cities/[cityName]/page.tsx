@@ -6,6 +6,7 @@ import CityHeader from "@/components/city-header";
 import CityGallery from "@/components/city-gallery";
 import CityMinimap from "@/components/city-minimap";
 import { useCityContext } from "@/lib/hooks";
+import CityFeaturedNeighborhoods from "@/components/city-featured-neighborhoods";
 
 export default function CityPage() {
   const { getCityById, selectedCity } = useCityContext();
@@ -36,10 +37,7 @@ export default function CityPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
             <CityDescription />
-            {/* <CityFeaturedNeighborhoods
-              cityName={city.name}
-              neighborhoods={neighborhoods}
-            /> */}
+            <CityFeaturedNeighborhoods />
           </div>
 
           <div>
