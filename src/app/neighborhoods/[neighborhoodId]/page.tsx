@@ -24,21 +24,13 @@ export default function NeighborhoodPage({ params }: NeighborhoodParams) {
   return (
     <div className="bg-background">
       <NeighborhoodHero id={tmpNeighborHoodId} />
-      <main className="container px-4 py-8">
-        <div className="mb-6 grid grid-cols-2 gap-6">
+      <main className="container space-y-6 px-4 py-8">
+        <div className="grid gap-6 md:grid-cols-2">
           <NeighborhoodStats id={tmpNeighborHoodId} />
           <NeighborhoodFeatures />
-          <div className="text-muted-foreground text-sm">
-            {/* {`${apartments?.length || 0} ${
-              apartments?.length === 1 ? "apartment" : "apartments"
-            } available`} */}
-          </div>
         </div>
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
-          <div className={`space-y-6 lg:block`}>
-            {/* <SortByOptions sortOption={"priceAsc"} /> */}
-            {/* <ApartmentFilters /> */}
-          </div>
+          <div>{/* <ApartmentFilters /> */}</div>
 
           <div>
             {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
