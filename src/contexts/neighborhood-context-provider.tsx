@@ -14,6 +14,7 @@ type Neighborhood = {
 
 type TNeighborhoodContext = {
   neighborhoods: Neighborhood[];
+  handleSetNeighborhoods: (neighborhoods: Neighborhood[]) => void;
 };
 
 export const NeighborhoodContext = createContext<TNeighborhoodContext | null>(
@@ -31,10 +32,15 @@ export default function NeighborhoodContextProvider({
 }: NeighborhoodContextProvider) {
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>(data);
 
+  const handleSetNeighborhoods = (neighborhoods: Neighborhood[]) => {
+    setNeighborhoods(neighborhoods);
+  };
+
   return (
     <NeighborhoodContext.Provider
       value={{
         neighborhoods,
+        handleSetNeighborhoods,
       }}
     >
       {children}

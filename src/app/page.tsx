@@ -16,7 +16,7 @@ export default async function Home() {
       <HeroSection />
       <FeaturedApartments apartments={randomApartments} />
       <HowItWorks />
-      <PopularNeighborhoods display={["Wrzeszcz", "Oliwa", "Przymorze"]} />
+      <PopularNeighborhoods display={["Wrzeszcz", "Oliwa", "Nowy Port"]} />
       <PropertyOwners />
       <Testimonials />
     </main>
