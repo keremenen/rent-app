@@ -9,17 +9,19 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
-import { Building, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Button } from "./ui/button";
-import { useCityContext, useNeighborhoodContext } from "@/lib/hooks";
+import {
+  useApartmentContext,
+  useCityContext,
+  useNeighborhoodContext,
+} from "@/lib/hooks";
 
 export default function CityFeaturedNeighborhoods() {
   const { selectedCity } = useCityContext();
   const { getNeighborhoodsByCityId } = useNeighborhoodContext();
-  console.log("CityFeaturedNeighborhoods");
 
   const neighborhoods = getNeighborhoodsByCityId(selectedCity!.id);
-
   const { name } = selectedCity!;
 
   return (
@@ -68,67 +70,134 @@ type NeighborhoodCardProps = {
 };
 
 function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
+  const { id } = neighborhood;
+  const {
+    getTotalAparmentsInNeighborhood,
+    getAverageApartmentsRentInNeighborhood,
+  } = useApartmentContext();
+
+  const totalApartments = getTotalAparmentsInNeighborhood(id);
+  const averageRent = getAverageApartmentsRentInNeighborhood(id);
   return (
-    <div className="overflow-hidden rounded-lg border">
-      <div className="relative">
-        <Link href={`/neighborhoods/${neighborhood.id}`}>
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
-            <Image
-              src={neighborhood.thumbnail || "/placeholder.svg"}
-              alt={neighborhood.name}
-              fill
-              className="object-cover transition-transform duration-700 hover:scale-105"
-            />
-            <Badge className="bg-primary absolute top-2 left-2">Popular</Badge>
-          </div>
-        </Link>
-      </div>
-      <NeighborhoodDetails neighborhood={neighborhood} />
-    </div>
+    <article className="overflow-hidden rounded-lg border">
+      <NeighborhoodCardHeading
+        id={neighborhood.id}
+        thumbnail={neighborhood.thumbnail}
+        name={neighborhood.name}
+      />
+      <NeighborhoodDetails>
+        <NeighborhoodInfo
+          id={neighborhood.id}
+          name={neighborhood.name}
+          description={neighborhood.description}
+        />
+        <NeighborhoodStats
+          stats={{
+            numberOfProperies: totalApartments,
+            averageRent: averageRent,
+          }}
+        />
+        <NeighborhoodActions id={neighborhood.id} />
+      </NeighborhoodDetails>
+    </article>
   );
 }
 
-function NeighborhoodDetails({ neighborhood }: NeighborhoodCardProps) {
+type NeighborhoodCardHeadingProps = {
+  id: string;
+  thumbnail: string;
+  name: string;
+};
+
+function NeighborhoodCardHeading({
+  id,
+  thumbnail,
+  name,
+}: NeighborhoodCardHeadingProps) {
   return (
-    <div className="p-4">
-      <Link
-        href={`/neighborhoods/${neighborhood.id}`}
-        className="hover:underline"
-      >
-        <h3 className="text-lg font-semibold">{neighborhood.name}</h3>
+    <div className="relative">
+      <Link href={`/neighborhoods/${id}`}>
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <Image
+            src={thumbnail || "/placeholder.svg"}
+            alt={`Thunbnail of ${name}`}
+            fill
+            className="object-cover transition-transform duration-700 hover:scale-105"
+          />
+          <Badge className="bg-primary absolute top-2 left-2">Popular</Badge>
+        </div>
       </Link>
-      <p className="text-muted-foreground mb-3 line-clamp-2 text-sm">
-        {neighborhood.description}
-      </p>
-      <NeighborhoodStats />
-      <NeighborhoodActions neighborhoodId={neighborhood.id} />
     </div>
   );
 }
 
-function NeighborhoodStats() {
+type NeighborhoodDetailsProps = {
+  children: React.ReactNode;
+};
+
+function NeighborhoodDetails({ children }: NeighborhoodDetailsProps) {
+  return <div className="p-4">{children}</div>;
+}
+
+type NeighborhoodCardInfoProps = {
+  id: string;
+  name: string;
+  description: string;
+};
+
+function NeighborhoodInfo({
+  id,
+  name,
+  description,
+}: NeighborhoodCardInfoProps) {
   return (
-    <div className="mb-3 grid grid-cols-2 gap-2 text-sm">
+    <section className="mb-2">
+      <Link href={`/neighborhoods/${id}`} className="hover:underline">
+        <h3 className="text-lg font-semibold">{name}</h3>
+      </Link>
+      <p className="text-muted-foreground line-clamp-2 text-sm">
+        {description}
+      </p>
+    </section>
+  );
+}
+
+type NeighborhoodStatsProps = {
+  stats: {
+    numberOfProperies: number;
+    averageRent: number;
+  };
+};
+
+function NeighborhoodStats({
+  stats: { numberOfProperies, averageRent },
+}: NeighborhoodStatsProps) {
+  return (
+    <div className="mb-4 flex flex-col gap-2 text-xs">
       <div className="flex items-center gap-1">
-        <Building className="text-muted-foreground h-4 w-4" />
-        <span>10 Properties</span>
+        <span className="text-muted-foreground">Properties:</span>
+        <span className="font-medium">{numberOfProperies}</span>
       </div>
       <div className="flex items-center gap-1">
         <span className="text-muted-foreground">Avg. Rent:</span>
-        <span className="font-medium">$2000 /mo</span>
+        <span className="font-medium">{averageRent}$</span>
       </div>
     </div>
   );
 }
 
-function NeighborhoodActions({ neighborhoodId }: { neighborhoodId: string }) {
+type NeighborhoodActionsProps = {
+  id: string;
+};
+
+function NeighborhoodActions({ id }: NeighborhoodActionsProps) {
   return (
-    <div className="flex gap-2">
-      <Button variant="outline" size="sm" asChild className="flex-1">
-        <Link href={`/neighborhoods/${neighborhoodId}/explore`}>Explore</Link>
+    <div className="flex flex-col gap-2">
+      <Button variant="outline" asChild size={"sm"}>
+        <Link href={`/neighborhoods/${id}/explore`}>Explore</Link>
       </Button>
-      <Button size="sm" asChild className="flex-1">
-        <Link href={`/neighborhoods/${neighborhoodId}`}>
+      <Button variant={"default"} asChild size={"sm"}>
+        <Link href={`/neighborhoods/${id}`}>
           <MapPin className="mr-1 h-3 w-3" />
           Apartments
         </Link>
