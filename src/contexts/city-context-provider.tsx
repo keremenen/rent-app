@@ -21,7 +21,7 @@ type City = {
 type TCityContext = {
   cities: City[] | null;
   selectedCity: City | null;
-  getCityById: (id: string) => void;
+  handleSetSelectedCity: (id: string) => void;
   handleSetCities: (cities: City[]) => void;
 };
 
@@ -43,7 +43,7 @@ export default function CityContextProvider({
     setCities(cities);
   };
 
-  const getCityById = (id: string) => {
+  const handleSetSelectedCity = (id: string) => {
     const city = cities.find((city) => city.id === id) || null;
     setSelectedCity(city); // Set the selected city
   };
@@ -54,7 +54,7 @@ export default function CityContextProvider({
         cities,
         selectedCity,
         handleSetCities,
-        getCityById,
+        handleSetSelectedCity,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
-import { NeighborhoodHeader } from "@/components/neighborhood-header";
+import { NeighborhoodHero } from "@/components/neighborhood-hero";
+
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import {
   getApartmentsByNeighborhoodId,
@@ -28,7 +29,7 @@ export default async function NeighborhoodPage({ params }: NeighborhoodParams) {
 
   return (
     <div className="bg-background">
-      <NeighborhoodHeader
+      <NeighborhoodHero
         backgroundImage={neighborhood.thumbnail}
         name={neighborhood.name}
         description={neighborhood?.description}

@@ -13,11 +13,11 @@ type Params = Promise<{ cityId: string }>;
 export default function CityPage(props: { params: Params }) {
   const { cityId } = use(props.params);
 
-  const { getCityById, selectedCity } = useCityContext();
+  const { handleSetSelectedCity, selectedCity } = useCityContext();
 
   useEffect(() => {
-    getCityById(cityId);
-  }, [getCityById, cityId]);
+    handleSetSelectedCity(cityId);
+  }, [handleSetSelectedCity, cityId]);
 
   if (!selectedCity) {
     return (
