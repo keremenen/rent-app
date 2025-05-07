@@ -63,20 +63,17 @@ export function PropertyOwners() {
 
             <div className="flex flex-col gap-4 sm:flex-row">
               <Button asChild>
-                <Link href="/list-property">
-                  List Your Property
+                <Link href="/contact">
+                  Contact us to list your property
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/owner-resources">Learn More</Link>
               </Button>
             </div>
           </div>
 
           <div className="relative hidden md:block">
             <div className="bg-primary/10 absolute top-1/4 -left-4 h-64 w-64 rounded-full blur-3xl" />
-            <div className="relative z-10 aspect-[4/3] overflow-hidden rounded-xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
               <Image
                 src="/assets/owners.jpg"
                 alt="Property owner using the platform"
