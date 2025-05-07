@@ -1,31 +1,23 @@
 "use client";
 
-import { List, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useApartmentContext, useNeighborhoodContext } from "@/lib/hooks";
 
-export function NeighborhoodHero({
-  name,
-  description,
-  apartmentCount,
-  backgroundImage,
-}: {
-  name: string;
-  description: string;
-  apartmentCount: number;
-  backgroundImage?: string;
-}) {
-  const [viewMode, setViewMode] = useState("list");
+export function NeighborhoodHero() {
+  const { selectedNeighborhood } = useNeighborhoodContext();
+  const { getTotalAparmentsInNeighborhood } = useApartmentContext();
+
+  const { thumbnail, name, description } = selectedNeighborhood!;
+  const apartmentCount = getTotalAparmentsInNeighborhood("wrzeszcz");
 
   return (
-    <div className="relative">
+    <section className="relative">
       <div className="absolute inset-0 z-0">
         <Image
-          src={backgroundImage || "/placeholder.svg"}
+          src={thumbnail}
           alt={`${name} neighborhood`}
           fill
           className="object-cover brightness-[0.5]"
@@ -33,7 +25,7 @@ export function NeighborhoodHero({
         />
       </div>
 
-      <div className="relative z-10 container px-4 py-16 md:py-24">
+      <section className="relative z-10 container px-4 py-16 md:py-24">
         <div className="flex flex-col items-start text-white">
           <div className="mb-4 flex items-center gap-2 text-sm">
             <Link href="/neighborhoods" className="hover:underline">
@@ -56,34 +48,9 @@ export function NeighborhoodHero({
               <span className="font-bold">{apartmentCount}</span>{" "}
               {apartmentCount === 1 ? "apartment" : "apartments"} available
             </div>
-
-            <div className="flex rounded-md border border-white/30">
-              <Button
-                variant={viewMode === "list" ? "secondary" : "ghost"}
-                size="sm"
-                className="rounded-r-none border-r border-white/30 text-white hover:bg-white/20 hover:text-white"
-                onClick={() => {
-                  setViewMode("list");
-                }}
-              >
-                <List className="mr-2 h-4 w-4" />
-                List
-              </Button>
-              <Button
-                variant={viewMode === "map" ? "secondary" : "ghost"}
-                size="sm"
-                className="rounded-l-none text-white hover:bg-white/20 hover:text-white"
-                onClick={() => {
-                  setViewMode("map");
-                }}
-              >
-                <MapPin className="mr-2 h-4 w-4" />
-                Map
-              </Button>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
