@@ -20,6 +20,8 @@ type City = {
 
 type TCityContext = {
   cities: City[] | null;
+  selectedCity: City | null;
+  getCityById: (id: string) => void;
   handleSetCities: (cities: City[]) => void;
 };
 
@@ -35,16 +37,24 @@ export default function CityContextProvider({
   children,
 }: CityContextProvider) {
   const [cities, setCities] = useState<City[]>(data);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
   const handleSetCities = (cities: City[]) => {
     setCities(cities);
+  };
+
+  const getCityById = (id: string) => {
+    const city = cities.find((city) => city.id === id) || null;
+    setSelectedCity(city); // Set the selected city
   };
 
   return (
     <CityContext.Provider
       value={{
         cities,
+        selectedCity,
         handleSetCities,
+        getCityById,
       }}
     >
       {children}
