@@ -18,10 +18,12 @@ type Apartment = {
 
 type TApartmentContext = {
   apartments: Apartment[];
+  bedroomValues: number[];
   getTotalApartmentsInNeighborhood: (neighborhoodId: string) => number;
   getAllApartmentsInNeighborhood: (neighborhoodId: string) => Apartment[];
   getAverageApartmentsRentInNeighborhood: (neighborhoodId: string) => number;
   handleSetApartments: (apartments: Apartment[]) => void;
+  handleGetAllBedroomValues: () => void;
 };
 
 export const ApartmentContext = createContext<TApartmentContext | null>(null);
@@ -35,6 +37,7 @@ export default function ApartmentContextProvider({
   children,
 }: ApartmentContextProvider) {
   const [apartments, setApartments] = useState<Apartment[]>(data);
+  const [bedroomValues, setBedroomValues] = useState<number[]>([]);
 
   const handleSetApartments = (apartments: Apartment[]) => {
     setApartments(apartments);
@@ -50,6 +53,13 @@ export default function ApartmentContextProvider({
     return apartments.filter(
       (apartment) => apartment.neighborhoodId === neighborhoodId,
     );
+  };
+
+  const handleGetAllBedroomValues = () => {
+    const allBedrooms = apartments.map((apartment) => apartment.bedrooms);
+    const uniqueBedrooms = [...new Set(allBedrooms)];
+    const sortedUniqueBedrooms = uniqueBedrooms.sort((a, b) => a - b);
+    setBedroomValues(sortedUniqueBedrooms);
   };
 
   const getAverageApartmentsRentInNeighborhood = (neighborhoodId: string) => {
@@ -78,7 +88,9 @@ export default function ApartmentContextProvider({
     <ApartmentContext.Provider
       value={{
         apartments,
+        bedroomValues,
         getAllApartmentsInNeighborhood,
+        handleGetAllBedroomValues,
         getAverageApartmentsRentInNeighborhood,
         getTotalApartmentsInNeighborhood,
         handleSetApartments,

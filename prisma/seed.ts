@@ -64,7 +64,7 @@ const cities = [
                 ],
                 amenities: ["Wi-Fi", "TV"],
                 monthlyRent: 1500.0,
-                bedrooms: 2,
+                bedrooms: 6,
                 bathrooms: 1,
                 squareFootage: 50.0,
                 availableFrom: new Date("2024-01-01"),

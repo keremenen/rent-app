@@ -2,6 +2,7 @@
 
 import NeighborhoodApartments from "@/components/neighborhood-apartments";
 import NeighborhoodFeatures from "@/components/neighborhood-features";
+import NeighborhoodFilter from "@/components/neighborhood-filter";
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import { useNeighborhoodContext } from "@/lib/hooks";
@@ -30,7 +31,10 @@ export default function NeighborhoodPage(props: { params: Params }) {
           <NeighborhoodFeatures />
         </div>
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
-          <div>{/* <ApartmentFilters /> */}</div>
+          <div>
+            <NeighborhoodFilter />
+            {/* <ApartmentFilters /> */}
+          </div>
 
           <div>
             <NeighborhoodApartments neighborhoodId={neighborhoodId} />
