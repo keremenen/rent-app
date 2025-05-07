@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/card";
 import { useCityContext } from "@/lib/hooks";
 
+const GALLERY_MAX_LENGTH = 8;
+
 export default function CityGallery() {
   const { selectedCity } = useCityContext();
   const { name: cityName, gallery } = selectedCity!;
@@ -25,22 +27,24 @@ export default function CityGallery() {
         <CardDescription>Explore {cityName} through photos</CardDescription>
       </CardHeader>
       <CardContent>
-        <GalleryGrid gallery={gallery} />
+        <GalleryGrid>
+          {gallery.slice(0, GALLERY_MAX_LENGTH).map((imageUrl, index) => (
+            <GalleryImage imageUrl={imageUrl} key={index} index={index} />
+          ))}
+        </GalleryGrid>
       </CardContent>
     </Card>
   );
 }
 
 type GalleryGridProps = {
-  gallery: string[];
+  children?: React.ReactNode;
 };
 
-function GalleryGrid({ gallery }: GalleryGridProps) {
+function GalleryGrid({ children }: GalleryGridProps) {
   return (
     <section className="grid grid-cols-2 gap-2 md:grid-cols-4">
-      {gallery.slice(0, 8).map((imageUrl, index) => (
-        <GalleryImage imageUrl={imageUrl} key={index} index={index} />
-      ))}
+      {children}
     </section>
   );
 }
