@@ -8,9 +8,7 @@ import SearchContextProvider from "@/contexts/search-context-provider";
 import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provider";
 import prisma from "@/lib/db";
 import ApartmentContextProvider from "@/contexts/apartment-contect-provier";
-import CityContextProvider, {
-  CityContext,
-} from "@/contexts/city-context-provider";
+import CityContextProvider from "@/contexts/city-context-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
