@@ -1,15 +1,18 @@
+"use client";
+
 import { ApartmentCard } from "./apartment-card";
-import { ConvertedApartment } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "./section-header";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useApartmentContext } from "@/lib/hooks";
 
-type FeaturedApartmentsProps = {
-  apartments: ConvertedApartment[];
-};
+export function FeaturedApartments() {
+  const { apartments } = useApartmentContext();
 
-export function FeaturedApartments({ apartments }: FeaturedApartmentsProps) {
+  // Get 4 apartments from the list
+  const featuredApartments = apartments.slice(0, 4);
+
   return (
     <section className="bg-background py-16">
       <div className="container px-4">
@@ -19,10 +22,10 @@ export function FeaturedApartments({ apartments }: FeaturedApartmentsProps) {
           desirable neighborhoods"
         />
 
-        {apartments && apartments.length > 0 ? (
+        {featuredApartments && featuredApartments.length > 0 ? (
           <>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {apartments.map((apartment) => (
+              {featuredApartments.map((apartment) => (
                 <ApartmentCard key={apartment.id} apartment={apartment} />
               ))}
             </div>

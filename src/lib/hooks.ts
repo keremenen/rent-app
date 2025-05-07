@@ -1,5 +1,6 @@
 "use client";
 
+import { ApartmentContext } from "@/contexts/apartment-contect-provier";
 import { NeighborhoodContext } from "@/contexts/neighborhood-context-provider";
 import { SearchContext } from "@/contexts/search-context-provider";
 import { useContext, useEffect, useState } from "react";
@@ -45,6 +46,18 @@ export function useNeighborhoodContext() {
   if (!context) {
     throw new Error(
       "useNeighborhoodContext must be used within a NeighborhoodContextProvider",
+    );
+  }
+
+  return context;
+}
+
+export function useApartmentContext() {
+  const context = useContext(ApartmentContext);
+
+  if (!context) {
+    throw new Error(
+      "useApartmentContext must be used within a ApartmentContextProvider",
     );
   }
 

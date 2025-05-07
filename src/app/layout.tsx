@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import SearchContextProvider from "@/contexts/search-context-provider";
 import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provider";
 import prisma from "@/lib/db";
+import ApartmentContextProvider from "@/contexts/apartment-contect-provier";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,17 +39,28 @@ export default async function RootLayout({
     commuteTime: neighborhood.commuteTime?.toNumber(),
   }));
 
+  const apartments = await prisma.apartment.findMany();
+
+  // Convert apartments to a plain object
+  const plainApartments = apartments.map((apartment) => ({
+    ...apartment,
+    squareFootage: apartment.squareFootage?.toNumber(),
+    monthlyRent: apartment.monthlyRent?.toNumber(),
+  }));
+
   return (
     <html lang="en">
       <body
         className={`mx-auto flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SearchContextProvider>
-          <NeighborhoodContextProvider data={plainNeighborhoods}>
-            <MainNavigation />
-            {children}
-            <Footer />
-          </NeighborhoodContextProvider>
+          <ApartmentContextProvider data={plainApartments}>
+            <NeighborhoodContextProvider data={plainNeighborhoods}>
+              <MainNavigation />
+              {children}
+              <Footer />
+            </NeighborhoodContextProvider>
+          </ApartmentContextProvider>
         </SearchContextProvider>
       </body>
     </html>
