@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 
 export function CityHero() {
   const { selectedCity } = useCityContext();
-
   const { coverImage, name, shortDescription, id } = selectedCity!;
 
   return (
