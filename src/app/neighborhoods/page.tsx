@@ -1,8 +1,6 @@
 import { PageHeader } from "@/components/page-headers";
 import NeighborhoodGuide from "@/components/neighborhood-guide";
 import NeighborhoodsList from "@/components/neighborhoods-list";
-import prisma from "@/lib/db";
-import { convertNeighborhoodsToPlain } from "@/lib/utils";
 
 export default function NeighborhoodsListPage() {
   return (

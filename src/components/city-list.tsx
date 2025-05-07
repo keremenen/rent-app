@@ -56,7 +56,7 @@ function CityCard({ city }: { city: City }) {
   const { id, coverImage, name, shortDescription, population } = city;
 
   return (
-    <Card className="gap-2 overflow-hidden py-0">
+    <Card className="gap-0 space-y-0 overflow-hidden py-0">
       <CityCardImage id={id} coverImage={coverImage} name={name} />
       <CardContent className="p-4">
         <CityCardHeader id={id} name={name} />
@@ -80,14 +80,13 @@ function CityCardImage({
   return (
     <div className="relative">
       <Link href={`/cities/${id}`}>
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="relative aspect-[16/11] w-full overflow-hidden">
           <Image
             src={coverImage || "/placeholder.svg"}
             alt={`${name} skyline`}
             fill
             className="object-cover transition-transform duration-500 hover:scale-105"
           />
-          <Badge className="bg-primary absolute top-2 left-2">Featured</Badge>
         </div>
       </Link>
     </div>

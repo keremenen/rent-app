@@ -1,6 +1,5 @@
 import CityList from "@/components/city-list";
 import { PageHeader } from "@/components/page-headers";
-import { getAllCities } from "@/lib/utils";
 
 export default async function CitiesPage() {
   return (

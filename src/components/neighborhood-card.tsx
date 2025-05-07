@@ -9,6 +9,7 @@ type NeighborhoodCardProps = {
   neighborhood: {
     id: string;
     name: string;
+    cityId: string;
     description: string;
     thumbnail: string;
     averageRent: number;
@@ -39,7 +40,10 @@ export function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
       <CardContent className="px-4 py-0">
         <div className="mb-2 flex items-center justify-between">
           <Link href={`/neighborhoods/${id}`} className="hover:underline">
-            <h3 className="text-xl font-semibold">{name}</h3>
+            <h3 className="text-xl font-semibold">
+              {name}
+              <span className="text-sm font-light"></span>
+            </h3>
           </Link>
           <Badge variant="outline" className="capitalize"></Badge>
         </div>
