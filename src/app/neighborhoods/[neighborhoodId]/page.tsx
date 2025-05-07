@@ -4,7 +4,7 @@ import NeighborhoodApartments from "@/components/neighborhood-apartments";
 import NeighborhoodFeatures from "@/components/neighborhood-features";
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
-import { useApartmentContext, useNeighborhoodContext } from "@/lib/hooks";
+import { useNeighborhoodContext } from "@/lib/hooks";
 import { use, useEffect } from "react";
 
 type Params = Promise<{ neighborhoodId: string }>;
@@ -14,9 +14,6 @@ export default function NeighborhoodPage(props: { params: Params }) {
 
   const { handleSetSelectedNeighborhood, selectedNeighborhood } =
     useNeighborhoodContext();
-
-  const { getAllApartmentsInNeighborhood } = useApartmentContext();
-  const apartments = getAllApartmentsInNeighborhood(neighborhoodId);
 
   useEffect(() => {
     handleSetSelectedNeighborhood(neighborhoodId);
