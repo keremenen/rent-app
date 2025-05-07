@@ -8,14 +8,16 @@ import CityMinimap from "@/components/city-minimap";
 import { useCityContext } from "@/lib/hooks";
 import CityFeaturedNeighborhoods from "@/components/city-featured-neighborhoods";
 
-export default function CityPage() {
+type Params = Promise<{ cityId: string }>;
+
+export default function CityPage(props: { params: Params }) {
+  const { cityId } = use(props.params);
+
   const { getCityById, selectedCity } = useCityContext();
 
-  console.log("CityPage", selectedCity?.name);
-
   useEffect(() => {
-    getCityById("gdansk");
-  }, [getCityById]);
+    getCityById(cityId);
+  }, [getCityById, cityId]);
 
   if (!selectedCity) {
     return (
