@@ -2,6 +2,7 @@
 
 import { ApartmentContext } from "@/contexts/apartment-context-provier";
 import { CityContext } from "@/contexts/city-context-provider";
+import { FilterContext } from "@/contexts/filters-context-provier";
 import { NeighborhoodContext } from "@/contexts/neighborhood-context-provider";
 import { SearchContext } from "@/contexts/search-context-provider";
 import { useContext, useEffect, useState } from "react";
@@ -71,6 +72,18 @@ export function useCityContext() {
   if (!context) {
     throw new Error(
       "useCityContext must be used within a ApartmentContextProvider",
+    );
+  }
+
+  return context;
+}
+
+export function useFilterContext() {
+  const context = useContext(FilterContext);
+
+  if (!context) {
+    throw new Error(
+      "useFilterContext must be used within a FilterContextProvider",
     );
   }
 

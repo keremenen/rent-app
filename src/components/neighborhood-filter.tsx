@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import {
   Card,
   CardContent,
@@ -11,34 +11,47 @@ import { Slider } from "./ui/slider";
 import { Checkbox } from "./ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Button } from "./ui/button";
+import { useFilterContext } from "@/lib/hooks";
+import { on } from "events";
 
 const PRICE_STEP = 100;
 const PRICE_RANGE = [0, 5000];
 
-const bedroomOptions = [1, 2, 3, 4, 5];
+const bedroomOptions = ["1", "2", "3", "4", "5"];
 const amenitiesOptions = ["Wi-Fi", "Parking", "Pool", "Gym"];
-const availabilityOptions = ["Available", "Comming Soon", "Not Available"];
+// const availabilityOptions = ["Available", "Comming Soon", "Not Available"];
 
 export default function NeighborhoodFilter() {
+  const { priceRangeValues, handleSetPriceRangeValues } = useFilterContext();
+  const {
+    bedroomValues,
+    handleSetBedroomValues,
+    amenitiesValues,
+    handleSetAmenitiesValues,
+  } = useFilterContext();
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Filters</CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
-        <PriceRangeSection />
-        {bedroomOptions && (
-          <CheckboxSection label={"Bedrooms"} values={bedroomOptions} />
-        )}
-        {amenitiesOptions && (
-          <CheckboxSection label={"Amenities"} values={amenitiesOptions} />
-        )}
-        {availabilityOptions && (
-          <RadioGroupSection
-            label={"Availability"}
-            values={availabilityOptions}
-          />
-        )}
+        <PriceRangeSection
+          currentValues={priceRangeValues}
+          onValueChange={handleSetPriceRangeValues}
+        />
+        <CheckboxSection
+          label="Bedrooms"
+          options={bedroomOptions}
+          values={bedroomValues}
+          onChange={handleSetBedroomValues}
+        />
+        <CheckboxSection
+          label="Amenities"
+          options={amenitiesOptions}
+          values={amenitiesValues}
+          onChange={handleSetAmenitiesValues}
+        />
       </CardContent>
       <CardFooter>
         <Button variant="outline" className="w-full">
@@ -49,22 +62,35 @@ export default function NeighborhoodFilter() {
   );
 }
 
-function PriceRangeSection() {
+type PriceRangeSectionProps = {
+  currentValues: number[];
+  onValueChange: (value: number[]) => void;
+};
+
+function PriceRangeSection({
+  currentValues,
+  onValueChange,
+}: PriceRangeSectionProps) {
   return (
     <section>
-      <Label>Price Range</Label>
+      <Label>
+        Price Range{" "}
+        <span className="text-muted-foreground text-xs font-medium">
+          ($/month)
+        </span>
+      </Label>
       <div className="mt-6 px-2">
         <Slider
           min={PRICE_RANGE[0]}
           max={PRICE_RANGE[1]}
           step={PRICE_STEP}
-          value={[2000, 4000]}
-          // onValueChange={}
+          value={currentValues}
+          onValueChange={onValueChange}
         />
       </div>
       <div className="mt-1 flex items-center justify-between text-sm">
-        <span>2000</span>
-        <span>4000</span>
+        <span>{currentValues[0]}$</span>
+        <span>{currentValues[1]}$</span>
       </div>
     </section>
   );
@@ -72,21 +98,38 @@ function PriceRangeSection() {
 
 type CheckboxSectionProps = {
   label: string;
-  values: number[] | string[];
+  options: string[];
+  values: string[] | null;
+  onChange: (value: string) => void;
 };
 
-function CheckboxSection({ label, values }: CheckboxSectionProps) {
+function CheckboxSection({
+  label,
+  options,
+  values,
+  onChange: handleToggleCheckbox,
+}: CheckboxSectionProps) {
   return (
     <section>
       <Label className="mb-2">{label}</Label>
 
       <div className="grid grid-cols-2 gap-2">
-        {values.map((value) => (
-          <div className="flex items-center space-x-2" key={value}>
-            <Checkbox id={`checkbox-${value}`} />
-            <Label htmlFor={`checkbox-${value}`}>{value}</Label>
-          </div>
-        ))}
+        {options.map((option) => {
+          // Check if the current option is checked
+          const isChecked = values ? values.includes(option) : false;
+          return (
+            <div className="flex items-center space-x-2" key={option}>
+              <Checkbox
+                id={`checkbox-${option}`}
+                checked={isChecked}
+                onCheckedChange={() => {
+                  handleToggleCheckbox(option);
+                }}
+              />
+              <Label htmlFor={`checkbox-${option}`}>{option}</Label>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -94,7 +137,7 @@ function CheckboxSection({ label, values }: CheckboxSectionProps) {
 
 type RadioGroupSectionProps = {
   label: string;
-  values: number[] | string[];
+  values: string[];
 };
 
 function RadioGroupSection({ label, values }: RadioGroupSectionProps) {

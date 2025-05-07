@@ -9,6 +9,7 @@ import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provide
 import prisma from "@/lib/db";
 import ApartmentContextProvider from "@/contexts/apartment-context-provier";
 import CityContextProvider from "@/contexts/city-context-provider";
+import FilterContextProvider from "@/contexts/filters-context-provier";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,11 +70,13 @@ export default async function RootLayout({
         <SearchContextProvider>
           <CityContextProvider data={plainCities}>
             <NeighborhoodContextProvider data={plainNeighborhoods}>
-              <ApartmentContextProvider data={plainApartments}>
-                <MainNavigation />
-                {children}
-                <Footer />
-              </ApartmentContextProvider>
+              <FilterContextProvider>
+                <ApartmentContextProvider data={plainApartments}>
+                  <MainNavigation />
+                  {children}
+                  <Footer />
+                </ApartmentContextProvider>
+              </FilterContextProvider>
             </NeighborhoodContextProvider>
           </CityContextProvider>
         </SearchContextProvider>
