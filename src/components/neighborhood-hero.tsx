@@ -8,10 +8,10 @@ import { useApartmentContext, useNeighborhoodContext } from "@/lib/hooks";
 
 export function NeighborhoodHero() {
   const { selectedNeighborhood } = useNeighborhoodContext();
-  const { getTotalAparmentsInNeighborhood } = useApartmentContext();
+  const { getTotalApartmentsInNeighborhood } = useApartmentContext();
 
   const { thumbnail, name, description } = selectedNeighborhood!;
-  const apartmentCount = getTotalAparmentsInNeighborhood("wrzeszcz");
+  const apartmentCount = getTotalApartmentsInNeighborhood("wrzeszcz");
 
   return (
     <section className="relative">

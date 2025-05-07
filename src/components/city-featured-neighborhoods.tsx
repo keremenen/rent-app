@@ -72,11 +72,11 @@ type NeighborhoodCardProps = {
 function NeighborhoodCard({ neighborhood }: NeighborhoodCardProps) {
   const { id } = neighborhood;
   const {
-    getTotalAparmentsInNeighborhood,
+    getTotalApartmentsInNeighborhood,
     getAverageApartmentsRentInNeighborhood,
   } = useApartmentContext();
 
-  const totalApartments = getTotalAparmentsInNeighborhood(id);
+  const totalApartments = getTotalApartmentsInNeighborhood(id);
   const averageRent = getAverageApartmentsRentInNeighborhood(id);
   return (
     <article className="overflow-hidden rounded-lg border">

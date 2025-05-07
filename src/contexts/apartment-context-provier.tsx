@@ -18,7 +18,7 @@ type Apartment = {
 
 type TApartmentContext = {
   apartments: Apartment[];
-  getTotalAparmentsInNeighborhood: (neighborhoodId: string) => number;
+  getTotalApartmentsInNeighborhood: (neighborhoodId: string) => number;
   getAverageApartmentsRentInNeighborhood: (neighborhoodId: string) => number;
   handleSetApartments: (apartments: Apartment[]) => void;
 };
@@ -39,7 +39,7 @@ export default function ApartmentContextProvider({
     setApartments(apartments);
   };
 
-  const getTotalAparmentsInNeighborhood = (neighborhoodId: string) => {
+  const getTotalApartmentsInNeighborhood = (neighborhoodId: string) => {
     return apartments.filter(
       (apartment) => apartment.neighborhoodId === neighborhoodId,
     ).length;
@@ -72,7 +72,7 @@ export default function ApartmentContextProvider({
       value={{
         apartments,
         getAverageApartmentsRentInNeighborhood,
-        getTotalAparmentsInNeighborhood,
+        getTotalApartmentsInNeighborhood,
         handleSetApartments,
       }}
     >

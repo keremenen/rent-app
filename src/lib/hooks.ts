@@ -1,6 +1,6 @@
 "use client";
 
-import { ApartmentContext } from "@/contexts/apartment-contect-provier";
+import { ApartmentContext } from "@/contexts/apartment-context-provier";
 import { CityContext } from "@/contexts/city-context-provider";
 import { NeighborhoodContext } from "@/contexts/neighborhood-context-provider";
 import { SearchContext } from "@/contexts/search-context-provider";
