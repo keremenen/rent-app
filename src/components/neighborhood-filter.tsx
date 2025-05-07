@@ -18,7 +18,7 @@ const PRICE_STEP = 100;
 const PRICE_RANGE = [0, 5000];
 
 const bedroomOptions = ["1", "2", "3", "4", "5"];
-const amenitiesOptions = ["Wi-Fi", "Parking", "Pool", "Gym"];
+const amenitiesOptions = ["Wi-Fi", "TV", "Pralka", "Gym"];
 // const availabilityOptions = ["Available", "Comming Soon", "Not Available"];
 
 export default function NeighborhoodFilter() {

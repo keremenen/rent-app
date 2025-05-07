@@ -10,8 +10,10 @@ export default function NeighborhoodApartments({
 }) {
   const { getAllApartmentsInNeighborhood } = useApartmentContext();
   const apartments = getAllApartmentsInNeighborhood(neighborhoodId);
-  const { priceRangeValues, bedroomValues } = useFilterContext();
+  const { priceRangeValues, bedroomValues, amenitiesValues } =
+    useFilterContext();
 
+  console.log("amenitiesValues", amenitiesValues);
   const filteredApartments = apartments.filter((apartment) => {
     const isInPriceRange =
       apartment.monthlyRent >= priceRangeValues[0] &&
@@ -22,7 +24,16 @@ export default function NeighborhoodApartments({
       bedroomValues?.length === 0 ||
       bedroomValues?.includes(apartment.bedrooms.toString());
 
-    return isInPriceRange && isInBedroomRange;
+    const isInAmenitiesRange =
+      amenitiesValues === null ||
+      amenitiesValues?.length === 0 ||
+      amenitiesValues?.every((amenity) =>
+        apartment.amenities?.some(
+          (apartmentAmenity) => apartmentAmenity === amenity,
+        ),
+      );
+
+    return isInPriceRange && isInBedroomRange && isInAmenitiesRange;
   });
 
   return (
