@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
 import { JSX } from "react";
 import { useCityContext } from "@/lib/hooks";
+import { motion, AnimatePresence } from "framer-motion";
 
 type City = {
   id: string;
@@ -44,9 +45,19 @@ function CitiesEmptyState() {
 function CityGrid({ cities }: { cities: City[] }) {
   return (
     <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
-      {cities.map((city) => (
-        <CityCard key={city.id} city={city} />
-      ))}
+      <AnimatePresence>
+        {cities.map((city) => (
+          <motion.div
+            key={city.id}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }} // Dodano przesunięcie w dół
+            animate={{ opacity: 1, y: 0, scale: 1 }} // Powrót do pozycji początkowej
+            exit={{ opacity: 0, y: -40, scale: 0.9 }} // Przesunięcie w górę przy usuwaniu
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <CityCard key={city.id} city={city} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
