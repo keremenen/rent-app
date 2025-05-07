@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -5,54 +6,48 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Decimal } from "@prisma/client/runtime/library";
+import { useCityContext } from "@/lib/hooks";
 
-type CityDescriptionProps = {
-  cityName: string;
-  cityDescription: string;
-  population: number;
-  area: Decimal;
-};
+export default function CityDescription() {
+  const { selectedCity } = useCityContext();
+  const { name, longDescription, population, area } = selectedCity!;
 
-export default function CityDescription({
-  cityName,
-  cityDescription,
-  population,
-  area,
-}: CityDescriptionProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>About {cityName}</CardTitle>
+        <CardTitle>About {name}</CardTitle>
         <CardDescription>Overview and history of the city</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <section>{cityDescription}</section>
-        <CityStats population={population} area={area} />
+        <section>{longDescription}</section>
+        <CityStats
+          stats={[
+            { label: "Population", value: population },
+            { label: "Area", value: area },
+          ]}
+        />
       </CardContent>
     </Card>
   );
 }
 
 type CityStatsProps = {
-  population: number;
-  area: Decimal;
+  stats: {
+    label: string;
+    value: number;
+  }[];
 };
 
-function CityStats({ population, area }: CityStatsProps) {
+function CityStats({ stats }: CityStatsProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      <StatCard
-        label="Population"
-        value={population.toString()}
-        className={"bg-blue-300/10"}
-      />
-      <StatCard
-        label="Area"
-        value={`${area.toString()} m²`}
-        className="bg-blue-300/10"
-      />
+      {stats.map((stat, index) => (
+        <StatCard
+          key={index}
+          label={stat.label}
+          value={stat.value.toLocaleString()}
+        />
+      ))}
     </div>
   );
 }
@@ -60,14 +55,13 @@ function CityStats({ population, area }: CityStatsProps) {
 type StatCardProps = {
   label: string;
   value: string;
-  className?: string;
 };
 
-function StatCard({ label, value, className }: StatCardProps) {
+function StatCard({ label, value }: StatCardProps) {
   return (
-    <div className={`${cn("bg-muted rounded-lg p-3 text-center", className)}`}>
+    <section className={"bg-muted rounded-lg p-3 text-center"}>
       <p className="text-muted-foreground text-sm">{label}</p>
       <p className="text-xl font-bold">{value}</p>
-    </div>
+    </section>
   );
 }

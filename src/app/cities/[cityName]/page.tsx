@@ -35,12 +35,7 @@ export default function CityPage() {
 
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
-            {/* <CityDescription
-              cityName={city.name}
-              cityDescription={city.longDescription}
-              population={city.population}
-              area={city.area}
-            /> */}
+            <CityDescription />
             {/* <CityFeaturedNeighborhoods
               cityName={city.name}
               neighborhoods={neighborhoods}
