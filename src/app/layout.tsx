@@ -6,10 +6,10 @@ import { MainNavigation } from "@/components/main-navigation";
 import Footer from "@/components/footer";
 import SearchContextProvider from "@/contexts/search-context-provider";
 import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provider";
-import prisma from "@/lib/db";
 import ApartmentContextProvider from "@/contexts/apartment-context-provier";
 import CityContextProvider from "@/contexts/city-context-provider";
 import FilterContextProvider from "@/contexts/filters-context-provier";
+import prisma from "@/lib/db";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -18,8 +18,9 @@ export default function NeighborhoodApartments({
       apartment.monthlyRent <= priceRangeValues[1];
 
     const isInBedroomRange =
-      bedroomValues.length === 0 ||
-      bedroomValues.includes(apartment.bedrooms.toString());
+      bedroomValues === null ||
+      bedroomValues?.length === 0 ||
+      bedroomValues?.includes(apartment.bedrooms.toString());
 
     return isInPriceRange && isInBedroomRange;
   });
