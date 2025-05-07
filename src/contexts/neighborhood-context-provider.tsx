@@ -10,6 +10,7 @@ type Neighborhood = {
   thumbnail: string;
   averageRent: number;
   walkScore: number;
+  features: string[];
   commuteTime: number;
 };
 

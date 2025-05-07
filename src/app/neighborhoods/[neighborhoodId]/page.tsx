@@ -1,5 +1,6 @@
 "use client";
 
+import NeighborhoodFeatures from "@/components/neighborhood-features";
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import { useNeighborhoodContext } from "@/lib/hooks";
@@ -24,8 +25,9 @@ export default function NeighborhoodPage({ params }: NeighborhoodParams) {
     <div className="bg-background">
       <NeighborhoodHero id={tmpNeighborHoodId} />
       <main className="container px-4 py-8">
-        <div className="mb-6 space-y-6">
+        <div className="mb-6 grid grid-cols-2 gap-6">
           <NeighborhoodStats id={tmpNeighborHoodId} />
+          <NeighborhoodFeatures />
           <div className="text-muted-foreground text-sm">
             {/* {`${apartments?.length || 0} ${
               apartments?.length === 1 ? "apartment" : "apartments"

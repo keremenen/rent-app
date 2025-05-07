@@ -45,7 +45,7 @@ export function NeighborhoodStats({ id }: { id: string }) {
       <CardHeader>
         <CardTitle>Neighborhood Stats</CardTitle>
         <CardDescription>
-          Explore the neighborhood&apos;s features and statistics
+          Explore the neighborhood&apos;s statistics
         </CardDescription>
       </CardHeader>
       <CardContent>
