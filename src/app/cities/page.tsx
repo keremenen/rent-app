@@ -3,8 +3,6 @@ import { PageHeader } from "@/components/page-headers";
 import { getAllCities } from "@/lib/utils";
 
 export default async function CitiesPage() {
-  const cities = await getAllCities();
-
   return (
     <div className="bg-background pb-8">
       <PageHeader
@@ -12,7 +10,7 @@ export default async function CitiesPage() {
         description="Discover the perfect city for your next home"
       />
       <main className="container flex flex-1 flex-col px-4 py-8">
-        <CityList cities={cities} />
+        <CityList />
       </main>
     </div>
   );

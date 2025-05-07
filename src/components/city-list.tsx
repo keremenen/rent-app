@@ -1,4 +1,4 @@
-import { Decimal } from "@prisma/client/runtime/library";
+"use client";
 import { Building, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,26 +7,31 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils";
 import { JSX } from "react";
+import { useCityContext } from "@/lib/hooks";
 
 type City = {
   id: string;
   name: string;
   shortDescription: string;
+  longDescription: string;
+  gallery: string[];
   coverImage: string;
-  area: Decimal;
+  latitude: number;
+  longitude: number;
   population: number;
+  area: number;
+  walkScore: number;
+  commuteTime: number;
+  createdAt: Date;
 };
 
-type CityListProps = {
-  cities: City[];
-};
+export default function CityList() {
+  const { cities } = useCityContext();
 
-export default function CityList({ cities }: CityListProps) {
-  return cities.length === 0 ? (
-    <CitiesEmptyState />
-  ) : (
-    <CityGrid cities={cities} />
-  );
+  if (!cities || cities.length === 0) {
+    return <CitiesEmptyState />;
+  }
+  return <CityGrid cities={cities} />;
 }
 
 function CitiesEmptyState() {

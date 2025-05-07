@@ -8,6 +8,9 @@ import SearchContextProvider from "@/contexts/search-context-provider";
 import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provider";
 import prisma from "@/lib/db";
 import ApartmentContextProvider from "@/contexts/apartment-contect-provier";
+import CityContextProvider, {
+  CityContext,
+} from "@/contexts/city-context-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,19 +51,33 @@ export default async function RootLayout({
     monthlyRent: apartment.monthlyRent?.toNumber(),
   }));
 
+  const cities = await prisma.city.findMany();
+
+  // Convert cities to a plain object
+  const plainCities = cities.map((city) => ({
+    ...city,
+    latitude: city.latitude?.toNumber(),
+    longitude: city.longitude?.toNumber(),
+    area: city.area?.toNumber(),
+    walkScore: city.walkScore?.toNumber(),
+    commuteTime: city.commuteTime?.toNumber(),
+  }));
+
   return (
     <html lang="en">
       <body
         className={`mx-auto flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SearchContextProvider>
-          <ApartmentContextProvider data={plainApartments}>
+          <CityContextProvider data={plainCities}>
             <NeighborhoodContextProvider data={plainNeighborhoods}>
-              <MainNavigation />
-              {children}
-              <Footer />
+              <ApartmentContextProvider data={plainApartments}>
+                <MainNavigation />
+                {children}
+                <Footer />
+              </ApartmentContextProvider>
             </NeighborhoodContextProvider>
-          </ApartmentContextProvider>
+          </CityContextProvider>
         </SearchContextProvider>
       </body>
     </html>
