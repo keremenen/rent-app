@@ -40,7 +40,10 @@ export function CityHero() {
 
         <div className="flex flex-wrap gap-3">
           <Button asChild variant={"secondary"}>
-            <Link href={`/cities/${id}/apartments`}>
+            <Link
+              href={`/cities/${id}/apartments`}
+              aria-label="View all available apartments"
+            >
               Browse all apartments in {name}
             </Link>
           </Button>
