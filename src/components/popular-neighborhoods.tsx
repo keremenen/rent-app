@@ -72,8 +72,10 @@ function NeighborhoodCard(neighborhood: NeighborhoodCardProps) {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
         </Link>
-        <div className="relative flex h-full items-center justify-center p-4 text-white">
-          <h3 className="mb-1 text-2xl font-semibold">{name}</h3>
+        <div className="relative flex h-full items-center text-white">
+          <h3 className="mb-1 w-full bg-black/20 py-6 text-center text-2xl font-semibold uppercase backdrop-blur-[1px]">
+            {name}
+          </h3>
         </div>
       </div>
       <CardContent className="p-4 pt-0">
