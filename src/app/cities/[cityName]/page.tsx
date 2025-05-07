@@ -13,7 +13,7 @@ export default function CityPage() {
   console.log("CityPage", selectedCity?.name);
 
   useEffect(() => {
-    getCityById("gdanskdawdawdaw");
+    getCityById("gdansk");
   }, [getCityById]);
 
   if (!selectedCity) {
@@ -28,12 +28,7 @@ export default function CityPage() {
 
   return (
     <div className="bg-background">
-      {/* <CityHero
-        cityId={city.id}
-        backgroundImage={city.coverImage!}
-        cityName={city.name}
-        cityDescription={city.shortDescription!}
-      /> */}
+      <CityHero />
 
       <main className="container space-y-8 px-4 py-8">
         {/* <CityHeader cityName={city.name} cityId={city.id} /> */}
