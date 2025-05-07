@@ -1,87 +1,91 @@
-import { Building, Car, DollarSign, Users, Wallet } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
+import { Building, Car, DollarSign, Footprints } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useApartmentContext, useNeighborhoodContext } from "@/lib/hooks";
 
-type NeighborhoodStatsProps = {
-  averageRent: number;
-  walkScore: number;
-  population: number;
-  commuteTime: number;
-  features: string[];
-};
+export function NeighborhoodStats({ id }: { id: string }) {
+  const { selectedNeighborhood } = useNeighborhoodContext();
+  const { getTotalApartmentsInNeighborhood } = useApartmentContext();
 
-export function NeighborhoodStats({
-  averageRent,
-  commuteTime,
-  population,
-  walkScore,
-  features,
-}: NeighborhoodStatsProps) {
+  const totalApartments = getTotalApartmentsInNeighborhood(id);
+  const { averageRent, commuteTime, walkScore } = selectedNeighborhood!;
+
+  const stats = [
+    {
+      icon: <DollarSign className="h-4 w-4" aria-hidden="true" />,
+      label: "Average Rent",
+      value: `$${averageRent.toLocaleString()}`,
+    },
+
+    {
+      icon: <Footprints className="h-4 w-4" aria-hidden="true" />,
+      label: "Walk Score",
+      value: walkScore,
+    },
+    {
+      icon: <Car className="h-4 w-4" aria-hidden="true" />,
+      label: "Commute Time",
+      value: `${commuteTime} min`,
+    },
+    {
+      icon: <Building className="h-4 w-4" aria-hidden="true" />,
+      label: "Total Apartments",
+      value: totalApartments,
+    },
+  ];
+
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <Card className="p-0">
-        <CardContent className="p-6">
-          <h2 className="mb-4 text-xl font-semibold">Neighborhood Stats</h2>
+    <Card>
+      <CardHeader>
+        <CardTitle>Neighborhood Stats</CardTitle>
+        <CardDescription>
+          Explore the neighborhood&apos;s features and statistics
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <NeighborhoodStatsGrid>
+          {stats.map((stat, index) => (
+            <NeighborhoodStatsItem
+              key={index}
+              icon={stat.icon}
+              label={stat.label}
+              value={stat.value}
+            />
+          ))}
+        </NeighborhoodStatsGrid>
+      </CardContent>
+    </Card>
+  );
+}
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="flex items-start gap-3">
-              <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                <DollarSign className="text-primary h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-sm">Average Rent</p>
-                <p className="font-medium">${averageRent}/month</p>
-              </div>
-            </div>
+function NeighborhoodStatsGrid({ children }: { children: React.ReactNode }) {
+  return <div className="grid gap-6 sm:grid-cols-2">{children}</div>;
+}
 
-            <div className="flex items-start gap-3">
-              <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                <Car className="text-primary h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-sm">Transit Score</p>
-                <p className="font-medium">{Number(commuteTime)}/100</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                <Users className="text-primary h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-sm">Population</p>
-                <p className="font-medium">{population}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                <Wallet className="text-primary h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-sm">Walk Score</p>
-                <p className="font-medium">${Number(walkScore)}</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="p-0">
-        <CardContent className="p-6">
-          <h2 className="mb-4 text-xl font-semibold">Neighborhood Features</h2>
-
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <div className="bg-primary/10 flex h-6 w-6 items-center justify-center rounded-full">
-                  <Building className="text-primary h-3.5 w-3.5" />
-                </div>
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+function NeighborhoodStatsItem({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
+        {icon}
+      </div>
+      <div>
+        <p className="text-muted-foreground text-sm">{label}</p>
+        <p className="font-medium">{value}</p>
+      </div>
     </div>
   );
 }

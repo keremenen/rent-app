@@ -1,6 +1,7 @@
 "use client";
 
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
+import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import { useNeighborhoodContext } from "@/lib/hooks";
 import { useEffect } from "react";
 
@@ -24,13 +25,7 @@ export default function NeighborhoodPage({ params }: NeighborhoodParams) {
       <NeighborhoodHero id={tmpNeighborHoodId} />
       <main className="container px-4 py-8">
         <div className="mb-6 space-y-6">
-          {/* <NeighborhoodStats
-            averageRent={2000}
-            commuteTime={neighborhood.commuteTime}
-            population={2}
-            walkScore={neighborhood.walkScore}
-            features={neighborhood.features}
-          /> */}
+          <NeighborhoodStats id={tmpNeighborHoodId} />
           <div className="text-muted-foreground text-sm">
             {/* {`${apartments?.length || 0} ${
               apartments?.length === 1 ? "apartment" : "apartments"
