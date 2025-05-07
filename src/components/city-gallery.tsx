@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import {
   Dialog,
@@ -14,13 +13,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCityContext } from "@/lib/hooks";
 
-type CityGalleryProps = {
-  cityName: string;
-  gallery: string[];
-};
-
-export default function CityGallery({ gallery, cityName }: CityGalleryProps) {
+export default function CityGallery() {
+  const { selectedCity } = useCityContext();
+  const { name: cityName, gallery } = selectedCity!;
   return (
     <Card>
       <CardHeader>
@@ -40,32 +37,33 @@ type GalleryGridProps = {
 
 function GalleryGrid({ gallery }: GalleryGridProps) {
   return (
-    <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+    <section className="grid grid-cols-2 gap-2 md:grid-cols-4">
       {gallery.slice(0, 8).map((imageUrl, index) => (
-        <GalleryImage imageUrl={imageUrl} key={index} />
+        <GalleryImage imageUrl={imageUrl} key={index} index={index} />
       ))}
-    </div>
+    </section>
   );
 }
 
 type GalleryImageProps = {
   imageUrl: string;
+  index: number;
 };
 
-function GalleryImage({ imageUrl }: GalleryImageProps) {
+function GalleryImage({ imageUrl, index }: GalleryImageProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div className="relative aspect-16/12 overflow-hidden rounded-lg">
           <Image
             src={imageUrl || "/placeholder.svg"}
-            alt="City image"
+            alt={`City gallery image no ${index + 1}`}
             fill
             className="object-cover transition-transform hover:scale-105"
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="w-full">
+      <DialogContent className="w-full !max-w-7xl rounded-2xl p-2">
         <DialogTitle>
           <FullscreenImage imageUrl={imageUrl} />
         </DialogTitle>
@@ -80,16 +78,13 @@ type FullscreenImageProps = {
 
 function FullscreenImage({ imageUrl }: FullscreenImageProps) {
   return (
-    <div className="relative">
-      <div className="relative aspect-[16/9] w-full">
-        <Image
-          src={imageUrl || "/placeholder.svg"}
-          alt="City image"
-          fill
-          className="object-contain"
-        />
-        <div className="bg-background/80 absolute bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm"></div>
-      </div>
-    </div>
+    <section className="relative aspect-[16/9] w-full overflow-hidden rounded-xl">
+      <Image
+        src={imageUrl || "/placeholder.svg"}
+        alt="City image"
+        fill
+        className="object-cover"
+      />
+    </section>
   );
 }

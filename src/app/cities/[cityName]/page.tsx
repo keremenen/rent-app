@@ -46,7 +46,7 @@ export default function CityPage() {
             <CityMinimap />
           </div>
         </div>
-        {/* <CityGallery gallery={city.gallery} cityName={city.name} /> */}
+        <CityGallery />
       </main>
     </div>
   );
