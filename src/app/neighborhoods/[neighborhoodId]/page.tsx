@@ -1,9 +1,10 @@
 "use client";
 
+import NeighborhoodApartments from "@/components/neighborhood-apartments";
 import NeighborhoodFeatures from "@/components/neighborhood-features";
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
-import { useNeighborhoodContext } from "@/lib/hooks";
+import { useApartmentContext, useNeighborhoodContext } from "@/lib/hooks";
 import { useEffect } from "react";
 
 type NeighborhoodParams = {
@@ -14,6 +15,10 @@ export default function NeighborhoodPage({ params }: NeighborhoodParams) {
   const tmpNeighborHoodId = "srodmiescie-gdansk";
   const { handleSetSelectedNeighborhood, selectedNeighborhood } =
     useNeighborhoodContext();
+
+  const { getAllApartmentsInNeighborhood } = useApartmentContext();
+  const apartments = getAllApartmentsInNeighborhood(tmpNeighborHoodId);
+  console.log("apartments", apartments);
 
   useEffect(() => {
     handleSetSelectedNeighborhood(tmpNeighborHoodId);
@@ -33,11 +38,7 @@ export default function NeighborhoodPage({ params }: NeighborhoodParams) {
           <div>{/* <ApartmentFilters /> */}</div>
 
           <div>
-            {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-              {apartments.map((apartment) => (
-                <ApartmentCard key={apartment.id} apartment={apartment} />
-              ))}
-            </div> */}
+            <NeighborhoodApartments neighborhoodId={tmpNeighborHoodId} />
           </div>
         </div>
       </main>
