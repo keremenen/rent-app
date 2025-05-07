@@ -9,32 +9,19 @@ type NeighborhoodParams = {
 };
 
 export default function NeighborhoodPage({ params }: NeighborhoodParams) {
-  // const { neighborhoodId } = await params;
-
-  // const neighborhood = await getNeighborhoodById(neighborhoodId);
-
-  // const apartments = await getApartmentsByNeighborhoodId(neighborhoodId);
-
-  // if (!neighborhood) {
-  //   return (
-  //     <div className="flex flex-1 items-center justify-center">
-  //       <h1 className="text-2xl font-semibold">Neighborhood not found</h1>
-  //     </div>
-  //   );
-  // }
-
+  const tmpNeighborHoodId = "srodmiescie-gdansk";
   const { handleSetSelectedNeighborhood, selectedNeighborhood } =
     useNeighborhoodContext();
 
   useEffect(() => {
-    handleSetSelectedNeighborhood("srodmiescie-gdansk");
+    handleSetSelectedNeighborhood(tmpNeighborHoodId);
   }, [handleSetSelectedNeighborhood]);
 
   if (!selectedNeighborhood) return null;
 
   return (
     <div className="bg-background">
-      <NeighborhoodHero />
+      <NeighborhoodHero id={tmpNeighborHoodId} />
       <main className="container px-4 py-8">
         <div className="mb-6 space-y-6">
           {/* <NeighborhoodStats
