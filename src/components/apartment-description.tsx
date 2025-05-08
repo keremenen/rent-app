@@ -6,49 +6,42 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Ruler } from "lucide-react";
+import { useApartmentContext } from "@/lib/hooks";
 
-type ApartmentDescriptionProps = {
-  description: string;
-  features: string[];
-};
+export default function ApartmentDescription() {
+  const { selectedApartment } = useApartmentContext();
 
-export default function ApartmentDescription({
-  description,
-  features,
-}: ApartmentDescriptionProps) {
+  if (!selectedApartment) return null;
+
+  const { description, amenities } = selectedApartment;
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>About this apartment</CardTitle>
         <CardDescription className="mt-2">
-          <Badge
-            variant="outline"
-            className="border-green-200 bg-green-100 text-green-800"
-          >
-            Available
-          </Badge>
+          {" "}
+          <p className="text-muted-foreground">{description}</p>
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <p className="text-muted-foreground">{description}</p>
-        <div>
-          <h3 className="mb-2 font-semibold">Apartment Features</h3>
+        <section>
+          <h3 className="mb-2 font-semibold">Apartment amenities</h3>
           <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
-            {features.map((feature, index) => (
+            {amenities.map((amenity, index) => (
               <li key={index} className="flex items-center gap-2">
-                <Ruler className="text-primary h-4 w-4" />
-                <span>{feature}</span>
+                <Ruler className="text-primary h-4 w-4" aria-hidden="true" />
+                <span>{amenity}</span>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
 
         <Separator />
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div>
             <h3 className="text-muted-foreground text-sm font-medium">
               Lease Terms
@@ -61,7 +54,7 @@ export default function ApartmentDescription({
             </h3>
             <p>Pets allowed with deposit</p>
           </div>
-        </div>
+        </section>
       </CardContent>
     </Card>
   );

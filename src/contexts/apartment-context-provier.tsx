@@ -15,6 +15,7 @@ type Apartment = {
   availableFrom: Date;
   amenities: string[];
   monthlyRent: number;
+  description: string;
 };
 
 type TApartmentContext = {

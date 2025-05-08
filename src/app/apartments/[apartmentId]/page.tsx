@@ -23,10 +23,7 @@ export default function ApartmentPage() {
           <div className="space-y-4 lg:col-span-2">
             <ApartmentGallery />
             <ApartmentSpecifications />
-            {/* <ApartmentDescription
-              description={description}
-              features={amenities}
-            /> */}
+            <ApartmentDescription />
             {/* <ApartmentLocation address={address} /> */}
           </div>
           <div className="lg-col-span-1">
