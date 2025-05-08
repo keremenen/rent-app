@@ -2,6 +2,7 @@
 
 import { useApartmentContext, useFilterContext } from "@/lib/hooks";
 import { ApartmentCard } from "./apartment-card";
+import { applyApartmentsFilters } from "@/lib/utils";
 
 export default function NeighborhoodApartments({
   neighborhoodId,
@@ -13,27 +14,10 @@ export default function NeighborhoodApartments({
   const { priceRangeValues, bedroomValues, amenitiesValues } =
     useFilterContext();
 
-  console.log("amenitiesValues", amenitiesValues);
-  const filteredApartments = apartments.filter((apartment) => {
-    const isInPriceRange =
-      apartment.monthlyRent >= priceRangeValues[0] &&
-      apartment.monthlyRent <= priceRangeValues[1];
-
-    const isInBedroomRange =
-      bedroomValues === null ||
-      bedroomValues?.length === 0 ||
-      bedroomValues?.includes(apartment.bedrooms.toString());
-
-    const isInAmenitiesRange =
-      amenitiesValues === null ||
-      amenitiesValues?.length === 0 ||
-      amenitiesValues?.every((amenity) =>
-        apartment.amenities?.some(
-          (apartmentAmenity) => apartmentAmenity === amenity,
-        ),
-      );
-
-    return isInPriceRange && isInBedroomRange && isInAmenitiesRange;
+  const filteredApartments = applyApartmentsFilters(apartments, {
+    priceRangeValues,
+    bedroomValues,
+    amenitiesValues,
   });
 
   return (

@@ -326,3 +326,50 @@ export async function getAllCities() {
   }
   return [];
 }
+
+type Apartment = {
+  id: string;
+  neighborhoodId: string;
+  title: string;
+  address: string;
+  bathrooms: number;
+  bedrooms: number;
+  squareFootage: number;
+  thumbnail: string;
+  availableFrom: Date;
+  amenities: string[];
+  monthlyRent: number;
+};
+
+export const applyApartmentsFilters = (
+  apartments: Apartment[],
+  filters: {
+    priceRangeValues: number[];
+    bedroomValues: string[] | null;
+    amenitiesValues: string[] | null;
+  },
+) => {
+  const filteredApartments = apartments.filter((apartment) => {
+    const isInPriceRange =
+      apartment.monthlyRent >= filters.priceRangeValues[0] &&
+      apartment.monthlyRent <= filters.priceRangeValues[1];
+
+    const isInBedroomRange =
+      filters.bedroomValues === null ||
+      filters.bedroomValues?.length === 0 ||
+      filters.bedroomValues?.includes(apartment.bedrooms.toString());
+
+    const isInAmenitiesRange =
+      filters.amenitiesValues === null ||
+      filters.amenitiesValues?.length === 0 ||
+      filters.amenitiesValues?.every((amenity) =>
+        apartment.amenities?.some(
+          (apartmentAmenity) => apartmentAmenity === amenity,
+        ),
+      );
+
+    return isInPriceRange && isInBedroomRange && isInAmenitiesRange;
+  });
+
+  return filteredApartments;
+};

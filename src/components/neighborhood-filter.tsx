@@ -9,17 +9,14 @@ import {
 import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
 import { Checkbox } from "./ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Button } from "./ui/button";
 import { useFilterContext } from "@/lib/hooks";
-import { on } from "events";
 
 const PRICE_STEP = 100;
 const PRICE_RANGE = [0, 5000];
 
 const bedroomOptions = ["1", "2", "3", "4", "5"];
 const amenitiesOptions = ["Wi-Fi", "TV", "Pralka", "Gym"];
-// const availabilityOptions = ["Available", "Comming Soon", "Not Available"];
 
 export default function NeighborhoodFilter() {
   const { priceRangeValues, handleSetPriceRangeValues } = useFilterContext();
@@ -131,31 +128,6 @@ function CheckboxSection({
           );
         })}
       </div>
-    </section>
-  );
-}
-
-type RadioGroupSectionProps = {
-  label: string;
-  values: string[];
-};
-
-function RadioGroupSection({ label, values }: RadioGroupSectionProps) {
-  return (
-    <section>
-      <Label className="mb-2">{label}</Label>
-      <RadioGroup>
-        {values.map((value) => (
-          <div className="flex items-center space-x-2" key={value}>
-            <RadioGroupItem
-              value={value}
-              id={`radio-${value}`}
-              className="h-4 w-4"
-            />
-            <Label htmlFor={`radio-${value}`}>{value}</Label>
-          </div>
-        ))}
-      </RadioGroup>
     </section>
   );
 }
