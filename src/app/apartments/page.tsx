@@ -1,7 +1,9 @@
 "use client";
 import { ApartmentCard } from "@/components/apartment-card";
 import { ApartmentFilters } from "@/components/apartments-filters";
+import ApartmentsList from "@/components/apartments-list";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
+import NeighborhoodFilter from "@/components/neighborhood-filter";
 import { useApartmentContext } from "@/lib/hooks";
 import {} from // convertApartmentsToPlain,
 // generateFilterObject,
@@ -18,7 +20,8 @@ export default function ApartmentsListPage() {
       <main className="container px-4 py-8">
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <ApartmentFilters
+            <NeighborhoodFilter />
+            {/* <ApartmentFilters
               priceRange={[1000, 4000]}
               priceRangeInitialValues={[1800, 2000]}
               // filters={filterObject}
@@ -35,11 +38,12 @@ export default function ApartmentsListPage() {
                   values: ["All", "Available Now", "Comming Soon"],
                 },
               ]}
-            />
+            /> */}
           </div>
 
           <div>
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <ApartmentsList />
+            {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {apartments.length > 0 ? (
                 apartments.map((apartment) => (
                   <ApartmentCard key={apartment.id} apartment={apartment} />
@@ -51,7 +55,7 @@ export default function ApartmentsListPage() {
                   </h1>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
