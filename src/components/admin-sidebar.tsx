@@ -26,10 +26,6 @@ import {
 
 const SidebarMenuItems = [
   {
-    name: "Dashboard",
-    icon: <LayoutDashboard className="h-4 w-4" />,
-  },
-  {
     name: "Apartments",
     icon: <Home className="h-4 w-4" />,
   },
@@ -71,6 +67,18 @@ export function AdminSidebar() {
       <SidebarSeparator className="m-0" />
       <SidebarContent className="py-2">
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={pathname.startsWith("/admin")}
+              tooltip="Dashboard"
+            >
+              <Link href="/admin">
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Dashboard</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           {SidebarMenuItems.map((item) => (
             <SidebarMenuItem key={item.name}>
               <SidebarMenuButton
