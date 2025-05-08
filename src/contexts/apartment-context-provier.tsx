@@ -22,6 +22,7 @@ type TApartmentContext = {
   apartments: Apartment[];
   bedroomValues: number[];
   selectedApartment: Apartment | null;
+  handleGetApartmentById: (apartmentId: string) => Apartment;
   handleSetSelectedApartment: (apartmentId: string) => void;
   getTotalApartmentsInNeighborhood: (neighborhoodId: string) => number;
   getAllApartmentsInNeighborhood: (neighborhoodId: string) => Apartment[];
@@ -57,6 +58,18 @@ export default function ApartmentContextProvider({
 
   const handleSetApartments = (apartments: Apartment[]) => {
     setApartments(apartments);
+  };
+
+  const handleGetApartmentById = (apartmentId: string) => {
+    const apartment = apartments.find(
+      (apartment) => apartment.id === apartmentId,
+    );
+
+    if (!apartment) {
+      throw new Error("Apartment not found");
+    }
+
+    return apartment;
   };
 
   const getTotalApartmentsInNeighborhood = (neighborhoodId: string) => {
@@ -100,14 +113,13 @@ export default function ApartmentContextProvider({
     return roundedAverageRent;
   };
 
-  console.log("selectedApartment", selectedApartment);
-
   return (
     <ApartmentContext.Provider
       value={{
         apartments,
         selectedApartment,
         handleSetSelectedApartment,
+        handleGetApartmentById,
         bedroomValues,
         getAllApartmentsInNeighborhood,
         handleGetAllBedroomValues,

@@ -4,8 +4,12 @@ import ApartmentActionHeader from "@/components/admin/apartment-action-header";
 import ApartmentDetailsFields from "@/components/admin/apartment-details-fields";
 import ApartmentAmenitiesFields from "@/components/admin/apartment-amenities-fields";
 import ApartmentImagesFields from "@/components/admin/apartment-images-fields";
+import { use } from "react";
 
-export default function EditApartmentPage() {
+type Params = Promise<{ id: string }>;
+
+export default function EditApartmentPage(props: { params: Params }) {
+  const { id } = use(props.params);
   return (
     <div className="flex flex-col gap-6">
       <ApartmentActionHeader />
@@ -18,7 +22,7 @@ export default function EditApartmentPage() {
         </TabsList>
 
         <TabsContent value="details">
-          <ApartmentDetailsFields />
+          <ApartmentDetailsFields apartmentId={id} />
         </TabsContent>
 
         <TabsContent value="amenities" className="space-y-6 pt-4">
