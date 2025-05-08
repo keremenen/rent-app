@@ -72,9 +72,9 @@ export default async function RootLayout({
             <NeighborhoodContextProvider data={plainNeighborhoods}>
               <FilterContextProvider>
                 <ApartmentContextProvider data={plainApartments}>
-                  <MainNavigation />
+                  {/* <MainNavigation /> */}
                   {children}
-                  <Footer />
+                  {/* <Footer /> */}
                 </ApartmentContextProvider>
               </FilterContextProvider>
             </NeighborhoodContextProvider>
