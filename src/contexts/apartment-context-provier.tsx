@@ -19,6 +19,8 @@ type Apartment = {
 type TApartmentContext = {
   apartments: Apartment[];
   bedroomValues: number[];
+  selectedApartment: Apartment | null;
+  handleSetSelectedApartment: (apartmentId: string) => void;
   getTotalApartmentsInNeighborhood: (neighborhoodId: string) => number;
   getAllApartmentsInNeighborhood: (neighborhoodId: string) => Apartment[];
   getAverageApartmentsRentInNeighborhood: (neighborhoodId: string) => number;
@@ -37,7 +39,19 @@ export default function ApartmentContextProvider({
   children,
 }: ApartmentContextProvider) {
   const [apartments, setApartments] = useState<Apartment[]>(data);
+  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
+    null,
+  );
   const [bedroomValues, setBedroomValues] = useState<number[]>([]);
+
+  const handleSetSelectedApartment = (apartmentId: string) => {
+    const apartment = apartments.find(
+      (apartment) => apartment.id === apartmentId,
+    );
+    if (apartment) {
+      setSelectedApartment(apartment);
+    }
+  };
 
   const handleSetApartments = (apartments: Apartment[]) => {
     setApartments(apartments);
@@ -84,10 +98,14 @@ export default function ApartmentContextProvider({
     return roundedAverageRent;
   };
 
+  console.log("selectedApartment", selectedApartment);
+
   return (
     <ApartmentContext.Provider
       value={{
         apartments,
+        selectedApartment,
+        handleSetSelectedApartment,
         bedroomValues,
         getAllApartmentsInNeighborhood,
         handleGetAllBedroomValues,

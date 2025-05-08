@@ -1,56 +1,46 @@
-import { Heart, Share } from "lucide-react";
-
+"use client";
+import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useApartmentContext } from "@/lib/hooks";
 
-type ApartmentHeaderProps = {
-  title: string;
-  address: string;
-  monthlyRent: number;
-};
+export function ApartmentHeader() {
+  const { selectedApartment } = useApartmentContext();
 
-export function ApartmentHeader({
-  title,
-  address,
-  monthlyRent,
-}: ApartmentHeaderProps) {
+  if (!selectedApartment) return null;
+
+  const { title, address, monthlyRent } = selectedApartment!;
+
   return (
-    <header className="bg-background sticky top-0 z-10 w-full border-b">
-      <div className="container flex h-16 items-center justify-between px-4">
+    <header className="bg-background sticky top-0 z-10 w-full border-t border-b">
+      <section className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-4">
-          {/* commented out temporarily - I need to think about final layout */}
-          {/* <Button variant="ghost" size="icon" asChild>
-            <Link href="/apartments">
-              <ArrowLeft className="h-5 w-5" />
-              <span className="sr-only">Back to listings</span>
-            </Link>
-          </Button> */}
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">{title}</h1>
             <p className="text-muted-foreground text-sm">{address}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block">
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex md:items-center md:gap-2">
             <p className="text-muted-foreground text-sm">Monthly Rent</p>
             <p className="text-lg font-bold">${monthlyRent}</p>
           </div>
-          <Button variant="outline" size="icon">
-            <Heart className="h-5 w-5" />
-            <span className="sr-only">Save</span>
-          </Button>
-          <Button variant="outline" size="icon">
-            <Share className="h-5 w-5" />
-            <span className="sr-only">Share</span>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Copy apartments URL details"
+          >
+            <Copy className="h-5 w-5" />
+            <span className="sr-only">Copy</span>
           </Button>
         </div>
-      </div>
-      <div className="bg-background border-t px-4 py-2 md:hidden">
+      </section>
+      <section className="bg-background border-t px-4 py-2 md:hidden">
         <h1 className="text-lg font-semibold">{title}</h1>
         <div className="flex items-center justify-between">
           <p className="text-muted-foreground text-sm">{address}</p>
           <p className="text-lg font-bold">${monthlyRent}/mo</p>
         </div>
-      </div>
+      </section>
     </header>
   );
 }
