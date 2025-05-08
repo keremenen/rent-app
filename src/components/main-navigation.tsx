@@ -112,11 +112,6 @@ export function MainNavigation() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/favorites" className="hidden md:block">
-            <Button variant="outline" size="sm">
-              Favorites list
-            </Button>
-          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
