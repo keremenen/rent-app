@@ -1,15 +1,9 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
 import { Checkbox } from "./ui/checkbox";
-import { Button } from "./ui/button";
+
 import { useFilterContext } from "@/lib/hooks";
 
 const PRICE_STEP = 100;
@@ -50,11 +44,6 @@ export default function ApartmentsFilters() {
           onChange={handleSetAmenitiesValues}
         />
       </CardContent>
-      <CardFooter>
-        <Button variant="outline" className="w-full">
-          Apply Filters
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
