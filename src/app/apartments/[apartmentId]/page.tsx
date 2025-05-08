@@ -21,18 +21,18 @@ export default function ApartmentPage() {
       <main className="container px-4 py-6 md:py-10">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
-            {/* <ApartmentGallery images={gallery} />
-            <ApartmentSpecifications
+            <ApartmentGallery />
+            {/* <ApartmentSpecifications
               bathrooms={bathrooms}
               bedrooms={bedrooms}
               squareFootage={Number(squareFootage)}
               availableFrom={availableFrom}
-            />
-            <ApartmentDescription
+            /> */}
+            {/* <ApartmentDescription
               description={description}
               features={amenities}
-            />
-            <ApartmentLocation address={address} /> */}
+            /> */}
+            {/* <ApartmentLocation address={address} /> */}
           </div>
           <div className="lg-col-span-1">
             {/* <ApartmentContact

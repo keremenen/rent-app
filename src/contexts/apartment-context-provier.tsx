@@ -9,6 +9,7 @@ type Apartment = {
   address: string;
   bathrooms: number;
   bedrooms: number;
+  gallery: string[];
   squareFootage: number;
   thumbnail: string;
   availableFrom: Date;
