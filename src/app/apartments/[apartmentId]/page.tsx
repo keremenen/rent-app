@@ -30,7 +30,6 @@ export default function ApartmentPage() {
             <ApartmentContact />
           </div>
         </div>
-        {/* <SimilarApartments /> */}
       </main>
     </div>
   );
