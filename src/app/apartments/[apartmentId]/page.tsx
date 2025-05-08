@@ -24,7 +24,7 @@ export default function ApartmentPage() {
             <ApartmentGallery />
             <ApartmentSpecifications />
             <ApartmentDescription />
-            {/* <ApartmentLocation address={address} /> */}
+            <ApartmentLocation />
           </div>
           <div className="lg-col-span-1">
             {/* <ApartmentContact
