@@ -1,7 +1,7 @@
 "use client";
 import ApartmentsList from "@/components/apartments-list";
 import { ApartmentListHeader } from "@/components/apartments-list-header";
-import NeighborhoodFilter from "@/components/neighborhood-filter";
+import ApartmentsFilters from "@/components/apartments-filters";
 import { useApartmentContext } from "@/lib/hooks";
 
 export default function ApartmentsListPage() {
@@ -13,7 +13,7 @@ export default function ApartmentsListPage() {
       <main className="container px-4 py-8">
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className={`space-y-6 lg:block`}>
-            <NeighborhoodFilter />
+            <ApartmentsFilters />
           </div>
           <ApartmentsList />
         </div>

@@ -1,331 +1,133 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Slider } from "@/components/ui/slider";
-import { useMobile } from "@/lib/hooks";
-import { capitalizeFirstLetter, cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
-import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Label } from "./ui/label";
+import { Slider } from "./ui/slider";
+import { Checkbox } from "./ui/checkbox";
+import { Button } from "./ui/button";
+import { useFilterContext } from "@/lib/hooks";
 
-const DEFAULT_PRICE_STEP_VALUE = 100;
+const PRICE_STEP = 100;
+const PRICE_RANGE = [0, 5000];
 
-type ApartmentFiltersProps = {
-  priceRange: number[];
-  priceRangeInitialValues: number[];
-  filters?: {
-    priceRangeValues?: number[];
-    checkboxValues?: { forSection: string; values: string[] }[];
-    radioGroupValues?: { forSection: string; value: string }[];
-  };
-  checkboxSections?: { sectionName: string; values: string[] }[];
-  radioGroupSections?: { sectionName: string; values: string[] }[];
-};
+const bedroomOptions = ["1", "2", "3", "4", "5"];
+const amenitiesOptions = ["Wi-Fi", "TV", "Pralka", "Gym"];
 
-export function ApartmentFilters({
-  priceRange,
-  filters,
-  checkboxSections,
-  priceRangeInitialValues,
-  radioGroupSections,
-}: ApartmentFiltersProps) {
-  const [currentFilters, setCurrentFilters] = useState(() => ({
-    priceRangeValues: filters?.priceRangeValues ?? priceRangeInitialValues,
-    checkboxValues: filters?.checkboxValues ?? [],
-    radioGroupValues: filters?.radioGroupValues ?? [],
-  }));
-
-  const handleFilterChange = (value: {
-    priceRangeValues?: number[];
-    checkboxValues?: { forSection: string; values: string[] }[];
-    radioGroupValues?: { forSection: string; value: string }[];
-  }) => {
-    setCurrentFilters((prev) => ({
-      ...prev,
-      ...value,
-    }));
-  };
-
-  const isMobile = useMobile();
-  const [isHidden, setIsHidden] = useState(false);
+export default function ApartmentsFilters() {
+  const { priceRangeValues, handleSetPriceRangeValues } = useFilterContext();
+  const {
+    bedroomValues,
+    handleSetBedroomValues,
+    amenitiesValues,
+    handleSetAmenitiesValues,
+  } = useFilterContext();
 
   return (
-    <Card className="py-2 lg:py-6">
-      {/* HEADER */}
-      <CardHeader className="flex items-center justify-between">
+    <Card>
+      <CardHeader>
         <CardTitle>Filters</CardTitle>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={() => {
-            setIsHidden((prev) => !prev);
-          }}
-        >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle filters</span>
-        </Button>
       </CardHeader>
-      <CardContent
-        className={cn("space-y-6", isHidden && isMobile && "hidden")}
-      >
-        {/* PRICE RANGE COMPONENT */}
-        {priceRange && (
-          <PriceRangeSection
-            priceRange={priceRange}
-            priceRangeValues={currentFilters.priceRangeValues}
-            onValueChange={handleFilterChange}
-          />
-        )}
-        <div className="space-y-4">
-          {/* CHECKBOX COMPONENTS */}
-          {checkboxSections &&
-            checkboxSections.map((checkboxSection, i) => (
-              <CheckboxSection
-                onCheckboxChange={handleFilterChange}
-                section={checkboxSection}
-                key={i}
-                checkedCheckboxes={currentFilters.checkboxValues}
-              />
-            ))}
-
-          <div className="space-y-4">
-            {/* RADIO GROUP COMPONENTS */}
-            {radioGroupSections &&
-              radioGroupSections.map((section, i) => (
-                <RadioGroupSection
-                  key={i}
-                  section={section}
-                  selectedValue={currentFilters.radioGroupValues}
-                  onRadioGroupChange={handleFilterChange}
-                />
-              ))}
-          </div>
-        </div>
-        <FilterActions currentFilters={currentFilters} />
+      <CardContent className="space-y-8">
+        <PriceRangeSection
+          currentValues={priceRangeValues}
+          onValueChange={handleSetPriceRangeValues}
+        />
+        <CheckboxSection
+          label="Bedrooms"
+          options={bedroomOptions}
+          values={bedroomValues}
+          onChange={handleSetBedroomValues}
+        />
+        <CheckboxSection
+          label="Amenities"
+          options={amenitiesOptions}
+          values={amenitiesValues}
+          onChange={handleSetAmenitiesValues}
+        />
       </CardContent>
+      <CardFooter>
+        <Button variant="outline" className="w-full">
+          Apply Filters
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
 
 type PriceRangeSectionProps = {
-  priceRange: number[];
-  priceRangeValues: number[];
-  onValueChange: (value: { priceRangeValues: number[] }) => void;
+  currentValues: number[];
+  onValueChange: (value: number[]) => void;
 };
 
 function PriceRangeSection({
-  priceRange,
-  priceRangeValues,
+  currentValues,
   onValueChange,
 }: PriceRangeSectionProps) {
   return (
-    <div className="mb-6">
-      <Label>Price Range</Label>
+    <section>
+      <Label>
+        Price Range{" "}
+        <span className="text-muted-foreground text-xs font-medium">
+          ($/month)
+        </span>
+      </Label>
       <div className="mt-6 px-2">
         <Slider
-          min={priceRange[0]}
-          max={priceRange[1]}
-          step={DEFAULT_PRICE_STEP_VALUE}
-          value={priceRangeValues}
-          onValueChange={(value) => onValueChange({ priceRangeValues: value })}
+          min={PRICE_RANGE[0]}
+          max={PRICE_RANGE[1]}
+          step={PRICE_STEP}
+          value={currentValues}
+          onValueChange={onValueChange}
         />
       </div>
-      <div className="mt-2 flex items-center justify-between text-sm">
-        <span>{priceRangeValues[0]}</span>
-        <span>{priceRangeValues[1]}</span>
+      <div className="mt-1 flex items-center justify-between text-sm">
+        <span>{currentValues[0]}$</span>
+        <span>{currentValues[1]}$</span>
       </div>
-    </div>
-  );
-}
-
-type CheckboxSectionProps = {
-  section: {
-    sectionName: string;
-    values: string[];
-  };
-  checkedCheckboxes?: { forSection: string; values: string[] }[];
-  onCheckboxChange: (value: {
-    checkboxValues: { forSection: string; values: string[] }[];
-  }) => void;
-};
-
-function CheckboxSection({
-  section,
-  checkedCheckboxes,
-  onCheckboxChange,
-}: CheckboxSectionProps) {
-  const handleCheckboxChange = (value: string) => {
-    const existingSection = checkedCheckboxes?.find(
-      (checkbox) => checkbox.forSection === section.sectionName,
-    );
-
-    const updatedCheckboxValues = existingSection
-      ? (checkedCheckboxes || []).map(
-          (checkbox) =>
-            checkbox.forSection === section.sectionName
-              ? {
-                  ...checkbox,
-                  values: checkbox.values.includes(value)
-                    ? checkbox.values.filter((v) => v !== value) // Remove the value
-                    : [...checkbox.values, value], // Add the value
-                }
-              : checkbox, // Keep other sections unchanged
-        )
-      : [
-          ...(checkedCheckboxes || []), // Preserve existing sections
-          { forSection: section.sectionName, values: [value] }, // Add a new section
-        ];
-
-    onCheckboxChange({
-      checkboxValues: updatedCheckboxValues,
-    });
-  };
-
-  return (
-    <div className="mb-6 space-y-2">
-      <Label className="mb-2">
-        {capitalizeFirstLetter(section.sectionName)}
-      </Label>
-      <div className="grid grid-cols-2 gap-2">
-        {section.values.map((value, i) => (
-          <div key={i} className="flex items-center">
-            <Checkbox
-              checked={checkedCheckboxes?.some(
-                (checkbox) =>
-                  checkbox.forSection === section.sectionName &&
-                  checkbox.values.includes(value),
-              )}
-              onCheckedChange={() => {
-                handleCheckboxChange(value);
-              }}
-              className="cursor-pointer"
-              id={`checkbox-${section.sectionName}-${value}`}
-            />
-            <Label
-              htmlFor={`checkbox-${section.sectionName}-${value}`}
-              className="cursor-pointer pl-2"
-            >
-              {value}
-            </Label>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-type RadioGroupSectionProps = {
-  section: {
-    sectionName: string;
-    values: string[];
-  };
-  selectedValue?: { forSection: string; value: string }[];
-  onRadioGroupChange: (value: {
-    radioGroupValues: { forSection: string; value: string }[];
-  }) => void;
-};
-
-function RadioGroupSection({
-  section: { sectionName, values },
-  selectedValue,
-  onRadioGroupChange,
-}: RadioGroupSectionProps) {
-  const getDefaultValue = () => {
-    // Check if selectedValue is defined and has values
-    const selectedRadio = selectedValue?.find(
-      (radio) => radio.forSection === sectionName,
-    );
-    // If selectedValue is found, return its value; otherwise, return the first value in the section
-    return selectedRadio ? selectedRadio.value : values[0];
-  };
-
-  const handleRadioGroupChange = (value: string, sectionName: string) => {
-    onRadioGroupChange({
-      radioGroupValues: [
-        {
-          forSection: sectionName,
-          value: value,
-        },
-      ],
-    });
-  };
-
-  return (
-    <section>
-      <Label className="mb-2">{capitalizeFirstLetter(sectionName)}</Label>
-      <RadioGroup
-        defaultValue={getDefaultValue()}
-        onValueChange={(value) => handleRadioGroupChange(value, sectionName)}
-        className="flex flex-col space-y-1"
-      >
-        {values.map((value, i) => (
-          <div key={i} className="flex items-center">
-            <RadioGroupItem
-              className="cursor-pointer"
-              value={value}
-              id={value}
-            />
-            <Label htmlFor={value} className="cursor-pointer pl-2">
-              {value}
-            </Label>
-          </div>
-        ))}
-      </RadioGroup>
     </section>
   );
 }
 
-type FilterActionsProps = {
-  currentFilters: {
-    priceRangeValues: number[];
-    checkboxValues: { forSection: string; values: string[] }[];
-    radioGroupValues: { forSection: string; value: string }[];
-  };
+type CheckboxSectionProps = {
+  label: string;
+  options: string[];
+  values: string[] | null;
+  onChange: (value: string) => void;
 };
 
-function FilterActions({ currentFilters }: FilterActionsProps) {
-  const buildSearchParams = () => {
-    const params = new URLSearchParams();
-
-    // Add price range values to the search params
-    params.append("minprice", currentFilters.priceRangeValues[0].toString());
-    params.append("maxprice", currentFilters.priceRangeValues[1].toString());
-
-    // Add checkbox values to the search params
-    currentFilters.checkboxValues.forEach((checkbox) => {
-      if (checkbox.values.length > 0) {
-        params.append(checkbox.forSection, checkbox.values.join(","));
-      }
-    });
-
-    // Add radio group values to the search params
-    currentFilters.radioGroupValues.forEach((radio) => {
-      params.append(radio.forSection, radio.value);
-    });
-
-    console.log("Search Params:", params.toString());
-    return params;
-  };
+function CheckboxSection({
+  label,
+  options,
+  values,
+  onChange: handleToggleCheckbox,
+}: CheckboxSectionProps) {
   return (
-    <div className="space-y-4">
-      <Button
-        variant="default"
-        className="w-full"
-        onClick={() => {
-          buildSearchParams();
+    <section>
+      <Label className="mb-2">{label}</Label>
 
-          // Update the URL with the new search params
-          window.location.search = buildSearchParams().toString();
-        }}
-      >
-        Apply Filters
-      </Button>
-      <Button variant="outline" className="w-full" onClick={() => {}}>
-        Reset Filters
-      </Button>
-    </div>
+      <div className="grid grid-cols-2 gap-2">
+        {options.map((option) => {
+          // Check if the current option is checked
+          const isChecked = values ? values.includes(option) : false;
+          return (
+            <div className="flex items-center space-x-2" key={option}>
+              <Checkbox
+                id={`checkbox-${option}`}
+                checked={isChecked}
+                onCheckedChange={() => {
+                  handleToggleCheckbox(option);
+                }}
+              />
+              <Label htmlFor={`checkbox-${option}`}>{option}</Label>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

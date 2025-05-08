@@ -1,7 +1,7 @@
 "use client";
 import NeighborhoodApartments from "@/components/neighborhood-apartments";
 import NeighborhoodFeatures from "@/components/neighborhood-features";
-import NeighborhoodFilter from "@/components/neighborhood-filter";
+import ApartmentsFilters from "@/components/apartments-filters";
 import { NeighborhoodHero } from "@/components/neighborhood-hero";
 import { NeighborhoodStats } from "@/components/neighborhood-stats";
 import { useNeighborhoodContext } from "@/lib/hooks";
@@ -31,13 +31,9 @@ export default function NeighborhoodPage(props: { params: Params }) {
         </div>
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div>
-            <NeighborhoodFilter />
-            {/* <ApartmentFilters /> */}
+            <ApartmentsFilters />
           </div>
-
-          <div>
-            <NeighborhoodApartments neighborhoodId={neighborhoodId} />
-          </div>
+          <NeighborhoodApartments neighborhoodId={neighborhoodId} />
         </div>
       </main>
     </div>
