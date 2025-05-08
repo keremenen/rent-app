@@ -27,10 +27,7 @@ export default function ApartmentPage() {
             <ApartmentLocation />
           </div>
           <div className="lg-col-span-1">
-            {/* <ApartmentContact
-              rent={Number(monthlyRent)}
-              availableFrom={availableFrom}
-            /> */}
+            <ApartmentContact />
           </div>
         </div>
         {/* <SimilarApartments /> */}

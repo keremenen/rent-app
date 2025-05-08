@@ -1,10 +1,7 @@
 "use client";
-
 import type React from "react";
-
 import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,17 +15,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { useApartmentContext } from "@/lib/hooks";
 
-type ApartmentContactProps = {
-  rent: number;
-  availableFrom: Date;
-};
-
-export function ApartmentContact({
-  rent,
-  availableFrom,
-}: ApartmentContactProps) {
+export function ApartmentContact() {
   const [contactMethod, setContactMethod] = useState("email");
+  const { selectedApartment } = useApartmentContext();
+  if (!selectedApartment) return null;
+
+  const { monthlyRent, availableFrom } = selectedApartment;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,18 +32,16 @@ export function ApartmentContact({
   return (
     <Card className="sticky top-20 mb-8">
       <CardHeader>
-        <CardTitle className="text-2xl">
-          Interested in this apartment?
-        </CardTitle>
+        <CardTitle>Interested in this apartment?</CardTitle>
         <CardDescription>
           Contact us to schedule a viewing or apply now
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="bg-muted mb-8 rounded-lg p-4">
+        <section className="bg-muted mb-8 flex flex-col gap-1 rounded-lg p-4">
           <p className="text-muted-foreground text-sm">Monthly Rent</p>
-          <p className="text-2xl font-bold">${rent}</p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-xl font-bold">${monthlyRent}</p>
+          <p className="text-muted-foreground text-xs">
             Available from{" "}
             {new Date(availableFrom).toLocaleDateString("en-US", {
               month: "long",
@@ -57,7 +49,7 @@ export function ApartmentContact({
               year: "numeric",
             })}
           </p>
-        </div>
+        </section>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
