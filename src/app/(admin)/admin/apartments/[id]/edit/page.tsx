@@ -1,10 +1,10 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ApartmentActionHeader from "@/components/admin/apartment-action-header";
-import ApartmentDetailsFields from "@/components/admin/apartment-details-fields";
 import ApartmentAmenitiesFields from "@/components/admin/apartment-amenities-fields";
 import ApartmentImagesFields from "@/components/admin/apartment-images-fields";
 import { use } from "react";
+import ApartmentForm from "@/components/admin/apartment-form";
 
 type Params = Promise<{ id: string }>;
 
@@ -22,7 +22,7 @@ export default function EditApartmentPage(props: { params: Params }) {
         </TabsList>
 
         <TabsContent value="details">
-          <ApartmentDetailsFields apartmentId={id} />
+          <ApartmentForm actionType={"edit"} apartmentId={id} />
         </TabsContent>
 
         <TabsContent value="amenities" className="space-y-6 pt-4">
