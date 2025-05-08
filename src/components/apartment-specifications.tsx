@@ -1,45 +1,52 @@
+'use client";';
+import { useApartmentContext } from "@/lib/hooks";
 import { Bath, BedDouble, Calendar, Maximize } from "lucide-react";
 
-type ApartmentSpecificationsProps = {
-  bedrooms: number;
-  bathrooms: number;
-  squareFootage: number;
-  availableFrom: Date;
-};
+export function ApartmentSpecifications() {
+  const { selectedApartment } = useApartmentContext();
+  if (!selectedApartment) return null;
 
-export function ApartmentSpecifications({
-  bedrooms,
-  bathrooms,
-  squareFootage,
-  availableFrom,
-}: ApartmentSpecificationsProps) {
+  const { bedrooms, bathrooms, squareFootage, availableFrom } =
+    selectedApartment!;
+
+  const specifications = [
+    {
+      icon: <BedDouble className="text-muted-foreground mb-2 h-6 w-6" />,
+      label: "Bedrooms",
+      value: bedrooms,
+    },
+    {
+      icon: <Bath className="text-muted-foreground mb-2 h-6 w-6" />,
+      label: "Bathrooms",
+      value: bathrooms,
+    },
+    {
+      icon: <Maximize className="text-muted-foreground mb-2 h-6 w-6" />,
+      label: "Square Feet",
+      value: squareFootage,
+    },
+    {
+      icon: <Calendar className="text-muted-foreground mb-2 h-6 w-6" />,
+      label: "Available",
+      value: new Date(availableFrom).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      <div className="flex flex-col items-center rounded-lg border p-4">
-        <BedDouble className="text-muted-foreground mb-2 h-6 w-6" />
-        <p className="text-muted-foreground text-sm">Bedrooms</p>
-        <p className="text-lg font-bold">{bedrooms}</p>
-      </div>
-      <div className="flex flex-col items-center rounded-lg border p-4">
-        <Bath className="text-muted-foreground mb-2 h-6 w-6" />
-        <p className="text-muted-foreground text-sm">Bathrooms</p>
-        <p className="text-lg font-bold">{bathrooms}</p>
-      </div>
-      <div className="flex flex-col items-center rounded-lg border p-4">
-        <Maximize className="text-muted-foreground mb-2 h-6 w-6" />
-        <p className="text-muted-foreground text-sm">Square Feet</p>
-        <p className="text-lg font-bold">{squareFootage}</p>
-      </div>
-      <div className="flex flex-col items-center rounded-lg border p-4">
-        <Calendar className="text-muted-foreground mb-2 h-6 w-6" />
-        <p className="text-muted-foreground text-sm">Available</p>
-        <p className="text-lg font-bold">
-          {new Date(availableFrom).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          })}
-        </p>
-      </div>
-    </div>
+    <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {specifications.map((spec, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center rounded-lg border p-2"
+        >
+          {spec.icon}
+          <p className="text-muted-foreground text-sm">{spec.label}</p>
+          <p className="text-lg font-bold">{spec.value}</p>
+        </div>
+      ))}
+    </section>
   );
 }

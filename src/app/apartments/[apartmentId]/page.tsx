@@ -22,12 +22,7 @@ export default function ApartmentPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
             <ApartmentGallery />
-            {/* <ApartmentSpecifications
-              bathrooms={bathrooms}
-              bedrooms={bedrooms}
-              squareFootage={Number(squareFootage)}
-              availableFrom={availableFrom}
-            /> */}
+            <ApartmentSpecifications />
             {/* <ApartmentDescription
               description={description}
               features={amenities}

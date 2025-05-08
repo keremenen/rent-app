@@ -8,11 +8,12 @@ import { useApartmentContext } from "@/lib/hooks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
 export function ApartmentGallery() {
-  const { selectedApartment } = useApartmentContext();
-
-  const { gallery: images } = selectedApartment!;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fullscreenIndex, setFullscreenIndex] = useState(0);
+
+  const { selectedApartment } = useApartmentContext();
+  if (!selectedApartment) return null;
+  const { gallery: images } = selectedApartment;
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
