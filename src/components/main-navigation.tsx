@@ -39,10 +39,8 @@ export function MainNavigation() {
 
   return (
     <header
-      className={`sticky top-0 z-10 w-full transition-all duration-200 ${
-        isScrolled
-          ? "bg-background/95 shadow-sm backdrop-blur-sm"
-          : "bg-transparent"
+      className={`bg-whitetransition-all sticky top-0 z-20 w-full duration-200 ${
+        isScrolled ? "shadow-sm backdrop-blur-sm" : "bg-transparent"
       }`}
     >
       <div className="container flex h-16 items-center justify-between px-4">
