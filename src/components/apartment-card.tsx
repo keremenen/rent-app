@@ -1,17 +1,12 @@
 "use client";
 
-import { Bath, BedDouble, Calendar, Heart, Maximize } from "lucide-react";
+import { Bath, BedDouble, Calendar, Maximize } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { ConvertedApartment } from "@/lib/types";
 
 type ApartmentCardProps = {
@@ -41,8 +36,6 @@ export function ApartmentCard({
             title={title}
           />
         </Link>
-        <FavouriteIndicator isFavorite={false} />
-        <ApartmentBadge available={true} />
       </div>
 
       <CardContent className="p-4">
@@ -61,12 +54,9 @@ export function ApartmentCard({
         <ApartmentAmenities amenities={amenities} />
       </CardContent>
 
-      <CardFooter className="mt-auto grid grid-cols-2 gap-2 p-4 pt-0">
+      <CardFooter className="mt-auto grid grid-cols-1 gap-2 p-4 pt-0">
         <Button variant="outline" asChild>
           <Link href={`/apartments/${id}`}>View Details</Link>
-        </Button>
-        <Button asChild>
-          <Link href={`/apartments/${id}#contact`}>Contact</Link>
         </Button>
       </CardFooter>
     </Card>
@@ -81,7 +71,7 @@ function ApartmentCardBackgroundImage({
   title: string;
 }) {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-500">
+    <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-500">
       <Image
         src={backgroundImage || "/placeholder.svg"}
         alt={title}
@@ -89,51 +79,6 @@ function ApartmentCardBackgroundImage({
         className="object-cover transition-transform hover:scale-105"
       />
     </div>
-  );
-}
-
-function ApartmentBadge({ available }: { available: boolean }) {
-  if (available) {
-    return (
-      <Badge className="absolute top-2 left-2 bg-green-700 hover:bg-green-600">
-        Available
-      </Badge>
-    );
-  } else {
-    return (
-      <Badge className="absolute top-2 left-2 bg-amber-700 hover:bg-amber-600">
-        Coming Soon
-      </Badge>
-    );
-  }
-}
-
-function FavouriteIndicator({ isFavorite }: { isFavorite: boolean }) {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="bg-background/80 hover:bg-background/90 absolute top-2 right-2"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <Heart
-              className={`h-5 w-5 ${isFavorite ? "fill-primary text-primary" : "text-muted-foreground"}`}
-            />
-            <span className="sr-only">
-              {isFavorite ? "Remove from favorites" : "Add to favorites"}
-            </span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{isFavorite ? "Remove from favorites" : "Add to favorites"}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
   );
 }
 

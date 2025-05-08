@@ -21,7 +21,7 @@ export default function NeighborhoodApartments({
   });
 
   return (
-    <section className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+    <section className="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
       {filteredApartments.map((apartment) => (
         <ApartmentCard key={apartment.id} apartment={apartment} />
       ))}
