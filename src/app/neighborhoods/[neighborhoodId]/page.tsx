@@ -1,5 +1,4 @@
 "use client";
-
 import NeighborhoodApartments from "@/components/neighborhood-apartments";
 import NeighborhoodFeatures from "@/components/neighborhood-features";
 import NeighborhoodFilter from "@/components/neighborhood-filter";

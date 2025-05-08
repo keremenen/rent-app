@@ -32,16 +32,13 @@ export default function CityPage(props: { params: Params }) {
   return (
     <div className="bg-background">
       <CityHero />
-
       <main className="container space-y-8 px-4 py-8">
         <CityHeader />
-
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
             <CityDescription />
             <CityFeaturedNeighborhoods />
           </div>
-
           <div>
             <CityMinimap />
           </div>
