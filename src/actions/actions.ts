@@ -1,7 +1,12 @@
 "use server";
 import prisma from "@/lib/db";
-import { getAparmentById } from "@/lib/server-utils";
-import { apartmentFormSchema, apartmentIdSchema } from "@/lib/validations";
+import { getAparmentById, getCityById } from "@/lib/server-utils";
+import {
+  apartmentFormSchema,
+  apartmentIdSchema,
+  cityFormSchema,
+  cityIdSchema,
+} from "@/lib/validations";
 
 export async function editAparment(
   apartmentId: unknown,
@@ -32,5 +37,33 @@ export async function editAparment(
     });
   } catch (error) {
     return { message: `Error updating apartment ${error}` };
+  }
+}
+
+export async function editCity(cityId: unknown, newCityData: unknown) {
+  const validatedCityId = cityIdSchema.safeParse(cityId);
+  const validatedCityData = cityFormSchema.safeParse(newCityData);
+
+  if (!validatedCityId.success || !validatedCityData.success) {
+    return { message: "Invalid city data" };
+  }
+
+  const city = getCityById(validatedCityId.data);
+
+  if (!city) {
+    return { message: "City not found" };
+  }
+
+  try {
+    await prisma.city.update({
+      where: {
+        id: validatedCityId.data,
+      },
+      data: {
+        ...validatedCityData.data,
+      },
+    });
+  } catch (error) {
+    return { message: `Error updating city ${error}` };
   }
 }

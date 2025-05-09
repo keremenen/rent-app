@@ -10,3 +10,13 @@ export async function getAparmentById(aparmentId: string) {
 
   return aparment;
 }
+
+export async function getCityById(cityId: string) {
+  const city = await prisma.city.findUnique({
+    where: {
+      id: cityId,
+    },
+  });
+
+  return city;
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { editCity } from "@/actions/actions";
 import { createContext, useState } from "react";
 
 type City = {
@@ -21,7 +22,8 @@ type City = {
 type TCityContext = {
   cities: City[] | null;
   selectedCity: City | null;
-  handleGetCityById: (id: string) => City;
+  handleEditCity: (cityId: string, cityData: City) => Promise<void>;
+  handleGetCityById: (cityId: string) => City | undefined;
   handleSetSelectedCity: (id: string) => void;
   handleSetCities: (cities: City[]) => void;
 };
@@ -56,11 +58,26 @@ export default function CityContextProvider({
     return city;
   };
 
+  const handleEditCity = async (cityId: string, cityData: City) => {
+    setCities((prevCities) =>
+      prevCities.map((city) =>
+        city.id === cityId ? { ...city, ...cityData } : city,
+      ),
+    );
+
+    const error = await editCity(cityId, cityData);
+
+    if (error) {
+      console.error("Error editing city:", error.message);
+    }
+  };
+
   return (
     <CityContext.Provider
       value={{
         cities,
         selectedCity,
+        handleEditCity,
         handleGetCityById,
         handleSetCities,
         handleSetSelectedCity,

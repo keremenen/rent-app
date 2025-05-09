@@ -7,7 +7,7 @@ export default function EditCityPage() {
       <ApartmentActionHeader />
 
       <section className="w-full max-w-7xl">
-        <CitiesForm />
+        <CitiesForm actionType="edit" id="gdansk" />
       </section>
     </section>
   );

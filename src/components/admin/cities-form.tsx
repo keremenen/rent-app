@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
@@ -26,9 +25,8 @@ type CityFormProps = {
 
 export default function CitiesForm({ actionType, id }: CityFormProps) {
   id = "gdansk";
-  actionType = "edit";
 
-  const { handleGetCityById } = useCityContext();
+  const { handleGetCityById, handleEditCity } = useCityContext();
   const city = handleGetCityById(id);
 
   const {
@@ -51,8 +49,14 @@ export default function CitiesForm({ actionType, id }: CityFormProps) {
 
   const onSubmit = (data: TCityForm) => {
     console.log("Form submitted", data);
-  };
 
+    if (actionType === "add") {
+    } else if (actionType === "edit") {
+      // @ts-expect-error wip
+      handleEditCity(id, data);
+    }
+  };
+  if (!city) return null;
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <Tabs defaultValue="details">

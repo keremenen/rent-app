@@ -73,6 +73,7 @@ export default function ApartmentForm({
       console.log("Adding apartment:", data);
     } else if (actionType === "edit") {
       console.log("Editing apartment:", data);
+      //@ts-expect-error WIP
       await handleEditAparment(apartmentId, data);
     }
   };
