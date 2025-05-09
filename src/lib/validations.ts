@@ -28,6 +28,7 @@ export const apartmentFormSchema = z.object({
   // availableFrom: z.date(),
   monthlyRent: z.number(),
   description: z.string(),
+  amenities: z.array(z.string()),
 });
 
 export type TApartmentForm = z.infer<typeof apartmentFormSchema>;

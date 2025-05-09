@@ -62,7 +62,7 @@ const cities = [
                   "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/apartments/gallery/6.jpg",
                   "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/apartments/gallery/7.jpg",
                 ],
-                amenities: ["Wi-Fi", "TV"],
+                amenities: ["wi-fi", "tv"],
                 monthlyRent: 1500.0,
                 bedrooms: 6,
                 bathrooms: 1,

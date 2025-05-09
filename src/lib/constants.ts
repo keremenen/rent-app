@@ -90,3 +90,86 @@ export const NEIGHBORHOODS_DATA = [
     cityName: "Sopot",
   },
 ];
+
+export const AMENITIES_DATA = [
+  {
+    id: "internet",
+    name: "Internet",
+  },
+  {
+    id: "parking",
+    name: "Parking",
+  },
+  {
+    id: "balcony",
+    name: "Balkon",
+  },
+  {
+    id: "garden",
+    name: "Ogród",
+  },
+  {
+    id: "terrace",
+    name: "Taras",
+  },
+  {
+    id: "air-conditioning",
+    name: "Klimatyzacja",
+  },
+  {
+    id: "furnished",
+    name: "Meble",
+  },
+  {
+    id: "dishwasher",
+    name: "Zmywarka",
+  },
+  {
+    id: "washing-machine",
+    name: "Pralka",
+  },
+  {
+    id: "gym",
+    name: "Siłownia",
+  },
+  {
+    id: "swimming-pool",
+    name: "Basen",
+  },
+  {
+    id: "pet-friendly",
+    name: "Przyjazne zwierzętom",
+  },
+  {
+    id: "wi-fi",
+    name: "Wi-Fi",
+  },
+  {
+    id: "cable-tv",
+    name: "Telewizja kablowa",
+  },
+  {
+    id: "security-system",
+    name: "System alarmowy",
+  },
+  {
+    id: "elevator",
+    name: "Winda",
+  },
+  {
+    id: "fireplace",
+    name: "Kominek",
+  },
+  {
+    id: "tv",
+    name: "Telewizor",
+  },
+  {
+    id: "smart-home",
+    name: "Inteligentny dom",
+  },
+  {
+    id: "sauna",
+    name: "Sauna",
+  },
+];

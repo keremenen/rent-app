@@ -19,11 +19,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { apartmentFormSchema, TApartmentForm } from "@/lib/validations";
 import { Button } from "../ui/button";
-import { NEIGHBORHOODS_DATA } from "@/lib/constants";
+import { AMENITIES_DATA, NEIGHBORHOODS_DATA } from "@/lib/constants";
 import { Save } from "lucide-react";
 import { useApartmentContext } from "@/lib/hooks";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "../ui/utils";
+import { Checkbox } from "../ui/checkbox";
 
 type ApartmentFormProps = {
   actionType: "add" | "edit";
@@ -53,6 +54,7 @@ export default function ApartmentForm({
       squareFootage: actionType === "edit" ? apartment.squareFootage : 0,
       monthlyRent: actionType === "edit" ? apartment.monthlyRent : 0,
       description: actionType === "edit" ? apartment.description : "",
+      amenities: actionType === "edit" ? apartment.amenities : [],
     },
   });
 
@@ -61,6 +63,7 @@ export default function ApartmentForm({
       // Handle add apartment logic
       console.log("Adding apartment:", data);
     } else if (actionType === "edit") {
+      console.log("Editing apartment:", data);
       await handleEditAparment(apartmentId, data);
     }
   };
@@ -82,8 +85,14 @@ export default function ApartmentForm({
           />
         </TabsContent>
 
-        <TabsContent value="amenities" className="space-y-6 pt-4"></TabsContent>
-
+        <TabsContent value="amenities" className="my-8">
+          <AmenitiesSection
+            register={register}
+            apartment={apartment}
+            control={control}
+            errors={errors}
+          />
+        </TabsContent>
         <TabsContent value="images" className="space-y-4 pt-4"></TabsContent>
       </Tabs>
 
@@ -249,4 +258,71 @@ function GridItem({
   className?: string;
 }) {
   return <div className={cn("space-y-2", className)}>{children}</div>;
+}
+
+type AmenitiesSectionProps = {
+  register: UseFormRegister<TApartmentForm>;
+  apartment: TApartmentForm;
+  control: Control<TApartmentForm>;
+
+  errors: FieldErrors<TApartmentForm>;
+};
+
+function AmenitiesSection({
+  apartment,
+  control,
+  errors,
+}: AmenitiesSectionProps) {
+  type handleAmenityChangeType = {
+    checked: boolean;
+    amenityId: string;
+    field: {
+      value: string[];
+      onChange: (value: string[]) => void;
+    };
+  };
+
+  const handleAmenityChange = ({
+    checked,
+    amenityId,
+    field,
+  }: handleAmenityChangeType) => {
+    const newValue = checked
+      ? [...field.value, amenityId]
+      : field.value.filter((id: string) => id !== amenityId);
+    field.onChange(newValue);
+  };
+  return (
+    <section className="grid grid-cols-1 gap-6 md:grid-cols-4">
+      {AMENITIES_DATA.map((amenity) => (
+        <GridItem key={amenity.id}>
+          <div className="flex items-center space-x-2">
+            <Controller
+              name="amenities"
+              control={control}
+              defaultValue={apartment.amenities || []} // Initialize with existing amenities
+              render={({ field }) => (
+                <Checkbox
+                  id={amenity.id}
+                  value={amenity.id}
+                  checked={field.value.includes(amenity.id)} // Check if the amenity is selected
+                  onCheckedChange={(checked) => {
+                    handleAmenityChange({
+                      checked: !!checked,
+                      amenityId: amenity.id,
+                      field,
+                    });
+                  }}
+                />
+              )}
+            />
+            <Label htmlFor={amenity.id}>{amenity.name}</Label>
+            {errors.amenities && (
+              <p className="text-sm text-red-500">{errors.amenities.message}</p>
+            )}
+          </div>
+        </GridItem>
+      ))}
+    </section>
+  );
 }
