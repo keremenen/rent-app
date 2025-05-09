@@ -19,6 +19,7 @@ import { Edit, Eye, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useApartmentContext } from "@/lib/hooks";
+import Image from "next/image";
 
 export default function AdminApartmentsList() {
   const { apartments } = useApartmentContext();
@@ -40,6 +41,7 @@ export default function AdminApartmentsList() {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
+            <TableHead>Thumbnail</TableHead>
             <TableHead>Title</TableHead>
             <TableHead className="hidden md:table-cell">
               Neighborhood ID
@@ -47,7 +49,7 @@ export default function AdminApartmentsList() {
             <TableHead>Price</TableHead>
             <TableHead className="hidden sm:table-cell">Bedrooms</TableHead>
 
-            <TableHead className="hidden lg:table-cell">Created</TableHead>
+            <TableHead className="hidden lg:table-cell">Created at</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -55,6 +57,14 @@ export default function AdminApartmentsList() {
           {apartments.map((apartment) => (
             <TableRow key={apartment.id}>
               <TableCell className="font-normal">{apartment.id}</TableCell>
+              <TableCell className="flex items-center justify-center">
+                <Image
+                  src={apartment.thumbnail}
+                  alt={apartment.title}
+                  width={60}
+                  height={20}
+                />
+              </TableCell>
               <TableCell className="font-medium">{apartment.title}</TableCell>
               <TableCell className="hidden md:table-cell">
                 {apartment.neighborhoodId}
