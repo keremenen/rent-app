@@ -98,7 +98,7 @@ function CitiesTableActions({ city }: CitiesTableActionsProps) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/admin/apartments/${city.id}/edit`}>
+          <Link href={`/admin/cities/${city.id}/edit`}>
             <Edit className="mr-2 h-4 w-4" />
             Edit
           </Link>
