@@ -10,7 +10,7 @@ export const apartmentFormSchema = z.object({
     .max(50, {
       message: "Title must be at most 50 characters long",
     }),
-  neighborhood: z.string().min(1, {
+  neighborhoodId: z.string().min(1, {
     message: "Neighborhood is required",
   }),
   address: z
@@ -31,3 +31,7 @@ export const apartmentFormSchema = z.object({
 });
 
 export type TApartmentForm = z.infer<typeof apartmentFormSchema>;
+
+export const apartmentIdSchema = z.string();
+
+export type TAparmentId = z.infer<typeof apartmentIdSchema>;

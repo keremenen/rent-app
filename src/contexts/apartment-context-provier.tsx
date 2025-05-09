@@ -1,5 +1,6 @@
 "use client";
 
+import { editAparment } from "@/actions/actions";
 import { createContext, useState } from "react";
 
 type Apartment = {
@@ -22,6 +23,10 @@ type TApartmentContext = {
   apartments: Apartment[];
   bedroomValues: number[];
   selectedApartment: Apartment | null;
+  handleEditAparment: (
+    aparmentId: string,
+    aparmentData: Apartment,
+  ) => Promise<void>;
   handleGetApartmentById: (apartmentId: string) => Apartment;
   handleSetSelectedApartment: (apartmentId: string) => void;
   getTotalApartmentsInNeighborhood: (neighborhoodId: string) => number;
@@ -113,11 +118,42 @@ export default function ApartmentContextProvider({
     return roundedAverageRent;
   };
 
+  type tmpApartment = {
+    title: string;
+    neighborhoodId: string;
+    address: string;
+    bathrooms: number;
+    bedrooms: number;
+    squareFootage: number;
+    monthlyRent: number;
+    description: string;
+  };
+
+  const handleEditAparment = async (
+    aparmentId: string,
+    newAparmentData: tmpApartment,
+  ) => {
+    setApartments((prevApartments) =>
+      prevApartments.map((apartment) =>
+        apartment.id === aparmentId
+          ? { ...apartment, ...newAparmentData }
+          : apartment,
+      ),
+    );
+
+    const error = await editAparment(aparmentId, newAparmentData);
+
+    if (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <ApartmentContext.Provider
       value={{
         apartments,
         selectedApartment,
+        handleEditAparment,
         handleSetSelectedApartment,
         handleGetApartmentById,
         bedroomValues,

@@ -89,19 +89,3 @@ export function useFilterContext() {
 
   return context;
 }
-
-export function useNeighborhoodList() {
-  const { neighborhoods } = useNeighborhoodContext();
-  const { cities } = useCityContext();
-
-  const neighborhoodsList = neighborhoods.map((neighborhood) => {
-    const city = cities!.find((city) => city.id === neighborhood.cityId);
-    return {
-      id: neighborhood.id,
-      name: neighborhood.name,
-      cityName: city ? city.name : "",
-    };
-  });
-
-  return neighborhoodsList;
-}

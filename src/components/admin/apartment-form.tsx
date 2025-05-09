@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { apartmentFormSchema, TApartmentForm } from "@/lib/validations";
 import { Button } from "../ui/button";
@@ -18,7 +18,7 @@ import { Save } from "lucide-react";
 import { useApartmentContext } from "@/lib/hooks";
 
 type ApartmentFormProps = {
-  actionType: "edit";
+  actionType: "add" | "edit";
   apartmentId: string;
 };
 
@@ -26,19 +26,21 @@ export default function ApartmentForm({
   actionType,
   apartmentId,
 }: ApartmentFormProps) {
-  const { handleGetApartmentById } = useApartmentContext();
+  const { handleGetApartmentById, handleEditAparment } = useApartmentContext();
   const apartment = handleGetApartmentById(apartmentId);
 
   const {
     register,
-    handleSubmit,
+    getValues,
+    reset,
+    trigger,
     control,
     formState: { errors },
   } = useForm<TApartmentForm>({
     resolver: zodResolver(apartmentFormSchema),
     defaultValues: {
       title: actionType === "edit" ? apartment.title : "",
-      neighborhood: actionType === "edit" ? apartment.neighborhoodId : "",
+      neighborhoodId: actionType === "edit" ? apartment.neighborhoodId : "",
       address: actionType === "edit" ? apartment.address : "",
       bedrooms: actionType === "edit" ? apartment.bedrooms : 0,
       bathrooms: actionType === "edit" ? apartment.bathrooms : 0,
@@ -48,17 +50,35 @@ export default function ApartmentForm({
     },
   });
 
-  const onSubmit = async (data: FieldValues) => {
-    console.log("startred");
-    console.log("data", data);
-  };
-
   return (
-    <form className="space-y-4 pt-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="space-y-4 pt-4"
+      action={async () => {
+        const result = await trigger();
+        if (!result) return;
+
+        const apartmentData = getValues();
+
+        if (actionType === "add") {
+          // Handle add apartment logic
+          console.log("Adding apartment:", apartmentData);
+        } else if (actionType === "edit") {
+          // Handle edit apartment logic
+          await handleEditAparment(apartmentId, apartmentData);
+        }
+
+        reset(apartmentData);
+      }}
+    >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="title">Title</Label>
-          <Input id="title" {...register("title")} className="mb-0" />
+          <Input
+            id="title"
+            {...register("title")}
+            className="mb-0"
+            defaultValue={apartment.title}
+          />
           {errors.title && (
             <p className="text-sm text-red-500">{errors.title.message}</p>
           )}
@@ -67,10 +87,11 @@ export default function ApartmentForm({
         <div className="space-y-2">
           <Label htmlFor="neighborhood">Neighborhood</Label>
           <Controller
-            name="neighborhood"
+            name="neighborhoodId"
             control={control}
             render={({ field }) => (
               <Select
+                defaultValue={apartment.neighborhoodId}
                 onValueChange={field.onChange} // Update RHF state on value change
                 value={field.value} // Bind the current value from RHF
               >
@@ -87,9 +108,9 @@ export default function ApartmentForm({
               </Select>
             )}
           />
-          {errors.neighborhood && (
+          {errors.neighborhoodId && (
             <p className="text-sm text-red-500">
-              {errors.neighborhood.message}
+              {errors.neighborhoodId.message}
             </p>
           )}
         </div>
@@ -97,7 +118,12 @@ export default function ApartmentForm({
 
       <div className="space-y-2">
         <Label htmlFor="address">Address</Label>
-        <Input id="address" {...register("address")} className="mb-0" />
+        <Input
+          id="address"
+          {...register("address")}
+          className="mb-0"
+          defaultValue={apartment.address}
+        />
         {errors.address && (
           <p className="text-sm text-red-500">{errors.address.message}</p>
         )}
@@ -106,7 +132,13 @@ export default function ApartmentForm({
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         <div className="space-y-2">
           <Label htmlFor="bedrooms">Bedrooms</Label>
-          <Input id="bedrooms" {...register("bedrooms")} className="mb-0" />
+          <Input
+            id="bedrooms"
+            type="number"
+            {...register("bedrooms")}
+            className="mb-0"
+            defaultValue={apartment.bedrooms}
+          />
           {errors.bedrooms && (
             <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
           )}
@@ -115,7 +147,13 @@ export default function ApartmentForm({
         <div className="space-y-2">
           <div className="space-y-2">
             <Label htmlFor="bathrooms">Bathrooms</Label>
-            <Input id="bathrooms" {...register("bathrooms")} className="mb-0" />
+            <Input
+              id="bathrooms"
+              {...register("bathrooms")}
+              className="mb-0"
+              type={"number"}
+              defaultValue={apartment.bathrooms}
+            />
             {errors.bathrooms && (
               <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
             )}
@@ -126,6 +164,8 @@ export default function ApartmentForm({
           <Label htmlFor="squareFootage">Square Footage</Label>
           <Input
             id="squareFootage"
+            defaultValue={apartment.squareFootage}
+            type="number"
             {...register("squareFootage")}
             className="mb-0"
           />
@@ -143,6 +183,7 @@ export default function ApartmentForm({
             id="rent"
             {...register("monthlyRent")}
             className="mb-0"
+            defaultValue={apartment.monthlyRent}
           />
           {errors.monthlyRent && (
             <p className="text-sm text-red-500">{errors.monthlyRent.message}</p>
@@ -157,6 +198,7 @@ export default function ApartmentForm({
           {...register("description")}
           rows={6}
           className="mb-0"
+          defaultValue={apartment.description}
         />
         {errors.description && (
           <p className="text-sm text-red-500">{errors.description.message}</p>
