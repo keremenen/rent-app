@@ -31,9 +31,9 @@ export default function ApartmentForm({
 
   const {
     register,
-    getValues,
-    reset,
-    trigger,
+
+    handleSubmit,
+
     control,
     formState: { errors },
   } = useForm<TApartmentForm>({
@@ -50,34 +50,25 @@ export default function ApartmentForm({
     },
   });
 
+  const onSubmit = async (data: TApartmentForm) => {
+    if (actionType === "add") {
+      // Handle add apartment logic
+      console.log("Adding apartment:", data);
+    } else if (actionType === "edit") {
+      await handleEditAparment(apartmentId, data);
+    }
+  };
+
   return (
-    <form
-      className="space-y-4 pt-4"
-      action={async () => {
-        const result = await trigger();
-        if (!result) return;
-
-        const apartmentData = getValues();
-
-        if (actionType === "add") {
-          // Handle add apartment logic
-          console.log("Adding apartment:", apartmentData);
-        } else if (actionType === "edit") {
-          // Handle edit apartment logic
-          await handleEditAparment(apartmentId, apartmentData);
-        }
-
-        reset(apartmentData);
-      }}
-    >
+    <form className="space-y-4 pt-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="title">Title</Label>
           <Input
             id="title"
             {...register("title")}
-            className="mb-0"
             defaultValue={apartment.title}
+            className="mb-0"
           />
           {errors.title && (
             <p className="text-sm text-red-500">{errors.title.message}</p>
@@ -121,8 +112,8 @@ export default function ApartmentForm({
         <Input
           id="address"
           {...register("address")}
-          className="mb-0"
           defaultValue={apartment.address}
+          className="mb-0"
         />
         {errors.address && (
           <p className="text-sm text-red-500">{errors.address.message}</p>
@@ -135,9 +126,9 @@ export default function ApartmentForm({
           <Input
             id="bedrooms"
             type="number"
-            {...register("bedrooms")}
-            className="mb-0"
+            {...register("bedrooms", { valueAsNumber: true })}
             defaultValue={apartment.bedrooms}
+            className="mb-0"
           />
           {errors.bedrooms && (
             <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
@@ -149,10 +140,10 @@ export default function ApartmentForm({
             <Label htmlFor="bathrooms">Bathrooms</Label>
             <Input
               id="bathrooms"
-              {...register("bathrooms")}
-              className="mb-0"
               type={"number"}
+              {...register("bathrooms", { valueAsNumber: true })}
               defaultValue={apartment.bathrooms}
+              className="mb-0"
             />
             {errors.bathrooms && (
               <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
@@ -164,9 +155,9 @@ export default function ApartmentForm({
           <Label htmlFor="squareFootage">Square Footage</Label>
           <Input
             id="squareFootage"
-            defaultValue={apartment.squareFootage}
             type="number"
-            {...register("squareFootage")}
+            {...register("squareFootage", { valueAsNumber: true })}
+            defaultValue={apartment.squareFootage}
             className="mb-0"
           />
           {errors.squareFootage && (
@@ -179,11 +170,11 @@ export default function ApartmentForm({
         <div className="space-y-2">
           <Label htmlFor="rent">Monthly Rent ($)</Label>
           <Input
-            type="number"
             id="rent"
-            {...register("monthlyRent")}
-            className="mb-0"
+            type="number"
+            {...register("monthlyRent", { valueAsNumber: true })}
             defaultValue={apartment.monthlyRent}
+            className="mb-0"
           />
           {errors.monthlyRent && (
             <p className="text-sm text-red-500">{errors.monthlyRent.message}</p>

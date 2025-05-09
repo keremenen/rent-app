@@ -12,7 +12,7 @@ export default function ApartmentPage() {
   const { handleSetSelectedApartment } = useApartmentContext();
 
   useEffect(() => {
-    handleSetSelectedApartment("apt-009");
+    handleSetSelectedApartment("apt-001");
   }, [handleSetSelectedApartment]);
 
   return (
