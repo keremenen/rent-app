@@ -1,4 +1,3 @@
-"use client";
 import ApartmentActionHeader from "@/components/admin/apartment-action-header";
 import { use } from "react";
 import ApartmentForm from "@/components/admin/apartment-form";
