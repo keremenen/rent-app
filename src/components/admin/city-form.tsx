@@ -59,7 +59,7 @@ export default function CityForm({ actionType, id }: CityFormProps) {
   if (!city) return null;
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <Tabs defaultValue="details">
+      <Tabs defaultValue="basic">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="details">Details</TabsTrigger>
