@@ -16,6 +16,7 @@ type Neighborhood = {
 
 type TNeighborhoodContext = {
   neighborhoods: Neighborhood[];
+  getTotalNeighborhoodsByCityId: (cityId: string) => number;
   getNeighborhoodsByCityId: (id: string) => Neighborhood[];
   selectedNeighborhood: Neighborhood | null;
   handleSetSelectedNeighborhood: (id: string) => void;
@@ -47,6 +48,12 @@ export default function NeighborhoodContextProvider({
     setNeighborhoods(neighborhoods);
   };
 
+  const getTotalNeighborhoodsByCityId = (cityId: string) => {
+    return neighborhoods.filter(
+      (neighborhood) => neighborhood.cityId === cityId,
+    ).length;
+  };
+
   const handleSetSelectedNeighborhood = (id: string) => {
     const neighborhood = neighborhoods.find(
       (neighborhood) => neighborhood.id === id,
@@ -57,6 +64,7 @@ export default function NeighborhoodContextProvider({
   return (
     <NeighborhoodContext.Provider
       value={{
+        getTotalNeighborhoodsByCityId,
         neighborhoods,
         selectedNeighborhood,
         handleSetSelectedNeighborhood,

@@ -39,6 +39,8 @@ export default function CityContextProvider({
   const [cities, setCities] = useState<City[]>(data);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
+  console.log("CityContextProvider", cities);
+
   const handleSetCities = (cities: City[]) => {
     setCities(cities);
   };

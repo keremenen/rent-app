@@ -52,7 +52,6 @@ export default function ApartmentContextProvider({
     null,
   );
 
-  console.log("Apartments: ", apartments);
   const [bedroomValues, setBedroomValues] = useState<number[]>([]);
 
   const handleSetSelectedApartment = (apartmentId: string) => {
