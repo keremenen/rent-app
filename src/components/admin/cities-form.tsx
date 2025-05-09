@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
@@ -12,10 +13,11 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "../ui/utils";
 import { Textarea } from "../ui/textarea";
-import { register } from "module";
 import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { TCityForm } from "@/lib/validations";
 import { useCityContext } from "@/lib/hooks";
+import { Button } from "../ui/button";
+import { Save } from "lucide-react";
 
 type CityFormProps = {
   actionType: "add" | "edit";
@@ -47,8 +49,12 @@ export default function CitiesForm({ actionType, id }: CityFormProps) {
     },
   });
 
+  const onSubmit = (data: TCityForm) => {
+    console.log("Form submitted", data);
+  };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <Tabs defaultValue="details">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
@@ -63,6 +69,14 @@ export default function CitiesForm({ actionType, id }: CityFormProps) {
           <LocationSection city={city} register={register} errors={errors} />
         </TabsContent>
       </Tabs>
+
+      <div className="flex gap-2">
+        <Button variant="outline">Cancel</Button>
+        <Button type="submit">
+          <Save />
+          Save changes
+        </Button>
+      </div>
     </form>
   );
 }
