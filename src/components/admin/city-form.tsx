@@ -23,7 +23,7 @@ type CityFormProps = {
   id: string;
 };
 
-export default function CitiesForm({ actionType, id }: CityFormProps) {
+export default function CityForm({ actionType, id }: CityFormProps) {
   id = "gdansk";
 
   const { handleGetCityById, handleEditCity } = useCityContext();

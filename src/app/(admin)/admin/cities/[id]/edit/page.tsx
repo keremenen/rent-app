@@ -1,5 +1,5 @@
 import ApartmentActionHeader from "@/components/admin/apartment-action-header";
-import CitiesForm from "@/components/admin/cities-form";
+import CityForm from "@/components/admin/city-form";
 
 export default function EditCityPage() {
   return (
@@ -7,7 +7,7 @@ export default function EditCityPage() {
       <ApartmentActionHeader />
 
       <section className="w-full max-w-7xl">
-        <CitiesForm actionType="edit" id="gdansk" />
+        <CityForm actionType="edit" id="gdansk" />
       </section>
     </section>
   );
