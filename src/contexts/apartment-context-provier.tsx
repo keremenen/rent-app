@@ -17,6 +17,7 @@ type Apartment = {
   amenities: string[];
   monthlyRent: number;
   description: string;
+  createdAt: Date;
 };
 
 type TApartmentContext = {
@@ -50,6 +51,8 @@ export default function ApartmentContextProvider({
   const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
     null,
   );
+
+  console.log("Apartments: ", apartments);
   const [bedroomValues, setBedroomValues] = useState<number[]>([]);
 
   const handleSetSelectedApartment = (apartmentId: string) => {
