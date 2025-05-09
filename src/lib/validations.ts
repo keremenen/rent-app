@@ -26,7 +26,7 @@ export const apartmentFormSchema = z.object({
   bathrooms: z.number(),
   squareFootage: z.number(),
   // availableFrom: z.date(),
-  thumbnail: z.string().url({}),
+  // thumbnail: z.string().url({}),
   monthlyRent: z.number(),
   description: z.string(),
   amenities: z.array(z.string()),

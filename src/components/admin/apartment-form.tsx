@@ -26,6 +26,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "../ui/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image";
 import {
   Card,
@@ -35,15 +37,18 @@ import {
   CardTitle,
 } from "../ui/card";
 
-type ApartmentFormProps = {
-  actionType: "add" | "edit";
-  apartmentId: string;
-};
+type ApartmentFormProps =
+  | { actionType: "add" }
+  | { actionType: "edit"; apartmentId: string };
 
-export default function ApartmentForm({
-  actionType,
-  apartmentId,
-}: ApartmentFormProps) {
+export default function ApartmentForm(props: ApartmentFormProps) {
+  const { actionType } = props;
+  let apartmentId = "";
+
+  if (actionType === "edit") {
+    apartmentId = props.apartmentId;
+  }
+
   const { handleGetApartmentById, handleEditAparment } = useApartmentContext();
   const apartment = handleGetApartmentById(apartmentId);
 
@@ -104,7 +109,7 @@ export default function ApartmentForm({
           />
         </TabsContent>
         <TabsContent value="images" className="my-2">
-          <ImagesSection apartment={apartment} />
+          {/* <ImagesSection apartment={apartment} /> */}
         </TabsContent>
       </Tabs>
 
@@ -377,9 +382,9 @@ function ImagesSection({ apartment }: { apartment: TApartmentForm }) {
         </p>
 
         <div className="mt-4">
-          <div className="relative h-[250px] w-1/3">
+          {/* <div className="relative h-[250px] w-1/3">
             <Image src={apartment.thumbnail} fill alt="cos tam" />
-          </div>
+          </div> */}
           {/* <div className="relative">
             <div className="absolute right-2 bottom-2 flex gap-2">
               <Button variant="secondary" size="sm">
