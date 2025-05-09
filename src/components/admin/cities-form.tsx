@@ -15,7 +15,7 @@ import { Textarea } from "../ui/textarea";
 
 export default function CitiesForm() {
   return (
-    <form className="space-y-4 pt-4">
+    <form className="space-y-4">
       <Tabs defaultValue="details">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>

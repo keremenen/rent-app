@@ -20,13 +20,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { apartmentFormSchema, TApartmentForm } from "@/lib/validations";
 import { Button } from "../ui/button";
 import { AMENITIES_DATA, NEIGHBORHOODS_DATA } from "@/lib/constants";
-import { ImagePlus, Save, Trash2, Upload } from "lucide-react";
+import { ImagePlus, Save, Trash2 } from "lucide-react";
 import { useApartmentContext } from "@/lib/hooks";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "../ui/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 
 type ApartmentFormProps = {
   actionType: "add" | "edit";
@@ -71,14 +78,14 @@ export default function ApartmentForm({
   };
 
   return (
-    <form className="space-y-4 pt-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <Tabs defaultValue="details">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="details">Details</TabsTrigger>
           <TabsTrigger value="amenities">Amenities</TabsTrigger>
           <TabsTrigger value="images">Images</TabsTrigger>
         </TabsList>
-        <TabsContent value="details" className="my-8">
+        <TabsContent value="details" className="my-2">
           <DetailsSection
             register={register}
             apartment={apartment}
@@ -87,7 +94,7 @@ export default function ApartmentForm({
           />
         </TabsContent>
 
-        <TabsContent value="amenities" className="my-8">
+        <TabsContent value="amenities" className="my-2">
           <AmenitiesSection
             register={register}
             apartment={apartment}
@@ -95,7 +102,7 @@ export default function ApartmentForm({
             errors={errors}
           />
         </TabsContent>
-        <TabsContent value="images" className="space-y-4 pt-4">
+        <TabsContent value="images" className="my-2">
           <ImagesSection apartment={apartment} />
         </TabsContent>
       </Tabs>
@@ -123,133 +130,149 @@ function DetailsSection({
   errors: FieldErrors<TApartmentForm>;
 }) {
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-4">
-      <GridItem className="col-span-2">
-        <Label htmlFor="title">Title</Label>
-        <Input
-          id="title"
-          {...register("title")}
-          defaultValue={apartment.title}
-          className="mb-0"
-        />
-        {errors.title && (
-          <p className="text-sm text-red-500">{errors.title.message}</p>
-        )}
-      </GridItem>
+    <section>
+      <Card>
+        <CardHeader>
+          <CardTitle>Details</CardTitle>
+          <CardDescription>
+            Enter the basic information about the apartment.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-4">
+          <GridItem className="col-span-2">
+            <Label htmlFor="title">Title</Label>
+            <Input
+              id="title"
+              {...register("title")}
+              defaultValue={apartment.title}
+              className="mb-0"
+            />
+            {errors.title && (
+              <p className="text-sm text-red-500">{errors.title.message}</p>
+            )}
+          </GridItem>
 
-      <GridItem className="col-span-2">
-        <Label htmlFor="neighborhood">Neighborhood</Label>
-        <Controller
-          name="neighborhoodId"
-          control={control}
-          render={({ field }) => (
-            <Select
-              defaultValue={apartment.neighborhoodId}
-              onValueChange={field.onChange} // Update RHF state on value change
-              value={field.value} // Bind the current value from RHF
-            >
-              <SelectTrigger className="mb-0 w-full">
-                <SelectValue placeholder="Select neighborhood" />
-              </SelectTrigger>
-              <SelectContent>
-                {NEIGHBORHOODS_DATA.map((neighborhood) => (
-                  <SelectItem key={neighborhood.id} value={neighborhood.id}>
-                    {neighborhood.cityName} - {neighborhood.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-        {errors.neighborhoodId && (
-          <p className="text-sm text-red-500">
-            {errors.neighborhoodId.message}
-          </p>
-        )}
-      </GridItem>
+          <GridItem className="col-span-2">
+            <Label htmlFor="neighborhood">Neighborhood</Label>
+            <Controller
+              name="neighborhoodId"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  defaultValue={apartment.neighborhoodId}
+                  onValueChange={field.onChange} // Update RHF state on value change
+                  value={field.value} // Bind the current value from RHF
+                >
+                  <SelectTrigger className="mb-0 w-full">
+                    <SelectValue placeholder="Select neighborhood" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {NEIGHBORHOODS_DATA.map((neighborhood) => (
+                      <SelectItem key={neighborhood.id} value={neighborhood.id}>
+                        {neighborhood.cityName} - {neighborhood.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.neighborhoodId && (
+              <p className="text-sm text-red-500">
+                {errors.neighborhoodId.message}
+              </p>
+            )}
+          </GridItem>
 
-      <GridItem className="col-span-4">
-        <Label htmlFor="address">Address</Label>
-        <Input
-          id="address"
-          {...register("address")}
-          defaultValue={apartment.address}
-          className="mb-0"
-        />
-        {errors.address && (
-          <p className="text-sm text-red-500">{errors.address.message}</p>
-        )}
-      </GridItem>
+          <GridItem className="col-span-4">
+            <Label htmlFor="address">Address</Label>
+            <Input
+              id="address"
+              {...register("address")}
+              defaultValue={apartment.address}
+              className="mb-0"
+            />
+            {errors.address && (
+              <p className="text-sm text-red-500">{errors.address.message}</p>
+            )}
+          </GridItem>
 
-      <GridItem>
-        <Label htmlFor="bedrooms">Bedrooms</Label>
-        <Input
-          id="bedrooms"
-          type="number"
-          {...register("bedrooms", { valueAsNumber: true })}
-          defaultValue={apartment.bedrooms}
-          className="mb-0"
-        />
-        {errors.bedrooms && (
-          <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
-        )}
-      </GridItem>
+          <GridItem>
+            <Label htmlFor="bedrooms">Bedrooms</Label>
+            <Input
+              id="bedrooms"
+              type="number"
+              {...register("bedrooms", { valueAsNumber: true })}
+              defaultValue={apartment.bedrooms}
+              className="mb-0"
+            />
+            {errors.bedrooms && (
+              <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
+            )}
+          </GridItem>
 
-      <GridItem>
-        <Label htmlFor="bathrooms">Bathrooms</Label>
-        <Input
-          id="bathrooms"
-          type={"number"}
-          {...register("bathrooms", { valueAsNumber: true })}
-          defaultValue={apartment.bathrooms}
-          className="mb-0"
-        />
-        {errors.bathrooms && (
-          <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
-        )}
-      </GridItem>
+          <GridItem>
+            <Label htmlFor="bathrooms">Bathrooms</Label>
+            <Input
+              id="bathrooms"
+              type={"number"}
+              {...register("bathrooms", { valueAsNumber: true })}
+              defaultValue={apartment.bathrooms}
+              className="mb-0"
+            />
+            {errors.bathrooms && (
+              <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
+            )}
+          </GridItem>
 
-      <GridItem>
-        <Label htmlFor="squareFootage">Square Footage</Label>
-        <Input
-          id="squareFootage"
-          type="number"
-          {...register("squareFootage", { valueAsNumber: true })}
-          defaultValue={apartment.squareFootage}
-          className="mb-0"
-        />
-        {errors.squareFootage && (
-          <p className="text-sm text-red-500">{errors.squareFootage.message}</p>
-        )}
-      </GridItem>
+          <GridItem>
+            <Label htmlFor="squareFootage">Square Footage</Label>
+            <Input
+              id="squareFootage"
+              type="number"
+              {...register("squareFootage", { valueAsNumber: true })}
+              defaultValue={apartment.squareFootage}
+              className="mb-0"
+            />
+            {errors.squareFootage && (
+              <p className="text-sm text-red-500">
+                {errors.squareFootage.message}
+              </p>
+            )}
+          </GridItem>
 
-      <GridItem>
-        <Label htmlFor="rent">Monthly Rent ($)</Label>
-        <Input
-          id="rent"
-          type="number"
-          {...register("monthlyRent", { valueAsNumber: true })}
-          defaultValue={apartment.monthlyRent}
-          className="mb-0"
-        />
-        {errors.monthlyRent && (
-          <p className="text-sm text-red-500">{errors.monthlyRent.message}</p>
-        )}
-      </GridItem>
+          <GridItem>
+            <Label htmlFor="rent">Monthly Rent ($)</Label>
+            <Input
+              id="rent"
+              type="number"
+              {...register("monthlyRent", { valueAsNumber: true })}
+              defaultValue={apartment.monthlyRent}
+              className="mb-0"
+            />
+            {errors.monthlyRent && (
+              <p className="text-sm text-red-500">
+                {errors.monthlyRent.message}
+              </p>
+            )}
+          </GridItem>
 
-      <GridItem className="col-span-4">
-        <Label htmlFor="description">Description</Label>
-        <Textarea
-          id="description"
-          {...register("description")}
-          rows={6}
-          className="mb-0"
-          defaultValue={apartment.description}
-        />
-        {errors.description && (
-          <p className="text-sm text-red-500">{errors.description.message}</p>
-        )}
-      </GridItem>
+          <GridItem className="col-span-4">
+            <Label htmlFor="description">Description</Label>
+            <Textarea
+              id="description"
+              {...register("description")}
+              rows={6}
+              className="mb-0"
+              defaultValue={apartment.description}
+            />
+            {errors.description && (
+              <p className="text-sm text-red-500">
+                {errors.description.message}
+              </p>
+            )}
+          </GridItem>
+        </CardContent>
+      </Card>
     </section>
   );
 }
@@ -297,36 +320,48 @@ function AmenitiesSection({
     field.onChange(newValue);
   };
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-4">
-      {AMENITIES_DATA.map((amenity) => (
-        <GridItem key={amenity.id}>
-          <div className="flex items-center space-x-2">
-            <Controller
-              name="amenities"
-              control={control}
-              defaultValue={apartment.amenities || []} // Initialize with existing amenities
-              render={({ field }) => (
-                <Checkbox
-                  id={amenity.id}
-                  value={amenity.id}
-                  checked={field.value.includes(amenity.id)} // Check if the amenity is selected
-                  onCheckedChange={(checked) => {
-                    handleAmenityChange({
-                      checked: !!checked,
-                      amenityId: amenity.id,
-                      field,
-                    });
-                  }}
+    <section>
+      <Card>
+        <CardHeader>
+          <CardTitle>Amenities</CardTitle>
+          <CardDescription>
+            Select the amenities available in the apartment.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-4">
+          {AMENITIES_DATA.map((amenity) => (
+            <GridItem key={amenity.id}>
+              <div className="flex items-center space-x-2">
+                <Controller
+                  name="amenities"
+                  control={control}
+                  defaultValue={apartment.amenities || []} // Initialize with existing amenities
+                  render={({ field }) => (
+                    <Checkbox
+                      id={amenity.id}
+                      value={amenity.id}
+                      checked={field.value.includes(amenity.id)} // Check if the amenity is selected
+                      onCheckedChange={(checked) => {
+                        handleAmenityChange({
+                          checked: !!checked,
+                          amenityId: amenity.id,
+                          field,
+                        });
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
-            <Label htmlFor={amenity.id}>{amenity.name}</Label>
-            {errors.amenities && (
-              <p className="text-sm text-red-500">{errors.amenities.message}</p>
-            )}
-          </div>
-        </GridItem>
-      ))}
+                <Label htmlFor={amenity.id}>{amenity.name}</Label>
+                {errors.amenities && (
+                  <p className="text-sm text-red-500">
+                    {errors.amenities.message}
+                  </p>
+                )}
+              </div>
+            </GridItem>
+          ))}
+        </CardContent>
+      </Card>
     </section>
   );
 }
