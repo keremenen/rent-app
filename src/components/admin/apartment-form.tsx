@@ -147,12 +147,7 @@ function DetailsSection({
         <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-4">
           <GridItem className="col-span-2">
             <Label htmlFor="title">Title</Label>
-            <Input
-              id="title"
-              {...register("title")}
-              defaultValue={apartment.title}
-              className="mb-0"
-            />
+            <Input id="title" {...register("title")} className="mb-0" />
             {errors.title && (
               <p className="text-sm text-red-500">{errors.title.message}</p>
             )}
@@ -165,7 +160,6 @@ function DetailsSection({
               control={control}
               render={({ field }) => (
                 <Select
-                  defaultValue={apartment.neighborhoodId}
                   onValueChange={field.onChange} // Update RHF state on value change
                   value={field.value} // Bind the current value from RHF
                 >
@@ -191,12 +185,7 @@ function DetailsSection({
 
           <GridItem className="col-span-4">
             <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              {...register("address")}
-              defaultValue={apartment.address}
-              className="mb-0"
-            />
+            <Input id="address" {...register("address")} className="mb-0" />
             {errors.address && (
               <p className="text-sm text-red-500">{errors.address.message}</p>
             )}
@@ -208,7 +197,6 @@ function DetailsSection({
               id="bedrooms"
               type="number"
               {...register("bedrooms", { valueAsNumber: true })}
-              defaultValue={apartment.bedrooms}
               className="mb-0"
             />
             {errors.bedrooms && (
@@ -222,7 +210,6 @@ function DetailsSection({
               id="bathrooms"
               type={"number"}
               {...register("bathrooms", { valueAsNumber: true })}
-              defaultValue={apartment.bathrooms}
               className="mb-0"
             />
             {errors.bathrooms && (
@@ -236,7 +223,6 @@ function DetailsSection({
               id="squareFootage"
               type="number"
               {...register("squareFootage", { valueAsNumber: true })}
-              defaultValue={apartment.squareFootage}
               className="mb-0"
             />
             {errors.squareFootage && (
@@ -252,7 +238,6 @@ function DetailsSection({
               id="rent"
               type="number"
               {...register("monthlyRent", { valueAsNumber: true })}
-              defaultValue={apartment.monthlyRent}
               className="mb-0"
             />
             {errors.monthlyRent && (
@@ -269,7 +254,6 @@ function DetailsSection({
               {...register("description")}
               rows={6}
               className="mb-0"
-              defaultValue={apartment.description}
             />
             {errors.description && (
               <p className="text-sm text-red-500">
@@ -341,7 +325,6 @@ function AmenitiesSection({
                 <Controller
                   name="amenities"
                   control={control}
-                  defaultValue={apartment.amenities || []} // Initialize with existing amenities
                   render={({ field }) => (
                     <Checkbox
                       id={amenity.id}

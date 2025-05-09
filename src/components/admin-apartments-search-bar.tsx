@@ -15,7 +15,7 @@ export default function AdminApartmentsSearchBar() {
         />
       </div>
       <Button asChild className="w-full sm:w-auto">
-        <Link href="/admin/apartments/new">
+        <Link href="/admin/apartments/add">
           <Plus className="mr-2 h-4 w-4" />
           Add Apartment
         </Link>
