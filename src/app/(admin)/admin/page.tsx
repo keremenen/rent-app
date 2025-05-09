@@ -10,8 +10,6 @@ export default function AdminDashboard() {
           more.
         </p>
       </div>
-
-      {/* <DashboardStats /> */}
     </div>
   );
 }

@@ -57,7 +57,7 @@ export default function AdminApartmentsList() {
           {apartments.map((apartment) => (
             <TableRow key={apartment.id}>
               <TableCell className="font-normal">{apartment.id}</TableCell>
-              <TableCell className="flex items-center justify-center">
+              <TableCell className="flex items-center justify-start">
                 <Image
                   src={apartment.thumbnail}
                   alt={apartment.title}
@@ -75,7 +75,7 @@ export default function AdminApartmentsList() {
               </TableCell>
 
               <TableCell className="hidden lg:table-cell">
-                {new Date(apartment.createdAt).toLocaleDateString()}
+                {new Date(apartment.createdAt).toDateString()}
               </TableCell>
               <TableCell className="text-right">
                 <ApartmentsTableActions apartment={apartment} />
