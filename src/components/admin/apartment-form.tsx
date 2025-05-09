@@ -9,13 +9,21 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { Controller, useForm } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { apartmentFormSchema, TApartmentForm } from "@/lib/validations";
 import { Button } from "../ui/button";
 import { NEIGHBORHOODS_DATA } from "@/lib/constants";
 import { Save } from "lucide-react";
 import { useApartmentContext } from "@/lib/hooks";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "../ui/utils";
 
 type ApartmentFormProps = {
   actionType: "add" | "edit";
@@ -31,9 +39,7 @@ export default function ApartmentForm({
 
   const {
     register,
-
     handleSubmit,
-
     control,
     formState: { errors },
   } = useForm<TApartmentForm>({
@@ -61,53 +67,95 @@ export default function ApartmentForm({
 
   return (
     <form className="space-y-4 pt-4" onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            {...register("title")}
-            defaultValue={apartment.title}
-            className="mb-0"
-          />
-          {errors.title && (
-            <p className="text-sm text-red-500">{errors.title.message}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="neighborhood">Neighborhood</Label>
-          <Controller
-            name="neighborhoodId"
+      <Tabs defaultValue="details">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="amenities">Amenities</TabsTrigger>
+          <TabsTrigger value="images">Images</TabsTrigger>
+        </TabsList>
+        <TabsContent value="details" className="my-8">
+          <DetailsSection
+            register={register}
+            apartment={apartment}
             control={control}
-            render={({ field }) => (
-              <Select
-                defaultValue={apartment.neighborhoodId}
-                onValueChange={field.onChange} // Update RHF state on value change
-                value={field.value} // Bind the current value from RHF
-              >
-                <SelectTrigger className="mb-0 w-full">
-                  <SelectValue placeholder="Select neighborhood" />
-                </SelectTrigger>
-                <SelectContent>
-                  {NEIGHBORHOODS_DATA.map((neighborhood) => (
-                    <SelectItem key={neighborhood.id} value={neighborhood.id}>
-                      {neighborhood.cityName} - {neighborhood.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
+            errors={errors}
           />
-          {errors.neighborhoodId && (
-            <p className="text-sm text-red-500">
-              {errors.neighborhoodId.message}
-            </p>
-          )}
-        </div>
-      </div>
+        </TabsContent>
 
-      <div className="space-y-2">
+        <TabsContent value="amenities" className="space-y-6 pt-4"></TabsContent>
+
+        <TabsContent value="images" className="space-y-4 pt-4"></TabsContent>
+      </Tabs>
+
+      <div className="flex gap-2">
+        <Button variant="outline">Cancel</Button>
+        <Button type="submit">
+          <Save />
+          Save changes
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+function DetailsSection({
+  register,
+  apartment,
+  control,
+  errors,
+}: {
+  register: UseFormRegister<TApartmentForm>;
+  apartment: TApartmentForm;
+  control: Control<TApartmentForm>;
+  errors: FieldErrors<TApartmentForm>;
+}) {
+  return (
+    <section className="grid grid-cols-1 gap-6 md:grid-cols-4">
+      <GridItem className="col-span-2">
+        <Label htmlFor="title">Title</Label>
+        <Input
+          id="title"
+          {...register("title")}
+          defaultValue={apartment.title}
+          className="mb-0"
+        />
+        {errors.title && (
+          <p className="text-sm text-red-500">{errors.title.message}</p>
+        )}
+      </GridItem>
+
+      <GridItem className="col-span-2">
+        <Label htmlFor="neighborhood">Neighborhood</Label>
+        <Controller
+          name="neighborhoodId"
+          control={control}
+          render={({ field }) => (
+            <Select
+              defaultValue={apartment.neighborhoodId}
+              onValueChange={field.onChange} // Update RHF state on value change
+              value={field.value} // Bind the current value from RHF
+            >
+              <SelectTrigger className="mb-0 w-full">
+                <SelectValue placeholder="Select neighborhood" />
+              </SelectTrigger>
+              <SelectContent>
+                {NEIGHBORHOODS_DATA.map((neighborhood) => (
+                  <SelectItem key={neighborhood.id} value={neighborhood.id}>
+                    {neighborhood.cityName} - {neighborhood.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.neighborhoodId && (
+          <p className="text-sm text-red-500">
+            {errors.neighborhoodId.message}
+          </p>
+        )}
+      </GridItem>
+
+      <GridItem className="col-span-4">
         <Label htmlFor="address">Address</Label>
         <Input
           id="address"
@@ -118,71 +166,65 @@ export default function ApartmentForm({
         {errors.address && (
           <p className="text-sm text-red-500">{errors.address.message}</p>
         )}
-      </div>
+      </GridItem>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-        <div className="space-y-2">
-          <Label htmlFor="bedrooms">Bedrooms</Label>
-          <Input
-            id="bedrooms"
-            type="number"
-            {...register("bedrooms", { valueAsNumber: true })}
-            defaultValue={apartment.bedrooms}
-            className="mb-0"
-          />
-          {errors.bedrooms && (
-            <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
-          )}
-        </div>
+      <GridItem>
+        <Label htmlFor="bedrooms">Bedrooms</Label>
+        <Input
+          id="bedrooms"
+          type="number"
+          {...register("bedrooms", { valueAsNumber: true })}
+          defaultValue={apartment.bedrooms}
+          className="mb-0"
+        />
+        {errors.bedrooms && (
+          <p className="text-sm text-red-500">{errors.bedrooms.message}</p>
+        )}
+      </GridItem>
 
-        <div className="space-y-2">
-          <div className="space-y-2">
-            <Label htmlFor="bathrooms">Bathrooms</Label>
-            <Input
-              id="bathrooms"
-              type={"number"}
-              {...register("bathrooms", { valueAsNumber: true })}
-              defaultValue={apartment.bathrooms}
-              className="mb-0"
-            />
-            {errors.bathrooms && (
-              <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
-            )}
-          </div>
-        </div>
+      <GridItem>
+        <Label htmlFor="bathrooms">Bathrooms</Label>
+        <Input
+          id="bathrooms"
+          type={"number"}
+          {...register("bathrooms", { valueAsNumber: true })}
+          defaultValue={apartment.bathrooms}
+          className="mb-0"
+        />
+        {errors.bathrooms && (
+          <p className="text-sm text-red-500">{errors.bathrooms.message}</p>
+        )}
+      </GridItem>
 
-        <div className="space-y-2">
-          <Label htmlFor="squareFootage">Square Footage</Label>
-          <Input
-            id="squareFootage"
-            type="number"
-            {...register("squareFootage", { valueAsNumber: true })}
-            defaultValue={apartment.squareFootage}
-            className="mb-0"
-          />
-          {errors.squareFootage && (
-            <p className="text-sm text-red-500">
-              {errors.squareFootage.message}
-            </p>
-          )}
-        </div>
+      <GridItem>
+        <Label htmlFor="squareFootage">Square Footage</Label>
+        <Input
+          id="squareFootage"
+          type="number"
+          {...register("squareFootage", { valueAsNumber: true })}
+          defaultValue={apartment.squareFootage}
+          className="mb-0"
+        />
+        {errors.squareFootage && (
+          <p className="text-sm text-red-500">{errors.squareFootage.message}</p>
+        )}
+      </GridItem>
 
-        <div className="space-y-2">
-          <Label htmlFor="rent">Monthly Rent ($)</Label>
-          <Input
-            id="rent"
-            type="number"
-            {...register("monthlyRent", { valueAsNumber: true })}
-            defaultValue={apartment.monthlyRent}
-            className="mb-0"
-          />
-          {errors.monthlyRent && (
-            <p className="text-sm text-red-500">{errors.monthlyRent.message}</p>
-          )}
-        </div>
-      </div>
+      <GridItem>
+        <Label htmlFor="rent">Monthly Rent ($)</Label>
+        <Input
+          id="rent"
+          type="number"
+          {...register("monthlyRent", { valueAsNumber: true })}
+          defaultValue={apartment.monthlyRent}
+          className="mb-0"
+        />
+        {errors.monthlyRent && (
+          <p className="text-sm text-red-500">{errors.monthlyRent.message}</p>
+        )}
+      </GridItem>
 
-      <div className="space-y-2">
+      <GridItem className="col-span-4">
         <Label htmlFor="description">Description</Label>
         <Textarea
           id="description"
@@ -194,15 +236,17 @@ export default function ApartmentForm({
         {errors.description && (
           <p className="text-sm text-red-500">{errors.description.message}</p>
         )}
-      </div>
-
-      <div className="mt-8 flex gap-2">
-        <Button variant="outline">Cancel</Button>
-        <Button type="submit">
-          <Save />
-          Save changes
-        </Button>
-      </div>
-    </form>
+      </GridItem>
+    </section>
   );
+}
+
+function GridItem({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={cn("space-y-2", className)}>{children}</div>;
 }

@@ -1,8 +1,5 @@
 "use client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ApartmentActionHeader from "@/components/admin/apartment-action-header";
-import ApartmentAmenitiesFields from "@/components/admin/apartment-amenities-fields";
-import ApartmentImagesFields from "@/components/admin/apartment-images-fields";
 import { use } from "react";
 import ApartmentForm from "@/components/admin/apartment-form";
 
@@ -15,25 +12,7 @@ export default function EditApartmentPage(props: { params: Params }) {
       <ApartmentActionHeader />
 
       <section className="mx-auto mt-8 w-full max-w-7xl">
-        <Tabs defaultValue="details">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="amenities">Amenities</TabsTrigger>
-            <TabsTrigger value="images">Images</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="details">
-            <ApartmentForm actionType={"edit"} apartmentId={id} />
-          </TabsContent>
-
-          <TabsContent value="amenities" className="space-y-6 pt-4">
-            <ApartmentAmenitiesFields />
-          </TabsContent>
-
-          <TabsContent value="images" className="space-y-4 pt-4">
-            <ApartmentImagesFields />
-          </TabsContent>
-        </Tabs>
+        <ApartmentForm actionType={"edit"} apartmentId={id} />
       </section>
     </section>
   );
