@@ -1,5 +1,7 @@
 import ApartmentActionHeader from "@/components/admin/apartment-action-header";
 import CityForm from "@/components/admin/city-form";
+import GalleryForm from "@/components/admin/gallery-form";
+import ImagesForm from "@/components/admin/images-form";
 import { getCity } from "@/lib/utils";
 
 type Params = Promise<{ id: string }>;
@@ -13,8 +15,10 @@ export default async function EditCityPage(props: { params: Params }) {
     <section className="flex flex-col gap-6">
       <ApartmentActionHeader />
 
-      <section className="w-full max-w-7xl">
+      <section className="w-full max-w-7xl space-y-6">
         <CityForm actionType="edit" city={city} />
+        <ImagesForm imageUrl={city.coverImage} cityId={id} />
+        <GalleryForm gallery={city.gallery} cityId={id} />
       </section>
     </section>
   );

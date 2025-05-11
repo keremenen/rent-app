@@ -17,9 +17,10 @@ import { cityFormSchema, TCityForm } from "@/lib/validations";
 
 import { Button } from "../ui/button";
 import { Save } from "lucide-react";
-import { addCity, editCity } from "@/actions/actions";
+import { addCity, editCity, uploadThumbnailImage } from "@/actions/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useState } from "react";
 
 type City = {
   id: string;
@@ -44,7 +45,6 @@ export default function CityForm(props: CityFormProps) {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<TCityForm>({
     resolver: zodResolver(cityFormSchema),
@@ -66,6 +66,7 @@ export default function CityForm(props: CityFormProps) {
     if (actionType === "edit") {
       const cityId = city.id;
       const error = await editCity(cityId, data);
+      console.log("start");
       if (error) {
         console.error("Error editing city:", error);
       } else {
@@ -85,29 +86,11 @@ export default function CityForm(props: CityFormProps) {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <Tabs defaultValue="basic">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="basic">Basic Info</TabsTrigger>
-          <TabsTrigger value="details">Details</TabsTrigger>
-          <TabsTrigger value="media">Media</TabsTrigger>
-        </TabsList>
-        <TabsContent value="basic" className="space-y-4">
-          <BasicSection register={register} errors={errors} />
-        </TabsContent>
-        <TabsContent value="details" className="space-y-4">
-          <StatisticsSection register={register} errors={errors} />
-          <LocationSection register={register} errors={errors} />
-        </TabsContent>
-        <TabsContent value="media" className="space-y-4">
-          <MediaSection
-            register={register}
-            errors={errors}
-            values={getValues}
-          />
-        </TabsContent>
-      </Tabs>
+      <BasicSection register={register} errors={errors} />
+      <StatisticsSection register={register} errors={errors} />
+      <LocationSection register={register} errors={errors} />
 
-      <div className="flex gap-2">
+      <div className="flex w-full items-center justify-between">
         <Button variant="outline">Cancel</Button>
         <Button type="submit">
           <Save />
@@ -144,7 +127,7 @@ function BasicSection({ register, errors }: BasicSectionProps) {
           <GridItem>
             <Label htmlFor="shortDescription">Short Descritpion</Label>
             <Textarea
-              rows={5}
+              rows={1}
               id="shortDescription"
               {...register("shortDescription")}
             />
@@ -157,9 +140,8 @@ function BasicSection({ register, errors }: BasicSectionProps) {
           <GridItem>
             <Label htmlFor="shortDescription">Long Descritpion</Label>
             <Textarea
-              rows={10}
+              rows={2}
               id="longDescription"
-              className="min-h-[200px]"
               {...register("longDescription")}
             />
             {errors.longDescription && (
@@ -281,7 +263,23 @@ type MediaSectionProps = {
 };
 
 function MediaSection({ register, errors, values }: MediaSectionProps) {
-  console.log(`test ${values("coverImage")}`);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
+
+    uploadThumbnailImage(file, values("id"));
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -290,13 +288,6 @@ function MediaSection({ register, errors, values }: MediaSectionProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {/* <div className="relative aspect-video w-full max-w-md overflow-hidden rounded-lg border">
-            <Input type="file" {...register("thumbnail")} id="thumbnail" />
-            {errors.thumbnail && (
-              <p className="text-sm text-red-500">{errors.thumbnail.message}</p>
-            )}
-          </div> */}
-
           <div className="relative mx-auto aspect-video w-full max-w-[700px] overflow-hidden rounded-lg border">
             <Image
               src={values("coverImage")}
@@ -306,7 +297,9 @@ function MediaSection({ register, errors, values }: MediaSectionProps) {
             />
           </div>
 
-          <div className="flex w-full items-center justify-center">
+          <input type="file" onChange={handleFileChange} />
+
+          {/* <div className="flex w-full items-center justify-center">
             <label
               htmlFor="thumbnail-upload"
               className="bg-muted/20 hover:bg-muted/30 flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed"
@@ -336,7 +329,8 @@ function MediaSection({ register, errors, values }: MediaSectionProps) {
               </div>
               <input id="thumbnail-upload" type="file" className="hidden" />
             </label>
-          </div>
+            </div> */}
+          <button onClick={handleUpload}>Upload</button>
         </div>
       </CardContent>
     </Card>
