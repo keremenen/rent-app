@@ -48,12 +48,38 @@ export const cityFormSchema = z.object({
   longDescription: z.string().trim().min(3, {
     message: "Long description must be at least 3 characters long",
   }),
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
-  population: z.number().min(0),
-  area: z.number().min(0),
-  walkScore: z.number().min(0).max(100),
-  commuteTime: z.number().min(0),
+  latitude: z.coerce
+    .number()
+    .min(-90)
+    .max(90)
+    .refine((val) => val !== 0, { message: "Latitude is required" }),
+  longitude: z.coerce
+    .number()
+    .min(-180)
+    .max(180)
+    .refine((val) => val !== 0, { message: "Longitude is required" }),
+
+  population: z.coerce
+    .number()
+    .min(0)
+    .refine((val) => val !== 0, { message: "Population is required" }),
+  area: z.coerce
+    .number()
+    .min(0)
+    .refine((val) => val !== 0, { message: "Area is required" }),
+  walkScore: z.coerce
+    .number()
+    .min(0)
+    .max(100)
+    .refine((val) => val !== 0, {
+      message: "Walk score is required",
+    }),
+  commuteTime: z.coerce
+    .number()
+    .min(0)
+    .refine((val) => val !== 0, {
+      message: "Commute time is required",
+    }),
 });
 
 export type TCityForm = z.infer<typeof cityFormSchema>;

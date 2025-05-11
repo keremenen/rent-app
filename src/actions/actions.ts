@@ -1,12 +1,15 @@
 "use server";
 import prisma from "@/lib/db";
 import { getAparmentById, getCityById } from "@/lib/server-utils";
+import { removePolishCharacters } from "@/lib/utils";
 import {
   apartmentFormSchema,
   apartmentIdSchema,
   cityFormSchema,
   cityIdSchema,
 } from "@/lib/validations";
+
+import { redirect } from "next/navigation";
 
 export async function editAparment(
   apartmentId: unknown,
@@ -61,9 +64,44 @@ export async function editCity(cityId: unknown, newCityData: unknown) {
       },
       data: {
         ...validatedCityData.data,
+        id: removePolishCharacters(
+          validatedCityData.data.name.toLowerCase().replace(/\s+/g, "-"),
+        ),
       },
     });
   } catch (error) {
     return { message: `Error updating city ${error}` };
   }
+
+  redirect("/admin/cities");
+}
+
+export async function addCity(newCityData: unknown) {
+  const validatedCityData = cityFormSchema.safeParse(newCityData);
+
+  if (!validatedCityData.success) {
+    return { message: "Invalid city data" };
+  }
+
+  try {
+    await prisma.city.create({
+      data: {
+        ...validatedCityData.data,
+        coverImage:
+          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
+        gallery: [
+          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
+          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
+          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
+        ],
+        id: removePolishCharacters(
+          validatedCityData.data.name.toLowerCase().replace(/\s+/g, "-"),
+        ),
+      },
+    });
+  } catch (error) {
+    return { message: `Error creating city ${error}` };
+  }
+
+  redirect("/admin/cities");
 }

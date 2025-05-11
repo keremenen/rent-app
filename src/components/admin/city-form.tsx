@@ -13,27 +13,39 @@ import { Input } from "../ui/input";
 import { cn } from "../ui/utils";
 import { Textarea } from "../ui/textarea";
 import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
-import { TCityForm } from "@/lib/validations";
-import { useCityContext } from "@/lib/hooks";
+import { cityFormSchema, TCityForm } from "@/lib/validations";
+
 import { Button } from "../ui/button";
 import { Save } from "lucide-react";
+import { addCity, editCity } from "@/actions/actions";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type CityFormProps = {
-  actionType: "add" | "edit";
+type City = {
   id: string;
+  name: string;
+  shortDescription: string;
+  longDescription: string;
+  latitude: number;
+  longitude: number;
+  population: number;
+  area: number;
+  walkScore: number;
+  commuteTime: number;
 };
 
-export default function CityForm({ actionType, id }: CityFormProps) {
-  id = "gdansk";
+type CityFormProps = { actionType: "add" } | { actionType: "edit"; city: City };
 
-  const { handleGetCityById, handleEditCity } = useCityContext();
-  const city = handleGetCityById(id);
+export default function CityForm(props: CityFormProps) {
+  const { actionType } = props;
+  const { city } = props as { city: City };
 
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm<TCityForm>({
+    resolver: zodResolver(cityFormSchema),
     defaultValues: {
       name: actionType === "edit" ? city?.name : "",
       shortDescription: actionType === "edit" ? city?.shortDescription : "",
@@ -47,16 +59,27 @@ export default function CityForm({ actionType, id }: CityFormProps) {
     },
   });
 
-  const onSubmit = (data: TCityForm) => {
-    console.log("Form submitted", data);
+  const onSubmit = async (data: TCityForm) => {
+    if (actionType === "edit") {
+      const cityId = city.id;
+      const error = await editCity(cityId, data);
+      if (error) {
+        console.error("Error editing city:", error);
+      } else {
+        console.log("City edited successfully");
+      }
+    }
 
     if (actionType === "add") {
-    } else if (actionType === "edit") {
-      // @ts-expect-error wip
-      handleEditCity(id, data);
+      const error = await addCity(data);
+      if (error) {
+        console.error("Error adding city:", error);
+      } else {
+        console.log("City added successfully");
+      }
     }
   };
-  if (!city) return null;
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <Tabs defaultValue="basic">
@@ -66,11 +89,11 @@ export default function CityForm({ actionType, id }: CityFormProps) {
           <TabsTrigger value="media">Media</TabsTrigger>
         </TabsList>
         <TabsContent value="basic" className="space-y-4">
-          <BasicSection city={city} register={register} errors={errors} />
+          <BasicSection register={register} errors={errors} />
         </TabsContent>
         <TabsContent value="details" className="space-y-4">
-          <StatisticsSection city={city} register={register} errors={errors} />
-          <LocationSection city={city} register={register} errors={errors} />
+          <StatisticsSection register={register} errors={errors} />
+          <LocationSection register={register} errors={errors} />
         </TabsContent>
       </Tabs>
 
@@ -86,12 +109,11 @@ export default function CityForm({ actionType, id }: CityFormProps) {
 }
 
 type BasicSectionProps = {
-  city: TCityForm;
   register: UseFormRegister<TCityForm>;
   errors: FieldErrors<TCityForm>;
 };
 
-function BasicSection({ city, register, errors }: BasicSectionProps) {
+function BasicSection({ register, errors }: BasicSectionProps) {
   return (
     <Card>
       <CardHeader>
@@ -104,7 +126,7 @@ function BasicSection({ city, register, errors }: BasicSectionProps) {
         <section className="grid grid-cols-1 space-y-6">
           <GridItem>
             <Label htmlFor="name">City Name</Label>
-            <Input id="name" {...register("name")} defaultValue={city.name} />
+            <Input id="name" {...register("name")} />
             {errors.name && (
               <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
@@ -115,7 +137,6 @@ function BasicSection({ city, register, errors }: BasicSectionProps) {
               rows={5}
               id="shortDescription"
               {...register("shortDescription")}
-              defaultValue={city.shortDescription}
             />
             {errors.shortDescription && (
               <p className="text-sm text-red-500">
@@ -130,7 +151,6 @@ function BasicSection({ city, register, errors }: BasicSectionProps) {
               id="longDescription"
               className="min-h-[200px]"
               {...register("longDescription")}
-              defaultValue={city.longDescription}
             />
             {errors.longDescription && (
               <p className="text-sm text-red-500">
@@ -145,12 +165,11 @@ function BasicSection({ city, register, errors }: BasicSectionProps) {
 }
 
 type StatisticsSectionProps = {
-  city: TCityForm;
   register: UseFormRegister<TCityForm>;
   errors: FieldErrors<TCityForm>;
 };
 
-function StatisticsSection({ city, register, errors }: StatisticsSectionProps) {
+function StatisticsSection({ register, errors }: StatisticsSectionProps) {
   return (
     <Card>
       <CardHeader>
@@ -163,11 +182,7 @@ function StatisticsSection({ city, register, errors }: StatisticsSectionProps) {
         <section className="grid grid-cols-2 gap-6">
           <GridItem>
             <Label htmlFor="population">Population</Label>
-            <Input
-              id="population"
-              {...register("population")}
-              defaultValue={city.population}
-            />
+            <Input id="population" {...register("population")} />
             {errors.population && (
               <p className="text-sm text-red-500">
                 {errors.population.message}
@@ -176,26 +191,21 @@ function StatisticsSection({ city, register, errors }: StatisticsSectionProps) {
           </GridItem>
           <GridItem>
             <Label htmlFor="area">Area</Label>
-            <Input id="area" {...register("area")} defaultValue={city.area} />
+            <Input id="area" type="number" {...register("area")} />
+            {errors.area && (
+              <p className="text-sm text-red-500">{errors.area.message}</p>
+            )}
           </GridItem>
           <GridItem>
             <Label htmlFor="walkScore">WalkScore (0-100)</Label>
-            <Input
-              id="walkScore"
-              {...register("walkScore")}
-              defaultValue={city.walkScore}
-            />
+            <Input id="walkScore" {...register("walkScore")} />
             {errors.walkScore && (
               <p className="text-sm text-red-500">{errors.walkScore.message}</p>
             )}
           </GridItem>
           <GridItem>
             <Label htmlFor="commuteTime">Avg. commute Timne (min)</Label>
-            <Input
-              id="commuteTime"
-              {...register("commuteTime")}
-              defaultValue={city.commuteTime}
-            />
+            <Input id="commuteTime" {...register("commuteTime")} />
             {errors.commuteTime && (
               <p className="text-sm text-red-500">
                 {errors.commuteTime.message}
@@ -219,12 +229,11 @@ function GridItem({
 }
 
 type LocationSectionProps = {
-  city: TCityForm;
   register: UseFormRegister<TCityForm>;
   errors: FieldErrors<TCityForm>;
 };
 
-function LocationSection({ city, register, errors }: LocationSectionProps) {
+function LocationSection({ register, errors }: LocationSectionProps) {
   return (
     <Card>
       <CardHeader>
@@ -237,22 +246,14 @@ function LocationSection({ city, register, errors }: LocationSectionProps) {
         <section className="grid grid-cols-2 gap-6">
           <GridItem>
             <Label htmlFor="latitude">Latitude</Label>
-            <Input
-              id="latitude"
-              {...register("latitude")}
-              defaultValue={city.latitude}
-            />
+            <Input id="latitude" {...register("latitude")} />
             {errors.latitude && (
               <p className="text-sm text-red-500">{errors.latitude.message}</p>
             )}
           </GridItem>
           <GridItem>
             <Label htmlFor="longitude">Longitude</Label>
-            <Input
-              id="longitude"
-              {...register("longitude")}
-              defaultValue={city.longitude}
-            />
+            <Input id="longitude" {...register("longitude")} />
             {errors.longitude && (
               <p className="text-sm text-red-500">{errors.longitude.message}</p>
             )}

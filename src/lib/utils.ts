@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { ApartmentEssential, PNeighborhood } from "./types";
 import prisma from "./db";
 import { useCityContext, useNeighborhoodContext } from "./hooks";
+import { notFound } from "next/navigation";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -374,3 +375,43 @@ export const applyApartmentsFilters = (
 
   return filteredApartments;
 };
+
+export async function getCity(id: string) {
+  const city = await prisma.city.findUnique({
+    where: { id: id },
+  });
+
+  if (!city) {
+    return notFound();
+  }
+
+  // Convert Prisma city object Decimal fields to plain numbers
+  const cityWithPlainNumbers = {
+    ...city,
+    area: city.area?.toNumber(),
+    walkScore: city.walkScore?.toNumber(),
+    commuteTime: city.commuteTime?.toNumber(),
+    latitude: city.latitude?.toNumber(),
+    longitude: city.longitude?.toNumber(),
+  };
+  return cityWithPlainNumbers;
+}
+
+export function removePolishCharacters(str: string) {
+  const polishCharacters: Record<string, string> = {
+    ą: "a",
+    ć: "c",
+    ę: "e",
+    ł: "l",
+    ń: "n",
+    ó: "o",
+    ś: "s",
+    ź: "z",
+    ż: "z",
+  };
+
+  return str
+    .split("")
+    .map((char) => polishCharacters[char] || char)
+    .join("");
+}
