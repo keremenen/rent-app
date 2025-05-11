@@ -153,6 +153,58 @@ export async function uploadThumbnailImage(file: File, cityId: string) {
   revalidatePath("/admin/cities");
 }
 
+export async function uploadGalleryImages(files: File[], cityId: string) {
+  const supabase = await createClient();
+
+  if (!files || files.length === 0) {
+    console.error("No files selected");
+    return { message: "No files selected" };
+  }
+
+  const galleryUrls: string[] = [];
+
+  console.log("files", files);
+
+  for (const file of files) {
+    // Generate a random file name
+    const randomFileName = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2, 15)}-${file.name}`;
+
+    const { error } = await supabase.storage
+      .from("cities")
+      .upload(`gallery/${randomFileName}`, file);
+
+    if (error) {
+      console.error("Error uploading gallery image:", error);
+      return { message: "Error uploading gallery image" };
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from("cities")
+      .getPublicUrl(`gallery/${randomFileName}`);
+
+    galleryUrls.push(publicUrlData.publicUrl);
+  }
+
+  try {
+    await prisma.city.update({
+      where: {
+        id: cityId,
+      },
+      data: {
+        gallery: {
+          push: galleryUrls,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error updating city gallery:", error);
+  }
+
+  revalidatePath("/admin/cities");
+}
+
 // Function to remove an image from gallery array
 export async function removeImageFromGallery(cityId: string, imageUrl: string) {
   const supabase = await createClient();

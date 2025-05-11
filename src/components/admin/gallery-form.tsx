@@ -9,7 +9,8 @@ import {
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
-import { removeImageFromGallery } from "@/actions/actions";
+import { removeImageFromGallery, uploadGalleryImages } from "@/actions/actions";
+import { useRef, useState } from "react";
 
 type GalleryFormProps = {
   gallery: string[];
@@ -17,6 +18,17 @@ type GalleryFormProps = {
 };
 
 export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const [files, setFiles] = useState<File[] | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFiles(Array.from(event.target.files)); // Handle multiple files
+    }
+  };
+
+  console.log("files", files);
+
   return (
     <Card>
       <CardHeader>
@@ -51,31 +63,28 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
                   />
                 </div>
               ))}
-            {/* <Image
-              src={imageUrl}
-              alt="City cover image"
-              sizes="(max-width: 768px) 100px, (max-width: 1200px) 500px, 700px"
-              fill
-            /> */}
           </div>
-          {/* {file && <p>new file selected!, apply</p>} */}
-
-          {/* <input
-            type="file"
-            ref={imageInputRef}
-            className="hidden"
-            onChange={handleImageChange}
-          /> */}
 
           <div className="flex items-center justify-between">
-            {/* <Button onClick={() => imageInputRef.current?.click()}>
-              Select new image
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              ref={imageInputRef}
+              onChange={handleImageChange}
+            />
+            <Button
+              variant={"outline"}
+              onClick={() => imageInputRef.current?.click()}
+            >
+              Add new images
             </Button>
             <Button
-              onClick={async () => await uploadThumbnailImage(file!, cityId)}
+              onClick={async () => await uploadGalleryImages(files!, cityId)}
             >
               Apply
-            </Button> */}
+            </Button>
           </div>
         </div>
       </CardContent>
