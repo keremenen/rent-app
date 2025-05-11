@@ -80,6 +80,7 @@ export const cityFormSchema = z.object({
     .refine((val) => val !== 0, {
       message: "Commute time is required",
     }),
+  coverImage: z.string(),
 });
 
 export type TCityForm = z.infer<typeof cityFormSchema>;

@@ -19,6 +19,7 @@ import { Button } from "../ui/button";
 import { Save } from "lucide-react";
 import { addCity, editCity } from "@/actions/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 
 type City = {
   id: string;
@@ -31,6 +32,7 @@ type City = {
   area: number;
   walkScore: number;
   commuteTime: number;
+  coverImage: string;
 };
 
 type CityFormProps = { actionType: "add" } | { actionType: "edit"; city: City };
@@ -42,7 +44,7 @@ export default function CityForm(props: CityFormProps) {
   const {
     register,
     handleSubmit,
-
+    getValues,
     formState: { errors },
   } = useForm<TCityForm>({
     resolver: zodResolver(cityFormSchema),
@@ -56,6 +58,7 @@ export default function CityForm(props: CityFormProps) {
       area: actionType === "edit" ? city?.area : undefined,
       walkScore: actionType === "edit" ? city?.walkScore : undefined,
       commuteTime: actionType === "edit" ? city?.commuteTime : undefined,
+      coverImage: actionType === "edit" ? city?.coverImage : "",
     },
   });
 
@@ -94,6 +97,13 @@ export default function CityForm(props: CityFormProps) {
         <TabsContent value="details" className="space-y-4">
           <StatisticsSection register={register} errors={errors} />
           <LocationSection register={register} errors={errors} />
+        </TabsContent>
+        <TabsContent value="media" className="space-y-4">
+          <MediaSection
+            register={register}
+            errors={errors}
+            values={getValues}
+          />
         </TabsContent>
       </Tabs>
 
@@ -259,6 +269,75 @@ function LocationSection({ register, errors }: LocationSectionProps) {
             )}
           </GridItem>
         </section>
+      </CardContent>
+    </Card>
+  );
+}
+
+type MediaSectionProps = {
+  register: UseFormRegister<TCityForm>;
+  errors: FieldErrors<TCityForm>;
+  values: (fieldName: string) => string;
+};
+
+function MediaSection({ register, errors, values }: MediaSectionProps) {
+  console.log(`test ${values("coverImage")}`);
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Thumbnail</CardTitle>
+        <CardDescription>Upload a main image for this city.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {/* <div className="relative aspect-video w-full max-w-md overflow-hidden rounded-lg border">
+            <Input type="file" {...register("thumbnail")} id="thumbnail" />
+            {errors.thumbnail && (
+              <p className="text-sm text-red-500">{errors.thumbnail.message}</p>
+            )}
+          </div> */}
+
+          <div className="relative mx-auto aspect-video w-full max-w-[700px] overflow-hidden rounded-lg border">
+            <Image
+              src={values("coverImage")}
+              alt="City cover image"
+              sizes="(max-width: 768px) 100px, (max-width: 1200px) 500px, 700px"
+              fill
+            />
+          </div>
+
+          <div className="flex w-full items-center justify-center">
+            <label
+              htmlFor="thumbnail-upload"
+              className="bg-muted/20 hover:bg-muted/30 flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg
+                  className="text-muted-foreground mb-3 h-8 w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+                <p className="text-muted-foreground mb-1 text-sm">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
+                </p>
+                <p className="text-muted-foreground text-xs">
+                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                </p>
+              </div>
+              <input id="thumbnail-upload" type="file" className="hidden" />
+            </label>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
