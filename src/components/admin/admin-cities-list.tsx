@@ -48,12 +48,14 @@ export default function AdminCitiesList() {
                 <TableRow key={city.id}>
                   <TableCell className="font-normal">{city.id}</TableCell>
                   <TableCell className="flex items-center justify-start">
-                    <Image
-                      src={city.coverImage}
-                      alt={city.name}
-                      width={60}
-                      height={20}
-                    />
+                    <div className="relative h-12 w-20">
+                      <Image
+                        src={city.coverImage}
+                        alt={city.name}
+                        fill
+                        sizes="(max-width: 768px) 100px, (max-width: 1200px) 200px, 300px"
+                      />
+                    </div>
                   </TableCell>
                   <TableCell>{city.name}</TableCell>
                   <TableCell className="hidden md:table-cell">
