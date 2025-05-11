@@ -11,7 +11,7 @@ export default function AdminCitiesPage() {
       />
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <AdminApartmentsSearchBar />
+        <AdminApartmentsSearchBar type={"city"} />
       </div>
 
       <AdminCitiesList />

@@ -3,7 +3,11 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export default function AdminApartmentsSearchBar() {
+export default function AdminApartmentsSearchBar({
+  type,
+}: {
+  type?: "city" | "apartments";
+}) {
   return (
     <section className="flex w-full justify-between">
       <div className="relative w-full sm:max-w-xs">
@@ -15,10 +19,17 @@ export default function AdminApartmentsSearchBar() {
         />
       </div>
       <Button asChild className="w-full sm:w-auto">
-        <Link href="/admin/apartments/add">
-          <Plus className="mr-2 h-4 w-4" />
-          Add Apartment
-        </Link>
+        {type === "city" ? (
+          <Link href="/admin/cities/add">
+            <Plus className="mr-2 h-4 w-4" />
+            Add new city
+          </Link>
+        ) : (
+          <Link href="/admin/apartments/add">
+            <Plus className="mr-2 h-4 w-4" />
+            Add new apartment
+          </Link>
+        )}
       </Button>
     </section>
   );
