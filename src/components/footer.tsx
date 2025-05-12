@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-background mt-auto border-t">
       <div className="container px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <Link href="/" className="flex items-center gap-2">
               <Image
@@ -89,72 +89,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/resources/renters-guide"
+                  href="/cities"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Renter&apos;s Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/moving-checklist"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Moving Checklist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/rental-faqs"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Rental FAQs
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">For Property Owners</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/list-property"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  List Your Property
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/owner-dashboard"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Owner Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/landlord-guide"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Landlord Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pricing"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Pricing & Plans
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/property-management"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Property Management Tips
+                  Explore Cities
                 </Link>
               </li>
             </ul>
@@ -165,42 +103,10 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/about"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/contact"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/careers"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/terms"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Terms of Service
                 </Link>
               </li>
             </ul>
