@@ -6,8 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -97,13 +95,8 @@ export function MainNavigation() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Hello guest</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/login">Sign In</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/register">Create Account</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
