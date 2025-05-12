@@ -20,7 +20,6 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { deleteCity } from "@/actions/actions";
-import { useRouter } from "next/navigation";
 
 export default function AdminCitiesList() {
   const { cities } = useCityContext();
