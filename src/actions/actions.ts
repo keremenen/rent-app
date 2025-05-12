@@ -102,6 +102,11 @@ export async function editNeighborhood(
       },
       data: {
         ...validatedNeighborhoodData.data,
+        id: removePolishCharacters(
+          validatedNeighborhoodData.data.name
+            .toLowerCase()
+            .replace(/\s+/g, "-"),
+        ),
       },
     });
   } catch (error) {
