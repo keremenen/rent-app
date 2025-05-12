@@ -88,6 +88,7 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
                 : "Select new images"}
             </Button>
             <Button
+              disabled={isPending}
               onClick={async () =>
                 startTransition(async () => {
                   await uploadGalleryImages(files!, cityId);

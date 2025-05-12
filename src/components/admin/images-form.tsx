@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { uploadThumbnailImage } from "@/actions/actions";
+import { start } from "repl";
 
 export default function ImagesForm({
   imageUrl,
@@ -20,6 +21,7 @@ export default function ImagesForm({
 }) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -43,7 +45,6 @@ export default function ImagesForm({
               fill
             />
           </div>
-          {file && <p>new file selected!, apply</p>}
 
           <input
             type="file"
@@ -53,13 +54,23 @@ export default function ImagesForm({
           />
 
           <div className="flex items-center justify-between">
-            <Button onClick={() => imageInputRef.current?.click()}>
-              Select new image
+            <Button
+              onClick={() => imageInputRef.current?.click()}
+              variant={"outline"}
+            >
+              {file ? `Selected: ${file.name}` : "Select a new thumbnail image"}
             </Button>
             <Button
-              onClick={async () => await uploadThumbnailImage(file!, cityId)}
+              disabled={isPending}
+              onClick={async () =>
+                startTransition(async () => {
+                  if (file) {
+                    await uploadThumbnailImage(file, cityId);
+                  }
+                })
+              }
             >
-              Apply
+              {isPending ? "Uploading..." : "Upload"}
             </Button>
           </div>
         </div>
