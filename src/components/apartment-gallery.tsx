@@ -4,16 +4,20 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useApartmentContext } from "@/lib/hooks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
-export function ApartmentGallery() {
+type ApartmentGalleryProps = {
+  apartment: {
+    id: string;
+    gallery: string[];
+  };
+};
+
+export default function ApartmentGallery({ apartment }: ApartmentGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fullscreenIndex, setFullscreenIndex] = useState(0);
 
-  const { selectedApartment } = useApartmentContext();
-  if (!selectedApartment) return null;
-  const { gallery: images } = selectedApartment;
+  const { gallery: images } = apartment;
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);

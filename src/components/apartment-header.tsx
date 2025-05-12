@@ -1,14 +1,16 @@
-"use client";
 import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useApartmentContext } from "@/lib/hooks";
 
-export function ApartmentHeader() {
-  const { selectedApartment } = useApartmentContext();
+type ApartmentHeaderProps = {
+  apartment: {
+    title: string;
+    address: string;
+    monthlyRent: number;
+  };
+};
 
-  if (!selectedApartment) return null;
-
-  const { title, address, monthlyRent } = selectedApartment!;
+export default function ApartmentHeader({ apartment }: ApartmentHeaderProps) {
+  const { title, address, monthlyRent } = apartment!;
 
   return (
     <header className="bg-background sticky top-0 z-10 w-full border-t border-b">

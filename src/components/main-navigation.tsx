@@ -1,9 +1,6 @@
-"use client";
-
 import { Menu, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,27 +18,9 @@ import {
 } from "@/components/ui/sheet";
 
 export function MainNavigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    // Add the scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <header
-      className={`bg-whitetransition-all sticky top-0 z-20 w-full duration-200 ${
-        isScrolled ? "shadow-sm backdrop-blur-sm" : "bg-transparent"
-      }`}
+      className={`sticky top-0 z-20 w-full bg-white transition-all duration-200`}
     >
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2 md:gap-4">

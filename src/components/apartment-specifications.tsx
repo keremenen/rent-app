@@ -1,13 +1,17 @@
-'use client";';
-import { useApartmentContext } from "@/lib/hooks";
-import { Bath, BedDouble, Calendar, Maximize } from "lucide-react";
+import { Bath, BedDouble, Maximize } from "lucide-react";
 
-export function ApartmentSpecifications() {
-  const { selectedApartment } = useApartmentContext();
-  if (!selectedApartment) return null;
+type ApartmentSpecificationsProps = {
+  apartment: {
+    bedrooms: number;
+    bathrooms: number;
+    squareFootage: number;
+  };
+};
 
-  const { bedrooms, bathrooms, squareFootage, availableFrom } =
-    selectedApartment!;
+export default function ApartmentSpecifications({
+  apartment,
+}: ApartmentSpecificationsProps) {
+  const { bedrooms, bathrooms, squareFootage } = apartment!;
 
   const specifications = [
     {
@@ -25,18 +29,10 @@ export function ApartmentSpecifications() {
       label: "Square Feet",
       value: squareFootage,
     },
-    {
-      icon: <Calendar className="text-muted-foreground mb-2 h-6 w-6" />,
-      label: "Available",
-      value: new Date(availableFrom).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      }),
-    },
   ];
 
   return (
-    <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
       {specifications.map((spec, index) => (
         <div
           key={index}

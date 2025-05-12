@@ -16,7 +16,7 @@ export function PopularNeighborhoods({ display }: PopularNeighborhoodsProps) {
   const { neighborhoods } = useNeighborhoodContext();
 
   const filteredNeighborhoods = neighborhoods.filter((neighborhood) =>
-    display.some((item) => neighborhood.name.includes(item)),
+    display.some((item) => neighborhood.id.includes(item)),
   );
 
   return (

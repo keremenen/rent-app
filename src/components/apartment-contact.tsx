@@ -15,14 +15,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { useApartmentContext } from "@/lib/hooks";
 
-export function ApartmentContact() {
+type ApartmentContactProps = {
+  apartment: {
+    id: string;
+    monthlyRent: number;
+  };
+};
+
+export default function ApartmentContact({ apartment }: ApartmentContactProps) {
   const [contactMethod, setContactMethod] = useState("email");
-  const { selectedApartment } = useApartmentContext();
-  if (!selectedApartment) return null;
 
-  const { monthlyRent, availableFrom } = selectedApartment;
+  const { monthlyRent } = apartment;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,14 +45,6 @@ export function ApartmentContact() {
         <section className="bg-muted mb-8 flex flex-col gap-1 rounded-lg p-4">
           <p className="text-muted-foreground text-sm">Monthly Rent</p>
           <p className="text-xl font-bold">${monthlyRent}</p>
-          <p className="text-muted-foreground text-xs">
-            Available from{" "}
-            {new Date(availableFrom).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </p>
         </section>
 
         <form onSubmit={handleSubmit} className="space-y-4">

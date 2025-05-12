@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -8,14 +7,19 @@ import {
 } from "./ui/card";
 import { Separator } from "./ui/separator";
 import { Ruler } from "lucide-react";
-import { useApartmentContext } from "@/lib/hooks";
 
-export default function ApartmentDescription() {
-  const { selectedApartment } = useApartmentContext();
+type ApartmentDescriptionProps = {
+  apartment: {
+    id: string;
+    description: string;
+    amenities: string[];
+  };
+};
 
-  if (!selectedApartment) return null;
-
-  const { description, amenities } = selectedApartment;
+export default function ApartmentDescription({
+  apartment,
+}: ApartmentDescriptionProps) {
+  const { description, amenities } = apartment;
 
   return (
     <Card>

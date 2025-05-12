@@ -15,10 +15,6 @@ export default function CityPage(props: { params: Params }) {
 
   const { handleSetSelectedCity, selectedCity } = useCityContext();
 
-  useEffect(() => {
-    handleSetSelectedCity(cityId);
-  }, [handleSetSelectedCity, cityId]);
-
   if (!selectedCity) {
     return (
       <main className="container flex flex-1 flex-col justify-center px-4 py-8">

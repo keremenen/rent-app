@@ -11,7 +11,7 @@ export default async function Home() {
       <HeroSection />
       <FeaturedApartments />
       <HowItWorks />
-      <PopularNeighborhoods display={["Wrzeszcz", "Oliwa", "Nowy Port"]} />
+      <PopularNeighborhoods display={["wrzeszcz", "oliwa", "nowy-port"]} />
       <PropertyOwners />
       <Testimonials />
     </main>
