@@ -10,7 +10,8 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { removeImageFromGallery, uploadGalleryImages } from "@/actions/actions";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
 
 type GalleryFormProps = {
   gallery: string[];
@@ -20,14 +21,13 @@ type GalleryFormProps = {
 export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[] | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setFiles(Array.from(event.target.files)); // Handle multiple files
     }
   };
-
-  console.log("files", files);
 
   return (
     <Card>
@@ -39,17 +39,22 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
         <div className="space-y-4">
           <div className="relative grid w-full grid-cols-4 gap-4">
             {gallery &&
-              gallery.map((image) => (
+              gallery.map((image, index) => (
                 <div
-                  key={image}
-                  className="relative mx-auto aspect-video w-full max-w-[500px] overflow-hidden rounded-lg border"
+                  key={index}
+                  className={cn(
+                    "relative mx-auto aspect-video w-full max-w-[500px] overflow-hidden rounded-lg border",
+                    isPending && "opacity-50",
+                  )}
                 >
                   <div className="absolute top-0 right-0 z-5 p-2">
                     <Button
                       variant="destructive"
                       size={"icon"}
                       onClick={() => {
-                        removeImageFromGallery(cityId, image);
+                        startTransition(async () => {
+                          await removeImageFromGallery(cityId, image);
+                        });
                       }}
                     >
                       <X />
@@ -78,12 +83,19 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
               variant={"outline"}
               onClick={() => imageInputRef.current?.click()}
             >
-              Add new images
+              {files && files.length > 0
+                ? `${files.length} file${files.length > 1 ? "s" : ""} selected`
+                : "Select new images"}
             </Button>
             <Button
-              onClick={async () => await uploadGalleryImages(files!, cityId)}
+              onClick={async () =>
+                startTransition(async () => {
+                  await uploadGalleryImages(files!, cityId);
+                  setFiles(null); // Clear the selected files after upload
+                })
+              }
             >
-              Apply
+              {isPending ? "Loading..." : "Add new images"}
             </Button>
           </div>
         </div>
