@@ -132,6 +132,31 @@ export async function addCity(newCityData: unknown) {
   }
 }
 
+export async function addApartment(newApartmentData: unknown) {
+  const validatedApartmentData =
+    apartmentFormSchema.safeParse(newApartmentData);
+
+  if (!validatedApartmentData.success) {
+    return { message: "Invalid apartment data" };
+  }
+
+  try {
+    await prisma.apartment.create({
+      data: {
+        ...validatedApartmentData.data,
+        thumbnail: "/placeholder-image.jpg",
+        gallery: [],
+        id: removePolishCharacters(
+          validatedApartmentData.data.title.toLowerCase().replace(/\s+/g, "-"),
+        ),
+        availableFrom: new Date(),
+      },
+    });
+  } catch (error) {
+    return { message: `Error creating apartment ${error}` };
+  }
+}
+
 export async function uploadThumbnailImage(
   file: File,
   id: string,

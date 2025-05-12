@@ -24,9 +24,6 @@ import { ImagePlus, Save, Trash2 } from "lucide-react";
 import { cn } from "../ui/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -34,7 +31,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { editApartment } from "@/actions/actions";
+import { addApartment, editApartment } from "@/actions/actions";
 
 type Apartment = {
   id: string;
@@ -90,6 +87,16 @@ export default function ApartmentForm(props: ApartmentFormProps) {
         console.log("Error updating apartment:", error);
       } else {
         console.log("Apartment updated successfully");
+      }
+    }
+
+    if (actionType === "add") {
+      const error = await addApartment(data);
+
+      if (error) {
+        console.log("Error adding apartment:", error);
+      } else {
+        console.log("Apartment added successfully");
       }
     }
   };
@@ -153,27 +160,11 @@ function DetailsSection({
           </GridItem>
 
           <GridItem className="col-span-2">
-            <Label htmlFor="neighborhood">Neighborhood</Label>
-            <Controller
-              name="neighborhoodId"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange} // Update RHF state on value change
-                  value={field.value} // Bind the current value from RHF
-                >
-                  <SelectTrigger className="mb-0 w-full">
-                    <SelectValue placeholder="Select neighborhood" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {NEIGHBORHOODS_DATA.map((neighborhood) => (
-                      <SelectItem key={neighborhood.id} value={neighborhood.id}>
-                        {neighborhood.cityName} - {neighborhood.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
+            <Label htmlFor="neighborhood">NeighborhoodId</Label>
+            <Input
+              type="neighborhoodId"
+              {...register("neighborhoodId")}
+              className="mb-0"
             />
             {errors.neighborhoodId && (
               <p className="text-sm text-red-500">
