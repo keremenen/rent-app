@@ -1,9 +1,6 @@
-("");
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
-import { MainNavigation } from "@/components/main-navigation";
-import Footer from "@/components/footer";
 import SearchContextProvider from "@/contexts/search-context-provider";
 import NeighborhoodContextProvider from "@/contexts/neighborhood-context-provider";
 import ApartmentContextProvider from "@/contexts/apartment-context-provier";
