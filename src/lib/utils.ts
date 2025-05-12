@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { ApartmentEssential, PNeighborhood } from "./types";
 import prisma from "./db";
-import { useCityContext, useNeighborhoodContext } from "./hooks";
 import { notFound } from "next/navigation";
 
 export function cn(...inputs: ClassValue[]) {

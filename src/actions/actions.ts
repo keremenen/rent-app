@@ -1,10 +1,12 @@
 "use server";
+import { signIn, signOut } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { getAparmentById, getCityById } from "@/lib/server-utils";
 import { removePolishCharacters } from "@/lib/utils";
 import {
   apartmentFormSchema,
   apartmentIdSchema,
+  authSchema,
   cityFormSchema,
   cityIdSchema,
   neighborhoodFormSchema,
@@ -12,8 +14,10 @@ import {
 } from "@/lib/validations";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
-
+import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
+import { Prisma } from "@prisma/client";
 
 export async function editApartment(
   apartmentId: unknown,
@@ -384,3 +388,63 @@ export const deleteCity = async (cityId: unknown) => {
     return { message: `Error deleting city: ${error}`, success: false };
   }
 };
+
+export async function logIn(prevState: unknown, formData: unknown) {
+  if (!(formData instanceof FormData)) {
+    return { message: "Invalid credentials" };
+  }
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return { message: "Invalid credentials" };
+
+        default:
+          return { message: "Sign in error" };
+      }
+    }
+    throw error; // rethrow the error if it's not an AuthError
+  }
+  redirect("/");
+}
+
+export async function logOut() {
+  await signOut({ redirectTo: "/" });
+}
+
+export async function signUp(prevState: unknown, formData: unknown) {
+  if (!(formData instanceof FormData)) {
+    return { message: "Invalid credentials" };
+  }
+
+  const formDataFromEntries = Object.fromEntries(formData.entries());
+
+  const validatedFormData = authSchema.safeParse(formDataFromEntries);
+
+  if (!validatedFormData.success) {
+    return { message: "Invalid credentials" };
+  }
+
+  const { email, password } = validatedFormData.data;
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    await prisma.user.create({
+      data: {
+        email,
+        hashedPassword,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return { message: "Email already exists" };
+      }
+    }
+  }
+
+  await signIn("credentials", formData);
+}

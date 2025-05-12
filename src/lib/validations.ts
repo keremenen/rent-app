@@ -122,3 +122,10 @@ export const neighborhoodFormSchema = z.object({
 export type TNeighborhoodForm = z.infer<typeof neighborhoodFormSchema>;
 export const neighborhoodIdSchema = z.string();
 export type TNeighborhoodId = z.infer<typeof neighborhoodIdSchema>;
+
+export const authSchema = z.object({
+  email: z.string().email().max(100),
+  password: z.string().max(100),
+});
+
+export type TAuthForm = z.infer<typeof authSchema>;

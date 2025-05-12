@@ -1,4 +1,5 @@
 import { Menu, User } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-export function MainNavigation() {
+import { auth } from "@/lib/auth";
+
+import LogOutBtn from "./logout-btn";
+
+export async function MainNavigation() {
+  const session = await auth();
+
   return (
     <header
       className={`sticky top-0 z-20 w-full bg-white transition-all duration-200`}
@@ -87,19 +94,31 @@ export function MainNavigation() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-                <span className="sr-only">User menu</span>
+          {session?.user?.email ? (
+            <>
+              <span className="text-sm">Hello, {session?.user.email}</span>
+              <Button size={"sm"} variant={"outline"} asChild>
+                <Link href="/admin">Admin Dashboard</Link>
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link href="/login">Sign In</Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <LogOutBtn />
+            </>
+          ) : (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                    <span className="sr-only">User menu</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href="/login">Sign In</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          )}
         </div>
       </div>
     </header>
