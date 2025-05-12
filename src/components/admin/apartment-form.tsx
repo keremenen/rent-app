@@ -21,8 +21,6 @@ import { apartmentFormSchema, TApartmentForm } from "@/lib/validations";
 import { Button } from "../ui/button";
 import { AMENITIES_DATA, NEIGHBORHOODS_DATA } from "@/lib/constants";
 import { ImagePlus, Save, Trash2 } from "lucide-react";
-import { useApartmentContext } from "@/lib/hooks";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "../ui/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
@@ -36,21 +34,32 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { editApartment } from "@/actions/actions";
+
+type Apartment = {
+  id: string;
+  neighborhoodId: string;
+  title: string;
+  address: string;
+  description: string;
+  thumbnail: string;
+  gallery: string[];
+  amenities: string[];
+  monthlyRent: number;
+  bedrooms: number;
+  bathrooms: number;
+  squareFootage: number;
+  availableFrom: Date;
+  createdAt: Date;
+};
 
 type ApartmentFormProps =
   | { actionType: "add" }
-  | { actionType: "edit"; apartmentId: string };
+  | { actionType: "edit"; apartment: Apartment };
 
 export default function ApartmentForm(props: ApartmentFormProps) {
   const { actionType } = props;
-  let apartmentId = "";
-
-  if (actionType === "edit") {
-    apartmentId = props.apartmentId;
-  }
-
-  const { handleGetApartmentById, handleEditAparment } = useApartmentContext();
-  const apartment = handleGetApartmentById(apartmentId);
+  const { apartment } = props as { apartment: Apartment };
 
   const {
     register,
@@ -73,45 +82,35 @@ export default function ApartmentForm(props: ApartmentFormProps) {
   });
 
   const onSubmit = async (data: TApartmentForm) => {
-    if (actionType === "add") {
-      // Handle add apartment logic
-      console.log("Adding apartment:", data);
-    } else if (actionType === "edit") {
-      console.log("Editing apartment:", data);
-      //@ts-expect-error WIP
-      await handleEditAparment(apartmentId, data);
+    if (actionType === "edit") {
+      const apartmentId = apartment.id;
+      const error = await editApartment(apartmentId, data);
+
+      if (error) {
+        console.log("Error updating apartment:", error);
+      } else {
+        console.log("Apartment updated successfully");
+      }
     }
   };
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <Tabs defaultValue="details">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="details">Details</TabsTrigger>
-          <TabsTrigger value="amenities">Amenities</TabsTrigger>
-          <TabsTrigger value="images">Images</TabsTrigger>
-        </TabsList>
-        <TabsContent value="details" className="my-2">
-          <DetailsSection
-            register={register}
-            apartment={apartment}
-            control={control}
-            errors={errors}
-          />
-        </TabsContent>
+      <DetailsSection
+        register={register}
+        apartment={apartment}
+        control={control}
+        errors={errors}
+      />
 
-        <TabsContent value="amenities" className="my-2">
-          <AmenitiesSection
-            register={register}
-            apartment={apartment}
-            control={control}
-            errors={errors}
-          />
-        </TabsContent>
-        <TabsContent value="images" className="my-2">
-          {/* <ImagesSection apartment={apartment} /> */}
-        </TabsContent>
-      </Tabs>
+      <AmenitiesSection
+        register={register}
+        apartment={apartment}
+        control={control}
+        errors={errors}
+      />
+
+      {/* <ImagesSection apartment={apartment} /> */}
 
       <div className="flex gap-2">
         <Button variant="outline">Cancel</Button>

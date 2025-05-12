@@ -15,7 +15,7 @@ import { revalidatePath } from "next/cache";
 
 import { redirect } from "next/navigation";
 
-export async function editAparment(
+export async function editApartment(
   apartmentId: unknown,
   newApartmentData: unknown,
 ) {
@@ -120,13 +120,8 @@ export async function addCity(newCityData: unknown) {
     await prisma.city.create({
       data: {
         ...validatedCityData.data,
-        coverImage:
-          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
-        gallery: [
-          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
-          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
-          "https://efvivjdsmnjmucdqmpvi.supabase.co/storage/v1/object/public/cities/gdansk/main.jpg",
-        ],
+        coverImage: "/placeholder-image.jpg",
+        gallery: [],
         id: removePolishCharacters(
           validatedCityData.data.name.toLowerCase().replace(/\s+/g, "-"),
         ),
@@ -135,8 +130,6 @@ export async function addCity(newCityData: unknown) {
   } catch (error) {
     return { message: `Error creating city ${error}` };
   }
-
-  redirect("/admin/cities");
 }
 
 export async function uploadThumbnailImage(
@@ -339,3 +332,25 @@ export async function removeImageFromGallery(
 
   revalidatePath(`/admin/${type}s`);
 }
+
+export const deleteCity = async (cityId: unknown) => {
+  const validatedCityId = cityIdSchema.safeParse(cityId);
+
+  if (!validatedCityId.success) {
+    return { message: "Invalid city ID", success: false };
+  }
+
+  try {
+    await prisma.city.delete({
+      where: {
+        id: validatedCityId.data,
+      },
+    });
+
+    // Revalidate the path after deletion
+
+    return { message: "City deleted successfully", success: true };
+  } catch (error) {
+    return { message: `Error deleting city: ${error}`, success: false };
+  }
+};

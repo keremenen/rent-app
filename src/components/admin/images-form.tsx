@@ -13,8 +13,8 @@ import { uploadThumbnailImage } from "@/actions/actions";
 
 export default function ImagesForm({
   imageUrl,
-  id,
   type,
+  id,
 }: {
   imageUrl: string;
   type: "city" | "neighborhood" | "apartment";

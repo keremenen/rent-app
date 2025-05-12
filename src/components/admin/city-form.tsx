@@ -65,7 +65,7 @@ export default function CityForm(props: CityFormProps) {
     if (actionType === "edit") {
       const cityId = city.id;
       const error = await editCity(cityId, data);
-      console.log("start");
+
       if (error) {
         console.error("Error editing city:", error);
       } else {

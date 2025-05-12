@@ -19,6 +19,8 @@ import { Edit, Eye, MoreHorizontalIcon, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { deleteCity } from "@/actions/actions";
+import { useRouter } from "next/navigation";
 
 export default function AdminCitiesList() {
   const { cities } = useCityContext();
@@ -106,7 +108,12 @@ function CitiesTableActions({ city }: CitiesTableActionsProps) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-red-600">
+        <DropdownMenuItem
+          className="text-red-600"
+          onClick={async () => {
+            await deleteCity(city.id);
+          }}
+        >
           <Trash className="mr-2 h-4 w-4 text-red-500" />
           Delete
         </DropdownMenuItem>

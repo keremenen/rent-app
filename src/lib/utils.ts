@@ -434,3 +434,21 @@ export function removePolishCharacters(str: string) {
     .map((char) => polishCharacters[char] || char)
     .join("");
 }
+
+export async function getAparment(id: string) {
+  const apartment = await prisma.apartment.findUnique({
+    where: { id: id },
+  });
+
+  if (!apartment) {
+    return notFound();
+  }
+
+  const apartmentWithPlainNumbers = {
+    ...apartment,
+    squareFootage: apartment.squareFootage?.toNumber(),
+    monthlyRent: apartment.monthlyRent?.toNumber(),
+  };
+
+  return apartmentWithPlainNumbers;
+}
