@@ -17,8 +17,8 @@ export default async function EditCityPage(props: { params: Params }) {
 
       <section className="w-full max-w-7xl space-y-6">
         <CityForm actionType="edit" city={city} />
-        <ImagesForm imageUrl={city.coverImage} cityId={id} />
-        <GalleryForm gallery={city.gallery} cityId={id} />
+        <ImagesForm imageUrl={city.coverImage} id={id} type={"city"} />
+        <GalleryForm gallery={city.gallery} id={id} type={"city"} />
       </section>
     </section>
   );

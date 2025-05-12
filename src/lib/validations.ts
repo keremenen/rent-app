@@ -87,3 +87,38 @@ export type TCityForm = z.infer<typeof cityFormSchema>;
 
 export const cityIdSchema = z.string();
 export type TCityId = z.infer<typeof cityIdSchema>;
+
+export const neighborhoodFormSchema = z.object({
+  name: z.string().trim().min(3, {
+    message: "Neighborhood name must be at least 3 characters long",
+  }),
+
+  description: z.string().trim().min(3, {
+    message: "Long description must be at least 3 characters long",
+  }),
+  averageRent: z.coerce
+    .number()
+    .min(0)
+    .refine((val) => val !== 0, { message: "Average rent is required" }),
+  walkScore: z.coerce
+    .number()
+    .min(0)
+    .max(100)
+    .refine((val) => val !== 0, {
+      message: "Walk score is required",
+    }),
+  commuteTime: z.coerce
+    .number()
+    .min(0)
+    .refine((val) => val !== 0, { message: "Commute time is required" }),
+  features: z
+    .array(z.string().nonempty("Feature cannot be empty"))
+    .min(1, "At least one feature is required"),
+  cityId: z.string().min(1, {
+    message: "City is required",
+  }),
+});
+
+export type TNeighborhoodForm = z.infer<typeof neighborhoodFormSchema>;
+export const neighborhoodIdSchema = z.string();
+export type TNeighborhoodId = z.infer<typeof neighborhoodIdSchema>;

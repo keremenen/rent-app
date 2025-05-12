@@ -13,10 +13,12 @@ import { uploadThumbnailImage } from "@/actions/actions";
 
 export default function ImagesForm({
   imageUrl,
-  cityId,
+  id,
+  type,
 }: {
   imageUrl: string;
-  cityId: string;
+  type: "city" | "neighborhood" | "apartment";
+  id: string;
 }) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -64,7 +66,7 @@ export default function ImagesForm({
               onClick={async () =>
                 startTransition(async () => {
                   if (file) {
-                    await uploadThumbnailImage(file, cityId);
+                    await uploadThumbnailImage(file, id, type);
                   }
                 })
               }

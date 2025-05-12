@@ -12,6 +12,7 @@ type Neighborhood = {
   walkScore: number;
   features: string[];
   commuteTime: number;
+  createdAt: string;
 };
 
 type TNeighborhoodContext = {

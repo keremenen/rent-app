@@ -7,6 +7,8 @@ import {
   apartmentIdSchema,
   cityFormSchema,
   cityIdSchema,
+  neighborhoodFormSchema,
+  neighborhoodIdSchema,
 } from "@/lib/validations";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -80,6 +82,33 @@ export async function editCity(cityId: unknown, newCityData: unknown) {
   redirect("/admin/cities");
 }
 
+export async function editNeighborhood(
+  neighborhoodId: unknown,
+  newNeighborhoodData: unknown,
+) {
+  const validatedNeighborhoodId =
+    neighborhoodIdSchema.safeParse(neighborhoodId);
+  const validatedNeighborhoodData =
+    neighborhoodFormSchema.safeParse(newNeighborhoodData);
+
+  if (!validatedNeighborhoodId.success || !validatedNeighborhoodData.success) {
+    return { message: "Invalid neighborhood data" };
+  }
+
+  try {
+    await prisma.neighborhood.update({
+      where: {
+        id: validatedNeighborhoodId.data,
+      },
+      data: {
+        ...validatedNeighborhoodData.data,
+      },
+    });
+  } catch (error) {
+    return { message: `Error updating neighborhood ${error}` };
+  }
+}
+
 export async function addCity(newCityData: unknown) {
   const validatedCityData = cityFormSchema.safeParse(newCityData);
 
@@ -110,8 +139,11 @@ export async function addCity(newCityData: unknown) {
   redirect("/admin/cities");
 }
 
-export async function uploadThumbnailImage(file: File, cityId: string) {
-  console.log("started");
+export async function uploadThumbnailImage(
+  file: File,
+  id: string,
+  type: "city" | "neighborhood" | "apartment",
+) {
   const supabase = await createClient();
 
   if (!file) {
@@ -125,8 +157,8 @@ export async function uploadThumbnailImage(file: File, cityId: string) {
     .substring(2, 15)}-${file.name}`;
 
   const { error } = await supabase.storage
-    .from("cities")
-    .upload(`thumbnails/${randomFileName}`, file);
+    .from("thumbnails")
+    .upload(`${type}/${randomFileName}`, file);
 
   if (error) {
     console.error("Error uploading thumbnail image:", error);
@@ -134,26 +166,51 @@ export async function uploadThumbnailImage(file: File, cityId: string) {
   }
 
   const { data: publicUrlData } = supabase.storage
-    .from("cities")
-    .getPublicUrl(`thumbnails/${randomFileName}`);
+    .from("thumbnails")
+    .getPublicUrl(`${type}/${randomFileName}`);
 
   try {
-    await prisma.city.update({
-      where: {
-        id: cityId,
-      },
-      data: {
-        coverImage: publicUrlData.publicUrl,
-      },
-    });
+    if (type === "city") {
+      await prisma.city.update({
+        where: {
+          id: id,
+        },
+        data: {
+          coverImage: publicUrlData.publicUrl,
+        },
+      });
+    } else if (type === "neighborhood") {
+      await prisma.neighborhood.update({
+        where: {
+          id: id,
+        },
+        data: {
+          thumbnail: publicUrlData.publicUrl,
+        },
+      });
+    } else if (type === "apartment") {
+      await prisma.apartment.update({
+        where: {
+          id: id,
+        },
+        data: {
+          thumbnail: publicUrlData.publicUrl,
+        },
+      });
+    }
   } catch (error) {
-    console.error("Error updating city cover image:", error);
+    console.error(`Error updating ${type} cover image:`, error);
+    return { message: `Error updating ${type} cover image` };
   }
 
-  revalidatePath("/admin/cities");
+  revalidatePath(`/admin/${type}s`);
 }
 
-export async function uploadGalleryImages(files: File[], cityId: string) {
+export async function uploadGalleryImages(
+  files: File[],
+  id: string,
+  type: "city" | "apartment",
+) {
   const supabase = await createClient();
 
   if (!files || files.length === 0) {
@@ -163,8 +220,6 @@ export async function uploadGalleryImages(files: File[], cityId: string) {
 
   const galleryUrls: string[] = [];
 
-  console.log("files", files);
-
   for (const file of files) {
     // Generate a random file name
     const randomFileName = `${Date.now()}-${Math.random()
@@ -172,7 +227,7 @@ export async function uploadGalleryImages(files: File[], cityId: string) {
       .substring(2, 15)}-${file.name}`;
 
     const { error } = await supabase.storage
-      .from("cities")
+      .from(type === "city" ? "cities" : "apartments")
       .upload(`gallery/${randomFileName}`, file);
 
     if (error) {
@@ -181,37 +236,55 @@ export async function uploadGalleryImages(files: File[], cityId: string) {
     }
 
     const { data: publicUrlData } = supabase.storage
-      .from("cities")
+      .from(type === "city" ? "cities" : "apartments")
       .getPublicUrl(`gallery/${randomFileName}`);
 
     galleryUrls.push(publicUrlData.publicUrl);
   }
 
   try {
-    await prisma.city.update({
-      where: {
-        id: cityId,
-      },
-      data: {
-        gallery: {
-          push: galleryUrls,
+    if (type === "city") {
+      await prisma.city.update({
+        where: {
+          id: id,
         },
-      },
-    });
+        data: {
+          gallery: {
+            push: galleryUrls,
+          },
+        },
+      });
+    } else if (type === "apartment") {
+      await prisma.apartment.update({
+        where: {
+          id: id,
+        },
+        data: {
+          gallery: {
+            push: galleryUrls,
+          },
+        },
+      });
+    }
   } catch (error) {
-    console.error("Error updating city gallery:", error);
+    console.error(`Error updating ${type} gallery:`, error);
+    return { message: `Error updating ${type} gallery` };
   }
 
-  revalidatePath("/admin/cities");
+  revalidatePath(`/admin/${type}s`);
 }
 
 // Function to remove an image from gallery array
-export async function removeImageFromGallery(cityId: string, imageUrl: string) {
+export async function removeImageFromGallery(
+  id: string,
+  imageUrl: string,
+  type: "city" | "apartment",
+) {
   const supabase = await createClient();
 
   // Remove the image from Supabase storage
   const { error: deleteError } = await supabase.storage
-    .from("cities")
+    .from(type === "city" ? "cities" : "apartments")
     .remove([imageUrl]);
 
   if (deleteError) {
@@ -221,29 +294,48 @@ export async function removeImageFromGallery(cityId: string, imageUrl: string) {
 
   // Update the gallery in the database
   try {
-    const city = await prisma.city.findUnique({
-      where: { id: cityId },
-      select: { gallery: true },
-    });
+    const entity =
+      type === "city"
+        ? await prisma.city.findUnique({
+            where: { id },
+            select: { gallery: true },
+          })
+        : await prisma.apartment.findUnique({
+            where: { id },
+            select: { gallery: true },
+          });
 
-    if (!city || !city.gallery) {
-      return { message: "City not found or gallery is empty" };
+    if (!entity || !entity.gallery) {
+      return {
+        message: `${type.charAt(0).toUpperCase() + type.slice(1)} not found or gallery is empty`,
+      };
     }
 
-    const updatedGallery = city.gallery.filter((image) => image !== imageUrl);
+    const updatedGallery = entity.gallery.filter((image) => image !== imageUrl);
 
-    await prisma.city.update({
-      where: {
-        id: cityId,
-      },
-      data: {
-        gallery: updatedGallery,
-      },
-    });
+    if (type === "city") {
+      await prisma.city.update({
+        where: {
+          id,
+        },
+        data: {
+          gallery: updatedGallery,
+        },
+      });
+    } else if (type === "apartment") {
+      await prisma.apartment.update({
+        where: {
+          id,
+        },
+        data: {
+          gallery: updatedGallery,
+        },
+      });
+    }
   } catch (error) {
-    console.error("Error updating city gallery:", error);
-    return { message: "Error updating city gallery" };
+    console.error(`Error updating ${type} gallery:`, error);
+    return { message: `Error updating ${type} gallery` };
   }
 
-  revalidatePath("/admin/cities");
+  revalidatePath(`/admin/${type}s`);
 }

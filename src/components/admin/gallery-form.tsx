@@ -15,10 +15,11 @@ import { cn } from "@/lib/utils";
 
 type GalleryFormProps = {
   gallery: string[];
-  cityId: string;
+  id: string;
+  type: "city" | "apartment";
 };
 
-export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
+export default function GalleryForm({ gallery, id, type }: GalleryFormProps) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[] | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -53,7 +54,7 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
                       size={"icon"}
                       onClick={() => {
                         startTransition(async () => {
-                          await removeImageFromGallery(cityId, image);
+                          await removeImageFromGallery(id, image, type);
                         });
                       }}
                     >
@@ -91,7 +92,7 @@ export default function GalleryForm({ gallery, cityId }: GalleryFormProps) {
               disabled={isPending}
               onClick={async () =>
                 startTransition(async () => {
-                  await uploadGalleryImages(files!, cityId);
+                  await uploadGalleryImages(files!, id, type);
                   setFiles(null); // Clear the selected files after upload
                 })
               }

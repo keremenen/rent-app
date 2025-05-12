@@ -397,6 +397,25 @@ export async function getCity(id: string) {
   return cityWithPlainNumbers;
 }
 
+export async function getNeighborhood(id: string) {
+  const neighborhood = await prisma.neighborhood.findUnique({
+    where: { id: id },
+  });
+
+  if (!neighborhood) {
+    return notFound();
+  }
+
+  // Convert Prisma neighborhood object Decimal fields to plain numbers
+  const neighborhoodWithPlainNumbers = {
+    ...neighborhood,
+    averageRent: neighborhood.averageRent?.toNumber(),
+    walkScore: neighborhood.walkScore?.toNumber(),
+    commuteTime: neighborhood.commuteTime?.toNumber(),
+  };
+  return neighborhoodWithPlainNumbers;
+}
+
 export function removePolishCharacters(str: string) {
   const polishCharacters: Record<string, string> = {
     ą: "a",
