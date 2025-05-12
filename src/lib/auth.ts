@@ -15,7 +15,10 @@ const config = {
     Credentials({
       async authorize(credentials) {
         // runs when a user tries to sign in
-        const { email, password } = credentials;
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
         const user = await prisma.user.findUnique({
           where: {
