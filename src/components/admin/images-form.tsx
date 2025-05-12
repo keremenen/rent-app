@@ -10,7 +10,6 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { uploadThumbnailImage } from "@/actions/actions";
-import { start } from "repl";
 
 export default function ImagesForm({
   imageUrl,
